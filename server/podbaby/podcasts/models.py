@@ -31,8 +31,8 @@ class Category(models.Model):
 
 class Channel(TimeStampedModel):
 
-    name = models.CharField(max_length=200)
     rss_feed = models.URLField(max_length=200, unique=True)
+    name = models.CharField(max_length=200, blank=True)
     link = models.URLField(blank=True)
     description = models.TextField(blank=True)
     explicit = models.BooleanField(default=False)
@@ -56,6 +56,9 @@ class Channel(TimeStampedModel):
         blank=True,
     )
 
+    class Meta:
+        ordering = ('name', '-created')
+
     def __str__(self):
         return self.name
 
@@ -69,8 +72,6 @@ class Channel(TimeStampedModel):
         """
 
         podcast = Podcast(requests.get(self.rss_feed).content)
-        if not podcast.is_valid_podcast:
-            return 0
 
         self.name = podcast.title
         self.link = podcast.link or ''
@@ -107,10 +108,10 @@ class Channel(TimeStampedModel):
                 'author': item.author or item.itunes_author_name or '',
                 'creative_commons': item.creative_commons or '',
                 'duration': item.itunes_duration or '',
-                'published': make_aware(item.date_time),
+                'published': make_aware(item.date_time).date(),
                 'enclosure_url': item.enclosure_url,
                 'enclosure_length': item.enclosure_length,
-                'enclosure_type': item.enclosure_type,
+                'enclosure_type': item.enclosure_type or '',
             }
 
             _, created = self.episode_set.get_or_create(
@@ -140,7 +141,7 @@ class Episode(TimeStampedModel):
     author = models.CharField(max_length=100, blank=True)
     creative_commons = models.CharField(max_length=60, blank=True)
 
-    published = models.DateTimeField(null=True, blank=True)
+    published = models.DateField(null=True, blank=True)
 
     duration = models.CharField(max_length=10, blank=True)
 

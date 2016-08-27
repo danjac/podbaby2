@@ -9,7 +9,15 @@ from .models import Category, Channel, Episode
 class ChannelAdmin(admin.ModelAdmin):
     list_display = ('name', 'admin_thumbnail')
     search_fields = ('name', )
+    list_filter = ('categories', )
+
     admin_thumbnail = AdminThumbnail(image_field='thumbnail')
 
+
+@admin.register(Episode)
+class EpisodeAdmin(admin.ModelAdmin):
+    list_display = ('channel', 'title', 'published')
+    search_fields = ('title', 'channel__name')
+
+
 admin.site.register(Category)
-admin.site.register(Episode)
