@@ -82,10 +82,12 @@ class Channel(TimeStampedModel):
 
         # fetch image, if any
 
-        if podcast.image_url:
-            resp = requests.get(podcast.image_url)
+        image = podcast.image_url or podcast.itune_image
+
+        if image:
+            resp = requests.get(image)
             if resp.status_code == 200:
-                name = urlparse(podcast.image_url).path.split("/")[-1]
+                name = urlparse(image).path.split("/")[-1]
                 self.image = ContentFile(resp.content, name=name)
 
         self.save()
@@ -98,6 +100,10 @@ class Channel(TimeStampedModel):
         new_episodes = 0
 
         for item in podcast.items:
+
+            if not item.guid:
+                continue
+
             fields = {
                 'title': item.title,
                 'link': item.link or '',

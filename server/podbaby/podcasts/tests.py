@@ -1,6 +1,6 @@
+import datetime
 from unittest import mock
 
-from django.utils import timezone
 from django.test import TestCase
 
 from factory.django import DjangoModelFactory
@@ -66,8 +66,9 @@ class ChannelTests(TestCase):
                 self.copyright = ''
                 self.creative_commons = ''
                 self.image_url = None
+                self.itune_image = None
 
-                now = timezone.now()
+                now = datetime.datetime.now()
 
                 self.items = [
                     MockEpisode(
@@ -92,7 +93,7 @@ class ChannelTests(TestCase):
         with mock.patch('podcasts.models.Podcast', MockPodcast):
             new_episodes = channel.fetch()
 
-        self.assertEqual(channel.title, 'new title')
+        self.assertEqual(channel.name, 'new title')
         self.assertTrue(channel.explicit)
         # only 2 new episodes
         self.assertEqual(new_episodes, 2)

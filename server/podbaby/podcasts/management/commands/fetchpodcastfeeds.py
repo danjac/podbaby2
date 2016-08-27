@@ -30,4 +30,4 @@ class Command(BaseCommand):
         if verbosity > 0:
             self.stdout.write(
                 self.style.SUCCESS(
-                    "{} new episode(s) in total".format(new_episodes)))
+                    "{} new episode(s) in total".format(total_new_episodes)))

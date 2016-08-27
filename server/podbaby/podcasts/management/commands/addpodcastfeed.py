@@ -6,7 +6,7 @@ from podcasts.models import Channel
 
 
 class Command(BaseCommand):
-    help = "My shiny new management command."
+    help = "Adds a new podcast channel, and fetches episodes"
 
     def add_arguments(self, parser):
         parser.add_argument('url', type=str)
