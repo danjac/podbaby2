@@ -1,5 +1,7 @@
 __pycache__
+media
 .cache
+*.pyc
 *.log
 *.swp
 *.sqlite3
