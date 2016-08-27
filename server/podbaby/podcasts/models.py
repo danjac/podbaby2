@@ -2,9 +2,10 @@ import requests
 
 from urllib.parse import urlparse
 
+from django.conf import settings
 from django.db import models
 from django.core.files.base import ContentFile
-from django.conf import settings
+from django.utils.timezone import make_aware
 
 from django_extensions.db.models import TimeStampedModel
 
@@ -106,7 +107,7 @@ class Channel(TimeStampedModel):
                 'author': item.author or item.itunes_author_name or '',
                 'creative_commons': item.creative_commons or '',
                 'duration': item.itunes_duration or '',
-                'published': item.date_time,
+                'published': make_aware(item.date_time),
                 'enclosure_url': item.enclosure_url,
                 'enclosure_length': item.enclosure_length,
                 'enclosure_type': item.enclosure_type,

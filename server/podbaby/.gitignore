@@ -5,3 +5,4 @@ media
 *.log
 *.swp
 *.sqlite3
+:w
