@@ -1,9 +1,7 @@
-import requests
-
 from django.core.management.base import BaseCommand
 
 
-from podcasts.models import Channel
+from podcasts.models import Channel, InvalidFeed
 
 
 class Command(BaseCommand):
@@ -16,7 +14,7 @@ class Command(BaseCommand):
         for channel in Channel.objects.all():
             try:
                 new_episodes = channel.fetch()
-            except requests.exceptions.RequestException as e:
+            except InvalidFeed as e:
                 self.stderr.write(
                     self.style.ERROR("ERROR: {} {}".format(channel, e)))
                 continue

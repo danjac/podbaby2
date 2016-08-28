@@ -15,6 +15,10 @@ from imagekit.processors import ResizeToFit
 from pyPodcastParser.Podcast import Podcast
 
 
+class InvalidFeed(RuntimeError):
+    pass
+
+
 class Category(models.Model):
     """
     An iTunes podcast category
@@ -69,11 +73,19 @@ class Channel(TimeStampedModel):
 
         Returns:
             int: number of new episodes.
+        Raises:
+            InvalidFeed
         """
 
-        podcast = Podcast(requests.get(self.rss_feed).content)
+        try:
+            podcast = Podcast(requests.get(self.rss_feed).content)
+        except requests.exceptions.RequestException as e:
+            raise InvalidFeed('Network error') from e
 
-        self.name = podcast.title
+        if not podcast.title:
+            raise InvalidFeed('Podcast missing title')
+
+        self.name = podcast.title or ''
         self.link = podcast.link or ''
         self.explicit = podcast.itunes_explicit == 'yes'
         self.description = podcast.description or ''
@@ -105,7 +117,7 @@ class Channel(TimeStampedModel):
                 continue
 
             fields = {
-                'title': item.title,
+                'title': item.title or '',
                 'link': item.link or '',
                 'explicit': item.itunes_explicit == 'yes',
                 'subtitle': item.itunes_subtitle or '',

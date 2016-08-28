@@ -5,7 +5,7 @@ from django.test import TestCase
 
 from factory.django import DjangoModelFactory
 
-from podcasts.models import Channel, Episode
+from podcasts.models import Channel, Episode, InvalidFeed
 
 
 class ChannelFactory(DjangoModelFactory):
@@ -38,13 +38,29 @@ class MockRequests(object):
 @mock.patch('podcasts.models.requests', MockRequests)
 class ChannelTests(TestCase):
 
+    def test_fetch_if_bad(self):
+        """
+        If a bad request, then raise InvalidFeed error
+        """
+
+        channel = ChannelFactory(name='old_title')
+
+        class MockPodcast(object):
+
+            def __init__(self, request):
+
+                # podcast must have a title
+                self.title = None
+
+        with mock.patch('podcasts.models.Podcast', MockPodcast):
+            self.assertRaises(InvalidFeed, channel.fetch)
+
     def test_fetch_if_ok(self):
         """
         Change details and add any new episodes
         """
 
         channel = ChannelFactory(name='old_title')
-        assert channel.id
 
         EpisodeFactory(
             channel=channel,
@@ -56,7 +72,6 @@ class ChannelTests(TestCase):
 
             def __init__(self, request):
 
-                self.is_valid_podcast = True
                 self.title = 'new title'
 
                 self.itunes_explicit = 'yes'

@@ -1,5 +1,4 @@
-import requests
-
+from django.db import transaction
 from django.core.management.base import BaseCommand, CommandError
 
 from podcasts.models import Channel
@@ -11,6 +10,7 @@ class Command(BaseCommand):
     def add_arguments(self, parser):
         parser.add_argument('url', type=str)
 
+    @transaction.atomic
     def handle(self, *args, **options):
         channel, created = Channel.objects.get_or_create(
             rss_feed=options['url']
@@ -19,13 +19,9 @@ class Command(BaseCommand):
             raise CommandError(
                 'We already have a podcast channel with'
                 ' this URL')
-        try:
-            new_episodes = channel.fetch()
-        except requests.exceptions.RequestException as e:
-            channel.delete()
-            raise CommandError(
-                'Error in fetching channel: {}'.format(e)
-            )
+        new_episodes = channel.fetch()
+        if new_episodes == 0:
+            raise CommandError('Unable to find any episodes for this podcast.')
         self.stdout.write(
             self.style.SUCCESS(
                 'New channel added: {} ({} episodes)'.format(
