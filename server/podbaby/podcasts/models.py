@@ -173,3 +173,12 @@ class Episode(TimeStampedModel):
 
     def __str__(self):
         return "{} - {}".format(self.title, self.channel)
+
+    def is_explicit(self):
+        """
+        If marked explicit or channel is marked explicit
+
+        Returns:
+            bool
+        """
+        return self.explicit or self.channel.explicit
