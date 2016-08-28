@@ -17,5 +17,6 @@ class EpisodeViewSet(viewsets.ModelViewSet):
         return (
             Episode.objects.
             select_related('channel').
+            prefetch_related('channel__categories').
             order_by('-published', '-created')
         )

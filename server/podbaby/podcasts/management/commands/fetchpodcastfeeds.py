@@ -20,12 +20,14 @@ class Command(BaseCommand):
                 continue
 
             if verbosity > 1:
-                self.stdout.write(
-                    "{}{}".format(channel.name.ljust(50, '.'), new_episodes)
-                )
+                msg = "{}{}".format(channel.name.ljust(50, '.'), new_episodes)
+                if new_episodes:
+                    msg = self.style.SUCCESS(msg)
+                self.stdout.write(msg)
             total_new_episodes += new_episodes
 
         if verbosity > 0:
-            self.stdout.write(
-                self.style.SUCCESS(
-                    "{} new episode(s) in total".format(total_new_episodes)))
+            msg = "{} new episode(s) in total".format(total_new_episodes)
+            if total_new_episodes:
+                msg = self.style.SUCCESS(msg)
+            self.stdout.write(msg)

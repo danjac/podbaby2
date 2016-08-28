@@ -113,7 +113,7 @@ class Channel(TimeStampedModel):
 
         for item in podcast.items:
 
-            if not item.guid:
+            if not item.guid or not item.enclosure_url:
                 continue
 
             fields = {

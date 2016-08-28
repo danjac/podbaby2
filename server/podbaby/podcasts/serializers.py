@@ -5,18 +5,21 @@ from podcasts.models import Channel, Episode, Category
 
 class CategorySerializer(serializers.ModelSerializer):
 
-    model = Category
-    fields = ('id', 'name')
+    class Meta:
+        model = Category
+        fields = ('id', 'name')
 
 
 class ChannelSerializer(serializers.ModelSerializer):
 
+    categories = CategorySerializer(many=True)
     thumbnail = serializers.SerializerMethodField('get_thumbnail_info')
 
     class Meta:
         model = Channel
         fields = (
             'id',
+            'rss_feed',
             'name',
             'link',
             'description',
@@ -24,6 +27,7 @@ class ChannelSerializer(serializers.ModelSerializer):
             'copyright',
             'creative_commons',
             'thumbnail',
+            'categories',
         )
 
     def get_thumbnail_info(self, obj):
