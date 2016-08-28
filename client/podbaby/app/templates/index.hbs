@@ -1,5 +1,10 @@
+<nav aria-label="...">
+  <ul class="pager">
+    <li class="previous{{unless model.meta.previous ' disabled'}}">{{#link-to 'index' (query-params page=model.meta.previous)}}<span aria-hidden="true">&larr;</span> Previous{{/link-to}}</li>
+    <li class="next{{unless model.meta.next ' disabled'}}">{{#link-to 'index' (query-params page=model.meta.next)}}Next <span aria-hidden="true">&rarr;</span>{{/link-to}}</li>
+  </ul>
+</nav>
 {{#each model as |episode|}}
-
 <div class="media">
     <div class="media-left">
         <a href="#">
@@ -13,9 +18,6 @@
     <div class="media-body">
         <h4 class="media-heading">{{episode.channel.name}}</h4>
         <h5>{{episode.title}}</h5>
-        {{#if episode.explicit}}
-        <span class="label label-danger"><span class="glyphicon glyphicon-warning"></span> EXPLICIT</span>
-        {{/if}}
         <p>
         {{episode.subtitle}}
         </p>
@@ -25,6 +27,9 @@
             <span class="label label-default">{{category.name}}</span>
         </a>
         {{/each}}
+        {{#if episode.explicit}}
+        <span class="label label-danger">{{fa-icon "warning"}} Explicit</span>
+        {{/if}}
         </p>
         <p>
             <audio controls>
@@ -33,5 +38,4 @@
         </p>
     </div>
 </div>
-
 {{/each}}
