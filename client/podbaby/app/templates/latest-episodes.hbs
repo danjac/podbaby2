@@ -13,6 +13,9 @@
     <div class="media-body">
         <h4 class="media-heading">{{episode.channel.name}}</h4>
         <h5>{{episode.title}}</h5>
+        {{#if episode.explicit}}
+        <span class="label label-danger"><span class="glyphicon glyphicon-warning"></span> EXPLICIT</span>
+        {{/if}}
         <p>
         {{episode.subtitle}}
         </p>
