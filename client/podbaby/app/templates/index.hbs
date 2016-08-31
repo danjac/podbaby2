@@ -5,37 +5,5 @@
   </ul>
 </nav>
 {{#each model as |episode|}}
-<div class="media">
-    <div class="media-left">
-        <a href="#">
-            <img class="media-object" 
-                 src={{episode.channel.thumbnail.url}} 
-                 width={{episode.channel.thumbnail.width}}
-                 height={{episode.channel.thumbnail.width}}
-                 alt={{episode.channel.name}} />
-        </a>
-    </div>
-    <div class="media-body">
-        <h4 class="media-heading">{{episode.channel.name}}</h4>
-        <h5>{{episode.title}}</h5>
-        <p>
-        {{episode.subtitle}}
-        </p>
-        <p>
-        {{#each episode.channel.categories as |category|}}
-        <a href="#">
-            <span class="label label-default">{{category.name}}</span>
-        </a>
-        {{/each}}
-        {{#if episode.explicit}}
-        <span class="label label-danger">{{fa-icon "warning"}} Explicit</span>
-        {{/if}}
-        </p>
-        <p>
-            <audio controls>
-                <source src={{episode.enclosureUrl}} type={{episode.enclosureType}} />
-            </audio>
-        </p>
-    </div>
-</div>
+{{episode-list-item episode=episode player=player}}
 {{/each}}

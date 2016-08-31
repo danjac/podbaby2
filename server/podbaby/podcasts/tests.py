@@ -18,18 +18,18 @@ class EpisodeFactory(DjangoModelFactory):
         model = Episode
 
 
-class MockEpisode(object):
+class MockEpisode:
 
     def __init__(self, **kwargs):
         for k, v in kwargs.items():
             setattr(self, k, v)
 
 
-class MockResponse(object):
+class MockResponse:
     content = ''
 
 
-class MockRequests(object):
+class MockRequests:
 
     def get(self, *args, **kwargs):
         return MockResponse()
@@ -45,7 +45,7 @@ class ChannelTests(TestCase):
 
         channel = ChannelFactory(name='old_title')
 
-        class MockPodcast(object):
+        class MockPodcast:
 
             def __init__(self, request):
 
@@ -68,7 +68,7 @@ class ChannelTests(TestCase):
             guid='1',
         )
 
-        class MockPodcast(object):
+        class MockPodcast:
 
             def __init__(self, request):
 

@@ -132,13 +132,12 @@ STATIC_URL = '/static/'
 
 # Rest settings
 REST_FRAMEWORK = {
-    # 'DEFAULT_PAGINATION_CLASS': 'galeria.pagination.CustomPagination',
     'PAGE_SIZE': 12,
-    # 'DEFAULT_AUTHENTICATION_CLASSES': (
-    # 'rest_framework.authentication.SessionAuthentication',
-    # 'rest_framework.authentication.BasicAuthentication',
-    # 'rest_framework.authentication.TokenAuthentication',
-    # ),
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.SessionAuthentication',
+        'rest_framework.authentication.BasicAuthentication',
+        'rest_framework.authentication.TokenAuthentication',
+    ),
 }
 
 
@@ -147,4 +146,3 @@ CORS_ORIGIN_ALLOW_ALL = True
 # Debug toolbar settings
 
 DEBUG_TOOLBAR_PATCH_SETTINGS = False
-
