@@ -1,48 +1,24 @@
 {
   "name": "podbaby",
-  "version": "0.0.0",
-  "description": "Small description for podbaby goes here",
+  "version": "0.0.1",
   "private": true,
-  "directories": {
-    "doc": "doc",
-    "test": "tests"
+  "devDependencies": {
+    "react-scripts": "0.2.3"
+  },
+  "dependencies": {
+    "humps": "^1.1.0",
+    "isomorphic-fetch": "^2.2.1",
+    "react": "^15.3.1",
+    "react-bootstrap": "^0.30.3",
+    "react-dom": "^15.3.1",
+    "react-fa": "^4.1.2"
   },
   "scripts": {
-    "build": "ember build",
-    "start": "ember server",
-    "test": "ember test"
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "eject": "react-scripts eject"
   },
-  "repository": "",
-  "engines": {
-    "node": ">= 0.10.0"
-  },
-  "author": "",
-  "license": "MIT",
-  "devDependencies": {
-    "broccoli-asset-rev": "^2.4.2",
-    "ember-ajax": "^2.0.1",
-    "ember-bootstrap": "0.9.1",
-    "ember-cli": "2.6.3",
-    "ember-cli-app-version": "^1.0.0",
-    "ember-cli-babel": "^5.1.6",
-    "ember-cli-dependency-checker": "^1.2.0",
-    "ember-cli-htmlbars": "^1.0.3",
-    "ember-cli-htmlbars-inline-precompile": "^0.3.1",
-    "ember-cli-inject-live-reload": "^1.4.0",
-    "ember-cli-jshint": "^1.0.0",
-    "ember-cli-qunit": "^1.4.0",
-    "ember-cli-release": "^0.2.9",
-    "ember-cli-sri": "^2.1.0",
-    "ember-cli-uglify": "^1.2.0",
-    "ember-data": "^2.6.0",
-    "ember-django-adapter": "1.1.2",
-    "ember-export-application-global": "^1.0.5",
-    "ember-font-awesome": "2.2.0",
-    "ember-load-initializers": "^0.5.1",
-    "ember-resolver": "^2.0.3",
-    "ember-simple-auth": "1.1.0",
-    "ember-simple-auth-token": "1.1.1",
-    "ember-welcome-page": "^1.0.1",
-    "loader.js": "^4.0.1"
+  "eslintConfig": {
+    "extends": "./node_modules/react-scripts/config/eslint.js"
   }
 }

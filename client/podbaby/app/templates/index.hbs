@@ -1,9 +1,0 @@
-<nav aria-label="...">
-  <ul class="pager">
-    <li class="previous{{unless model.meta.previous ' disabled'}}">{{#link-to 'index' (query-params page=model.meta.previous)}}<span aria-hidden="true">&larr;</span> Previous{{/link-to}}</li>
-    <li class="next{{unless model.meta.next ' disabled'}}">{{#link-to 'index' (query-params page=model.meta.next)}}Next <span aria-hidden="true">&rarr;</span>{{/link-to}}</li>
-  </ul>
-</nav>
-{{#each model as |episode|}}
-{{episode-list-item episode=episode player=player}}
-{{/each}}
