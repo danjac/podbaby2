@@ -1,3 +1,5 @@
+from django.db. models import Q
+
 from rest_framework import viewsets
 
 from podbaby.permissions import ReadOnly
@@ -12,11 +14,23 @@ class EpisodeViewSet(viewsets.ModelViewSet):
     permission_classes = [ReadOnly]
 
     def get_queryset(self):
-        # we'll expand this later
 
-        return (
+        qs = (
             Episode.objects.
             select_related('channel').
             prefetch_related('channel__categories').
             order_by('-published', '-created')
         )
+
+        if 'q' in self.request.GET:
+            q = Q()
+            for term in self.request.GET['q'].split():
+                sq = Q(
+                    Q(title__icontains=term) |
+                    Q(description__icontains=term) |
+                    Q(channel__name__icontains=term)
+                )
+                q = q & sq
+            qs = qs.filter(q)
+
+        return qs

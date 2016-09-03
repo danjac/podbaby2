@@ -79,7 +79,11 @@ class Channel(TimeStampedModel):
         """
 
         try:
-            podcast = Podcast(requests.get(self.rss_feed).content)
+            response = requests.get(
+                self.rss_feed, headers={'User-Agent': 'Mozilla/5.0'})
+            if response.status_code != 200:
+                raise InvalidFeed('Network error: %d' % response.status_code)
+            podcast = Podcast(response.content)
         except requests.exceptions.RequestException as e:
             raise InvalidFeed('Network error') from e
 

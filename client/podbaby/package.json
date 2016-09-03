@@ -8,10 +8,15 @@
   "dependencies": {
     "humps": "^1.1.0",
     "isomorphic-fetch": "^2.2.1",
+    "lodash": "^4.15.0",
     "react": "^15.3.1",
     "react-bootstrap": "^0.30.3",
     "react-dom": "^15.3.1",
-    "react-fa": "^4.1.2"
+    "react-fa": "^4.1.2",
+    "react-redux": "^4.4.5",
+    "react-router": "^2.7.0",
+    "react-router-bootstrap": "^0.23.1",
+    "redux": "^3.5.2"
   },
   "scripts": {
     "start": "react-scripts start",
