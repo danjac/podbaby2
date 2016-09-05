@@ -4,18 +4,29 @@ import * as bs from 'react-bootstrap';
 
 
 export const Episode = props => {
-  const { episode, player, onStart, onStop } = props;
+  const { episode, player, startPlayer, stopPlayer } = props;
   const { channel } = episode;
-  const isPlaying = player && player.episode.id === episode.id;
+  const isPlaying = player.isPlaying && player.episode.id === episode.id;
 
   let style = {}
   let button;
+
+  const onStart = event => {
+    event.preventDefault();
+    console.log('starting')
+    startPlayer(episode);
+  };
+
+  const onStop = event => {
+    event.preventDefault();
+    stopPlayer();
+  };
 
   if (isPlaying) {
     style.backgroundColor = '#eee';
     button = <bs.Button bsStyle="primary" onClick={onStop}><Icon name="stop" /></bs.Button>;
   } else {
-    button = <bs.Button bsStyle="primary" onClick={() => onStart(episode)}><Icon name="play" /></bs.Button>;
+    button = <bs.Button bsStyle="primary" onClick={onStart}><Icon name="play" /></bs.Button>;
   }
 
   return (
@@ -46,6 +57,9 @@ export const Episode = props => {
 
 Episode.propTypes = {
   episode: React.PropTypes.object.isRequired,
+  player: React.PropTypes.object.isRequired,
+  startPlayer: React.PropTypes.func.isRequired,
+  stopPlayer: React.PropTypes.func.isRequired,
 };
 
 

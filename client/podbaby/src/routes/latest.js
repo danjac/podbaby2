@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 
 import * as api from '../api';
+import { startPlayer, stopPlayer } from '../modules/player';
 import Pager from '../components/pager';
 import Episode from '../components/episode';
 
@@ -24,11 +26,7 @@ class LatestEpisodes extends Component {
   }
 
   componentDidMount() {
-     this.getStateFromStore(null);
-  }
-
-  componentWillReceiveProps(nextProps) {
-     this.getStateFromStore(null, nextProps);
+    this.getStateFromStore(null);
   }
 
   onSelectPager(url) {
@@ -70,9 +68,9 @@ class LatestEpisodes extends Component {
           {this.state.results.map(episode => (
           <Episode key={episode.id}
                    episode={episode}
-                   onStart={this.onStartPlayer}
-                   onStop={this.onStopPlayer}
-                   player={this.state.player} />
+                   startPlayer={this.props.actions.startPlayer}
+                   stopPlayer={this.props.actions.stopPlayer}
+                   player={this.props.player} />
           ))}
           {pager}
       </div>
@@ -80,4 +78,23 @@ class LatestEpisodes extends Component {
   }
 }
 
-export default withRouter(LatestEpisodes);
+const mapStateToProps = state => {
+  return {
+    player: state.player,
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    actions: {
+      startPlayer: (episode) => {
+        dispatch(startPlayer(episode));
+      },
+      stopPlayer: () => {
+        dispatch(stopPlayer());
+      },
+    }
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(LatestEpisodes));

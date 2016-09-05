@@ -1,19 +1,24 @@
 import React, { Component } from 'react';
 import { LinkContainer, IndexLinkContainer } from 'react-router-bootstrap'
 import { withRouter, Link } from 'react-router';
+import { connect } from 'react-redux';
 import * as bs from 'react-bootstrap';
+
+import { startPlayer, stopPlayer } from './modules/player';
+
 import './App.css';
 
 const Player = props => {
-  const { player } = props;
-  const { episode } = player;
+  const { isPlaying, episode } = props;
 
-  // need to set current time in onPlay event
-//  event.currentTarget.currentTime = x
+  if (!isPlaying) {
+    return <div></div>;
+  }
+
   return (
     <div className="container audio-player">
       <h4>{episode.title}</h4>
-      <audio controls autoPlay currentTime={0}>
+      <audio controls autoPlay>
         <source src={episode.enclosureUrl} type={episode.enclosureType} />
       </audio>
     </div>
@@ -41,8 +46,6 @@ class App extends Component {
 
   render() {
 
-    const player = this.state.player ? <Player player={this.state.player} /> : '';
-
     return (
       <div>
         <bs.Navbar>
@@ -65,10 +68,29 @@ class App extends Component {
         <div className="container">
           {this.props.children}
         </div>
-        {player}
+        <Player {...this.props.player} />
       </div>
     );
   }
 }
 
-export default withRouter(App);
+const mapStateToProps = state => {
+  return {
+    player: state.player,
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    actions: {
+      startPlayer: (episode) => {
+        dispatch(startPlayer(episode));
+      },
+      stopPlayer: () => {
+        dispatch(stopPlayer());
+      },
+    }
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(App));
