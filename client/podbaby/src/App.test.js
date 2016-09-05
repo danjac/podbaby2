@@ -13,3 +13,4 @@ it('renders without crashing', () => {
   };
   ReactDOM.render(<App {...props} />, div);
 });
+
