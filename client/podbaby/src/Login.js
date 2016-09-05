@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import * as bs from 'react-bootstrap';
+// import * as bs from 'react-bootstrap';
 
 
 class Login extends Component {

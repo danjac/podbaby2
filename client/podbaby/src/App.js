@@ -43,8 +43,6 @@ class App extends Component {
 
     const player = this.state.player ? <Player player={this.state.player} /> : '';
 
-    const { router } = this.props;
-
     return (
       <div>
         <bs.Navbar>

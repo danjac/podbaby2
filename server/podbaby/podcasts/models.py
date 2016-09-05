@@ -78,9 +78,11 @@ class Channel(TimeStampedModel):
             InvalidFeed
         """
 
+        request_headers = {'User-Agent': 'Mozilla/5.0'}
+
         try:
             response = requests.get(
-                self.rss_feed, headers={'User-Agent': 'Mozilla/5.0'})
+                self.rss_feed, headers=request_headers)
             if response.status_code != 200:
                 raise InvalidFeed('Network error: %d' % response.status_code)
             podcast = Podcast(response.content)
@@ -102,7 +104,7 @@ class Channel(TimeStampedModel):
         image = podcast.image_url or podcast.itune_image
 
         if image:
-            resp = requests.get(image)
+            resp = requests.get(image, headers=request_headers)
             if resp.status_code == 200:
                 name = urlparse(image).path.split("/")[-1]
                 self.image = ContentFile(resp.content, name=name)
