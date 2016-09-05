@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router';
 
-import * as api from './api';
-import Pager from './components/pager';
-import Episode from './components/episode';
+import * as api from '../api';
+import Pager from '../components/pager';
+import Episode from '../components/episode';
 
 
 const extractPageNumberFromUrl = url => {

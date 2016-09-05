@@ -1,17 +1,24 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { Provider } from 'react-redux';
 import { browserHistory, Router, Route, IndexRoute } from 'react-router';
+
 import App from './App';
-import LatestEpisodes from './LatestEpisodes';
-import Login from './Login';
+import configureStore from './store';
+
+import Latest from './routes/latest';
+import Login from './routes/login';
+
 import './index.css';
 
 ReactDOM.render(
-  <Router history={browserHistory}>
-    <Route path="/" component={App}>
-      <IndexRoute component={LatestEpisodes} />
-      <Route path="/login/" component={Login} />
-    </Route>
-  </Router>,
+  <Provider store={configureStore()}>
+    <Router history={browserHistory}>
+      <Route path="/" component={App}>
+        <IndexRoute component={Latest} />
+        <Route path="/login/" component={Login} />
+      </Route>
+    </Router>
+  </Provider>,
   document.getElementById('root')
 );
