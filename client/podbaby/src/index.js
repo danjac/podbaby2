@@ -9,10 +9,17 @@ import configureStore from './store';
 import Latest from './routes/latest';
 import Login from './routes/login';
 
+import { getCurrentUser } from './modules/auth';
+
 import './index.css';
 
+const store = configureStore();
+
+store.dispatch(getCurrentUser());
+
+
 ReactDOM.render(
-  <Provider store={configureStore()}>
+  <Provider store={store}>
     <Router history={browserHistory}>
       <Route path="/" component={App}>
         <IndexRoute component={Latest} />

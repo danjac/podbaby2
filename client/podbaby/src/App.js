@@ -4,6 +4,7 @@ import { withRouter, Link } from 'react-router';
 import { connect } from 'react-redux';
 import * as bs from 'react-bootstrap';
 
+import { logout } from './modules/auth';
 import { startPlayer, stopPlayer } from './modules/player';
 
 import './App.css';
@@ -27,24 +28,12 @@ const Player = props => {
 
 class App extends Component {
 
-  constructor(props) {
-    super(props);
-    this.state = { player: null };
-
-    this.onStartPlayer = this.onStartPlayer.bind(this);
-    this.onStopPlayer = this.onStopPlayer.bind(this);
-
-  }
-
-  onStartPlayer(episode) {
-    this.setState({ player: { episode }});
-  }
-
-  onStopPlayer() {
-    this.setState({ player: null });
-  }
-
   render() {
+
+    const logout = (event) => {
+      event.preventDefault();
+      this.props.actions.logout();
+    }
 
     return (
       <div>
@@ -59,11 +48,18 @@ class App extends Component {
               <bs.NavItem>Latest episodes</bs.NavItem>
             </IndexLinkContainer>
           </bs.Nav>
+          {this.props.auth.isLoggedIn ? (
+            <bs.Nav pullRight>
+              <bs.NavItem href="#">{this.props.auth.currentUser.username}</bs.NavItem>
+              <bs.NavItem href="#" onClick={logout}>Logout</bs.NavItem>
+            </bs.Nav>
+          ) : (
           <bs.Nav pullRight>
             <LinkContainer to="/login/">
               <bs.NavItem>Login</bs.NavItem>
             </LinkContainer>
           </bs.Nav>
+          )}
         </bs.Navbar>
         <div className="container">
           {this.props.children}
@@ -77,12 +73,16 @@ class App extends Component {
 const mapStateToProps = state => {
   return {
     player: state.player,
+    auth: state.auth,
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
     actions: {
+      logout: () => {
+        dispatch(logout());
+      },
       startPlayer: (episode) => {
         dispatch(startPlayer(episode));
       },

@@ -31,6 +31,11 @@ const doReq = (method, url, data) => {
     'Accept': 'application/json',
   };
 
+  const token = window.localStorage.getItem('auth-token');
+  if (token) {
+    headers['Authorization'] = 'Token ' + token;
+  }
+
   let body;
 
   if (data) {

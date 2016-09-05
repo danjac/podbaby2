@@ -8,8 +8,11 @@ const LOGOUT = 'podbaby/auth/LOGOUT';
 
 
 export function getCurrentUser() {
+  if (!window.localStorage.getItem('auth-token')) {
+    return { type: LOGOUT };
+  }
   return dispatch => {
-    api.get('/api/auth/')
+    api.get('/api/auth/me/')
     .then(payload => {
       dispatch({
         type: LOGIN_SUCCESS,
@@ -19,15 +22,14 @@ export function getCurrentUser() {
   };
 }
 
-export function login(username, password) {
+export function login(username, password, router) {
   return dispatch => {
     dispatch({ type: LOGIN });
     api.post('/api-token-auth/', { username, password })
     .then(response => {
-      // tbd store token in localStorage
-      //return getCurrentUser(token);
-      window.localStorage('auth-token', response.token);
-      return getCurrentUser();
+      window.localStorage.setItem('auth-token', response.token);
+      dispatch(getCurrentUser());
+      router.push("/");
     })
     .catch(error => {
       dispatch({

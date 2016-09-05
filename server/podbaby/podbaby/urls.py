@@ -24,9 +24,11 @@ from django.contrib import admin
 from rest_framework.routers import DefaultRouter
 from rest_framework.authtoken.views import obtain_auth_token
 
+from account.views import UserViewSet
 from podcasts.views import EpisodeViewSet
 
 router = DefaultRouter()
+router.register('^auth', UserViewSet, base_name='user')
 router.register('^episodes', EpisodeViewSet, base_name='episode')
 
 
