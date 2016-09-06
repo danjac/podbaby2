@@ -104,10 +104,13 @@ class Channel(TimeStampedModel):
         image = podcast.image_url or podcast.itune_image
 
         if image:
-            resp = requests.get(image, headers=request_headers)
-            if resp.status_code == 200:
-                name = urlparse(image).path.split("/")[-1]
-                self.image = ContentFile(resp.content, name=name)
+            try:
+                resp = requests.get(image, headers=request_headers)
+                if resp.status_code == 200:
+                    name = urlparse(image).path.split("/")[-1]
+                    self.image = ContentFile(resp.content, name=name)
+            except requests.exceptions.RequestException:
+                pass
 
         self.save()
 

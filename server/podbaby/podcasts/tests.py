@@ -26,6 +26,7 @@ class MockEpisode:
 
 
 class MockResponse:
+    status_code = 200
     content = ''
 
 
