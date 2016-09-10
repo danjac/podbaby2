@@ -39,7 +39,7 @@ export default function(Component, defaults, constraints, onSubmit, asyncConstra
       if (isFunction(defaults)) {
         values = defaults(this.props);
       } else {
-        values = defaults;
+        values = Object.assign({}, defaults);
       }
       return {
         values,

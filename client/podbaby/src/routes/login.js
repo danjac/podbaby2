@@ -62,6 +62,9 @@ const defaults = {
 const constraints = {
   username: {
     presence: true,
+    length: {
+      minimum: 5,
+    }
   },
   password: {
     presence: true,
@@ -74,6 +77,7 @@ const onSubmit = (props, values, resetForm) => {
     password
   } = values;
   props.actions.login(username, password, props.router);
+  console.log(resetForm)
   resetForm();
 };
 
