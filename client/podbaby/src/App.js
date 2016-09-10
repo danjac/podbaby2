@@ -98,7 +98,7 @@ const mapStateToProps = state => {
   return {
     player: state.player,
     auth: state.auth,
-    alerts: state.alerts.alerts,
+    alerts: state.alerts,
   };
 };
 

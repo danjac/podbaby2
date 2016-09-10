@@ -35,25 +35,14 @@ export function dismissAlert(id) {
   };
 }
 
-const initialState = {
-  alerts: []
-};
+const initialState = [];
 
 export default function(state = initialState, action) {
-  let {
-    alerts
-  } = state;
   switch (action.type) {
     case NEW_ALERT:
-      alerts.unshift(action.payload);
-      return {...state,
-        alerts
-      };
+      return state.concat(action.payload);
     case DISMISS_ALERT:
-      alerts = alerts.filter(item => item.id !== action.payload.id);
-      return {...state,
-        alerts
-      };
+      return state.filter(item => item.id !== action.payload.id);
     default:
       return state;
   }

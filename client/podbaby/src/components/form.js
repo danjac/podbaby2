@@ -12,7 +12,6 @@ export default function(Component, defaults, constraints, onSubmit, asyncConstra
    * Higher order component for managing form validation state
    *
    * */
-  // add further arg for asyncConstraints
 
   const fields = Object.keys(defaults);
 
@@ -24,6 +23,7 @@ export default function(Component, defaults, constraints, onSubmit, asyncConstra
       this.state = this.getFormDefaults();
       this.handleSubmit = this.handleSubmit.bind(this);
       this.resetForm = this.resetForm.bind(this);
+      this.addErrors = this.addErrors.bind(this);
 
       this.handlers = fields.reduce((handlers, field) => {
         handlers[field] = partial(this.handleChange, field).bind(this);
@@ -51,6 +51,11 @@ export default function(Component, defaults, constraints, onSubmit, asyncConstra
 
     resetForm() {
       this.setState(this.getFormDefaults());
+    }
+
+    addErrors(errors) {
+      // add errors manually, e.g. after server validation
+      this.setState({ errors });
     }
 
     handleSubmit(event) {
@@ -133,7 +138,9 @@ export default function(Component, defaults, constraints, onSubmit, asyncConstra
     render() {
 
       const {
-        formSubmitted
+        formSubmitted,
+        errors,
+        values,
       } = this.state;
 
       const validators = fields.reduce((validators, field) => {
@@ -143,12 +150,13 @@ export default function(Component, defaults, constraints, onSubmit, asyncConstra
 
       const newProps = {
         resetForm: this.resetForm,
-        values: this.state.values,
-        errors: this.state.errors,
+        addErrors: this.addErrors,
         handlers: this.handlers,
         onSubmit: this.handleSubmit,
         formSubmitted,
         validators,
+        errors,
+        values,
       }
       return <Component {...this.props} {...newProps} />
     }

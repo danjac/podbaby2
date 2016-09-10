@@ -13,7 +13,7 @@ import formHandler from '../components/form';
 
 import {
   login
-} from '../modules/auth';
+} from '../modules/login';
 
 
 class Login extends Component {
@@ -77,7 +77,6 @@ const onSubmit = (props, values, resetForm) => {
     password
   } = values;
   props.actions.login(username, password, props.router);
-  console.log(resetForm)
   resetForm();
 };
 
@@ -85,7 +84,7 @@ const onSubmit = (props, values, resetForm) => {
 const mapStateToProps = state => {
   const {
     isLoggingIn
-  } = state.auth;
+  } = state.login;
   return {
     isLoggingIn
   };
