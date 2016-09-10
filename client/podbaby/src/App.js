@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import * as bs from 'react-bootstrap';
 
 import { logout } from './modules/auth';
+import { dismissAlert } from './modules/alerts';
 import { startPlayer, stopPlayer } from './modules/player';
 
 import './App.css';
@@ -26,15 +27,35 @@ const Player = props => {
   );
 };
 
+const Alert = props => {
+  const { alert, onDismiss } = props;
+  const handleDismiss = () => onDismiss(alert.id);
+  return (
+    <bs.Alert bsStyle={alert.level} onDismiss={handleDismiss}>
+      {alert.message}
+    </bs.Alert>
+  );
+
+};
+
 export class App extends Component {
 
+  constructor(props) {
+    super(props);
+    this.handleLogout = this.handleLogout.bind(this);
+    this.handleDismissAlert = this.handleDismissAlert.bind(this);
+  }
+
+  handleLogout(event) {
+    event.preventDefault();
+    this.props.actions.logout();
+  }
+
+  handleDismissAlert(id) {
+    this.props.actions.dismissAlert(id);
+  }
+
   render() {
-
-    const logout = (event) => {
-      event.preventDefault();
-      this.props.actions.logout();
-    }
-
     return (
       <div>
         <bs.Navbar>
@@ -51,7 +72,7 @@ export class App extends Component {
           {this.props.auth.isLoggedIn ? (
             <bs.Nav pullRight>
               <bs.NavItem href="#">{this.props.auth.currentUser.username}</bs.NavItem>
-              <bs.NavItem href="#" onClick={logout}>Logout</bs.NavItem>
+              <bs.NavItem href="#" onClick={this.handleLogout}>Logout</bs.NavItem>
             </bs.Nav>
           ) : (
           <bs.Nav pullRight>
@@ -62,6 +83,9 @@ export class App extends Component {
           )}
         </bs.Navbar>
         <div className="container">
+          {this.props.alerts.map(alert => (
+            <Alert key={alert.id} alert={alert} onDismiss={this.handleDismissAlert} />
+          ))}
           {this.props.children}
         </div>
         <Player {...this.props.player} />
@@ -74,6 +98,7 @@ const mapStateToProps = state => {
   return {
     player: state.player,
     auth: state.auth,
+    alerts: state.alerts.alerts,
   };
 };
 
@@ -82,6 +107,9 @@ const mapDispatchToProps = dispatch => {
     actions: {
       logout: () => {
         dispatch(logout());
+      },
+      dismissAlert: (id) => {
+        dispatch(dismissAlert(id));
       },
       startPlayer: (episode) => {
         dispatch(startPlayer(episode));

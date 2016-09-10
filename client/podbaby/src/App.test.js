@@ -7,6 +7,7 @@ it('renders without crashing', () => {
   const props = {
     actions: {},
     player: {},
+    alerts: [],
     auth: {
       isLoggedIn: false,
     },

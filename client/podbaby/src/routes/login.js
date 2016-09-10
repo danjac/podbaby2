@@ -17,11 +17,11 @@ class Login extends Component {
 
   onSubmit(event) {
     event.preventDefault();
-    // get values...
     const username = findDOMNode(this.username).value;
     const password = findDOMNode(this.password).value;
-    // pass in router
-    this.props.actions.login(username, password, this.props.router);
+    if (username && password) {
+      this.props.actions.login(username, password, this.props.router);
+    }
   }
 
   setUsername(ref) {
@@ -36,6 +36,9 @@ class Login extends Component {
   }
 
   render() {
+    if (this.props.isLoggingIn) {
+      return <h2>Logging you in..</h2>;
+    }
     return (
       <form onSubmit={this.onSubmit}>
         <bs.FormGroup>
@@ -54,7 +57,8 @@ class Login extends Component {
 
 
 const mapStateToProps = state => {
-  return {};
+  const { isLoggingIn } = state.auth;
+  return { isLoggingIn };
 };
 
 const mapDispatchToProps = dispatch => {
