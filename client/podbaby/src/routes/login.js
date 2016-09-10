@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import { findDOMNode } from 'react-dom';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
+import { partial, isEmpty } from 'lodash';
 import * as bs from 'react-bootstrap';
 import { login } from '../modules/auth';
 
@@ -10,44 +10,110 @@ class Login extends Component {
 
   constructor(props) {
     super(props);
-    this.onSubmit = this.onSubmit.bind(this);
-    this.setUsername = this.setUsername.bind(this);
-    this.setPassword = this.setPassword.bind(this);
+
+    this.state = this.getInitState();
+
+    this.handleSubmit = this.handleSubmit.bind(this);
+
+    this.fields = ['username', 'password'];
+    this.handlers = this.fields.reduce((handlers, field) => {
+        handlers[field] = partial(this.handleChange, field).bind(this);
+        return handlers;
+    }, {});
   }
 
-  onSubmit(event) {
+  getInitState() {
+    return {
+      values: {
+        username: '',
+        password: '',
+      },
+      touched: [],
+      errors: {},
+      formSubmitted: false,
+    };
+  }
+
+  handleSubmit(event) {
+
     event.preventDefault();
-    const username = findDOMNode(this.username).value;
-    const password = findDOMNode(this.password).value;
-    if (username && password) {
+
+    this.fields.forEach(field => {
+      this.validate(field, this.state.values[field]);
+    });
+
+    this.setState({ formSubmitted: true });
+
+    if (isEmpty(this.state.errors)) {
+      const { username, password } = this.state.values;
+      this.setState(this.getInitState())
       this.props.actions.login(username, password, this.props.router);
     }
   }
 
-  setUsername(ref) {
-    this.username = ref;
-    if (this.username !== null) {
-      findDOMNode(this.username).focus();
+  handleChange(field, event) {
+    if (!this.isTouched(field)) {
+      const { touched } = this.state;
+      touched.push(field);
+      this.setState({ touched });
     }
+    this.validate(field, event.target.value);
   }
 
-  setPassword(ref) {
-    this.password = ref;
+  isTouched(field) {
+    return this.state.touched.indexOf(field) > -1;
+  }
+
+  validate(field, value) {
+
+    const { values, errors } = this.state;
+    values[field] = value;
+
+    const error = values[field] ? false : 'You must provide a value';
+
+    if (error) {
+      errors[field] = error;
+    } else {
+      delete errors[field];
+    }
+    this.setState({ values, errors });
+  }
+
+  getValidationState(field) {
+    return this.state.errors[field] ? 'error': 'success';
   }
 
   render() {
     if (this.props.isLoggingIn) {
       return <h2>Logging you in..</h2>;
     }
+
+    const { formSubmitted } = this.state;
+
+    const validators = this.fields.reduce((validators, field) => {
+        validators[field] = formSubmitted || this.isTouched(field) ? this.getValidationState(field) : null;
+        return validators;
+    }, {});
+
     return (
-      <form onSubmit={this.onSubmit}>
-        <bs.FormGroup>
+      <form onSubmit={this.handleSubmit}>
+        <bs.FormGroup validationState={validators.username}>
           <bs.ControlLabel>Username</bs.ControlLabel>
-          <bs.FormControl type="text" ref={this.setUsername} />
+          <bs.FormControl type="text"
+                          value={this.state.username}
+                          onBlur={this.handlers.username}
+                          onChange={this.handlers.username} />
+          <bs.FormControl.Feedback />
+          {this.state.errors.username ? <bs.HelpBlock>{this.state.errors.username}</bs.HelpBlock> : ''}
         </bs.FormGroup>
-        <bs.FormGroup>
+        <bs.FormGroup validationState={validators.password}>
           <bs.ControlLabel>Password</bs.ControlLabel>
-          <bs.FormControl type="password" ref={this.setPassword} />
+          <bs.FormControl type="password"
+                          value={this.state.password}
+                          onBlur={this.handlers.password}
+                          onChange={this.handlers.password} />
+          <bs.FormControl.Feedback />
+          {this.state.errors.password ? <bs.HelpBlock>{this.state.errors.password}</bs.HelpBlock> : ''}
         </bs.FormGroup>
         <bs.Button bsStyle="primary" className="form-control" type="submit">Login</bs.Button>
       </form>
