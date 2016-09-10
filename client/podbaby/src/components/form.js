@@ -1,16 +1,20 @@
 import React from 'react';
+import validate from 'validate.js';
 import {
   partial,
   isEmpty,
-  mapValues
+  isFunction,
 } from 'lodash';
 
 
-export default function (Component, fields, onSubmit) {
+export default function(Component, defaults, constraints, onSubmit, asyncConstraints) {
   /*
    * Higher order component for managing form validation state
    *
    * */
+  // add further arg for asyncConstraints
+
+  const fields = Object.keys(defaults);
 
   return class extends React.Component {
 
@@ -21,17 +25,24 @@ export default function (Component, fields, onSubmit) {
       this.handleSubmit = this.handleSubmit.bind(this);
       this.resetForm = this.resetForm.bind(this);
 
-      this.handlers = Object.keys(fields).reduce((handlers, field) => {
+      this.handlers = fields.reduce((handlers, field) => {
         handlers[field] = partial(this.handleChange, field).bind(this);
         return handlers;
       }, {});
     }
 
     getFormDefaults() {
-      const values = mapValues(fields, field => field.defaultValue);
+      // we might want to pass in defaults as function
+      // e.g. defaults = props => props.user
 
+      let values;
+      if (isFunction(defaults)) {
+        values = defaults(this.props);
+      } else {
+        values = defaults;
+      }
       return {
-        values: values,
+        values,
         touched: [],
         errors: {},
         formSubmitted: false,
@@ -44,19 +55,32 @@ export default function (Component, fields, onSubmit) {
 
     handleSubmit(event) {
       event.preventDefault();
-      this.setState({
-        formSubmitted: true
-      });
-      Object.keys(fields).forEach(field => {
-        if (!this.isTouched(field)) {
-          this.validate(field, this.state.values[field]);
-        }
-      });
-      // tbd: "validateAll" method
+
       if (!isEmpty(this.state.errors)) {
         return;
       }
-      onSubmit(this.props, this.state.values, this.resetForm);
+
+      this.setState({
+        formSubmitted: true
+      });
+
+      // validate everything
+      let errors = validate(this.state.values, constraints);
+      if (!isEmpty(errors)) {
+        this.setState({ errors });
+        return;
+      }
+
+      if (asyncConstraints) {
+        validate.async(this.state.values, asyncConstraints)
+          .then(() => {
+            onSubmit(this.props, this.state.values, this.resetForm);
+          }, errors => {
+            this.setState({ errors });
+          });
+      } else {
+        onSubmit(this.props, this.state.values, this.resetForm);
+      }
     }
 
     handleChange(field, event) {
@@ -82,12 +106,14 @@ export default function (Component, fields, onSubmit) {
         values,
         errors
       } = this.state;
-      const required = fields[field] && fields[field].required;
 
-      const error = (!required || value) ? false : 'You must provide a value';
+
+      const localConstraints = { [field]: constraints[field] };
+
+      let error = validate({ [field]: value }, localConstraints);
 
       if (error) {
-        errors[field] = error;
+        errors[field] = error[field];
       } else {
         delete errors[field];
       }
@@ -96,7 +122,7 @@ export default function (Component, fields, onSubmit) {
 
       this.setState({
         values,
-        errors
+        errors,
       });
     }
 
@@ -110,7 +136,7 @@ export default function (Component, fields, onSubmit) {
         formSubmitted
       } = this.state;
 
-      const validators = Object.keys(fields).reduce((validators, field) => {
+      const validators = fields.reduce((validators, field) => {
         validators[field] = formSubmitted || this.isTouched(field) ? this.getValidationState(field) : null;
         return validators;
       }, {});

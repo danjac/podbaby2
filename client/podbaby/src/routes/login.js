@@ -37,7 +37,7 @@ class Login extends Component {
                           onBlur={handlers.username}
                           onChange={handlers.username} />
           <bs.FormControl.Feedback />
-          {errors.username ? <bs.HelpBlock>{errors.username}</bs.HelpBlock> : ''}
+          {errors.username ? <bs.HelpBlock>{errors.username.join(", ")}</bs.HelpBlock> : ''}
         </bs.FormGroup>
         <bs.FormGroup validationState={validators.password}>
           <bs.ControlLabel>Password</bs.ControlLabel>
@@ -46,7 +46,7 @@ class Login extends Component {
                           onBlur={handlers.password}
                           onChange={handlers.password} />
           <bs.FormControl.Feedback />
-          {errors.password ? <bs.HelpBlock>{errors.password}</bs.HelpBlock> : ''}
+          {errors.password ? <bs.HelpBlock>{errors.password.join(", ")}</bs.HelpBlock> : ''}
         </bs.FormGroup>
         <bs.Button disabled={isLoggingIn} bsStyle="primary" className="form-control" type="submit">Login</bs.Button>
       </form>
@@ -54,15 +54,18 @@ class Login extends Component {
   }
 }
 
-const fields = {
+const defaults = {
+  username: '',
+  password: '',
+};
+
+const constraints = {
   username: {
-    defaultValue: '',
-    required: true,
+    presence: true,
   },
   password: {
-    defaultValue: '',
-    required: true,
-  }
+    presence: true,
+  },
 };
 
 const onSubmit = (props, values, resetForm) => {
@@ -92,4 +95,4 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(withRouter(formHandler(Login, fields, onSubmit)));
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(formHandler(Login, defaults, constraints, onSubmit)));
