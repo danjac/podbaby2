@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { bindActionCreators } from 'redux';
 import { LinkContainer, IndexLinkContainer } from 'react-router-bootstrap'
 import { withRouter, Link } from 'react-router';
 import { connect } from 'react-redux';
@@ -79,6 +80,9 @@ export class App extends Component {
             <LinkContainer to="/login/">
               <bs.NavItem>Login</bs.NavItem>
             </LinkContainer>
+            <LinkContainer to="/signup/">
+              <bs.NavItem>Signup</bs.NavItem>
+            </LinkContainer>
           </bs.Nav>
           )}
         </bs.Navbar>
@@ -104,20 +108,12 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    actions: {
-      logout: () => {
-        dispatch(logout());
-      },
-      dismissAlert: (id) => {
-        dispatch(dismissAlert(id));
-      },
-      startPlayer: (episode) => {
-        dispatch(startPlayer(episode));
-      },
-      stopPlayer: () => {
-        dispatch(stopPlayer());
-      },
-    }
+    actions: bindActionCreators({
+      logout,
+      dismissAlert,
+      startPlayer,
+      stopPlayer,
+    }, dispatch)
   };
 };
 

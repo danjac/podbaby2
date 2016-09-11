@@ -1,13 +1,22 @@
 import fetch from 'isomorphic-fetch';
-import { camelizeKeys } from 'humps';
+import { decamelizeKeys, camelizeKeys } from 'humps';
 import {
   partial
 } from 'lodash';
 
-const parseJSON = response => response.json();
+import { getAuthToken } from './storage';
+
+const parseJSON = response => {
+  return response.json().then(data => {
+    if (response.status === 400) {
+      return { errors: data };
+    }
+    return data;
+  });
+}
 
 const checkStatus = response => {
-  if (response.ok) {
+  if (response.ok || response.status === 400) {
     return response;
   }
   const error = new Error(response.statusText);
@@ -31,7 +40,8 @@ const doReq = (method, url, data) => {
     'Accept': 'application/json',
   };
 
-  const token = window.localStorage.getItem('auth-token');
+  const token = getAuthToken();
+
   if (token) {
     headers['Authorization'] = 'Token ' + token;
   }
@@ -39,7 +49,7 @@ const doReq = (method, url, data) => {
   let body;
 
   if (data) {
-    body = JSON.stringify(data);
+    body = JSON.stringify(decamelizeKeys(data));
   }
 
   return fetch(normalizeUrl(url), {

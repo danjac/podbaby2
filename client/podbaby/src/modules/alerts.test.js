@@ -8,6 +8,7 @@ import {
   danger,
   info,
 } from './alerts';
+
 import reducer from './alerts';
 
 jest.useFakeTimers();
@@ -72,10 +73,8 @@ it('adds a new alert to state', () => {
   const store = mockStore();
   store.dispatch(createAlert('success', 'hello'));
   const action = store.getActions()[0];
-  const state = reducer({
-    alerts: []
-  }, action);
-  expect(state.alerts.length).toBe(1);
+  const state = reducer([], action);
+  expect(state.length).toBe(1);
 });
 
 it('removes an alert from state', () => {
@@ -87,13 +86,9 @@ it('removes an alert from state', () => {
       id: '456',
       message: 'goodbye',
       level: 'success',
-    }
-
-  ];
+    }];
   const action = dismissAlert('123');
-  const state = reducer({
-    alerts: alerts
-  }, action);
-  expect(state.alerts.length).toBe(1);
-  expect(state.alerts[0].id).toBe('456');
+  const state = reducer(alerts, action);
+  expect(state.length).toBe(1);
+  expect(state[0].id).toBe('456');
 });

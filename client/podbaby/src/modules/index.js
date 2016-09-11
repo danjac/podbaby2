@@ -1,13 +1,13 @@
 import { combineReducers } from 'redux';
+import { reducer as formReducer } from 'redux-form';
 
 import player from './player';
 import auth from './auth';
-import login from './login';
 import alerts from './alerts';
 
 export default combineReducers({
   player,
   auth,
-  login,
   alerts,
+  form: formReducer,
 });

@@ -8,6 +8,7 @@ import configureStore from './store';
 
 import Latest from './routes/latest';
 import Login from './routes/login';
+import Signup from './routes/signup';
 
 import { getCurrentUser } from './modules/auth';
 
@@ -24,6 +25,7 @@ ReactDOM.render(
       <Route path="/" component={App}>
         <IndexRoute component={Latest} />
         <Route path="/login/" component={Login} />
+        <Route path="/signup/" component={Signup} />
       </Route>
     </Router>
   </Provider>,

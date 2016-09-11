@@ -1,165 +1,26 @@
 import React from 'react';
-import validate from 'validate.js';
-import {
-  partial,
-  isEmpty,
-  isFunction,
-} from 'lodash';
+import * as bs from 'react-bootstrap';
+import { omit } from 'lodash';
 
+export const formControl = field => {
 
-export default function(Component, defaults, constraints, onSubmit, asyncConstraints) {
-  /*
-   * Higher order component for managing form validation state
-   *
-   * */
+  let validationState;
 
-  const fields = Object.keys(defaults);
-
-  return class extends React.Component {
-
-    constructor(props) {
-      super(props);
-
-      this.state = this.getFormDefaults();
-      this.handleSubmit = this.handleSubmit.bind(this);
-      this.resetForm = this.resetForm.bind(this);
-      this.addErrors = this.addErrors.bind(this);
-
-      this.handlers = fields.reduce((handlers, field) => {
-        handlers[field] = partial(this.handleChange, field).bind(this);
-        return handlers;
-      }, {});
-    }
-
-    getFormDefaults() {
-      // we might want to pass in defaults as function
-      // e.g. defaults = props => props.user
-
-      let values;
-      if (isFunction(defaults)) {
-        values = defaults(this.props);
-      } else {
-        values = Object.assign({}, defaults);
-      }
-      return {
-        values,
-        touched: [],
-        errors: {},
-        formSubmitted: false,
-      };
-    }
-
-    resetForm() {
-      this.setState(this.getFormDefaults());
-    }
-
-    addErrors(errors) {
-      // add errors manually, e.g. after server validation
-      this.setState({ errors });
-    }
-
-    handleSubmit(event) {
-      event.preventDefault();
-
-      if (!isEmpty(this.state.errors)) {
-        return;
-      }
-
-      this.setState({
-        formSubmitted: true
-      });
-
-      // validate everything
-      let errors = validate(this.state.values, constraints);
-      if (!isEmpty(errors)) {
-        this.setState({ errors });
-        return;
-      }
-
-      if (asyncConstraints) {
-        validate.async(this.state.values, asyncConstraints)
-          .then(() => {
-            onSubmit(this.props, this.state.values, this.resetForm);
-          }, errors => {
-            this.setState({ errors });
-          });
-      } else {
-        onSubmit(this.props, this.state.values, this.resetForm);
-      }
-    }
-
-    handleChange(field, event) {
-      if (!this.isTouched(field)) {
-        const {
-          touched
-        } = this.state;
-        touched.push(field);
-        this.setState({
-          touched
-        });
-      }
-      this.validate(field, event.target.value);
-    }
-
-    isTouched(field) {
-      return this.state.touched.indexOf(field) > -1;
-    }
-
-    validate(field, value) {
-
-      const {
-        values,
-        errors
-      } = this.state;
-
-
-      const localConstraints = { [field]: constraints[field] };
-
-      let error = validate({ [field]: value }, localConstraints);
-
-      if (error) {
-        errors[field] = error[field];
-      } else {
-        delete errors[field];
-      }
-
-      values[field] = value;
-
-      this.setState({
-        values,
-        errors,
-      });
-    }
-
-    getValidationState(field) {
-      return this.state.errors[field] ? 'error' : 'success';
-    }
-
-    render() {
-
-      const {
-        formSubmitted,
-        errors,
-        values,
-      } = this.state;
-
-      const validators = fields.reduce((validators, field) => {
-        validators[field] = formSubmitted || this.isTouched(field) ? this.getValidationState(field) : null;
-        return validators;
-      }, {});
-
-      const newProps = {
-        resetForm: this.resetForm,
-        addErrors: this.addErrors,
-        handlers: this.handlers,
-        onSubmit: this.handleSubmit,
-        formSubmitted,
-        validators,
-        errors,
-        values,
-      }
-      return <Component {...this.props} {...newProps} />
-    }
+  if (field.meta.touched) {
+    validationState = field.meta.error ? 'error' : 'success';
   }
 
-}
+  const props = omit(field, ['input', 'meta', 'label']);
+
+  return (
+      <bs.FormGroup validationState={validationState}>
+        {field.label && <bs.ControlLabel>{field.label}</bs.ControlLabel>}
+        <bs.FormControl type={field.type} {...field.input} {...props} />
+        <bs.FormControl.Feedback />
+        {field.meta.touched && field.meta.error && <bs.HelpBlock>{field.meta.error}</bs.HelpBlock>}
+      </bs.FormGroup>
+  );
+
+};
+
+

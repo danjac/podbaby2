@@ -24,7 +24,7 @@ from django.contrib import admin
 from rest_framework.routers import DefaultRouter
 from rest_framework.authtoken.views import obtain_auth_token
 
-from account.views import UserViewSet
+from account.views import UserViewSet, CreateUser
 from podcasts.views import EpisodeViewSet
 
 router = DefaultRouter()
@@ -34,8 +34,9 @@ router.register('^episodes', EpisodeViewSet, base_name='episode')
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
+    url(r'^api/auth/create/$', CreateUser.as_view()),
+    url(r'^api-token-auth/$', obtain_auth_token),
     url(r'^api/', include(router.urls)),
-    url(r'^api-token-auth/', obtain_auth_token),
 ]
 
 if settings.DEBUG:

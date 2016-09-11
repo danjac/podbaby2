@@ -5,7 +5,9 @@ export function getAuthToken() {
 }
 
 export function setAuthToken(token) {
-  window.localStorage.setItem(AUTH_TOKEN, token);
+  if (token) {
+    window.localStorage.setItem(AUTH_TOKEN, token);
+  }
 }
 
 export function removeAuthToken() {
