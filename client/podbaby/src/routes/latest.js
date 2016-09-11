@@ -1,13 +1,15 @@
-import React, { Component } from 'react';
+import React, { PropTypes, Component } from 'react';
+import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 
-import * as api from '../api';
 import { startPlayer, stopPlayer } from '../modules/player';
+import { fetchEpisodes } from '../modules/episodes';
 import Pager from '../components/pager';
 import Episode from '../components/episode';
 
 
+// move this into a util module somewhere
 const extractPageNumberFromUrl = url => {
   const match = /.*?[\?&]page=(\d+).*?/.exec(url);
   if (match) {
@@ -20,20 +22,19 @@ class LatestEpisodes extends Component {
 
   constructor(props) {
     super(props);
-    this.state = { results: [], isWaiting: true };
     this.onSelectPager = this.onSelectPager.bind(this);
 
   }
 
   componentDidMount() {
-    this.getStateFromStore(null);
+    this.fetchEpisodes(null);
   }
 
   onSelectPager(url) {
-    this.getStateFromStore(url);
+    this.fetchEpisodes(url);
   }
 
-  getStateFromStore(url, props) {
+  fetchEpisodes(url, props) {
 
     props = props || this.props;
 
@@ -47,25 +48,24 @@ class LatestEpisodes extends Component {
       url = '/api/episodes/?page=' + page;
     }
 
-    this.setState({ isWaiting: true });
-
-    api.get(url)
-    .then(response => this.setState({isWaiting: false, ...response}));
+    this.props.actions.fetchEpisodes(url);
   }
 
   render() {
 
-    if (this.state.isWaiting) {
+    if (this.props.isLoading) {
         return <h1>Waiting...</h1>;
     }
 
-    const pager = this.state.previous || this.state.next ?
-      <Pager {...this.state} onSelect={this.onSelectPager} /> : '';
+    const { next, previous, results } = this.props;
+
+    const pager = (previous || next) ?
+      <Pager next={next} previous={previous} onSelect={this.onSelectPager} /> : '';
 
     return (
       <div>
           {pager}
-          {this.state.results.map(episode => (
+          {results.map(episode => (
           <Episode key={episode.id}
                    episode={episode}
                    startPlayer={this.props.actions.startPlayer}
@@ -78,22 +78,32 @@ class LatestEpisodes extends Component {
   }
 }
 
+LatestEpisodes.propTypes = {
+  isLoading: PropTypes.bool.isRequired,
+  results: PropTypes.array.isRequired,
+  next: PropTypes.string,
+  previous: PropTypes.string,
+  actions: PropTypes.object.isRequired,
+}
+
 const mapStateToProps = state => {
+  const { episodes: { isLoading, next, previous, results }, player } = state;
   return {
-    player: state.player,
+    player,
+    next,
+    previous,
+    results,
+    isLoading,
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
-    actions: {
-      startPlayer: (episode) => {
-        dispatch(startPlayer(episode));
-      },
-      stopPlayer: () => {
-        dispatch(stopPlayer());
-      },
-    }
+    actions: bindActionCreators({
+      startPlayer,
+      stopPlayer,
+      fetchEpisodes,
+    }, dispatch)
   };
 };
 
