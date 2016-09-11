@@ -13,7 +13,10 @@ class LatestEpisodes extends Component {
 
   constructor(props) {
     super(props);
-    this.onSelectPager = this.onSelectPager.bind(this);
+
+    this.handleSelectPager = this.handleSelectPager.bind(this);
+    this.handleStartPlayer = this.handleStartPlayer.bind(this);
+    this.handleStopPlayer = this.handleStopPlayer.bind(this);
 
   }
 
@@ -21,7 +24,23 @@ class LatestEpisodes extends Component {
     this.fetchEpisodes();
   }
 
-  onSelectPager(url) {
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.location.query.page !== this.props.location.query.page) {
+      this.fetchEpisodes(null, nextProps);
+    }
+  }
+
+  handleStartPlayer(event) {
+    event.preventDefault();
+    this.props.actions.startPlayer();
+  }
+
+  handleStopPlayer(event) {
+    event.preventDefault();
+    this.props.actions.stopPlayer();
+  }
+
+  handleSelectPager(url) {
     this.fetchEpisodes(url);
   }
 
@@ -48,7 +67,7 @@ class LatestEpisodes extends Component {
     const { next, previous, results } = this.props;
 
     const pager = (previous || next) ?
-      <Pager next={next} previous={previous} onSelect={this.onSelectPager} /> : '';
+      <Pager next={next} previous={previous} onSelect={this.handleSelectPager} /> : '';
 
     return (
       <div>
@@ -56,8 +75,8 @@ class LatestEpisodes extends Component {
           {results.map(episode => (
           <Episode key={episode.id}
                    episode={episode}
-                   startPlayer={this.props.actions.startPlayer}
-                   stopPlayer={this.props.actions.stopPlayer}
+                   onStart={this.handleStartPlayer}
+                   onStop={this.handleStopPlayer}
                    player={this.props.player} />
           ))}
           {pager}
@@ -72,7 +91,9 @@ LatestEpisodes.propTypes = {
   next: PropTypes.string,
   previous: PropTypes.string,
   actions: PropTypes.object.isRequired,
-}
+  location: PropTypes.object.isRequired,
+  router: PropTypes.object.isRequired,
+};
 
 const mapStateToProps = state => {
   const { episodes: { isLoading, next, previous, results }, player } = state;

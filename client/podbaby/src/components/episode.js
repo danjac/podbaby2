@@ -4,22 +4,16 @@ import * as bs from 'react-bootstrap';
 
 
 export const Episode = props => {
-  const { episode, player, startPlayer, stopPlayer } = props;
-  const { channel } = episode;
+  const {
+    episode,
+    episode: { channel },
+    player,
+    onStart,
+    onStop } = props;
   const isPlaying = player.isPlaying && player.episode.id === episode.id;
 
   let style = {};
   let button;
-
-  const onStart = event => {
-    event.preventDefault();
-    startPlayer(episode);
-  };
-
-  const onStop = event => {
-    event.preventDefault();
-    stopPlayer();
-  };
 
   if (isPlaying) {
     style.backgroundColor = '#eee';
@@ -38,7 +32,7 @@ export const Episode = props => {
       </bs.Media.Left>
       <bs.Media.Body>
         <bs.Media.Heading>{channel.name}</bs.Media.Heading>
-        <h4>{episode.title}</h4>
+        <h5>{episode.title}</h5>
         <p>
           {episode.subtitle}
         </p>
@@ -57,8 +51,8 @@ export const Episode = props => {
 Episode.propTypes = {
   episode: React.PropTypes.object.isRequired,
   player: React.PropTypes.object.isRequired,
-  startPlayer: React.PropTypes.func.isRequired,
-  stopPlayer: React.PropTypes.func.isRequired,
+  onStart: React.PropTypes.func.isRequired,
+  onStop: React.PropTypes.func.isRequired,
 };
 
 
