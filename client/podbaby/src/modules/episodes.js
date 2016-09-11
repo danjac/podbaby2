@@ -15,14 +15,14 @@ const initialState = {
 export function fetchEpisodes(url) {
   return dispatch => {
     dispatch({ type: FETCH_EPISODES });
-    api.get(url)
+    return api.get(url)
     .then(payload => {
       dispatch({
         type: FETCH_EPISODES_SUCCESS,
         payload,
-      })
+      });
     }, error => {
-      return dispatch({
+      dispatch({
         type: FETCH_EPISODES_FAILURE,
         error,
       });

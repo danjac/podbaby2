@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
-import { LinkContainer, IndexLinkContainer } from 'react-router-bootstrap'
+import { LinkContainer, IndexLinkContainer } from 'react-router-bootstrap';
 import { withRouter, Link } from 'react-router';
 import { connect } from 'react-redux';
 import * as bs from 'react-bootstrap';
@@ -22,7 +22,7 @@ const Player = props => {
     <div className="container audio-player">
       <h4>{episode.title}</h4>
       <audio controls autoPlay>
-        <source src={episode.enclosureUrl} type={episode.enclosureType} />
+        <source src={episode.streamUrl} type={episode.enclosureType} />
       </audio>
     </div>
   );

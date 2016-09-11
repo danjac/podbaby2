@@ -13,7 +13,7 @@ const parseJSON = response => {
     }
     return data;
   });
-}
+};
 
 const checkStatus = response => {
   if (response.ok || response.status === 400) {
@@ -31,7 +31,7 @@ const normalizeUrl = url => {
     url = baseUrl + url;
   }
   return url;
-}
+};
 
 const doReq = (method, url, data) => {
 
@@ -60,7 +60,7 @@ const doReq = (method, url, data) => {
     })
     .then(checkStatus)
     .then(parseJSON)
-    .then(camelizeKeys)
+    .then(camelizeKeys);
 };
 
 

@@ -8,12 +8,11 @@ export const Episode = props => {
   const { channel } = episode;
   const isPlaying = player.isPlaying && player.episode.id === episode.id;
 
-  let style = {}
+  let style = {};
   let button;
 
   const onStart = event => {
     event.preventDefault();
-    console.log('starting')
     startPlayer(episode);
   };
 

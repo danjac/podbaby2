@@ -13,7 +13,7 @@ import { getCurrentUser } from '../modules/auth';
 import { success, warning } from '../modules/alerts';
 
 
-class Login extends Component {
+export class Login extends Component {
 
   constructor(props) {
     super(props);

@@ -5,18 +5,9 @@ import { withRouter } from 'react-router';
 
 import { startPlayer, stopPlayer } from '../modules/player';
 import { fetchEpisodes } from '../modules/episodes';
+import { parsePageNumberFromUrl } from '../pagination';
 import Pager from '../components/pager';
 import Episode from '../components/episode';
-
-
-// move this into a util module somewhere
-const extractPageNumberFromUrl = url => {
-  const match = /.*?[\?&]page=(\d+).*?/.exec(url);
-  if (match) {
-    return Number(match[1]).valueOf();
-  }
-  return null;
-};
 
 class LatestEpisodes extends Component {
 
@@ -27,7 +18,7 @@ class LatestEpisodes extends Component {
   }
 
   componentDidMount() {
-    this.fetchEpisodes(null);
+    this.fetchEpisodes();
   }
 
   onSelectPager(url) {
@@ -39,10 +30,7 @@ class LatestEpisodes extends Component {
     props = props || this.props;
 
     if (url) {
-      const pageNumber = extractPageNumberFromUrl(url);
-      if (pageNumber) {
-        props.router.replace({ query: { page: pageNumber }})
-      }
+      props.router.replace({ query: { page: parsePageNumberFromUrl(url) } });
     } else {
       const page = props.location.query.page || 1;
       url = '/api/episodes/?page=' + page;

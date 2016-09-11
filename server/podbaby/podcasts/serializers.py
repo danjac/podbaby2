@@ -48,6 +48,7 @@ class EpisodeSerializer(serializers.ModelSerializer):
 
     channel = ChannelSerializer()
     explicit = serializers.SerializerMethodField('is_explicit')
+    stream_url = serializers.SerializerMethodField()
 
     class Meta:
         model = Episode
@@ -66,8 +67,12 @@ class EpisodeSerializer(serializers.ModelSerializer):
             'enclosure_url',
             'enclosure_type',
             'enclosure_length',
+            'stream_url',
             'channel',
         )
+
+    def get_stream_url(self, obj):
+        return self.context['request'].build_absolute_uri(obj.get_stream_url())
 
     def is_explicit(self, obj):
         return obj.is_explicit()

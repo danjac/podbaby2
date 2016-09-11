@@ -1,9 +1,11 @@
 import requests
+import os
 
 from urllib.parse import urlparse
 
 from django.conf import settings
 from django.db import models
+from django.core.urlresolvers import reverse
 from django.core.files.base import ContentFile
 from django.utils.timezone import make_aware
 
@@ -183,6 +185,15 @@ class Episode(TimeStampedModel):
 
     def __str__(self):
         return "{} - {}".format(self.title, self.channel)
+
+    def get_stream_url(self):
+
+        if not self.enclosure_url:
+            return None
+
+        result = urlparse(self.enclosure_url)
+        _, ext = os.path.splitext(result.path)
+        return reverse('stream-episode', args=[self.pk, ext])
 
     def is_explicit(self):
         """
