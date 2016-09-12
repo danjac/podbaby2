@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
 import * as bs from 'react-bootstrap';
 
-export const Pager = props => {
+const Pager = props => {
+
   const { onSelect, next, previous } = props;
 
   const onSelectPrevious = () => onSelect(previous);
@@ -16,9 +17,9 @@ export const Pager = props => {
 };
 
 Pager.propTypes = {
-  next: React.PropTypes.string,
-  previous: React.PropTypes.string,
-  onSelect: React.PropTypes.func.isRequired,
+  next: PropTypes.string,
+  previous: PropTypes.string,
+  onSelect: PropTypes.func.isRequired,
 };
 
 export default Pager;

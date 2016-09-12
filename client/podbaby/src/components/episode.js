@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
 import Icon from 'react-fa';
 import * as bs from 'react-bootstrap';
 
@@ -49,10 +49,10 @@ export const Episode = props => {
 };
 
 Episode.propTypes = {
-  episode: React.PropTypes.object.isRequired,
-  player: React.PropTypes.object.isRequired,
-  onStart: React.PropTypes.func.isRequired,
-  onStop: React.PropTypes.func.isRequired,
+  episode: PropTypes.object.isRequired,
+  player: PropTypes.object.isRequired,
+  onStart: PropTypes.func.isRequired,
+  onStop: PropTypes.func.isRequired,
 };
 
 

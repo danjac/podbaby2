@@ -3,6 +3,7 @@
   "version": "0.0.1",
   "private": true,
   "devDependencies": {
+    "enzyme": "^2.4.1",
     "nock": "^8.0.0",
     "react-addons-test-utils": "^15.3.1",
     "react-scripts": "0.3.0",
@@ -12,6 +13,7 @@
   "dependencies": {
     "humps": "^1.1.0",
     "isomorphic-fetch": "^2.2.1",
+    "jest": "^15.1.1",
     "lodash": "^4.15.0",
     "react": "^15.3.1",
     "react-bootstrap": "^0.30.3",
