@@ -22,7 +22,6 @@ class CreateUser(generics.CreateAPIView):
 class UserViewSet(mixins.RetrieveModelMixin,
                   mixins.UpdateModelMixin,
                   mixins.DestroyModelMixin,
-                  mixins.CreateModelMixin,
                   viewsets.GenericViewSet):
 
     serializer_class = UserSerializer

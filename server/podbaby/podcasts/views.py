@@ -7,8 +7,6 @@ from django.views.generic.detail import SingleObjectMixin
 
 from rest_framework import viewsets
 
-from podbaby.permissions import ReadOnly
-
 from podcasts.serializers import EpisodeSerializer
 from podcasts.models import Episode
 
@@ -33,10 +31,9 @@ class EpisodeStream(SingleObjectMixin, View):
         )
 
 
-class EpisodeViewSet(viewsets.ModelViewSet):
+class EpisodeViewSet(viewsets.ReadOnlyModelViewSet):
 
     serializer_class = EpisodeSerializer
-    permission_classes = [ReadOnly]
 
     def get_queryset(self):
 
