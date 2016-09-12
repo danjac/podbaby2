@@ -9,7 +9,7 @@ it('should enable previous and next buttons if present', () => {
     onSelect: jest.fn(),
   };
   const rendered = shallow(<Pager {...props} />);
-  expect(rendered.find('.disabled').length).toBe(0);
+  expect(rendered.find({ disabled: true }).length).toBe(0);
 });
 
 it('should disable previous button if url absent', () => {

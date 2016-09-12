@@ -11,7 +11,11 @@ from podcasts.serializers import EpisodeSerializer
 from podcasts.models import Episode
 
 
-class EpisodeStream(SingleObjectMixin, View):
+class EpisodeStreamProxy(SingleObjectMixin, View):
+    """
+    Proxy for enclosure URL, for episodes that only
+    have an HTTP link
+    """
 
     model = Episode
 

@@ -187,11 +187,15 @@ class Episode(TimeStampedModel):
         return "{} - {}".format(self.title, self.channel)
 
     def get_stream_url(self):
-
+        """
+        Returns the proxy URL if an http enclosure URL
+        """
         if not self.enclosure_url:
             return None
 
         result = urlparse(self.enclosure_url)
+        if result.scheme == 'https':
+            return self.enclosure_url
         _, ext = os.path.splitext(result.path)
         return reverse('stream-episode', args=[self.pk, ext])
 

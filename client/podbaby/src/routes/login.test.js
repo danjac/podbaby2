@@ -1,7 +1,7 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import configureMockStore from 'redux-mock-store';
 import nock from 'nock';
+import { shallow } from 'enzyme';
 import { getAuthToken } from '../storage';
 import { Provider } from 'react-redux';
 import { reduxForm } from 'redux-form';
@@ -10,7 +10,6 @@ import { Login } from './login';
 jest.mock('../storage');
 
 it('should just render the page', () => {
-  const div = document.createElement('div');
   const props = {
     actions: {},
     handleSubmit: jest.fn(),
@@ -21,10 +20,10 @@ it('should just render the page', () => {
   })(Login);
 
   const store = configureMockStore()();
-  ReactDOM.render(
+  shallow(
     <Provider store={store}>
       <Decorated {...props} />
-    </Provider>, div);
+    </Provider>);
 });
 
 it('should call submit and log in a valid user', () => {
