@@ -77,6 +77,7 @@ class LatestEpisodes extends Component {
                    episode={episode}
                    onStart={this.handleStartPlayer}
                    onStop={this.handleStopPlayer}
+                   isLoggedIn={this.props.isLoggedIn}
                    player={this.props.player} />
           ))}
           {pager}
@@ -96,13 +97,22 @@ LatestEpisodes.propTypes = {
 };
 
 const mapStateToProps = state => {
-  const { episodes: { isLoading, next, previous, results }, player } = state;
+  const {
+    auth: { isLoggedIn },
+    episodes: {
+      isLoading,
+      next,
+      previous,
+      results },
+    player } = state;
+
   return {
     player,
     next,
     previous,
     results,
     isLoading,
+    isLoggedIn,
   };
 };
 

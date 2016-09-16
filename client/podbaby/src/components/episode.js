@@ -9,21 +9,37 @@ export const Episode = props => {
     episode: { channel },
     player,
     onStart,
+    isLoggedIn,
     onStop } = props;
   const isPlaying = player.isPlaying && player.episode.id === episode.id;
 
-  let style = {};
-  let button;
+  let playerBtn;
 
   if (isPlaying) {
-    style.backgroundColor = '#eee';
-    button = <bs.Button bsStyle="primary" onClick={onStop}><Icon name="stop" /></bs.Button>;
+    playerBtn = <bs.Button bsSize="small" onClick={onStop}><Icon name="stop" /></bs.Button>;
   } else {
-    button = <bs.Button bsStyle="primary" onClick={onStart}><Icon name="play" /></bs.Button>;
+    playerBtn = <bs.Button bsSize="small" onClick={onStart}><Icon name="play" /></bs.Button>;
   }
 
+  let buttonGroup;
+
+  if (isLoggedIn) {
+    buttonGroup = (
+      <bs.ButtonGroup>
+          {playerBtn}
+          <bs.Button bsSize="small"><Icon name="bookmark" /></bs.Button>
+        </bs.ButtonGroup>
+     );
+  } else {
+    buttonGroup = (
+      <bs.ButtonGroup>
+          {playerBtn}
+        </bs.ButtonGroup>
+     );
+ }
+
   return (
-    <bs.Media style={style}>
+    <bs.Media>
       <bs.Media.Left>
         {channel.thumbnail ? <img src={channel.thumbnail.url}
              width={channel.thumbnail.width}
@@ -32,6 +48,7 @@ export const Episode = props => {
       </bs.Media.Left>
       <bs.Media.Body>
         <bs.Media.Heading>{channel.name}</bs.Media.Heading>
+        {buttonGroup}
         <h5>{episode.title}</h5>
         <p>
           {episode.subtitle}
@@ -41,7 +58,6 @@ export const Episode = props => {
           <a href="#" key={cat.id}><bs.Label>{cat.name}</bs.Label>&nbsp;</a>
           ))}
           {episode.explicit ? <bs.Label bsStyle="danger"><Icon name="warning" /> Explicit</bs.Label> : ''}
-          {button}
         </p>
       </bs.Media.Body>
     </bs.Media>
@@ -50,6 +66,7 @@ export const Episode = props => {
 
 Episode.propTypes = {
   episode: PropTypes.object.isRequired,
+  isLoggedIn: PropTypes.bool.isRequired,
   player: PropTypes.object.isRequired,
   onStart: PropTypes.func.isRequired,
   onStop: PropTypes.func.isRequired,
