@@ -36,10 +36,15 @@ export const Episode = props => {
           {playerBtn}
         </bs.ButtonGroup>
      );
- }
+  }
+
+  const styles = {
+    border: "1pt solid #333",
+    padding: 5,
+  };
 
   return (
-    <bs.Media>
+    <bs.Media style={styles}>
       <bs.Media.Left>
         {channel.thumbnail ? <img src={channel.thumbnail.url}
              width={channel.thumbnail.width}
@@ -48,16 +53,16 @@ export const Episode = props => {
       </bs.Media.Left>
       <bs.Media.Body>
         <bs.Media.Heading>{channel.name}</bs.Media.Heading>
-        {buttonGroup}
         <h5>{episode.title}</h5>
-        <p>
-          {episode.subtitle}
-        </p>
         <p>
           {channel.categories.map(cat => (
           <a href="#" key={cat.id}><bs.Label>{cat.name}</bs.Label>&nbsp;</a>
           ))}
           {episode.explicit ? <bs.Label bsStyle="danger"><Icon name="warning" /> Explicit</bs.Label> : ''}
+        </p>
+        {buttonGroup}
+        <p>
+          {episode.subtitle}
         </p>
       </bs.Media.Body>
     </bs.Media>

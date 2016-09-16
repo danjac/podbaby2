@@ -1,6 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import * as bs from 'react-bootstrap';
+import Icon from 'react-fa';
 import { Episode } from './episode';
 
 const defaultProps = {
@@ -59,13 +60,13 @@ it('should enable stop button if playing', () => {
 it('should show a bookmark button if user is logged in', () => {
   const props = {...defaultProps, isLoggedIn: true };
   const rendered = shallow(<Episode {...props} />);
-  expect(rendered.find('Icon', { name: "bookmark" })).toBeTruthy();
+  expect(rendered.contains(<Icon name="bookmark" />)).toBeTruthy();
 });
 
 it('should not show a bookmark button if user is logged in', () => {
   const props = {...defaultProps, isLoggedIn: false };
   const rendered = shallow(<Episode {...props} />);
-  expect(rendered.contains('Icon', { name: "bookmark" })).toBeFalsy();
+  expect(rendered.contains(<Icon name="bookmark" />)).toBeFalsy();
 });
 
 
