@@ -114,7 +114,11 @@ class Channel(TimeStampedModel):
 
         for item in podcast.items:
 
-            if not item.guid or not item.enclosure_url:
+            if not all((
+                    item.guid,
+                    item.enclosure_url,
+                    item.date_time)):
+
                 continue
 
             fields = {
