@@ -5,10 +5,10 @@ import { reduxForm, Field, SubmissionError } from 'redux-form';
 import { withRouter } from 'react-router';
 import * as bs from 'react-bootstrap';
 
-import * as api from '../api';
-import { setAuthToken } from '../storage';
+import * as api from '../utils/api';
+import { setAuthToken } from '../utils/storage';
+import validator from '../utils/validate';
 import { getCurrentUser } from '../modules/auth';
-import validator from '../validate';
 import { formControl } from '../components/form';
 import { success } from '../modules/alerts';
 
@@ -114,4 +114,4 @@ export default connect(
   mapDispatchToProps)(reduxForm({
     form: 'signup',
     validate: validator(constraints),
-  })(withRouter(Signup)))
+  })(withRouter(Signup)));

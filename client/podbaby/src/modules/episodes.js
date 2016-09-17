@@ -1,4 +1,4 @@
-import * as api from '../api';
+import * as api from '../utils/api';
 
 const FETCH_EPISODES = 'podbaby/episodes/FETCH_EPISODES';
 const FETCH_EPISODES_SUCCESS = 'podbaby/episodes/FETCH_SUCCESS';

@@ -1,10 +1,10 @@
-import * as api from '../api';
+import * as api from '../utils/api';
+import {  getAuthToken, removeAuthToken } from '../utils/storage';
 
 import {
   info,
 } from './alerts';
 
-import {  getAuthToken, removeAuthToken } from '../storage';
 
 const GET_USER_SUCCESS = 'podbaby/auth/GET_USER_SUCCESS';
 const GET_USER_FAILURE = 'podbaby/auth/GET_USER_FAILURE';

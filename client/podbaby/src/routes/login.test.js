@@ -2,12 +2,13 @@ import React from 'react';
 import configureMockStore from 'redux-mock-store';
 import nock from 'nock';
 import { shallow } from 'enzyme';
-import { getAuthToken } from '../storage';
 import { Provider } from 'react-redux';
 import { reduxForm } from 'redux-form';
+
+import { getAuthToken } from '../utils/storage';
 import { Login } from './login';
 
-jest.mock('../storage');
+jest.mock('../utils/storage');
 
 it('should just render the page', () => {
   const props = {

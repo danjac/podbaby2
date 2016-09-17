@@ -5,9 +5,9 @@ import { withRouter } from 'react-router';
 import { reduxForm, Field, SubmissionError } from 'redux-form';
 import * as bs from 'react-bootstrap';
 
-import * as api from '../api';
-import { setAuthToken } from '../storage';
-import validator from '../validate';
+import * as api from '../utils/api';
+import { setAuthToken } from '../utils/storage';
+import validator from '../utils/validate';
 import { formControl } from '../components/form';
 import { getCurrentUser } from '../modules/auth';
 import { success, warning } from '../modules/alerts';

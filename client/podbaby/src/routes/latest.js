@@ -5,7 +5,7 @@ import { withRouter } from 'react-router';
 
 import { startPlayer, stopPlayer } from '../modules/player';
 import { fetchEpisodes } from '../modules/episodes';
-import { parsePageNumberFromUrl } from '../pagination';
+import { parsePageNumberFromUrl } from '../utils/pagination';
 import Pager from '../components/pager';
 import Episode from '../components/episode';
 
@@ -25,8 +25,9 @@ class LatestEpisodes extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.location.query.page !== this.props.location.query.page) {
-      this.fetchEpisodes(null, nextProps);
+    if (nextProps.location.query.page &&
+      nextProps.location.query.page !== this.props.location.query.page) {
+      this.fetchEpisodes(nextProps.location.query.page);
     }
   }
 
@@ -39,21 +40,12 @@ class LatestEpisodes extends Component {
   }
 
   handleSelectPager(url) {
-    this.fetchEpisodes(url);
+    const page = parsePageNumberFromUrl(url);
+    this.props.router.replace({ query: { page } });
   }
 
-  fetchEpisodes(url, props) {
-
-    props = props || this.props;
-
-    if (url) {
-      props.router.replace({ query: { page: parsePageNumberFromUrl(url) } });
-    } else {
-      const page = props.location.query.page || 1;
-      url = '/api/episodes/?page=' + page;
-    }
-
-    this.props.actions.fetchEpisodes(url);
+  fetchEpisodes(page=1) {
+    this.props.actions.fetchEpisodes('/api/episodes/?page=' + page);
   }
 
   render() {

@@ -9,28 +9,9 @@ import { logout } from './modules/auth';
 import { dismissAlert } from './modules/alerts';
 import { stopPlayer } from './modules/player';
 
+import Player from './components/player';
+
 import './App.css';
-
-const Player = props => {
-  const { isPlaying, episode } = props;
-
-  if (!isPlaying || !episode) {
-    return <div></div>;
-  }
-
-  const onPlay = ({ currentTarget }) => {
-    currentTarget.currentTime = 0;
-  };
-
-  return (
-    <div className="container audio-player">
-      <h4>{episode.title} : {episode.duration}</h4>
-      <audio controls autoPlay onPlay={onPlay} src={episode.streamUrl}>
-        <source src={episode.streamUrl} type={episode.enclosureType} />
-      </audio>
-    </div>
-  );
-};
 
 const Alert = props => {
   const { alert, onDismiss } = props;

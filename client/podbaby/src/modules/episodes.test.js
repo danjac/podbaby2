@@ -4,7 +4,7 @@ import { fetchEpisodes } from './episodes';
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 
-jest.mock('../storage');
+jest.mock('../utils/storage');
 
 const mockStore = configureMockStore([thunk]);
 
