@@ -1,7 +1,7 @@
 from django.core.management.base import BaseCommand
 
 
-from podcasts.models import Channel, InvalidFeed
+from channels.models import Channel, InvalidFeed
 
 
 class Command(BaseCommand):

@@ -8,17 +8,18 @@ export const Episode = props => {
     episode,
     episode: { channel },
     player,
-    onStart,
     isLoggedIn,
+    onStart,
     onStop } = props;
-  const isPlaying = player.isPlaying && player.episode.id === episode.id;
+
+  const isPlaying = player.isPlaying && player.episode && player.episode.id === episode.id;
 
   let playerBtn;
 
   if (isPlaying) {
     playerBtn = <bs.Button bsSize="small" onClick={onStop}><Icon name="stop" /></bs.Button>;
   } else {
-    playerBtn = <bs.Button bsSize="small" onClick={onStart}><Icon name="play" /></bs.Button>;
+    playerBtn = <bs.Button bsSize="small" onClick={() => onStart(episode)}><Icon name="play" /></bs.Button>;
   }
 
   let buttonGroup;

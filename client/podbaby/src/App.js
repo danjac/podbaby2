@@ -7,21 +7,25 @@ import * as bs from 'react-bootstrap';
 
 import { logout } from './modules/auth';
 import { dismissAlert } from './modules/alerts';
-import { startPlayer, stopPlayer } from './modules/player';
+import { stopPlayer } from './modules/player';
 
 import './App.css';
 
 const Player = props => {
   const { isPlaying, episode } = props;
 
-  if (!isPlaying) {
+  if (!isPlaying || !episode) {
     return <div></div>;
   }
 
+  const onPlay = ({ currentTarget }) => {
+    currentTarget.currentTime = 0;
+  };
+
   return (
     <div className="container audio-player">
-      <h4>{episode.title}</h4>
-      <audio controls autoPlay>
+      <h4>{episode.title} : {episode.duration}</h4>
+      <audio controls autoPlay onPlay={onPlay} src={episode.streamUrl}>
         <source src={episode.streamUrl} type={episode.enclosureType} />
       </audio>
     </div>
@@ -45,15 +49,19 @@ export class App extends Component {
     super(props);
     this.handleLogout = this.handleLogout.bind(this);
     this.handleDismissAlert = this.handleDismissAlert.bind(this);
+    this.handleStopPlayer = this.handleStopPlayer.bind(this);
   }
 
-  handleLogout(event) {
-    event.preventDefault();
+  handleLogout() {
     this.props.actions.logout();
   }
 
   handleDismissAlert(id) {
     this.props.actions.dismissAlert(id);
+  }
+
+  handleStopPlayer() {
+    this.props.actions.stopPlayer();
   }
 
   render() {
@@ -92,7 +100,7 @@ export class App extends Component {
           ))}
           {this.props.children}
         </div>
-        <Player {...this.props.player} />
+        <Player onStop={this.handleStopPlayer} {...this.props.player} />
       </div>
     );
   }
@@ -111,7 +119,6 @@ const mapDispatchToProps = dispatch => {
     actions: bindActionCreators({
       logout,
       dismissAlert,
-      startPlayer,
       stopPlayer,
     }, dispatch)
   };

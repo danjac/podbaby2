@@ -26,6 +26,8 @@ export function getCurrentUser() {
           payload,
         });
       }, () => {
+        // token likely out of date
+        removeAuthToken();
         dispatch({ type: GET_USER_FAILURE });
       });
   };

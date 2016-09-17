@@ -30,13 +30,11 @@ class LatestEpisodes extends Component {
     }
   }
 
-  handleStartPlayer(event) {
-    event.preventDefault();
-    this.props.actions.startPlayer();
+  handleStartPlayer(episode) {
+    this.props.actions.startPlayer(episode);
   }
 
-  handleStopPlayer(event) {
-    event.preventDefault();
+  handleStopPlayer() {
     this.props.actions.stopPlayer();
   }
 
