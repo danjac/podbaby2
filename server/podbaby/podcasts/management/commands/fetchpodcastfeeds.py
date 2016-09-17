@@ -20,7 +20,7 @@ class Command(BaseCommand):
                 continue
 
             if verbosity > 1:
-                msg = "{}{}".format(channel.name.ljust(50, '.'), new_episodes)
+                msg = "{}{}".format(channel.name.ljust(80, '.'), new_episodes)
                 if new_episodes:
                     msg = self.style.SUCCESS(msg)
                 self.stdout.write(msg)
