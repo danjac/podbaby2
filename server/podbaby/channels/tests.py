@@ -1,19 +1,23 @@
 import datetime
+
 from unittest import mock
 
 from django.test import TestCase
 
 from factory.django import DjangoModelFactory
 
-from podcasts.models import Channel, Episode, InvalidFeed
+from episodes.models import Episode
+from channels.models import Channel, InvalidFeed
 
 
 class ChannelFactory(DjangoModelFactory):
+
     class Meta:
         model = Channel
 
 
 class EpisodeFactory(DjangoModelFactory):
+
     class Meta:
         model = Episode
 
@@ -36,41 +40,7 @@ class MockRequests:
         return MockResponse()
 
 
-class EpisodeTests(TestCase):
-
-    def test_get_stream_url_if_none(self):
-        """
-        Should just be None if no enclosure url
-        """
-
-        e = Episode()
-        self.assertEqual(e.get_stream_url(), None)
-
-    def test_get_stream_url_if_http(self):
-        """
-        Http links should proxy
-        """
-
-        e = Episode(
-            pk=1000,
-            enclosure_url='http://www.libsyn.com/podcast_160911.mp3'
-        )
-        self.assertEqual(e.get_stream_url(), '/stream/1000.mp3')
-
-    def test_get_stream_url_if_https(self):
-        """
-        Https links should return same URL
-        """
-
-        e = Episode(
-            pk=1000,
-            enclosure_url='https://www.libsyn.com/podcast_160911.mp3'
-        )
-        self.assertEqual(e.get_stream_url(), e.enclosure_url)
-
-
-
-@mock.patch('podcasts.models.requests', MockRequests)
+@mock.patch('channels.models.requests', MockRequests)
 class ChannelTests(TestCase):
 
     def test_fetch_if_bad(self):
@@ -87,7 +57,7 @@ class ChannelTests(TestCase):
                 # podcast must have a title
                 self.title = None
 
-        with mock.patch('podcasts.models.Podcast', MockPodcast):
+        with mock.patch('channels.models.Podcast', MockPodcast):
             self.assertRaises(InvalidFeed, channel.fetch)
 
     def test_fetch_if_ok(self):
@@ -140,7 +110,7 @@ class ChannelTests(TestCase):
                     ) for i in range(3)
                 ]
 
-        with mock.patch('podcasts.models.Podcast', MockPodcast):
+        with mock.patch('channels.models.Podcast', MockPodcast):
             new_episodes = channel.fetch()
 
         self.assertEqual(channel.name, 'new title')

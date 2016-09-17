@@ -1,7 +1,7 @@
 from django.db import transaction
 from django.core.management.base import BaseCommand, CommandError
 
-from podcasts.models import Channel
+from channels.models import Channel
 
 
 class Command(BaseCommand):

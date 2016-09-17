@@ -7,8 +7,8 @@ from django.views.generic.detail import SingleObjectMixin
 
 from rest_framework import viewsets
 
-from podcasts.serializers import EpisodeSerializer
-from podcasts.models import Episode
+from episodes.serializers import EpisodeSerializer
+from episodes.models import Episode
 
 
 class EpisodeStreamProxy(SingleObjectMixin, View):

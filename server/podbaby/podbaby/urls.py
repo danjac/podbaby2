@@ -7,7 +7,7 @@ from rest_framework.routers import DefaultRouter
 from rest_framework.authtoken.views import obtain_auth_token
 
 from account.views import UserViewSet, CreateUser
-from podcasts.views import EpisodeViewSet, EpisodeStreamProxy
+from episodes.views import EpisodeViewSet, EpisodeStreamProxy
 
 router = DefaultRouter()
 

@@ -42,11 +42,13 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django_extensions',
     'corsheaders',
-    # 'debug_toolbar',
     'imagekit',
     'rest_framework',
     'rest_framework.authtoken',
-    'podcasts',
+    'account',
+    'categories',
+    'channels',
+    'episodes',
 ]
 
 MIDDLEWARE = [
