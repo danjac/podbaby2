@@ -4,11 +4,13 @@ import {
   partial
 } from 'lodash';
 
-import { getAuthToken } from './storage';
+import config from '../config';
+import { getAuthToken, removeAuthToken } from './storage';
 
 const parseJSON = response => {
   return response.json().then(data => {
     if (response.status === 400) {
+      // munge errors for form handling
       return { errors: data };
     }
     return data;
@@ -16,19 +18,22 @@ const parseJSON = response => {
 };
 
 const checkStatus = response => {
-  if (response.ok || response.status === 400) {
-    return response;
+  if (response.status > 400) {
+    if (response.status === 403) {
+      // remove invalid token
+      removeAuthToken();
+    }
+    const error = new Error(response.statusText);
+    error.response = response;
+    throw error;
   }
-  const error = new Error(response.statusText);
-  error.response = response;
-  throw error;
+  return response;
 };
 
 
 const normalizeUrl = url => {
-  const baseUrl = process.env.NODE_ENV === 'production' ? 'https://podbaby.me' : 'http://localhost:8000';
-  if (!url.startsWith(baseUrl)) {
-    url = baseUrl + url;
+  if (!url.startsWith(config.API_URL)) {
+    url = config.API_URL + url;
   }
   return url;
 };
