@@ -35,7 +35,7 @@ class EpisodeSerializer(serializers.ModelSerializer):
     def get_stream_url(self, obj):
         url = obj.get_stream_url()
         request = self.context.get('request', None)
-        if request and not url.startswith('https'):
+        if request and url and not url.startswith('https'):
             url = request.build_absolute_uri(url)
         return url
 
