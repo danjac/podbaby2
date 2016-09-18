@@ -1,6 +1,9 @@
 import json
 
+from unittest import mock
+
 from django.test import TestCase
+from django.core.urlresolvers import reverse
 from django.contrib.auth import get_user_model
 
 from factory import SubFactory
@@ -15,6 +18,25 @@ from bookmarks.models import Bookmark
 from episodes.models import Episode, Channel
 
 User = get_user_model()
+
+
+class MockResponse:
+    content = ''
+
+    def __init__(self, status_code=200):
+        self.status_code = status_code
+
+    def iter_content(self, chunk):
+        return self.content
+
+
+class MockRequests:
+
+    def __init__(self, response):
+        self.response = response
+
+    def get(self, *args, **kwargs):
+        return self.response
 
 
 class UserFactory(DjangoModelFactory):
@@ -51,7 +73,45 @@ class EpisodeFactory(DjangoModelFactory):
         model = Episode
 
 
-class ViewTests(APITestCase):
+class EpisodeStreamTests(TestCase):
+
+    def test_get_if_no_enclosure_url(self):
+
+        episode = EpisodeFactory.create(enclosure_url='')
+        url = reverse('stream-episode', args=[episode.id, '.mp3'])
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, 404)
+
+    def test_get_if_enclosure_url(self):
+
+        episode = EpisodeFactory.create(
+            enclosure_url='http://testme.mp3'
+        )
+        url = reverse('stream-episode', args=[episode.id, '.mp3'])
+
+        mock_requests = MockRequests(MockResponse(200))
+
+        with mock.patch('episodes.views.requests', mock_requests):
+            response = self.client.get(url)
+
+        self.assertEqual(response.status_code, 200)
+
+    def test_get_if_enclosure_url_bad_response(self):
+
+        episode = EpisodeFactory.create(
+            enclosure_url='http://testme.mp3'
+        )
+        url = reverse('stream-episode', args=[episode.id, '.mp3'])
+
+        mock_requests = MockRequests(MockResponse(403))
+
+        with mock.patch('episodes.views.requests', mock_requests):
+            response = self.client.get(url)
+
+        self.assertEqual(response.status_code, 404)
+
+
+class EpisodeViewSetTests(APITestCase):
 
     def test_list(self):
 

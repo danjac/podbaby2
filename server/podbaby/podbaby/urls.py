@@ -25,7 +25,7 @@ urlpatterns = [
         ),
     url(r'^api/auth/create/$', CreateUser.as_view()),
     url(r'^api-token-auth/$', obtain_auth_token),
-    url(r'^api/', include(router.urls)),
+    url(r'^api/', include(router.urls, namespace='api')),
 ]
 
 if settings.DEBUG:
