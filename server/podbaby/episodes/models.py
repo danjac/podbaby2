@@ -2,6 +2,7 @@ import os
 
 from urllib.parse import urlparse
 
+from django.conf import settings
 from django.db import models
 from django.core.urlresolvers import reverse
 
@@ -14,6 +15,13 @@ class Episode(TimeStampedModel):
 
     channel = models.ForeignKey(Channel)
     guid = models.CharField(max_length=200)
+
+    users = models.ManyToManyField(
+       settings.AUTH_USER_MODEL,
+       blank=True,
+       through='bookmarks.Bookmark',
+       related_name='episodes',
+    )
 
     title = models.CharField(max_length=200)
     link = models.URLField(blank=True)

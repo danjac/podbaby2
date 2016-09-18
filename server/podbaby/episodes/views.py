@@ -5,7 +5,9 @@ from django.http import FileResponse, Http404
 from django.views.generic import View
 from django.views.generic.detail import SingleObjectMixin
 
-from rest_framework import viewsets
+from rest_framework import viewsets, permissions
+from rest_framework.response import Response
+from rest_framework.decorators import list_route
 
 from episodes.serializers import EpisodeSerializer
 from episodes.models import Episode
@@ -38,6 +40,20 @@ class EpisodeStreamProxy(SingleObjectMixin, View):
 class EpisodeViewSet(viewsets.ReadOnlyModelViewSet):
 
     serializer_class = EpisodeSerializer
+
+    @list_route(permission_classes=[permissions.IsAuthenticated])
+    def bookmarks(self, request):
+        qs = self.get_queryset().filter(
+            users=request.user
+        ).order_by('-bookmark__created')
+
+        page = self.paginate_queryset(qs)
+        if page is not None:
+            serializer = self.get_serializer(page, many=True)
+            return self.get_paginated_response(serializer.data)
+
+        serializer = self.get_serializer(qs, many=True)
+        return Response(serializer.data)
 
     def get_queryset(self):
 
