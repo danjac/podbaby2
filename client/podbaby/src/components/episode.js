@@ -9,17 +9,17 @@ export const Episode = props => {
     episode: { channel },
     player,
     isLoggedIn,
-    onStart,
-    onStop } = props;
+    onStartPlayer,
+    onStopPlayer } = props;
 
   const isPlaying = player.isPlaying && player.episode && player.episode.id === episode.id;
 
   let playerBtn;
 
   if (isPlaying) {
-    playerBtn = <bs.Button bsSize="small" onClick={onStop}><Icon name="stop" /></bs.Button>;
+    playerBtn = <bs.Button bsSize="small" title="Stop" onClick={onStopPlayer}><Icon name="stop" /></bs.Button>;
   } else {
-    playerBtn = <bs.Button bsSize="small" onClick={() => onStart(episode)}><Icon name="play" /></bs.Button>;
+    playerBtn = <bs.Button bsSize="small" title="Play" onClick={() => onStartPlayer(episode)}><Icon name="play" /></bs.Button>;
   }
 
   const downloadBtn = (
@@ -36,7 +36,8 @@ export const Episode = props => {
       <bs.ButtonGroup>
           {playerBtn}
           {downloadBtn}
-          <bs.Button bsSize="small"><Icon name="bookmark" /></bs.Button>
+          <bs.Button bsSize="small" title="Bookmark this episode"><Icon name="bookmark" /></bs.Button>
+          <bs.Button bsSize="small" title={`Subscribe to ${channel.name}`}><Icon name="pencil" /></bs.Button>
         </bs.ButtonGroup>
      );
   } else {
@@ -83,8 +84,8 @@ Episode.propTypes = {
   episode: PropTypes.object.isRequired,
   isLoggedIn: PropTypes.bool.isRequired,
   player: PropTypes.object.isRequired,
-  onStart: PropTypes.func.isRequired,
-  onStop: PropTypes.func.isRequired,
+  onStartPlayer: PropTypes.func.isRequired,
+  onStopPlayer: PropTypes.func.isRequired,
 };
 
 

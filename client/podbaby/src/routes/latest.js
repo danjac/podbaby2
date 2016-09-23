@@ -5,19 +5,14 @@ import { withRouter } from 'react-router';
 
 import { startPlayer, stopPlayer } from '../modules/player';
 import { fetchEpisodes } from '../modules/episodes';
+import EpisodeList from '../components/episode-list';
 import { parsePageNumberFromUrl } from '../utils/pagination';
-import Pager from '../components/pager';
-import Episode from '../components/episode';
 
 class LatestEpisodes extends Component {
 
   constructor(props) {
     super(props);
-
     this.handleSelectPager = this.handleSelectPager.bind(this);
-    this.handleStartPlayer = this.handleStartPlayer.bind(this);
-    this.handleStopPlayer = this.handleStopPlayer.bind(this);
-
   }
 
   componentDidMount() {
@@ -31,14 +26,6 @@ class LatestEpisodes extends Component {
     }
   }
 
-  handleStartPlayer(episode) {
-    this.props.actions.startPlayer(episode);
-  }
-
-  handleStopPlayer() {
-    this.props.actions.stopPlayer();
-  }
-
   handleSelectPager(url) {
     const page = parsePageNumberFromUrl(url);
     this.props.router.replace({ query: { page } });
@@ -49,61 +36,47 @@ class LatestEpisodes extends Component {
   }
 
   render() {
-
-    if (this.props.isLoading) {
-        return <h1>Waiting...</h1>;
-    }
-
-    const { next, previous, results } = this.props;
-
-    const pager = (previous || next) ?
-      <Pager next={next} previous={previous} onSelect={this.handleSelectPager} /> : '';
-
+    const { actions: { startPlayer, stopPlayer } } = this.props;
     return (
-      <div>
-          {pager}
-          {results.map(episode => (
-          <Episode key={episode.id}
-                   episode={episode}
-                   onStart={this.handleStartPlayer}
-                   onStop={this.handleStopPlayer}
-                   isLoggedIn={this.props.isLoggedIn}
-                   player={this.props.player} />
-          ))}
-          {pager}
-      </div>
-    );
+      <EpisodeList onStartPlayer={startPlayer}
+                   onStopPlayer={stopPlayer}
+                   onSelectPager={this.handleSelectPager} {...this.props} />);
   }
 }
 
 LatestEpisodes.propTypes = {
-  isLoading: PropTypes.bool.isRequired,
+  actions: PropTypes.object.isRequired,
   results: PropTypes.array.isRequired,
   next: PropTypes.string,
   previous: PropTypes.string,
-  actions: PropTypes.object.isRequired,
-  location: PropTypes.object.isRequired,
-  router: PropTypes.object.isRequired,
+  isLoading: PropTypes.bool.isRequired,
+  isLoggedIn: PropTypes.bool.isRequired,
+  player: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = state => {
   const {
-    auth: { isLoggedIn },
     episodes: {
-      isLoading,
+      results,
       next,
       previous,
-      results },
-    player } = state;
+      isLoading
+    },
+    auth: {
+      isLoggedIn,
+    },
+    player,
+  } = state;
 
   return {
-    player,
+    results,
     next,
     previous,
-    results,
     isLoading,
     isLoggedIn,
+    player,
   };
+
 };
 
 const mapDispatchToProps = dispatch => {
@@ -116,4 +89,6 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(withRouter(LatestEpisodes));
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps)(withRouter(LatestEpisodes));

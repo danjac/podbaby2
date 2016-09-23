@@ -12,7 +12,7 @@ const Player = props => {
     currentTarget.currentTime = 0;
   };
 
-  let title = episode.title;
+  let title = episode.title || episode.channel.name;
   if (episode.duration) {
     title += ' : ' + episode.duration;
   }
