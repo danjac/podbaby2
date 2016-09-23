@@ -29,8 +29,8 @@ const defaultProps = {
     episode: null,
   },
   isLoggedIn: false,
-  onStart: jest.fn(),
-  onStop: jest.fn(),
+  onStartPlayer: jest.fn(),
+  onStopPlayer: jest.fn(),
 };
 
 it('should render the component', () => {
@@ -43,7 +43,7 @@ it('should enable play button if not playing', () => {
   const props = {...defaultProps};
   const rendered = shallow(<Episode {...props} />);
   rendered.find(bs.Button).simulate('click');
-  expect(props.onStart).toBeCalled();
+  expect(props.onStartPlayer).toBeCalled();
 });
 
 it('should enable stop button if playing', () => {
@@ -54,7 +54,7 @@ it('should enable stop button if playing', () => {
   const props = {...defaultProps, player};
   const rendered = shallow(<Episode {...props} />);
   rendered.find(bs.Button).simulate('click');
-  expect(props.onStop).toBeCalled();
+  expect(props.onStopPlayer).toBeCalled();
 });
 
 it('should show a bookmark button if user is logged in', () => {
