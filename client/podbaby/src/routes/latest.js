@@ -17,7 +17,7 @@ class LatestEpisodes extends Component {
   }
 
   componentDidMount() {
-    this.fetchEpisodes();
+    this.fetchEpisodes(this.props.location.query.page || 1);
   }
 
   componentWillReceiveProps(nextProps) {
