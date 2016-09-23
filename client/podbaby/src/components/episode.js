@@ -7,16 +7,13 @@ export const Episode = props => {
   const {
     episode,
     episode: { channel },
-    player,
     isLoggedIn,
     onStartPlayer,
     onStopPlayer } = props;
 
-  const isPlaying = player.isPlaying && player.episode && player.episode.id === episode.id;
-
   let playerBtn;
 
-  if (isPlaying) {
+  if (episode.isPlaying) {
     playerBtn = <bs.Button bsSize="small" title="Stop" onClick={onStopPlayer}><Icon name="stop" /></bs.Button>;
   } else {
     playerBtn = <bs.Button bsSize="small" title="Play" onClick={() => onStartPlayer(episode)}><Icon name="play" /></bs.Button>;
@@ -83,7 +80,6 @@ export const Episode = props => {
 Episode.propTypes = {
   episode: PropTypes.object.isRequired,
   isLoggedIn: PropTypes.bool.isRequired,
-  player: PropTypes.object.isRequired,
   onStartPlayer: PropTypes.func.isRequired,
   onStopPlayer: PropTypes.func.isRequired,
 };

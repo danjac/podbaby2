@@ -7,6 +7,7 @@ import { startPlayer, stopPlayer } from '../modules/player';
 import { fetchEpisodes } from '../modules/episodes';
 import EpisodeList from '../components/episode-list';
 import { parsePageNumberFromUrl } from '../utils/pagination';
+import { episodesSelector } from '../selectors';
 
 class LatestEpisodes extends Component {
 
@@ -46,7 +47,7 @@ class LatestEpisodes extends Component {
 
 LatestEpisodes.propTypes = {
   actions: PropTypes.object.isRequired,
-  results: PropTypes.array.isRequired,
+  episodes: PropTypes.array.isRequired,
   next: PropTypes.string,
   previous: PropTypes.string,
   isLoading: PropTypes.bool.isRequired,
@@ -57,7 +58,6 @@ LatestEpisodes.propTypes = {
 const mapStateToProps = state => {
   const {
     episodes: {
-      results,
       next,
       previous,
       isLoading
@@ -68,8 +68,10 @@ const mapStateToProps = state => {
     player,
   } = state;
 
+  const episodes = episodesSelector(state);
+
   return {
-    results,
+    episodes,
     next,
     previous,
     isLoading,

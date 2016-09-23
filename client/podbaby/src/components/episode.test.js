@@ -7,6 +7,7 @@ import { Episode } from './episode';
 const defaultProps = {
   episode: {
     explicit: true,
+    isPlaying: false,
     channel: {
       name: 'The Joe Rogan Experience',
       thumbnail: {
@@ -23,10 +24,6 @@ const defaultProps = {
     },
     title: 'Brian Redban',
     subtitle: 'Joe & Redban talk shit',
-  },
-  player: {
-    isPlaying: false,
-    episode: null,
   },
   isLoggedIn: false,
   onStartPlayer: jest.fn(),
@@ -47,11 +44,8 @@ it('should enable play button if not playing', () => {
 });
 
 it('should enable stop button if playing', () => {
-  const player = {
-    isPlaying: true,
-    episode: defaultProps.episode,
-  };
-  const props = {...defaultProps, player};
+  const episode = { ...defaultProps.episode, isPlaying: true };
+  const props = {...defaultProps, episode };
   const rendered = shallow(<Episode {...props} />);
   rendered.find(bs.Button).simulate('click');
   expect(props.onStopPlayer).toBeCalled();

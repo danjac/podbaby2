@@ -11,7 +11,7 @@ export default class EpisodeList extends Component {
         return <h1>Waiting...</h1>;
     }
 
-    const { next, previous, results, onSelectPager } = this.props;
+    const { next, previous, episodes, onSelectPager } = this.props;
 
     const pager = (previous || next) ?
       <Pager next={next} previous={previous} onSelect={onSelectPager} /> : '';
@@ -19,7 +19,7 @@ export default class EpisodeList extends Component {
     return (
       <div>
           {pager}
-          {results.map(episode => (
+          {episodes.map(episode => (
           <Episode key={episode.id}
                    episode={episode}
                    {...this.props} />
@@ -32,7 +32,7 @@ export default class EpisodeList extends Component {
 
 EpisodeList.propTypes = {
   isLoading: PropTypes.bool.isRequired,
-  results: PropTypes.array.isRequired,
+  episodes: PropTypes.array.isRequired,
   next: PropTypes.string,
   previous: PropTypes.string,
   player: PropTypes.object.isRequired,
