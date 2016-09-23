@@ -22,12 +22,20 @@ export const Episode = props => {
     playerBtn = <bs.Button bsSize="small" onClick={() => onStart(episode)}><Icon name="play" /></bs.Button>;
   }
 
+  const downloadBtn = (
+    <a className="btn btn-sm btn-default"
+       title="Download this podcast"
+       href={episode.enclosureUrl}>
+      <Icon name="download" />
+    </a>);
+
   let buttonGroup;
 
   if (isLoggedIn) {
     buttonGroup = (
       <bs.ButtonGroup>
           {playerBtn}
+          {downloadBtn}
           <bs.Button bsSize="small"><Icon name="bookmark" /></bs.Button>
         </bs.ButtonGroup>
      );
@@ -35,6 +43,7 @@ export const Episode = props => {
     buttonGroup = (
       <bs.ButtonGroup>
           {playerBtn}
+          {downloadBtn}
         </bs.ButtonGroup>
      );
   }

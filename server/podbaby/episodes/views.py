@@ -1,7 +1,9 @@
 import requests
+import calendar
 
 from django.db.models import Q
 from django.http import FileResponse, Http404
+from django.utils.http import http_date
 from django.views.generic import View
 from django.views.generic.detail import SingleObjectMixin
 
@@ -31,10 +33,20 @@ class EpisodeStreamProxy(SingleObjectMixin, View):
         if resp.status_code != 200:
             raise Http404
 
-        return FileResponse(
+        response = FileResponse(
             resp.iter_content(1024),
             content_type=episode.enclosure_type
+
+
         )
+
+        last_modified = http_date(
+            calendar.timegm(episode.created.utctimetuple()))
+
+        response['Last-Modified'] = last_modified
+        response['Content-Length'] = episode.enclosure_length
+
+        return response
 
 
 class EpisodeViewSet(viewsets.ReadOnlyModelViewSet):

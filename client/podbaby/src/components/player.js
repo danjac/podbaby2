@@ -22,8 +22,8 @@ const Player = props => {
       <bs.Media.Body>
         <bs.Media.Heading>{title}</bs.Media.Heading>
         <p>
-          <audio controls autoPlay onPlay={onPlay} src={episode.streamUrl}>
-            <source src={episode.streamUrl} type={episode.enclosureType} />
+          <audio controls autoPlay onPlay={onPlay} src={episode.enclosureUrl}>
+            <source src={episode.enclosureUrl} type={episode.enclosureType} />
           </audio>
         </p>
       </bs.Media.Body>
