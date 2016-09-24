@@ -2,6 +2,8 @@ import React, { PropTypes, Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
+import * as bs from 'react-bootstrap';
+import Icon from 'react-fa';
 
 import { startPlayer, stopPlayer } from '../modules/player';
 import { fetchEpisodes } from '../modules/episodes';
@@ -37,11 +39,35 @@ class LatestEpisodes extends Component {
   }
 
   render() {
-    const { actions: { startPlayer, stopPlayer } } = this.props;
-    return (
+    const { isLoggedIn, actions: { startPlayer, stopPlayer } } = this.props;
+
+    const tabContent = (
+      <div style={{ paddingTop: 20 }}>
+        <form>
+          <bs.FormGroup>
+            <bs.FormControl type="search" placeholder="Find a podcast..." />
+          </bs.FormGroup>
+          <bs.Button className="form-control" bsStyle="primary">
+            <Icon name="search" />
+          </bs.Button>
+        </form>
       <EpisodeList onStartPlayer={startPlayer}
                    onStopPlayer={stopPlayer}
-                   onSelectPager={this.handleSelectPager} {...this.props} />);
+                   onSelectPager={this.handleSelectPager} {...this.props} />
+      </div>
+    );
+
+    if (!isLoggedIn)  {
+      return tabContent;
+    }
+
+    return (
+      <bs.Tabs>
+        <bs.Tab eventKey={1} title="My feeds">{tabContent}</bs.Tab>
+        <bs.Tab eventKey={2} title="My bookmarks">{tabContent}</bs.Tab>
+        <bs.Tab eventKey={3} title="My history">{tabContent}</bs.Tab>
+        <bs.Tab eventKey={4} title="All episodes">{tabContent}</bs.Tab>
+      </bs.Tabs>);
   }
 }
 

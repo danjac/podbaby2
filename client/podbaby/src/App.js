@@ -59,13 +59,23 @@ export class App extends Component {
           </bs.Navbar.Header>
           <bs.Nav>
             <IndexLinkContainer to="/">
-              <bs.NavItem>Latest episodes</bs.NavItem>
+              <bs.NavItem><Icon name="list" /> Podcasts</bs.NavItem>
+            </IndexLinkContainer>
+            <IndexLinkContainer to="/feeds">
+              <bs.NavItem><Icon name="rss" /> Feeds</bs.NavItem>
+            </IndexLinkContainer>
+            <IndexLinkContainer to="/categories">
+              <bs.NavItem><Icon name="folder-open" /> Browse</bs.NavItem>
             </IndexLinkContainer>
           </bs.Nav>
           {this.props.auth.isLoggedIn ? (
             <bs.Nav pullRight>
-              <bs.NavItem href="#">{this.props.auth.currentUser.username}</bs.NavItem>
-              <bs.NavItem href="#" onClick={this.handleLogout}>Logout</bs.NavItem>
+              <bs.NavItem href="#">
+                <Icon name="user" /> {this.props.auth.currentUser.username}
+              </bs.NavItem>
+              <bs.NavItem href="#" onClick={this.handleLogout}>
+                <Icon name="sign-out" /> Logout
+              </bs.NavItem>
             </bs.Nav>
           ) : (
           <bs.Nav pullRight>
