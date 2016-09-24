@@ -14,64 +14,88 @@ export const Episode = props => {
   let playerBtn;
 
   if (episode.isPlaying) {
-    playerBtn = <bs.Button bsSize="small" title="Stop" onClick={onStopPlayer}><Icon name="stop" /></bs.Button>;
+    playerBtn = (<bs.Button key="stopBtn"
+                            bsSize="small"
+                            title="Stop"
+                            onClick={onStopPlayer}>
+                            <Icon name="stop" /></bs.Button>);
   } else {
-    playerBtn = <bs.Button bsSize="small" title="Play" onClick={() => onStartPlayer(episode)}><Icon name="play" /></bs.Button>;
+    playerBtn = (<bs.Button key="startBtn"
+                            bsSize="small"
+                            title="Play"
+                            onClick={() => onStartPlayer(episode)}>
+                            <Icon name="play" /></bs.Button>);
   }
 
   const downloadBtn = (
-    <a className="btn btn-sm btn-default"
+    <a key="downloadBtn"
+       className="btn btn-sm btn-default"
        title="Download this podcast"
        href={episode.enclosureUrl}>
       <Icon name="download" />
     </a>);
 
-  let buttonGroup;
+
+  let buttons = [
+    playerBtn,
+    downloadBtn,
+  ];
 
   if (isLoggedIn) {
-    buttonGroup = (
-      <bs.ButtonGroup>
-          {playerBtn}
-          {downloadBtn}
-          <bs.Button bsSize="small" title="Bookmark this episode"><Icon name="bookmark" /></bs.Button>
-          <bs.Button bsSize="small" title={`Subscribe to ${channel.name}`}><Icon name="pencil" /></bs.Button>
-        </bs.ButtonGroup>
-     );
-  } else {
-    buttonGroup = (
-      <bs.ButtonGroup>
-          {playerBtn}
-          {downloadBtn}
-        </bs.ButtonGroup>
-     );
+    buttons = [...buttons, ...[
+
+      (<bs.Button key="bookmarkBtn"
+                  bsSize="small"
+                  title="Bookmark this episode">
+                  <Icon name="bookmark" /></bs.Button>),
+
+      (<bs.Button key="subscribeBtn"
+                  bsSize="small"
+                  title={`Subscribe to ${channel.name}`}>
+                  <Icon name="pencil" /></bs.Button>),
+
+    ]];
+  };
+
+  const buttonGroup = (
+    <bs.ButtonGroup className="pull-right">
+      {buttons}
+    </bs.ButtonGroup>);
+
+  let categories = channel.categories.map(cat => (
+      <a href="#" key={cat.id}><bs.Label>{cat.name}</bs.Label>&nbsp;</a>
+  ));
+
+  if (episode.explicit) {
+    categories = [...categories, [(
+      <bs.Label key="explicit" bsStyle="danger">
+        <Icon name="warning" /> Explicit
+      </bs.Label>
+    )]];
   }
 
   const styles = {
     border: "1pt solid #333",
     padding: 5,
+    marginBottom: 30,
   };
 
   return (
     <bs.Media style={styles}>
       <bs.Media.Left>
-        {channel.thumbnail ? <img src={channel.thumbnail.url}
+        {channel.thumbnail && <img src={channel.thumbnail.url}
              width={channel.thumbnail.width}
              height={channel.thumbnail.height}
-             alt={channel.name} /> : ''}
+             alt={channel.name} />}
       </bs.Media.Left>
       <bs.Media.Body>
-        <bs.Media.Heading>{channel.name}</bs.Media.Heading>
-        <h5>{episode.title}</h5>
-        <p>
-          {channel.categories.map(cat => (
-          <a href="#" key={cat.id}><bs.Label>{cat.name}</bs.Label>&nbsp;</a>
-          ))}
-          {episode.explicit ? <bs.Label bsStyle="danger"><Icon name="warning" /> Explicit</bs.Label> : ''}
-        </p>
-        {buttonGroup}
-        <p>
-          {episode.subtitle}
-        </p>
+        <bs.Media.Heading>
+          <a href="#">{channel.name}</a>
+          {buttonGroup}
+        </bs.Media.Heading>
+        <h5><a href="#">{episode.title}</a></h5>
+        <p>{categories}</p>
+        <p>{episode.subtitle}</p>
       </bs.Media.Body>
     </bs.Media>
   );
