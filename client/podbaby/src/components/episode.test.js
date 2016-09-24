@@ -12,8 +12,8 @@ const defaultProps = {
       name: 'The Joe Rogan Experience',
       thumbnail: {
         url: 'test.jpg',
-        height: 200,
-        width: 200,
+        height: 120,
+        width: 120,
       },
       categories: [
         {
@@ -34,6 +34,12 @@ it('should render the component', () => {
   // smoke test
   const rendered = shallow(<Episode {...defaultProps} />);
   expect(rendered.find('h5').text()).toContain('Brian Redban');
+});
+
+it('should render the channel thumbnail if provided', () => {
+  const rendered = shallow(<Episode {...defaultProps} />);
+  expect(rendered.contains(
+    <img src="test.jpg" alt="The Joe Rogan Experience" height={120} width={120} />)).toBeTruthy();
 });
 
 it('should enable play button if not playing', () => {

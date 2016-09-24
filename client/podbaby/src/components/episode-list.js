@@ -1,20 +1,19 @@
-import React, { PropTypes, Component } from 'react';
+import React, { PropTypes } from 'react';
 
-import Pager from '../components/pager';
-import Episode from '../components/episode';
+import Pager from './pager';
+import Episode from './episode';
+import Loader from './loader';
 
-export default class EpisodeList extends Component {
+const EpisodeList = props => {
 
-  render() {
-
-    if (this.props.isLoading) {
-        return <h1>Waiting...</h1>;
+    if (props.isLoading) {
+        return <Loader />;
     }
-
-    const { next, previous, episodes, onSelectPager } = this.props;
+    const { next, previous, episodes, onSelectPager } = props;
 
     const pager = (previous || next) ?
       <Pager next={next} previous={previous} onSelect={onSelectPager} /> : '';
+
 
     return (
       <div>
@@ -22,13 +21,12 @@ export default class EpisodeList extends Component {
           {episodes.map(episode => (
           <Episode key={episode.id}
                    episode={episode}
-                   {...this.props} />
+                   {...props} />
           ))}
           {pager}
       </div>
     );
-  }
-}
+};
 
 EpisodeList.propTypes = {
   isLoading: PropTypes.bool.isRequired,
@@ -40,3 +38,5 @@ EpisodeList.propTypes = {
   onStartPlayer: PropTypes.func.isRequired,
   onStopPlayer: PropTypes.func.isRequired,
 };
+
+export default EpisodeList;

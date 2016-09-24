@@ -4,6 +4,7 @@ import { LinkContainer, IndexLinkContainer } from 'react-router-bootstrap';
 import { withRouter, Link } from 'react-router';
 import { connect } from 'react-redux';
 import * as bs from 'react-bootstrap';
+import Icon from 'react-fa';
 
 import { logout } from './modules/auth';
 import { dismissAlert } from './modules/alerts';
@@ -51,7 +52,9 @@ export class App extends Component {
         <bs.Navbar>
           <bs.Navbar.Header>
             <bs.Navbar.Brand>
-              <Link to={{ pathname: '/', query: { page: 1 }}}>Podbaby</Link>
+              <Link to={{ pathname: '/', query: { page: 1 }}}>
+                <Icon name='headphones' /> Podbaby
+              </Link>
             </bs.Navbar.Brand>
           </bs.Navbar.Header>
           <bs.Nav>
