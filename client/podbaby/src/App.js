@@ -56,37 +56,46 @@ export class App extends Component {
                 <Icon name='headphones' /> Podbaby
               </Link>
             </bs.Navbar.Brand>
+            <bs.Navbar.Toggle />
           </bs.Navbar.Header>
-          <bs.Nav>
-            <IndexLinkContainer to="/">
-              <bs.NavItem><Icon name="list" /> Podcasts</bs.NavItem>
-            </IndexLinkContainer>
-            <IndexLinkContainer to="/feeds">
-              <bs.NavItem><Icon name="rss" /> Feeds</bs.NavItem>
-            </IndexLinkContainer>
-            <IndexLinkContainer to="/categories">
-              <bs.NavItem><Icon name="folder-open" /> Browse</bs.NavItem>
-            </IndexLinkContainer>
-          </bs.Nav>
-          {this.props.auth.isLoggedIn ? (
-            <bs.Nav pullRight>
-              <bs.NavItem href="#">
-                <Icon name="user" /> {this.props.auth.currentUser.username}
-              </bs.NavItem>
-              <bs.NavItem href="#" onClick={this.handleLogout}>
-                <Icon name="sign-out" /> Logout
-              </bs.NavItem>
+          <bs.Navbar.Collapse>
+            <bs.Nav>
+              <IndexLinkContainer to="/">
+                <bs.NavItem><Icon name="list" /> Podcasts</bs.NavItem>
+              </IndexLinkContainer>
+              <IndexLinkContainer to="/feeds">
+                <bs.NavItem><Icon name="rss" /> Feeds</bs.NavItem>
+              </IndexLinkContainer>
+              <IndexLinkContainer to="/categories">
+                <bs.NavItem><Icon name="folder-open" /> Browse</bs.NavItem>
+              </IndexLinkContainer>
+              <IndexLinkContainer to="/bookmarks">
+                <bs.NavItem><Icon name="star" /> Bookmarks</bs.NavItem>
+              </IndexLinkContainer>
+              <IndexLinkContainer to="/history">
+                <bs.NavItem><Icon name="history" /> History</bs.NavItem>
+              </IndexLinkContainer>
             </bs.Nav>
-          ) : (
-          <bs.Nav pullRight>
-            <LinkContainer to="/login/">
-              <bs.NavItem>Login</bs.NavItem>
-            </LinkContainer>
-            <LinkContainer to="/signup/">
-              <bs.NavItem>Signup</bs.NavItem>
-            </LinkContainer>
-          </bs.Nav>
-          )}
+            {this.props.auth.isLoggedIn ? (
+              <bs.Nav pullRight>
+                <bs.NavItem href="#">
+                  <Icon name="user" /> {this.props.auth.currentUser.username}
+                </bs.NavItem>
+                <bs.NavItem href="#" onClick={this.handleLogout}>
+                  <Icon name="sign-out" /> Logout
+                </bs.NavItem>
+              </bs.Nav>
+            ) : (
+            <bs.Nav pullRight>
+              <LinkContainer to="/login/">
+                <bs.NavItem>Login</bs.NavItem>
+              </LinkContainer>
+              <LinkContainer to="/signup/">
+                <bs.NavItem>Signup</bs.NavItem>
+              </LinkContainer>
+            </bs.Nav>
+            )}
+        </bs.Navbar.Collapse>
         </bs.Navbar>
         <div className="container">
           {this.props.alerts.map(alert => (
@@ -94,7 +103,9 @@ export class App extends Component {
           ))}
           {this.props.children}
         </div>
-        <Player onStop={this.handleStopPlayer} {...this.props.player} />
+        <Player onStop={this.handleStopPlayer}
+                isLoggedIn={this.props.auth.isLoggedIn}
+                {...this.props.player} />
       </div>
     );
   }

@@ -1,11 +1,9 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
 import * as bs from 'react-bootstrap';
 import Icon from 'react-fa';
 
 const Player = props => {
-  const { isPlaying, episode } = props;
-
-  const isLoggedIn = true;
+  const { isPlaying, episode, onStop, isLoggedIn } = props;
 
   if (!isPlaying || !episode) {
     return <div></div>;
@@ -29,6 +27,7 @@ const Player = props => {
   const stopBtn = (
     <bs.Button key="stopBtn"
                bsSize="small"
+               onClick={onStop}
                title="Stop">
     <Icon name="stop" /></bs.Button>);
 
@@ -84,6 +83,13 @@ const Player = props => {
       </bs.Media>
     </div>
   );
+};
+
+Player.propTypes = {
+  onStop: PropTypes.func.isRequired,
+  isPlaying: PropTypes.bool.isRequired,
+  isLoggedIn: PropTypes.bool.isRequired,
+  episode: PropTypes.any,
 };
 
 export default Player;

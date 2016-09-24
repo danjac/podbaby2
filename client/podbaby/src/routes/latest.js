@@ -35,13 +35,14 @@ class LatestEpisodes extends Component {
   }
 
   fetchEpisodes(page=1) {
+    // this.props.makeFetchUrl(page, searchQuery)
     this.props.actions.fetchEpisodes('/api/episodes/?page=' + page);
   }
 
   render() {
     const { isLoggedIn, actions: { startPlayer, stopPlayer } } = this.props;
 
-    const tabContent = (
+    const pageContent = (
       <div style={{ paddingTop: 20 }}>
         <form>
           <bs.FormGroup>
@@ -58,16 +59,18 @@ class LatestEpisodes extends Component {
     );
 
     if (!isLoggedIn)  {
-      return tabContent;
+      return pageContent;
     }
 
+    // activeKey=props.name
     return (
-      <bs.Tabs>
-        <bs.Tab eventKey={1} title="My feeds">{tabContent}</bs.Tab>
-        <bs.Tab eventKey={2} title="My bookmarks">{tabContent}</bs.Tab>
-        <bs.Tab eventKey={3} title="My history">{tabContent}</bs.Tab>
-        <bs.Tab eventKey={4} title="All episodes">{tabContent}</bs.Tab>
-      </bs.Tabs>);
+      <div>
+      <bs.Nav bsStyle="pills" justified activeKey={1}>
+        <bs.NavItem eventKey={1}>My feeds</bs.NavItem>
+        <bs.NavItem eventKey={2}>All podcasts</bs.NavItem>
+      </bs.Nav>
+      {pageContent}
+    </div>);
   }
 }
 

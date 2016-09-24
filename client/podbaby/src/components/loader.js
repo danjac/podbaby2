@@ -10,7 +10,7 @@ const Loader = () => {
   return (
     <div style={styles}>
       <h1>
-        <Icon spin name="spinner" size="5x" /> Please wait...
+        <Icon spin name="spinner" size="5x" />
       </h1>
     </div>
   );

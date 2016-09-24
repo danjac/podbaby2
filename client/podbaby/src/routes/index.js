@@ -12,6 +12,9 @@ import Latest from './latest';
 import Login from './login';
 import Signup from './signup';
 
+
+// const allEpisodes = <Episodes fetchUrl={} name="all" />
+
 export default function() {
   return  (
     <Router history={browserHistory}>
