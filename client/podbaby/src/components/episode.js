@@ -2,6 +2,7 @@ import React, { PropTypes } from 'react';
 import Icon from 'react-fa';
 import * as bs from 'react-bootstrap';
 
+import defaultThumbnail from '../podcast.svg';
 
 export const Episode = props => {
   const {
@@ -80,13 +81,19 @@ export const Episode = props => {
     marginBottom: 30,
   };
 
+  const thumbnail = channel.thumbnail || {
+    url: defaultThumbnail,
+    height: 120,
+    width: 120,
+  };
+
   return (
     <bs.Media style={styles}>
       <bs.Media.Left>
-        {channel.thumbnail && <img src={channel.thumbnail.url}
-             width={channel.thumbnail.width}
-             height={channel.thumbnail.height}
-             alt={channel.name} />}
+        <img src={thumbnail.url}
+             width={thumbnail.width}
+             height={thumbnail.height}
+             alt={channel.name} />
       </bs.Media.Left>
       <bs.Media.Body>
         <bs.Media.Heading>
