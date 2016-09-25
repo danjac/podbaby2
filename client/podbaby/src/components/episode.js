@@ -43,18 +43,18 @@ export const Episode = props => {
     buttons = [...buttons, ...[
 
       (<bs.Button key="bookmarkBtn"
-                  title="Bookmark this episode">
+                  title="Bookmark this podcast">
                   <Icon name="star" /></bs.Button>),
 
       (<bs.Button key="subscribeBtn"
                   title={`Subscribe to ${channel.name}`}>
-                  <Icon name="pencil" /></bs.Button>),
+                  <Icon name="plus" /></bs.Button>),
 
     ]];
   };
 
-  buttons = buttons.map(button => (
-    <bs.ButtonGroup>{button}</bs.ButtonGroup>
+  buttons = buttons.map((btn, index) => (
+    <bs.ButtonGroup key={index}>{btn}</bs.ButtonGroup>
   ));
 
   const buttonGroup = (
@@ -73,14 +73,6 @@ export const Episode = props => {
       </bs.Label>
     )]];
   }
-
-  /*
-  const styles = {
-    border: "1pt solid #333",
-    padding: 5,
-    marginBottom: 30,
-  };
-  */
 
   const thumbnail = channel.thumbnail || {
     url: defaultThumbnail,
