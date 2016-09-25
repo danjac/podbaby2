@@ -6,10 +6,30 @@ import {
 } from './alerts';
 
 
+const ADD_BOOKMARK = 'podbaby/auth/ADD_BOOKMARK';
+const REMOVE_BOOKMARK = 'podbaby/auth/REMOVE_BOOKMARK';
+
 const GET_USER_SUCCESS = 'podbaby/auth/GET_USER_SUCCESS';
 const GET_USER_FAILURE = 'podbaby/auth/GET_USER_FAILURE';
 
 const LOGOUT = 'podbaby/auth/LOGOUT';
+
+
+export function addBookmark(episodeId) {
+  api.post(`/api/episodes/${episodeId}/create_bookmark/`);
+  return {
+    type: ADD_BOOKMARK,
+    payload: episodeId,
+  };
+}
+
+export function removeBookmark(episodeId) {
+  api.del(`/api/episodes/${episodeId}/delete_bookmark/`);
+  return {
+    type: REMOVE_BOOKMARK,
+    payload: episodeId,
+  };
+}
 
 
 export function getCurrentUser() {
@@ -37,6 +57,7 @@ export function logout() {
     dispatch({
       type: LOGOUT
     });
+    // tbd: move this out of this function
     dispatch(info('Bye for now!'));
   };
 }
@@ -48,7 +69,25 @@ const initialState = {
 };
 
 export default function(state = initialState, action) {
+
+  const { currentUser } = state;
+  const bookmarks = currentUser && currentUser.bookmarks;
+
   switch (action.type) {
+    case ADD_BOOKMARK:
+      return {...state,
+        currentUser: {
+          ...currentUser,
+          bookmarks: bookmarks.concat(action.payload),
+        }
+      };
+    case REMOVE_BOOKMARK:
+      return {...state,
+        currentUser: {
+          ...currentUser,
+          bookmarks: bookmarks.filter(id => id !== action.payload),
+        }
+      };
     case GET_USER_SUCCESS:
       return {...state,
         isLoggedIn: true,

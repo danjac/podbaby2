@@ -75,7 +75,7 @@ class EpisodeViewSet(viewsets.ReadOnlyModelViewSet):
             episode=self.get_object(),
             user=self.request.user,
         )
-        return Response(status=status.HTTP_201_CREATED)
+        return Response('OK', status=status.HTTP_201_CREATED)
 
     @detail_route(methods=['DELETE'],
                   permission_classes=[permissions.IsAuthenticated])
@@ -84,7 +84,7 @@ class EpisodeViewSet(viewsets.ReadOnlyModelViewSet):
             user__pk=self.request.user.id,
             episode__pk=pk,
         ).delete()
-        return Response(status=status.HTTP_204_NO_CONTENT)
+        return Response('OK', status=status.HTTP_200_OK)
 
     def get_queryset(self):
 

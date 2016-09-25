@@ -12,6 +12,8 @@ export const Episode = props => {
     episode,
     episode: { channel },
     isLoggedIn,
+    onAddBookmark,
+    onRemoveBookmark,
     onStartPlayer,
     onStopPlayer } = props;
 
@@ -43,12 +45,27 @@ export const Episode = props => {
   ];
 
   if (isLoggedIn) {
+
+    let bookmarkBtn;
+
+    if (episode.isBookmarked) {
+
+      bookmarkBtn = (
+        <bs.Button key="bookmarkBtn"
+                   onClick={() => onRemoveBookmark(episode.id)}
+                   title="Remove bookmark">
+                   <Icon name="star" /></bs.Button>)
+    } else {
+
+      bookmarkBtn = (
+        <bs.Button key="bookmarkBtn"
+                   onClick={() => onAddBookmark(episode.id)}
+                   title="Bookmark this podcast">
+                   <Icon name="star-o" /></bs.Button>)
+    }
+
     buttons = [...buttons, ...[
-
-      (<bs.Button key="bookmarkBtn"
-                  title="Bookmark this podcast">
-                  <Icon name="star" /></bs.Button>),
-
+      bookmarkBtn,
       (<bs.Button key="subscribeBtn"
                   title={`Subscribe to ${channel.name}`}>
                   <Icon name="plus" /></bs.Button>),
@@ -117,6 +134,8 @@ export const Episode = props => {
 Episode.propTypes = {
   episode: PropTypes.object.isRequired,
   isLoggedIn: PropTypes.bool.isRequired,
+  onAddBookmark: PropTypes.func.isRequired,
+  onRemoveBookmark: PropTypes.func.isRequired,
   onStartPlayer: PropTypes.func.isRequired,
   onStopPlayer: PropTypes.func.isRequired,
 };

@@ -35,7 +35,7 @@ class Episode(TimeStampedModel):
        settings.AUTH_USER_MODEL,
        blank=True,
        through='bookmarks.Bookmark',
-       related_name='episodes',
+       related_name='bookmarks',
     )
 
     title = models.CharField(max_length=200)

@@ -153,7 +153,7 @@ class EpisodeViewSetTests(APITestCase):
                 episode.id
             ), format='json')
 
-        self.assertEqual(resp.status_code, status.HTTP_204_NO_CONTENT)
+        self.assertEqual(resp.status_code, status.HTTP_200_OK)
 
         self.assertFalse(Bookmark.objects.exists())
 

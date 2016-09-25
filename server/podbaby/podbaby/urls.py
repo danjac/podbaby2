@@ -7,14 +7,12 @@ from rest_framework.routers import DefaultRouter
 from rest_framework.authtoken.views import obtain_auth_token
 
 from account.views import UserViewSet, CreateUser
-from bookmarks.views import BookmarkViewSet
 from episodes.views import EpisodeViewSet, EpisodeStreamProxy
 
 router = DefaultRouter()
 
 router.register('^auth', UserViewSet, base_name='user')
 router.register('^episodes', EpisodeViewSet, base_name='episode')
-router.register('^bookmarks', BookmarkViewSet, base_name='bookmark')
 
 
 urlpatterns = [

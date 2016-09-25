@@ -22,9 +22,9 @@ class CreateUserSerializer(serializers.ModelSerializer):
 
 class UserSerializer(serializers.ModelSerializer):
 
-    episodes = serializers.PrimaryKeyRelatedField(many=True, read_only=True)
+    bookmarks = serializers.PrimaryKeyRelatedField(many=True, read_only=True)
 
     class Meta:
         model = User
-        fields = ('username', 'email', 'episodes')
+        fields = ('username', 'email', 'bookmarks')
         read_only_fields = ('username', )

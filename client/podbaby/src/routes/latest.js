@@ -5,9 +5,13 @@ import { withRouter } from 'react-router';
 import * as bs from 'react-bootstrap';
 
 import { startPlayer, stopPlayer } from '../modules/player';
+import { addBookmark, removeBookmark } from '../modules/auth';
 import { fetchEpisodes } from '../modules/episodes';
+
 import EpisodeList from '../components/episode-list';
+
 import { parsePageNumberFromUrl } from '../utils/pagination';
+
 import { episodesSelector } from '../selectors';
 
 class LatestEpisodes extends Component {
@@ -59,7 +63,14 @@ class LatestEpisodes extends Component {
   }
 
   render() {
-    const { isLoggedIn, actions: { startPlayer, stopPlayer } } = this.props;
+    const {
+      isLoggedIn,
+      actions: {
+        startPlayer,
+        stopPlayer,
+        addBookmark,
+        removeBookmark,
+      } } = this.props;
 
    const header = isLoggedIn && (
           <bs.Nav bsStyle="pills" justified activeKey={1} style={{ marginBottom: 20 }}>
@@ -71,6 +82,8 @@ class LatestEpisodes extends Component {
     // activeKey=props.name
     return (
       <EpisodeList header={header}
+                   onAddBookmark={addBookmark}
+                   onRemoveBookmark={removeBookmark}
                    onStartPlayer={startPlayer}
                    onStopPlayer={stopPlayer}
                    onSearch={this.handleSearch}
@@ -117,6 +130,8 @@ const mapDispatchToProps = dispatch => {
     actions: bindActionCreators({
       startPlayer,
       stopPlayer,
+      addBookmark,
+      removeBookmark,
       fetchEpisodes,
     }, dispatch)
   };
