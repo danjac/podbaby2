@@ -1,6 +1,9 @@
 import React, { PropTypes } from 'react';
 import Icon from 'react-fa';
+import moment from 'moment';
 import * as bs from 'react-bootstrap';
+
+import sanitize from '../utils/sanitize';
 
 import defaultThumbnail from '../podcast.svg';
 
@@ -82,6 +85,10 @@ export const Episode = props => {
 
   const header = <a href="#">{channel.name}</a>;
 
+  const published = episode.published && moment(episode.published).format(
+    'MMMM Do YYYY'
+  );
+
   return (
     <bs.Panel header={header} footer={buttonGroup}>
       <bs.Media>
@@ -96,9 +103,11 @@ export const Episode = props => {
             <a href="#">{episode.title}</a>
           </bs.Media.Heading>
           <p>{categories}</p>
+          <p>{published}</p>
         </bs.Media.Body>
       </bs.Media>
-      <p style={{ marginTop: 10 }}>{episode.subtitle}</p>
+      <p style={{ marginTop: 10 }}
+         dangerouslySetInnerHTML={sanitize(episode.subtitle)}></p>
     </bs.Panel>
   );
 };
