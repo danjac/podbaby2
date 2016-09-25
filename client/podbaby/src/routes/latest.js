@@ -3,7 +3,6 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 import * as bs from 'react-bootstrap';
-import Icon from 'react-fa';
 
 import { startPlayer, stopPlayer } from '../modules/player';
 import { fetchEpisodes } from '../modules/episodes';
@@ -16,46 +15,57 @@ class LatestEpisodes extends Component {
   constructor(props) {
     super(props);
     this.handleSelectPager = this.handleSelectPager.bind(this);
+    this.handleSearch = this.handleSearch.bind(this);
   }
 
   componentDidMount() {
-    this.fetchEpisodes(this.props.location.query.page || 1);
+    const { page, q } = this.props.location.query;
+    this.fetchEpisodes(page || 1, q);
   }
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.location.query.page &&
-      nextProps.location.query.page !== this.props.location.query.page) {
-      this.fetchEpisodes(nextProps.location.query.page);
+
+    const thisQuery = this.props.location.query;
+    const nextQuery = nextProps.location.query;
+
+    if (thisQuery !== nextQuery) {
+      const { page, q } = nextQuery;
+      this.fetchEpisodes(page, q);
     }
+
+  }
+
+  handleSearch(searchQuery) {
+    this.props.router.replace({
+      query: {
+        page: 1,
+        q: searchQuery,
+      }
+    });
   }
 
   handleSelectPager(url) {
     const page = parsePageNumberFromUrl(url);
-    this.props.router.replace({ query: { page } });
+    const query = {...this.props.location.query, page };
+    this.props.router.replace({ query });
   }
 
-  fetchEpisodes(page=1) {
-    // this.props.makeFetchUrl(page, searchQuery)
-    this.props.actions.fetchEpisodes('/api/episodes/?page=' + page);
+  fetchEpisodes(page=1, searchQuery) {
+    let url = '/api/episodes/?page=' + page;
+    if (searchQuery) {
+      url += '&q=' + searchQuery;
+    }
+    this.props.actions.fetchEpisodes(url);
   }
 
   render() {
     const { isLoggedIn, actions: { startPlayer, stopPlayer } } = this.props;
 
     const pageContent = (
-      <div style={{ paddingTop: 20 }}>
-        <form>
-          <bs.FormGroup>
-            <bs.FormControl type="search" placeholder="Find a podcast..." />
-          </bs.FormGroup>
-          <bs.Button className="form-control" bsStyle="primary">
-            <Icon name="search" />
-          </bs.Button>
-        </form>
-      <EpisodeList onStartPlayer={startPlayer}
-                   onStopPlayer={stopPlayer}
-                   onSelectPager={this.handleSelectPager} {...this.props} />
-      </div>
+        <EpisodeList onStartPlayer={startPlayer}
+                     onStopPlayer={stopPlayer}
+                     onSearch={this.handleSearch}
+                     onSelectPager={this.handleSelectPager} {...this.props} />
     );
 
     if (!isLoggedIn)  {
