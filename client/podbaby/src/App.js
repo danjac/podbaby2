@@ -35,16 +35,18 @@ export class App extends Component {
   }
 
   render() {
+
+    const { player, auth: { isLoggedIn} } = this.props;
     return (
       <div>
         <Navbar onLogout={this.handleLogout} {...this.props} />
+        <Player onStopPlayer={this.handleStopPlayer}
+                isLoggedIn={isLoggedIn}
+                player={player} />
         <div className="container" style={{ marginTop: 80 }}>
           <AlertList onDismiss={this.handleDismissAlert} {...this.props} />
           {this.props.children}
         </div>
-        <Player onStop={this.handleStopPlayer}
-                isLoggedIn={this.props.auth.isLoggedIn}
-                {...this.props.player} />
       </div>
     );
   }

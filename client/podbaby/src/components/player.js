@@ -1,95 +1,129 @@
-import React, { PropTypes } from 'react';
+import React, { Component, PropTypes } from 'react';
 import * as bs from 'react-bootstrap';
 import Icon from 'react-fa';
 
-const Player = props => {
-  const { isPlaying, episode, onStop, isLoggedIn } = props;
+class Player extends Component {
 
-  if (!isPlaying || !episode) {
-    return <div></div>;
+  constructor(props) {
+    super(props);
+    this.state = { expanded: true };
+    this.handleToggle = this.handleToggle.bind(this);
   }
 
-  const { channel } = episode;
-
-  const onPlay = ({ currentTarget }) => {
-    currentTarget.currentTime = 0;
-  };
-
-  let title = episode.title;
-  if (title) {
-    title += ' ' + channel.name;
-  } else {
-    title = channel.name;
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.player !== this.props.player && nextProps.player.isPlaying) {
+      this.setState({ expanded: true });
+    }
+    return nextProps;
   }
-  if (episode.duration) {
-    title += ' : ' + episode.duration;
+
+  handleToggle() {
+    this.setState({ expanded: !this.state.expanded });
   }
-  const stopBtn = (
-    <bs.Button key="stopBtn"
-               bsSize="small"
-               onClick={onStop}
-               title="Stop">
-    <Icon name="stop" /></bs.Button>);
 
-  const downloadBtn = (
-    <a key="downloadBtn"
-       className="btn btn-sm btn-default"
-       title="Download this podcast"
-       href={episode.enclosureUrl}>
-      <Icon name="download" />
-    </a>);
+  render() {
+    const {
+      player: {
+        isPlaying,
+        episode,
+      },
+      onStopPlayer,
+      isLoggedIn } = this.props;
 
+    if (!isPlaying || !episode) {
+      return <div></div>;
+    }
 
-  let buttons = [
-    stopBtn,
-    downloadBtn,
-  ];
+    const { channel } = episode;
 
-  if (isLoggedIn) {
-    buttons = [...buttons, ...[
+    let title = channel.name;
 
-      (<bs.Button key="bookmarkBtn"
-                  bsSize="small"
-                  title="Bookmark this episode">
-                  <Icon name="bookmark" /></bs.Button>),
+    if (episode.title) {
+      title += ":" + episode.title;
+    }
 
-      (<bs.Button key="subscribeBtn"
-                  bsSize="small"
-                  title={`Subscribe to ${channel.name}`}>
-                  <Icon name="pencil" /></bs.Button>),
+    const { expanded } = this.state;
 
-    ]];
-  };
+    const onPlay = ({ currentTarget }) => {
+      currentTarget.currentTime = 0;
+    };
 
-  const buttonGroup = (
-    <bs.ButtonGroup className="pull-right">
-      {buttons}
-    </bs.ButtonGroup>);
+    const stopBtn = (
+      <bs.Button key="stopBtn"
+                 title="Stop"
+                 onClick={onStopPlayer}>
+                 <Icon name="stop" /></bs.Button>);
 
-  return (
-    <div className="audio-player">
-      <bs.Media>
-        <bs.Media.Body>
-          <bs.Media.Heading>
-            <a href="#" style={{ color: '#fff' }}>{title}</a>
-            {buttonGroup}
-          </bs.Media.Heading>
-          <p style={{ paddingTop: 10 }}>
-            <audio controls autoPlay onPlay={onPlay} src={episode.streamUrl}>
-              <source src={episode.streamUrl} type={episode.enclosureType} />
-            </audio>
-          </p>
-        </bs.Media.Body>
-      </bs.Media>
-    </div>
-  );
+    const downloadBtn = (
+      <a key="downloadBtn"
+         className="btn btn-default"
+         title="Download this podcast"
+         href={episode.enclosureUrl}>
+        <Icon name="download" />
+      </a>);
+
+    let buttons = [
+      stopBtn,
+      downloadBtn,
+    ];
+
+    if (isLoggedIn) {
+      buttons = [...buttons, ...[
+
+        (<bs.Button key="bookmarkBtn"
+                    title="Bookmark this podcast">
+                    <Icon name="star" /></bs.Button>),
+
+        (<bs.Button key="subscribeBtn"
+                    title={`Subscribe to ${channel.name}`}>
+                    <Icon name="plus" /></bs.Button>),
+
+      ]];
+    };
+
+    buttons = buttons.map((btn, index) => (
+      <bs.ButtonGroup key={index}>{btn}</bs.ButtonGroup>
+    ));
+
+    const buttonGroup = expanded && (
+      <bs.ButtonGroup justified>
+        {buttons}
+      </bs.ButtonGroup>);
+
+    // we need to hide the audio in CSS - will stop playing if
+    // not in DOM
+    const styles = expanded ? {} : { display: 'none' };
+
+    return (
+      <div className="audio-player" style={expanded ? {} : {
+        left: '85%',
+        width: '15%'
+        }}>
+          <bs.Panel header={title}
+                    footer={buttonGroup}
+                    style={styles}>
+           <audio controls
+                  autoPlay
+                  onPlay={onPlay}
+                  src={episode.streamUrl}>
+            <source src={episode.streamUrl} type={episode.enclosureType} />
+          </audio>
+        </bs.Panel>
+        <bs.Button bsStyle="primary"
+                   onClick={this.handleToggle}
+                   title={expanded ? "Hide player" : "Playing: " + title}
+                   className="form-control">
+           <Icon name={expanded ? 'compress' : 'expand'} />
+        </bs.Button>
+      </div>
+    );
+  }
 };
 
 Player.propTypes = {
-  onStop: PropTypes.func.isRequired,
-  isPlaying: PropTypes.bool.isRequired,
+  onStopPlayer: PropTypes.func.isRequired,
+  player: PropTypes.object.isRequired,
   isLoggedIn: PropTypes.bool.isRequired,
-  episode: PropTypes.any,
 };
 
 export default Player;

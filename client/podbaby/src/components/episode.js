@@ -90,7 +90,12 @@ export const Episode = props => {
   );
 
   return (
-    <bs.Panel header={header} footer={buttonGroup}>
+    <bs.Panel className="episode"
+              header={header}
+              footer={buttonGroup}>
+      <h4 style={{ textAlign: 'center' }}>
+        <a href="#">{episode.title}</a>
+      </h4>
       <bs.Media>
         <bs.Media.Left>
           <img src={thumbnail.url}
@@ -99,11 +104,8 @@ export const Episode = props => {
                alt={channel.name} />
         </bs.Media.Left>
         <bs.Media.Body>
-          <bs.Media.Heading>
-            <a href="#">{episode.title}</a>
-          </bs.Media.Heading>
           <p>{categories}</p>
-          <p>{published}</p>
+          {published && <p><strong>{published}</strong></p>}
         </bs.Media.Body>
       </bs.Media>
       <p style={{ marginTop: 10 }}
