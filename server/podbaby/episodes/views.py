@@ -1,15 +1,16 @@
 import requests
 import calendar
 
-from django.db.models import Q
 from django.http import FileResponse, Http404
 from django.utils.http import http_date
 from django.views.generic import View
 from django.views.generic.detail import SingleObjectMixin
 
-from rest_framework import viewsets, permissions
+from rest_framework import viewsets, permissions, status
 from rest_framework.response import Response
-from rest_framework.decorators import list_route
+from rest_framework.decorators import list_route, detail_route
+
+from bookmarks.models import Bookmark
 
 from episodes.serializers import EpisodeSerializer
 from episodes.models import Episode
@@ -67,6 +68,24 @@ class EpisodeViewSet(viewsets.ReadOnlyModelViewSet):
         serializer = self.get_serializer(qs, many=True)
         return Response(serializer.data)
 
+    @detail_route(methods=['POST'],
+                  permission_classes=[permissions.IsAuthenticated])
+    def create_bookmark(self, request, pk):
+        Bookmark.objects.get_or_create(
+            episode=self.get_object(),
+            user=self.request.user,
+        )
+        return Response(status=status.HTTP_201_CREATED)
+
+    @detail_route(methods=['DELETE'],
+                  permission_classes=[permissions.IsAuthenticated])
+    def delete_bookmark(self, request, pk):
+        Bookmark.objects.filter(
+            user__pk=self.request.user.id,
+            episode__pk=pk,
+        ).delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+
     def get_queryset(self):
 
         qs = (
@@ -77,14 +96,6 @@ class EpisodeViewSet(viewsets.ReadOnlyModelViewSet):
         )
 
         if 'q' in self.request.GET:
-            q = Q()
-            for term in self.request.GET['q'].split():
-                sq = Q(
-                    Q(title__icontains=term) |
-                    Q(description__icontains=term) |
-                    Q(channel__name__icontains=term)
-                )
-                q = q & sq
-            qs = qs.filter(q)
+            qs = qs.search(self.request.GET['q'])
 
         return qs

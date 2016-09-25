@@ -35,7 +35,6 @@ class Navbar extends Component {
 
     return (
       <bs.Navbar fixedTop
-                 inverse
                  expanded={expanded}
                  onToggle={this.handleToggle}>
         <bs.Navbar.Header>

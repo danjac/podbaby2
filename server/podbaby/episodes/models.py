@@ -4,11 +4,26 @@ from urllib.parse import urlparse
 
 from django.conf import settings
 from django.db import models
+from django.db.models import Q
 from django.core.urlresolvers import reverse
 
 from django_extensions.db.models import TimeStampedModel
 
 from channels.models import Channel
+
+
+class EpisodeQuerySet(models.QuerySet):
+
+    def search(self, query):
+        q = Q()
+        for term in query.split():
+            sq = Q(
+                Q(title__icontains=term) |
+                Q(description__icontains=term) |
+                Q(channel__name__icontains=term)
+            )
+            q = q & sq
+        return self.filter(q)
 
 
 class Episode(TimeStampedModel):
@@ -41,6 +56,8 @@ class Episode(TimeStampedModel):
     enclosure_url = models.URLField(null=True, blank=True)
     enclosure_length = models.BigIntegerField(null=True, blank=True)
     enclosure_type = models.CharField(max_length=20, blank=True)
+
+    objects = EpisodeQuerySet.as_manager()
 
     class Meta:
         unique_together = ('channel', 'guid')

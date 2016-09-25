@@ -121,6 +121,42 @@ class EpisodeViewSetTests(APITestCase):
         data = json.loads(resp.content.decode('utf-8'))
         self.assertEqual(len(data['results']), 3)
 
+    def test_create_bookmark(self):
+
+        episode = EpisodeFactory.create()
+
+        user = UserFactory.create()
+        token = Token.objects.create(user=user)
+        self.client.credentials(HTTP_AUTHORIZATION='Token ' + token.key)
+
+        resp = self.client.post(
+            '/api/episodes/{}/create_bookmark/'.format(
+                episode.id
+            ), format='json')
+
+        self.assertEqual(resp.status_code, status.HTTP_201_CREATED)
+
+        self.assertTrue(Bookmark.objects.exists())
+
+    def test_delete_bookmark(self):
+
+        episode = EpisodeFactory.create()
+        user = UserFactory.create()
+
+        Bookmark.objects.create(episode=episode, user=user)
+
+        token = Token.objects.create(user=user)
+        self.client.credentials(HTTP_AUTHORIZATION='Token ' + token.key)
+
+        resp = self.client.delete(
+            '/api/episodes/{}/delete_bookmark/'.format(
+                episode.id
+            ), format='json')
+
+        self.assertEqual(resp.status_code, status.HTTP_204_NO_CONTENT)
+
+        self.assertFalse(Bookmark.objects.exists())
+
     def test_bookmarks_if_user_signed_in(self):
 
         episode = EpisodeFactory.create()
@@ -163,6 +199,21 @@ class EpisodeViewSetTests(APITestCase):
 
 
 class ModelTests(TestCase):
+
+    def test_search_by_title(self):
+
+        EpisodeFactory.create(title='my test')
+        self.assertEqual(Episode.objects.search('test').count(), 1)
+
+    def test_search_by_channel(self):
+
+        channel = ChannelFactory.create(name="test")
+
+        EpisodeFactory.create(
+            channel=channel,
+        )
+
+        self.assertEqual(Episode.objects.search('test').count(), 1)
 
     def test_get_stream_url_if_none(self):
         """

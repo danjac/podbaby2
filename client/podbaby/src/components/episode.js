@@ -83,16 +83,16 @@ export const Episode = props => {
     width: 120,
   };
 
-  const header = <a href="#">{channel.name}</a>;
+  const header = channel.name;
 
   const published = episode.published && moment(episode.published).format(
     'MMMM Do YYYY'
   );
 
   return (
-    <bs.Panel className="episode"
-              header={header}
-              footer={buttonGroup}>
+    <bs.Panel header={header}
+              footer={buttonGroup}
+              className="episode">
       <h4 style={{ textAlign: 'center' }}>
         <a href="#">{episode.title}</a>
       </h4>
