@@ -98,7 +98,7 @@ export const Episode = props => {
           <p>{categories}</p>
         </bs.Media.Body>
       </bs.Media>
-      <p>{episode.subtitle}</p>
+      <p style={{ marginTop: 10 }}>{episode.subtitle}</p>
     </bs.Panel>
   );
 };

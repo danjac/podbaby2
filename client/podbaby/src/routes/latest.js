@@ -61,26 +61,21 @@ class LatestEpisodes extends Component {
   render() {
     const { isLoggedIn, actions: { startPlayer, stopPlayer } } = this.props;
 
-    const pageContent = (
-        <EpisodeList onStartPlayer={startPlayer}
-                     onStopPlayer={stopPlayer}
-                     onSearch={this.handleSearch}
-                     onSelectPager={this.handleSelectPager} {...this.props} />
+   const header = isLoggedIn && (
+          <bs.Nav bsStyle="pills" justified activeKey={1} style={{ marginBottom: 20 }}>
+            <bs.NavItem eventKey={1}>My feeds</bs.NavItem>
+            <bs.NavItem eventKey={2}>All podcasts</bs.NavItem>
+          </bs.Nav>
     );
-
-    if (!isLoggedIn)  {
-      return pageContent;
-    }
 
     // activeKey=props.name
     return (
-      <div>
-      <bs.Nav bsStyle="pills" justified activeKey={1}>
-        <bs.NavItem eventKey={1}>My feeds</bs.NavItem>
-        <bs.NavItem eventKey={2}>All podcasts</bs.NavItem>
-      </bs.Nav>
-      {pageContent}
-    </div>);
+      <EpisodeList header={header}
+                   onStartPlayer={startPlayer}
+                   onStopPlayer={stopPlayer}
+                   onSearch={this.handleSearch}
+                   onSelectPager={this.handleSelectPager} {...this.props} />
+    );
   }
 }
 
@@ -91,7 +86,6 @@ LatestEpisodes.propTypes = {
   previous: PropTypes.string,
   isLoading: PropTypes.bool.isRequired,
   isLoggedIn: PropTypes.bool.isRequired,
-  player: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = state => {
@@ -104,7 +98,6 @@ const mapStateToProps = state => {
     auth: {
       isLoggedIn,
     },
-    player,
   } = state;
 
   const episodes = episodesSelector(state);
@@ -115,7 +108,6 @@ const mapStateToProps = state => {
     previous,
     isLoading,
     isLoggedIn,
-    player,
   };
 
 };

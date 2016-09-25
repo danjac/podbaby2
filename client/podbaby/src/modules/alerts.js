@@ -17,7 +17,7 @@ export function createAlert(level, message) {
         id,
       }
     });
-    window.setTimeout(() => dispatch(dismissAlert(id)), 5000);
+    window.setTimeout(() => dispatch(dismissAlert(id)), 1000);
   };
 }
 

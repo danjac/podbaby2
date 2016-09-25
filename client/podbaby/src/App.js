@@ -1,29 +1,17 @@
 import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
-import { LinkContainer, IndexLinkContainer } from 'react-router-bootstrap';
-import { withRouter, Link } from 'react-router';
+import { withRouter } from 'react-router';
 import { connect } from 'react-redux';
-import * as bs from 'react-bootstrap';
-import Icon from 'react-fa';
 
 import { logout } from './modules/auth';
 import { dismissAlert } from './modules/alerts';
 import { stopPlayer } from './modules/player';
 
+import AlertList from './components/alerts';
+import Navbar from './components/navbar';
 import Player from './components/player';
 
 import './App.css';
-
-const Alert = props => {
-  const { alert, onDismiss } = props;
-  const handleDismiss = () => onDismiss(alert.id);
-  return (
-    <bs.Alert bsStyle={alert.level} onDismiss={handleDismiss}>
-      {alert.message}
-    </bs.Alert>
-  );
-
-};
 
 export class App extends Component {
 
@@ -49,58 +37,9 @@ export class App extends Component {
   render() {
     return (
       <div>
-        <bs.Navbar>
-          <bs.Navbar.Header>
-            <bs.Navbar.Brand>
-              <Link to={{ pathname: '/', query: { page: 1 }}}>
-                <Icon name='headphones' /> Podbaby
-              </Link>
-            </bs.Navbar.Brand>
-            <bs.Navbar.Toggle />
-          </bs.Navbar.Header>
-          <bs.Navbar.Collapse>
-            <bs.Nav>
-              <IndexLinkContainer to="/">
-                <bs.NavItem><Icon name="list" /> Podcasts</bs.NavItem>
-              </IndexLinkContainer>
-              <IndexLinkContainer to="/feeds">
-                <bs.NavItem><Icon name="rss" /> Feeds</bs.NavItem>
-              </IndexLinkContainer>
-              <IndexLinkContainer to="/categories">
-                <bs.NavItem><Icon name="folder-open" /> Browse</bs.NavItem>
-              </IndexLinkContainer>
-              <IndexLinkContainer to="/bookmarks">
-                <bs.NavItem><Icon name="star" /> Bookmarks</bs.NavItem>
-              </IndexLinkContainer>
-              <IndexLinkContainer to="/history">
-                <bs.NavItem><Icon name="history" /> History</bs.NavItem>
-              </IndexLinkContainer>
-            </bs.Nav>
-            {this.props.auth.isLoggedIn ? (
-              <bs.Nav pullRight>
-                <bs.NavItem href="#">
-                  <Icon name="user" /> {this.props.auth.currentUser.username}
-                </bs.NavItem>
-                <bs.NavItem href="#" onClick={this.handleLogout}>
-                  <Icon name="sign-out" /> Logout
-                </bs.NavItem>
-              </bs.Nav>
-            ) : (
-            <bs.Nav pullRight>
-              <LinkContainer to="/login/">
-                <bs.NavItem>Login</bs.NavItem>
-              </LinkContainer>
-              <LinkContainer to="/signup/">
-                <bs.NavItem>Signup</bs.NavItem>
-              </LinkContainer>
-            </bs.Nav>
-            )}
-        </bs.Navbar.Collapse>
-        </bs.Navbar>
-        <div className="container">
-          {this.props.alerts.map(alert => (
-            <Alert key={alert.id} alert={alert} onDismiss={this.handleDismissAlert} />
-          ))}
+        <Navbar onLogout={this.handleLogout} {...this.props} />
+        <div className="container" style={{ marginTop: 80 }}>
+          <AlertList onDismiss={this.handleDismissAlert} {...this.props} />
           {this.props.children}
         </div>
         <Player onStop={this.handleStopPlayer}

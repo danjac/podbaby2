@@ -25,13 +25,14 @@ class EpisodeList extends Component {
     if (this.props.isLoading) {
         return <Loader />;
     }
-    const { next, previous, episodes, onSelectPager } = this.props;
+    const { header, next, previous, episodes, onSelectPager } = this.props;
 
     const pager = (previous || next) ?
       <Pager next={next} previous={previous} onSelect={onSelectPager} /> : '';
 
     return (
       <div>
+        {header}
         <form onSubmit={this.handleSearch}>
           <bs.FormGroup>
             <bs.FormControl type="search"
@@ -61,9 +62,9 @@ class EpisodeList extends Component {
 EpisodeList.propTypes = {
   isLoading: PropTypes.bool.isRequired,
   episodes: PropTypes.array.isRequired,
+  header: PropTypes.any,
   next: PropTypes.string,
   previous: PropTypes.string,
-  player: PropTypes.object.isRequired,
   onSearch: PropTypes.func.isRequired,
   onSelectPager: PropTypes.func.isRequired,
   onStartPlayer: PropTypes.func.isRequired,
