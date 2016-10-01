@@ -4,21 +4,19 @@ from unittest import mock
 
 from django.test import TestCase
 from django.core.urlresolvers import reverse
-from django.contrib.auth import get_user_model
-
-from factory import SubFactory
-from factory.django import DjangoModelFactory
-from factory.fuzzy import FuzzyText
 
 from rest_framework import status
 from rest_framework.test import APITestCase
 from rest_framework.authtoken.models import Token
 
+from account.factories import UserFactory
+from channels.factories import ChannelFactory
+
 from subscriptions.models import Subscription
 from bookmarks.models import Bookmark
-from episodes.models import Episode, Channel
 
-User = get_user_model()
+from episodes.models import Episode
+from episodes.factories import EpisodeFactory
 
 
 class MockResponse:
@@ -38,40 +36,6 @@ class MockRequests:
 
     def get(self, *args, **kwargs):
         return self.response
-
-
-class UserFactory(DjangoModelFactory):
-
-    username = FuzzyText()
-    password = 'test'
-
-    class Meta:
-        model = User
-
-    @classmethod
-    def _create(cls, model_class, *args, **kwargs):
-        """Override the default ``_create`` with our custom call."""
-        manager = cls._get_manager(model_class)
-        # The default would use ``manager.create(*args, **kwargs)``
-        return manager.create_user(*args, **kwargs)
-
-
-class ChannelFactory(DjangoModelFactory):
-
-    name = FuzzyText()
-    rss_feed = FuzzyText(prefix='http://', suffix='.com/rss')
-
-    class Meta:
-        model = Channel
-
-
-class EpisodeFactory(DjangoModelFactory):
-
-    channel = SubFactory(ChannelFactory)
-    enclosure_url = FuzzyText(prefix='http://', suffix='.com/test.mp3')
-
-    class Meta:
-        model = Episode
 
 
 class EpisodeStreamTests(TestCase):

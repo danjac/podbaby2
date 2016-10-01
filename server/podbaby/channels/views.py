@@ -33,7 +33,7 @@ class ChannelViewSet(viewsets.ReadOnlyModelViewSet):
                   permission_classes=[permissions.IsAuthenticated])
     def subscribe(self, request, pk):
         Subscription.objects.get_or_create(
-            channel=self.object(),
+            channel=self.get_object(),
             user=self.request.user,
         )
         return Response('OK', status=status.HTTP_201_CREATED)
