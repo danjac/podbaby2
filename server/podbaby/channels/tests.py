@@ -66,6 +66,78 @@ class ChannelViewSetTests(APITestCase):
 
         self.assertTrue(Subscription.objects.exists())
 
+    def test_unsubscribe(self):
+
+        channel = ChannelFactory.create()
+
+        user = UserFactory.create()
+        token = Token.objects.create(user=user)
+        self.client.credentials(HTTP_AUTHORIZATION='Token ' + token.key)
+
+        Subscription.objects.create(
+            channel=channel,
+            user=user,
+        )
+
+        resp = self.client.delete(
+            '/api/channels/{}/unsubscribe/'.format(
+                channel.id
+            ), format='json')
+
+        self.assertEqual(resp.status_code, status.HTTP_200_OK)
+
+        self.assertFalse(Subscription.objects.exists())
+
+    def test_subscribed(self):
+
+        ChannelFactory.create_batch(3)
+
+        channel = ChannelFactory.create(name='Joe Rogan')
+
+        user = UserFactory.create()
+        token = Token.objects.create(user=user)
+        self.client.credentials(HTTP_AUTHORIZATION='Token ' + token.key)
+
+        Subscription.objects.create(
+            channel=channel,
+            user=user,
+        )
+        resp = self.client.get('/api/channels/subscribed/', format='json')
+
+        self.assertEqual(resp.status_code, status.HTTP_200_OK)
+        data = json.loads(resp.content.decode('utf-8'))
+        self.assertEqual(len(data['results']), 1)
+        self.assertEqual(data['results'][0]['name'], 'Joe Rogan')
+
+    def test_episodes(self):
+
+        channel = ChannelFactory.create()
+        EpisodeFactory.create_batch(3, channel=channel)
+        resp = self.client.get(
+            '/api/channels/{}/episodes/'.format(channel.id),
+            format='json',
+        )
+        self.assertEqual(resp.status_code, status.HTTP_200_OK)
+        data = json.loads(resp.content.decode('utf-8'))
+        self.assertEqual(len(data['results']), 3)
+
+    def test_episodes_search(self):
+
+        channel = ChannelFactory.create()
+        EpisodeFactory.create_batch(3, channel=channel)
+        EpisodeFactory.create(title='test', channel=channel)
+        resp = self.client.get(
+            '/api/channels/{}/episodes/'.format(channel.id),
+            {
+                'q': 'test',
+            },
+            format='json',
+        )
+        self.assertEqual(resp.status_code, status.HTTP_200_OK)
+        data = json.loads(resp.content.decode('utf-8'))
+        self.assertEqual(len(data['results']), 1)
+        self.assertEqual(data['results'][0]['title'], 'test')
+
     def test_search(self):
 
         ChannelFactory.create_batch(3)
