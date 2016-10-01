@@ -31,13 +31,6 @@ class Episode(TimeStampedModel):
     channel = models.ForeignKey(Channel)
     guid = models.CharField(max_length=200)
 
-    users = models.ManyToManyField(
-       settings.AUTH_USER_MODEL,
-       blank=True,
-       through='bookmarks.Bookmark',
-       related_name='bookmarks',
-    )
-
     title = models.CharField(max_length=200)
     link = models.URLField(blank=True)
     explicit = models.BooleanField(default=False)
@@ -56,6 +49,13 @@ class Episode(TimeStampedModel):
     enclosure_url = models.URLField(null=True, blank=True)
     enclosure_length = models.BigIntegerField(null=True, blank=True)
     enclosure_type = models.CharField(max_length=20, blank=True)
+
+    bookmarkers = models.ManyToManyField(
+        settings.AUTH_USER_MODEL,
+        blank=True,
+        through='bookmarks.Bookmark',
+        related_name='bookmarks',
+    )
 
     objects = EpisodeQuerySet.as_manager()
 

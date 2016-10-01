@@ -16,6 +16,7 @@ const LOGOUT = 'podbaby/auth/LOGOUT';
 
 
 export function addBookmark(episodeId) {
+  // pass in whole episode, fire off alert`
   api.post(`/api/episodes/${episodeId}/create_bookmark/`);
   return {
     type: ADD_BOOKMARK,
@@ -24,6 +25,7 @@ export function addBookmark(episodeId) {
 }
 
 export function removeBookmark(episodeId) {
+  // pass in whole episode, fire off alert`
   api.del(`/api/episodes/${episodeId}/delete_bookmark/`);
   return {
     type: REMOVE_BOOKMARK,

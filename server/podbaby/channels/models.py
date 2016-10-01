@@ -31,8 +31,6 @@ class Channel(TimeStampedModel):
     copyright = models.CharField(max_length=100, blank=True)
     creative_commons = models.CharField(max_length=60, blank=True)
 
-    categories = models.ManyToManyField(Category, blank=True)
-
     image = models.ImageField(upload_to='images', null=True, blank=True)
 
     thumbnail = ImageSpecField(
@@ -42,10 +40,13 @@ class Channel(TimeStampedModel):
         options={'quality': 60},
     )
 
-    finder = models.ForeignKey(
+    categories = models.ManyToManyField(Category, blank=True)
+
+    subscribers = models.ManyToManyField(
         settings.AUTH_USER_MODEL,
-        null=True,
         blank=True,
+        through='subscriptions.Subscription',
+        related_name='subcriptions',
     )
 
     class Meta:
