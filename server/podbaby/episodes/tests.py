@@ -14,6 +14,7 @@ from rest_framework import status
 from rest_framework.test import APITestCase
 from rest_framework.authtoken.models import Token
 
+from subscriptions.models import Subscription
 from bookmarks.models import Bookmark
 from episodes.models import Episode, Channel
 
@@ -156,6 +157,26 @@ class EpisodeViewSetTests(APITestCase):
         self.assertEqual(resp.status_code, status.HTTP_200_OK)
 
         self.assertFalse(Bookmark.objects.exists())
+
+    def test_subscribed_if_user_signed_in(self):
+
+        episode = EpisodeFactory.create()
+        user = UserFactory.create()
+        Subscription.objects.create(user=user, channel=episode.channel)
+
+        token = Token.objects.create(user=user)
+        self.client.credentials(HTTP_AUTHORIZATION='Token ' + token.key)
+
+        resp = self.client.get('/api/episodes/subscribed/', format='json')
+        self.assertEqual(resp.status_code, status.HTTP_200_OK)
+
+        data = json.loads(resp.content.decode('utf-8'))
+        self.assertEqual(len(data['results']), 1)
+
+    def test_subscribed_if_user_not_signed_in(self):
+
+        resp = self.client.get('/api/episodes/subscribed/', format='json')
+        self.assertEqual(resp.status_code, status.HTTP_403_FORBIDDEN)
 
     def test_bookmarks_if_user_signed_in(self):
 

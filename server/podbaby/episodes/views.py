@@ -55,9 +55,22 @@ class EpisodeViewSet(viewsets.ReadOnlyModelViewSet):
     serializer_class = EpisodeSerializer
 
     @list_route(permission_classes=[permissions.IsAuthenticated])
+    def subscribed(self, request):
+        qs = self.get_queryset().filter(
+            channel__subscribers=request.user
+        )
+        page = self.paginate_queryset(qs)
+        if page is not None:
+            serializer = self.get_serializer(page, many=True)
+            return self.get_paginated_response(serializer.data)
+
+        serializer = self.get_serializer(qs, many=True)
+        return Response(serializer.data)
+
+    @list_route(permission_classes=[permissions.IsAuthenticated])
     def bookmarks(self, request):
         qs = self.get_queryset().filter(
-            users=request.user
+            bookmarkers=request.user
         ).order_by('-bookmark__created')
 
         page = self.paginate_queryset(qs)
