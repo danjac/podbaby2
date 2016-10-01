@@ -1,5 +1,6 @@
 from rest_framework import serializers
 
+
 from categories.serializers import CategorySerializer
 from channels.models import Channel
 

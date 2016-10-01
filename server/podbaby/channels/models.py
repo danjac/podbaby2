@@ -4,6 +4,7 @@ from urllib.parse import urlparse
 
 from django.conf import settings
 from django.db import models
+from django.db.models import Q
 from django.core.files.base import ContentFile
 from django.utils.timezone import make_aware
 
@@ -19,6 +20,20 @@ from categories.models import Category
 
 class InvalidFeed(RuntimeError):
     pass
+
+
+class ChannelQuerySet(models.QuerySet):
+
+    def search(self, query):
+        q = Q()
+
+        for term in query.split():
+            sq = Q(
+                Q(name__icontains=term)
+            )
+            q = q & sq
+
+        return self.filter(q)
 
 
 class Channel(TimeStampedModel):
@@ -48,6 +63,8 @@ class Channel(TimeStampedModel):
         through='subscriptions.Subscription',
         related_name='subcriptions',
     )
+
+    objects = ChannelQuerySet.as_manager()
 
     class Meta:
         ordering = ('name', '-created')

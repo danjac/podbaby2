@@ -1,16 +1,23 @@
 import datetime
+import json
 
 from unittest import mock
 
 from django.test import TestCase
 
+from rest_framework import status
+from rest_framework.test import APITestCase
+
 from factory.django import DjangoModelFactory
+from factory.fuzzy import FuzzyText
 
 from episodes.models import Episode
 from channels.models import Channel, InvalidFeed
 
 
 class ChannelFactory(DjangoModelFactory):
+
+    rss_feed = FuzzyText(prefix='http://', suffix='.com/rss')
 
     class Meta:
         model = Channel
@@ -40,8 +47,27 @@ class MockRequests:
         return MockResponse()
 
 
+class ChannelViewSetTests(APITestCase):
+
+    def test_list(self):
+
+        ChannelFactory.create_batch(3)
+
+        resp = self.client.get('/api/channels/', format='json')
+
+        self.assertEqual(resp.status_code, status.HTTP_200_OK)
+        data = json.loads(resp.content.decode('utf-8'))
+        self.assertEqual(len(data['results']), 3)
+
+
 @mock.patch('channels.models.requests', MockRequests)
 class ChannelTests(TestCase):
+
+    def test_search(self):
+
+        ChannelFactory.create(name='Joe Rogan')
+
+        self.assertEqual(Channel.objects.search('joe rogan').count(), 1)
 
     def test_fetch_if_bad(self):
         """
