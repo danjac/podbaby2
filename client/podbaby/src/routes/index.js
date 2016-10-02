@@ -13,12 +13,13 @@ import Bookmarks from './bookmarks';
 import Login from './login';
 import Signup from './signup';
 
+import { getAuthToken } from '../utils/storage';
 
 export default function({ store }) {
 
   const requireAuth = (nextState, replace) => {
-    const { auth: { isLoggedIn } } = store.getState();
-    if (!isLoggedIn) {
+    // check auth token rather than state
+    if (!getAuthToken()) {
       replace({
         pathname: '/login/',
       });

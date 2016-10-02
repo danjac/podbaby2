@@ -9,13 +9,19 @@ export const apiErrorMiddleware = store => next => action => {
       switch (response.status) {
 
         // handle 403s, 404s etc...
+        case 403:
+          const state = store.getState();
+          console.log("403 state:", state);
+          break;
 
         default:
-          throw err;
+          console.log(err);
+          return;
 
       }
     }
-    throw err;
+    console.log("ERROR", err)
+    //throw err;
   }
 
 };

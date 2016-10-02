@@ -12,32 +12,50 @@ class LatestEpisodes extends Component {
 
   constructor(props) {
     super(props);
-    this.fetchEpisodes = this.fetchEpisodes.bind(this);
+    this.state = {
+      mode: 'all',
+    };
+    this.handleSelect = this.handleSelect.bind(this);
   }
 
-  fetchEpisodes(page=1, searchQuery) {
-    let url = '/api/episodes/?page=' + page;
-    if (searchQuery) {
-      url += '&q=' + searchQuery;
-    }
-    this.props.dispatch(fetchEpisodes(url));
+  handleSelect(key) {
+    this.setState({ mode: key });
   }
 
   render() {
-    const {
-      isLoggedIn,
-    } = this.props;
+    const { isLoggedIn, dispatch } = this.props;
+    const { mode } = this.state;
 
     const header = isLoggedIn && (
-          <bs.Nav bsStyle="pills" justified activeKey={1} style={{ marginBottom: 20 }}>
-            <bs.NavItem eventKey={1}>My feeds</bs.NavItem>
-            <bs.NavItem eventKey={2}>All podcasts</bs.NavItem>
-          </bs.Nav>
+      <bs.Nav bsStyle="pills"
+              justified
+              activeKey={mode}
+              onSelect={this.handleSelect}
+              style={{ marginBottom: 20 }}>
+        <bs.NavItem eventKey={'all'}>All podcasts</bs.NavItem>
+        <bs.NavItem eventKey={'subs'}>My feeds</bs.NavItem>
+      </bs.Nav>
     );
+
+    // problem: this will be called once, before user is logged in
+    // we therefore need to trigger again, when user is authenticated
+// alternative solution - use different routes for /subscribed and /all
+//
+    const fetch = (page, searchQuery) => {
+      let url = '/api/episodes/';
+      if (mode === 'subs') {
+        url += 'subscribed/';
+      }
+      url += '?page=' + page;
+      if (searchQuery) {
+        url += '&q=' + searchQuery;
+      }
+      dispatch(fetchEpisodes(url));
+    }
 
     return (
       <EpisodeList header={header}
-                   fetchEpisodes={this.fetchEpisodes}
+                   fetchEpisodes={fetch}
                    {...this.props} />
     );
   }
