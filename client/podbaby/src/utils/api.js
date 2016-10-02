@@ -13,9 +13,6 @@ const instance = axios.create({
   withCredentials: true,
   transformRequest: axios.defaults.transformRequest.concat(decamelizeKeys),
   transformResponse: axios.defaults.transformResponse.concat(camelizeKeys),
-  validateStatus(status) {
-    return status < 401;
-  },
 });
 
 const doReq = (method, url, data) => {
@@ -32,12 +29,19 @@ const doReq = (method, url, data) => {
       method,
       headers,
       data,
-  }).then(response => {
-    if (response.status === 400) {
-      throw new SubmissionError(response.data);
-    }
-    return response.data;
-  });
+  })
+  .then(response => response.data)
+    .catch(err => {
+      if (err.response) {
+        switch (err.response.status) {
+          case 400:
+          throw new SubmissionError(err.response.data);
+          default:
+        }
+      }
+      throw err;
+    });
+
 };
 
 
