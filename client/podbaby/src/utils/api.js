@@ -15,7 +15,7 @@ const instance = axios.create({
   transformResponse: axios.defaults.transformResponse.concat(camelizeKeys),
 });
 
-const doReq = (method, url, data) => {
+const request = (method, url, data) => {
 
   const headers = {};
 
@@ -45,8 +45,8 @@ const doReq = (method, url, data) => {
 };
 
 
-export const get = partial(doReq, 'get');
-export const post = partial(doReq, 'post');
-export const put = partial(doReq, 'put');
-export const patch = partial(doReq, 'patch');
-export const del = partial(doReq, 'delete');
+export const get = partial(request, 'get');
+export const post = partial(request, 'post');
+export const put = partial(request, 'put');
+export const patch = partial(request, 'patch');
+export const del = partial(request, 'delete');
