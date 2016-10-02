@@ -12,13 +12,19 @@ export const Episode = props => {
 
   const { episode, episode: { channel } } = props;
 
+  const categoryStyle = {
+    display: 'inline-block',
+  };
+
   let categories = channel.categories.map(cat => (
-    <a href="#" key={cat.id}><bs.Label style={{ display: 'inline-block' }}>{cat.name}</bs.Label>&nbsp;</a>
+    <a href="#" key={cat.id}>
+      <bs.Label style={categoryStyle}>{cat.name}
+    </bs.Label>&nbsp;</a>
   ));
 
   if (episode.explicit) {
     categories = [...categories, [(
-      <bs.Label key="explicit" bsStyle="danger" style={{ display: 'inline-block' }}>
+      <bs.Label key="explicit" bsStyle="danger" style={categoryStyle}>
         <Icon name="warning" /> Explicit
       </bs.Label>
     )]];
@@ -30,14 +36,12 @@ export const Episode = props => {
     width: 120,
   };
 
-  const header = channel.name;
-
   const published = episode.published && moment(episode.published).format(
     'MMMM Do YYYY'
   );
 
   return (
-    <bs.Panel header={header}
+    <bs.Panel header={channel.name}
               footer={<Buttons {...props} />}
               className="episode">
       <h4 style={{ textAlign: 'center' }}>
