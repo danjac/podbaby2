@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
-import { reduxForm, Field, SubmissionError } from 'redux-form';
+import { reduxForm, Field } from 'redux-form';
 import * as bs from 'react-bootstrap';
 
 import * as api from '../utils/api';
@@ -20,17 +20,13 @@ export class Login extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  handleSubmit({username, password}) {
+  handleSubmit({ username, password }) {
     return api.post('/api-token-auth/', {
         username,
-        password
+        password,
       })
-      .then(response => {
-        if (response.errors) {
-          this.props.actions.warning('Sorry, could not log you in');
-          throw new SubmissionError(response.errors);
-        }
-        setAuthToken(response.token);
+      .then(({ token }) => {
+        setAuthToken(token);
         this.props.actions.getCurrentUser();
         this.props.actions.success('Welcome back!');
         this.props.router.push("/");

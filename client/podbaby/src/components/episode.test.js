@@ -27,6 +27,8 @@ const defaultProps = {
   isLoggedIn: false,
   onStartPlayer: jest.fn(),
   onStopPlayer: jest.fn(),
+  onAddBookmark: jest.fn(),
+  onRemoveBookmark: jest.fn(),
 };
 
 it('should render the component', () => {

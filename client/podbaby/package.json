@@ -11,8 +11,8 @@
     "sinon": "^1.17.5"
   },
   "dependencies": {
+    "axios": "^0.14.0",
     "humps": "^1.1.0",
-    "isomorphic-fetch": "^2.2.1",
     "jest": "^15.1.1",
     "lodash": "^4.15.0",
     "moment": "^2.15.1",

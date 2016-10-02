@@ -1,6 +1,5 @@
 import React from 'react';
 import configureMockStore from 'redux-mock-store';
-import nock from 'nock';
 import { shallow } from 'enzyme';
 import { Provider } from 'react-redux';
 import { reduxForm } from 'redux-form';
@@ -9,6 +8,7 @@ import { getAuthToken } from '../utils/storage';
 import { Login } from './login';
 
 jest.mock('../utils/storage');
+jest.mock('../utils/api');
 
 it('should just render the page', () => {
   const props = {
@@ -40,10 +40,6 @@ it('should call submit and log in a valid user', () => {
     submitting: false,
     handleSubmit: jest.fn(),
   };
-
-  nock(/localhost:/)
-    .post('/api-token-auth/')
-    .reply(200, { token: 'abc1234' });
 
   return new Login(props)
     .handleSubmit({ username: "tester", password: "testpass" })
