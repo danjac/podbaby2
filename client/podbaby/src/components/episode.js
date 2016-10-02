@@ -67,11 +67,6 @@ export const Episode = props => {
 
 Episode.propTypes = {
   episode: PropTypes.object.isRequired,
-  isLoggedIn: PropTypes.bool.isRequired,
-  onAddBookmark: PropTypes.func.isRequired,
-  onRemoveBookmark: PropTypes.func.isRequired,
-  onStartPlayer: PropTypes.func.isRequired,
-  onStopPlayer: PropTypes.func.isRequired,
 };
 
 
