@@ -1,11 +1,9 @@
 import React, { PropTypes } from 'react';
 import * as bs from 'react-bootstrap';
 
-const Alert = props => {
-  const { alert, onDismiss } = props;
-  const handleDismiss = () => onDismiss(alert.id);
+const Alert = ({ alert, onDismiss }) => {
   return (
-    <bs.Alert bsStyle={alert.level} onDismiss={handleDismiss}>
+    <bs.Alert bsStyle={alert.level} onDismiss={() => onDismiss(alert.id)}>
       {alert.message}
     </bs.Alert>
   );
@@ -17,8 +15,7 @@ Alert.propTypes = {
   alert: PropTypes.object.isRequired,
 };
 
-const AlertList = props => {
-  const { alerts, onDismiss } = props;
+const AlertList = ({ alerts, onDismiss }) => {
   if (!alerts) {
     return <div />;
   }

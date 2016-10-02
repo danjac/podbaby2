@@ -59,9 +59,9 @@ class Navbar extends Component {
             <IndexLinkContainer to="/categories">
               <bs.NavItem><Icon name="folder-open" /> Browse</bs.NavItem>
             </IndexLinkContainer>
-            <IndexLinkContainer to="/bookmarks">
+            <LinkContainer to="/bookmarks/">
               <bs.NavItem><Icon name="star" /> Bookmarks</bs.NavItem>
-            </IndexLinkContainer>
+            </LinkContainer>
             <IndexLinkContainer to="/history">
               <bs.NavItem><Icon name="history" /> History</bs.NavItem>
             </IndexLinkContainer>
@@ -83,7 +83,9 @@ class Navbar extends Component {
               </bs.NavItem>
             </LinkContainer>
             <LinkContainer to="/signup/">
-              <bs.NavItem>Signup</bs.NavItem>
+              <bs.NavItem>
+                <Icon name="user-plus" /> Join
+              </bs.NavItem>
             </LinkContainer>
           </bs.Nav>
           )}

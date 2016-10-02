@@ -16,7 +16,7 @@ store.dispatch(getCurrentUser());
 
 ReactDOM.render(
   <Provider store={store}>
-    <Routes />
+    <Routes store={store} />
   </Provider>,
   document.getElementById('root')
 );

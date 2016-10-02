@@ -4,83 +4,13 @@ import moment from 'moment';
 import * as bs from 'react-bootstrap';
 
 import sanitize from '../utils/sanitize';
+import Buttons from './episode-buttons';
 
 import defaultThumbnail from '../podcast.svg';
 
 export const Episode = props => {
-  const {
-    episode,
-    episode: { channel },
-    isLoggedIn,
-    onAddBookmark,
-    onRemoveBookmark,
-    onStartPlayer,
-    onStopPlayer } = props;
 
-  let playerBtn;
-
-  if (episode.isPlaying) {
-    playerBtn = (<bs.Button key="stopBtn"
-                            title="Stop"
-                            onClick={onStopPlayer}>
-                            <Icon name="stop" /></bs.Button>);
-  } else {
-    playerBtn = (<bs.Button key="startBtn"
-                            title="Play"
-                            onClick={() => onStartPlayer(episode)}>
-                            <Icon name="play" /></bs.Button>);
-  }
-
-  const downloadBtn = (
-    <a key="downloadBtn"
-       className="btn btn-default"
-       title="Download this podcast"
-       href={episode.enclosureUrl}>
-      <Icon name="download" />
-    </a>);
-
-  let buttons = [
-    playerBtn,
-    downloadBtn,
-  ];
-
-  if (isLoggedIn) {
-
-    let bookmarkBtn;
-
-    if (episode.isBookmarked) {
-
-      bookmarkBtn = (
-        <bs.Button key="bookmarkBtn"
-                   onClick={() => onRemoveBookmark(episode.id)}
-                   title="Remove bookmark">
-                   <Icon name="star" /></bs.Button>)
-    } else {
-
-      bookmarkBtn = (
-        <bs.Button key="bookmarkBtn"
-                   onClick={() => onAddBookmark(episode.id)}
-                   title="Bookmark this podcast">
-                   <Icon name="star-o" /></bs.Button>)
-    }
-
-    buttons = [...buttons, ...[
-      bookmarkBtn,
-      (<bs.Button key="subscribeBtn"
-                  title={`Subscribe to ${channel.name}`}>
-                  <Icon name="plus" /></bs.Button>),
-
-    ]];
-  };
-
-  buttons = buttons.map((btn, index) => (
-    <bs.ButtonGroup key={index}>{btn}</bs.ButtonGroup>
-  ));
-
-  const buttonGroup = (
-    <bs.ButtonGroup justified>
-      {buttons}
-    </bs.ButtonGroup>);
+  const { episode, episode: { channel } } = props;
 
   let categories = channel.categories.map(cat => (
     <a href="#" key={cat.id}><bs.Label style={{ display: 'inline-block' }}>{cat.name}</bs.Label>&nbsp;</a>
@@ -108,7 +38,7 @@ export const Episode = props => {
 
   return (
     <bs.Panel header={header}
-              footer={buttonGroup}
+              footer={<Buttons {...props} />}
               className="episode">
       <h4 style={{ textAlign: 'center' }}>
         <a href="#">{episode.title}</a>

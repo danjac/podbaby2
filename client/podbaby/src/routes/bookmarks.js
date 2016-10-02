@@ -1,14 +1,15 @@
 import React, { PropTypes, Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
-import * as bs from 'react-bootstrap';
 
 import { fetchEpisodes } from '../modules/episodes';
-import { episodesSelector } from '../selectors';
 
 import EpisodeList from '../components/episode-list';
 
-class LatestEpisodes extends Component {
+import { episodesSelector } from '../selectors';
+
+
+class Bookmarks extends Component {
 
   constructor(props) {
     super(props);
@@ -16,7 +17,7 @@ class LatestEpisodes extends Component {
   }
 
   fetchEpisodes(page=1, searchQuery) {
-    let url = '/api/episodes/?page=' + page;
+    let url = '/api/episodes/bookmarks/?page=' + page;
     if (searchQuery) {
       url += '&q=' + searchQuery;
     }
@@ -24,26 +25,14 @@ class LatestEpisodes extends Component {
   }
 
   render() {
-    const {
-      isLoggedIn,
-    } = this.props;
-
-    const header = isLoggedIn && (
-          <bs.Nav bsStyle="pills" justified activeKey={1} style={{ marginBottom: 20 }}>
-            <bs.NavItem eventKey={1}>My feeds</bs.NavItem>
-            <bs.NavItem eventKey={2}>All podcasts</bs.NavItem>
-          </bs.Nav>
-    );
-
     return (
-      <EpisodeList header={header}
-                   fetchEpisodes={this.fetchEpisodes}
+      <EpisodeList fetchEpisodes={this.fetchEpisodes}
                    {...this.props} />
     );
   }
 }
 
-LatestEpisodes.propTypes = {
+Bookmarks.propTypes = {
   episodes: PropTypes.array.isRequired,
   dispatch: PropTypes.func.isRequired,
   next: PropTypes.string,
@@ -76,4 +65,4 @@ const mapStateToProps = state => {
 
 };
 
-export default connect(mapStateToProps)(withRouter(LatestEpisodes));
+export default connect(mapStateToProps)(withRouter(Bookmarks));

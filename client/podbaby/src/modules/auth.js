@@ -15,21 +15,21 @@ const GET_USER_FAILURE = 'podbaby/auth/GET_USER_FAILURE';
 const LOGOUT = 'podbaby/auth/LOGOUT';
 
 
-export function addBookmark(episodeId) {
+export function addBookmark(episode) {
   // pass in whole episode, fire off alert`
-  api.post(`/api/episodes/${episodeId}/create_bookmark/`);
+  api.post(`/api/episodes/${episode.id}/create_bookmark/`);
   return {
     type: ADD_BOOKMARK,
-    payload: episodeId,
+    payload: episode.id,
   };
 }
 
-export function removeBookmark(episodeId) {
+export function removeBookmark(episode) {
   // pass in whole episode, fire off alert`
-  api.del(`/api/episodes/${episodeId}/delete_bookmark/`);
+  api.del(`/api/episodes/${episode.id}/delete_bookmark/`);
   return {
     type: REMOVE_BOOKMARK,
-    payload: episodeId,
+    payload: episode.id,
   };
 }
 

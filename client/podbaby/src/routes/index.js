@@ -9,19 +9,29 @@ import {
 import App from '../App';
 
 import Latest from './latest';
+import Bookmarks from './bookmarks';
 import Login from './login';
 import Signup from './signup';
 
 
-// const allEpisodes = <Episodes fetchUrl={} name="all" />
+export default function({ store }) {
 
-export default function() {
+  const requireAuth = (nextState, replace) => {
+    const { auth: { isLoggedIn } } = store.getState();
+    if (!isLoggedIn) {
+      replace({
+        pathname: '/login/',
+      });
+    }
+  };
+
   return  (
     <Router history={browserHistory}>
       <Route path="/" component={App}>
         <IndexRoute component={Latest} />
         <Route path="/login/" component={Login} />
         <Route path="/signup/" component={Signup} />
+        <Route path="/bookmarks/" component={Bookmarks} onEnter={requireAuth} />
       </Route>
     </Router>
   );

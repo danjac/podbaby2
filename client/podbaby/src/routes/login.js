@@ -36,10 +36,11 @@ export class Login extends Component {
 
   render() {
 
-    const { submitting, handleSubmit } = this.props;
+    const { submitFailed, submitting, handleSubmit } = this.props;
 
     return (
       <form onSubmit={handleSubmit(this.handleSubmit)}>
+        {submitFailed && <bs.Alert bsStyle="warning">Sorry, unable to log you in</bs.Alert>}
         <Field name="username"
                component={formControl}
                placeholder="Username"

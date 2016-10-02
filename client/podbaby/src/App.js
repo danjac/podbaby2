@@ -23,7 +23,9 @@ export class App extends Component {
   }
 
   handleLogout() {
-    this.props.actions.logout();
+    const { router, actions } = this.props;
+    actions.logout();
+    router.push("/");
   }
 
   handleDismissAlert(id) {

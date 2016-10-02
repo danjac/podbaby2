@@ -1,17 +1,12 @@
 import React, { PropTypes } from 'react';
 import * as bs from 'react-bootstrap';
 
-const Pager = props => {
-
-  const { onSelect, next, previous } = props;
-
-  const onSelectPrevious = () => onSelect(previous);
-  const onSelectNext = () => onSelect(next);
+const Pager = ({ onSelect, next, previous })=> {
 
   return (
     <bs.Pager>
-      <bs.Pager.Item previous onSelect={onSelectPrevious} disabled={!previous}>&larr; Previous</bs.Pager.Item>
-      <bs.Pager.Item next onSelect={onSelectNext} disabled={!next}>Next &rarr;</bs.Pager.Item>
+      <bs.Pager.Item previous onSelect={() => onSelect(previous)} disabled={!previous}>&larr; Previous</bs.Pager.Item>
+      <bs.Pager.Item next onSelect={() => onSelect(next)} disabled={!next}>Next &rarr;</bs.Pager.Item>
     </bs.Pager>
   );
 };
