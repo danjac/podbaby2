@@ -5,25 +5,11 @@ import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 
 jest.mock('../utils/storage');
+jest.mock('../utils/api');
 
 const mockStore = configureMockStore([thunk]);
 
 it('should return a payload with a valid URL', () => {
-
-  const response = {
-    next: '/api/episodes/?page=1',
-    previous: null,
-    results: [
-      {
-        id: 1,
-        title: 'Cool stuff',
-      },
-    ]
-  };
-
-  nock(/localhost:/)
-    .get('/api/episodes/')
-    .reply(200, response);
 
   const store = mockStore();
 
