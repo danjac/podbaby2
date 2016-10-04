@@ -22,6 +22,48 @@ class LatestEpisodes extends Component {
     this.setState({ mode: key });
   }
 
+  constructor(props) {
+    super(props);
+    this.handleSelectPager = this.handleSelectPager.bind(this);
+    this.handleSearch = this.handleSearch.bind(this);
+  }
+
+  componentDidMount() {
+    const { page, q } = this.props.location.query;
+    this.props.fetchEpisodes(page || 1, q);
+  }
+
+  componentWillReceiveProps(nextProps) {
+
+    const thisQuery = this.props.location.query;
+    const nextQuery = nextProps.location.query;
+
+    if (thisQuery !== nextQuery) {
+      const { page, q } = nextQuery;
+      this.props.fetchEpisodes(page, q);
+    }
+
+  }
+
+  handleSearch(event) {
+    event.preventDefault();
+    const query = ReactDOM.findDOMNode(this.refs.search).value.trim();
+    this.props.router.replace({
+      query: {
+        page: 1,
+        q: query,
+      },
+      pathname: this.props.location.pathname,
+    });
+  }
+
+  handleSelectPager(url) {
+    const page = parsePageNumberFromUrl(url);
+    const query = {...this.props.location.query, page };
+    this.props.router.replace({ query });
+  }
+
+
   render() {
     const { isLoggedIn, dispatch } = this.props;
     const { mode } = this.state;
@@ -37,26 +79,12 @@ class LatestEpisodes extends Component {
       </bs.Nav>
     );
 
-    // problem: this will be called once, before user is logged in
-    // we therefore need to trigger again, when user is authenticated
-// alternative solution - use different routes for /subscribed and /all
-//
-    const fetch = (page, searchQuery) => {
-      let url = '/api/episodes/';
-      if (mode === 'subs') {
-        url += 'subscribed/';
-      }
-      url += '?page=' + page;
-      if (searchQuery) {
-        url += '&q=' + searchQuery;
-      }
-      dispatch(fetchEpisodes(url));
-    }
-
     return (
+      <div>
       <EpisodeList header={header}
                    fetchEpisodes={fetch}
                    {...this.props} />
+      </div>
     );
   }
 }

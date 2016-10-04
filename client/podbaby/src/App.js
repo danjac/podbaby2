@@ -15,6 +15,7 @@ import './App.css';
 
 export class App extends Component {
 
+
   constructor(props) {
     super(props);
     this.handleLogout = this.handleLogout.bind(this);
@@ -25,7 +26,7 @@ export class App extends Component {
   handleLogout() {
     const { router, actions } = this.props;
     actions.logout();
-    router.push("/");
+    router.push("/")
   }
 
   handleDismissAlert(id) {
