@@ -1,4 +1,3 @@
-import nock from 'nock';
 import { fetchEpisodes } from './episodes';
 
 import configureMockStore from 'redux-mock-store';

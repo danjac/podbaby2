@@ -1,7 +1,7 @@
 import React, { PropTypes, Component } from 'react';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import { withRouter } from 'react-router';
-import * as bs from 'react-bootstrap';
 
 import { fetchEpisodes } from '../modules/episodes';
 import { episodesSelector } from '../selectors';
@@ -12,25 +12,12 @@ class LatestEpisodes extends Component {
 
   constructor(props) {
     super(props);
-    this.state = {
-      mode: 'all',
-    };
-    this.handleSelect = this.handleSelect.bind(this);
-  }
-
-  handleSelect(key) {
-    this.setState({ mode: key });
-  }
-
-  constructor(props) {
-    super(props);
-    this.handleSelectPager = this.handleSelectPager.bind(this);
-    this.handleSearch = this.handleSearch.bind(this);
+    this.handleSelectPage = this.handleSelectPage.bind(this);
   }
 
   componentDidMount() {
     const { page, q } = this.props.location.query;
-    this.props.fetchEpisodes(page || 1, q);
+    this.fetchEpisodes(page || 1, q);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -40,62 +27,54 @@ class LatestEpisodes extends Component {
 
     if (thisQuery !== nextQuery) {
       const { page, q } = nextQuery;
-      this.props.fetchEpisodes(page, q);
+      this.fetchEpisodes(page, q);
     }
-
   }
 
-  handleSearch(event) {
-    event.preventDefault();
-    const query = ReactDOM.findDOMNode(this.refs.search).value.trim();
-    this.props.router.replace({
-      query: {
-        page: 1,
-        q: query,
-      },
-      pathname: this.props.location.pathname,
-    });
+  fetchEpisodes(page, searchQuery) {
+    let url = '/api/episodes/?page=' + page;
+    if (searchQuery) {
+      url += '&q=' + searchQuery;
+    }
+    this.props.actions.onFetchEpisodes(url);
   }
 
-  handleSelectPager(url) {
-    const page = parsePageNumberFromUrl(url);
-    const query = {...this.props.location.query, page };
-    this.props.router.replace({ query });
+  handleSelectPage() {
   }
 
+  handleStartPlayer() {
+  }
+
+  handleStopPlayer() {
+  }
+
+  handleAddBookmark() {
+  }
+
+  handleRemoveBookmark() {
+  }
 
   render() {
-    const { isLoggedIn, dispatch } = this.props;
-    const { mode } = this.state;
 
-    const header = isLoggedIn && (
-      <bs.Nav bsStyle="pills"
-              justified
-              activeKey={mode}
-              onSelect={this.handleSelect}
-              style={{ marginBottom: 20 }}>
-        <bs.NavItem eventKey={'all'}>All podcasts</bs.NavItem>
-        <bs.NavItem eventKey={'subs'}>My feeds</bs.NavItem>
-      </bs.Nav>
-    );
+    const { episodes, next, previous } = this.props;
 
     return (
-      <div>
-      <EpisodeList header={header}
-                   fetchEpisodes={fetch}
-                   {...this.props} />
-      </div>
+        <EpisodeList episodes={episodes}
+                     next={next}
+                     previous={previous}
+                     onSelectPage={this.handleSelectPage}
+                     onStartPlayer={this.handleStartPlayer}
+                     onStopPlayer={this.handleStopPlayer}
+                     onAddBookmark={this.handleAddBookmark}
+                     onRemoveBookmark={this.handleRemoveBookmark} />
     );
   }
 }
 
 LatestEpisodes.propTypes = {
   episodes: PropTypes.array.isRequired,
-  dispatch: PropTypes.func.isRequired,
   next: PropTypes.string,
   previous: PropTypes.string,
-  isLoading: PropTypes.bool.isRequired,
-  isLoggedIn: PropTypes.bool.isRequired,
 };
 
 const mapStateToProps = state => {
@@ -122,4 +101,15 @@ const mapStateToProps = state => {
 
 };
 
-export default connect(mapStateToProps)(withRouter(LatestEpisodes));
+const mapDispatchToProps = dispatch => {
+  return {
+    actions: bindActionCreators({
+      onFetchEpisodes: fetchEpisodes,
+    }, dispatch)
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(withRouter(LatestEpisodes));

@@ -3,7 +3,6 @@ import thunk from 'redux-thunk';
 import createLogger from 'redux-logger';
 
 import rootReducer from './modules';
-import { apiErrorMiddleware } from './middleware';
 
 export default function(initialState) {
   return createStore(
@@ -12,6 +11,5 @@ export default function(initialState) {
     applyMiddleware(
       thunk,
       createLogger(),
-      apiErrorMiddleware,
     ));
 }
