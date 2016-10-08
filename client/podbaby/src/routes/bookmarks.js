@@ -1,44 +1,140 @@
 import React, { PropTypes, Component } from 'react';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import { withRouter } from 'react-router';
 
 import { fetchEpisodes } from '../modules/episodes';
-
-import EpisodeList from '../components/episode-list';
+import { addBookmark, removeBookmark } from '../modules/auth';
+import { startPlayer, stopPlayer } from '../modules/player';
 
 import { episodesSelector } from '../selectors';
+import { pageNumberFromUrl } from '../utils/pagination';
 
+import Search from '../components/search';
+import Loader from '../components/loader';
+import EpisodeList from '../components/episode-list';
 
 class Bookmarks extends Component {
 
   constructor(props) {
     super(props);
-    this.fetchEpisodes = this.fetchEpisodes.bind(this);
+
+    this.handleSearch = this.handleSearch.bind(this);
+    this.handleClearSearch = this.handleClearSearch.bind(this);
+    this.handleSelectPage = this.handleSelectPage.bind(this);
+
+    this.handleStartPlayer = this.handleStartPlayer.bind(this);
+    this.handleStopPlayer = this.handleStopPlayer.bind(this);
+
+    this.handleAddBookmark = this.handleAddBookmark.bind(this);
+    this.handleRemoveBookmark = this.handleRemoveBookmark.bind(this);
   }
 
-  fetchEpisodes(page=1, searchQuery) {
+  componentDidMount() {
+    const { page, q } = this.props.location.query;
+    this.fetchEpisodes(page || 1, q);
+  }
+
+  componentWillReceiveProps(nextProps) {
+
+    const thisQuery = this.props.location.query;
+    const nextQuery = nextProps.location.query;
+
+    if (thisQuery !== nextQuery) {
+      const { page, q } = nextQuery;
+      this.fetchEpisodes(page, q);
+    }
+  }
+
+  fetchEpisodes(page, searchQuery) {
     let url = '/api/episodes/bookmarks/?page=' + page;
     if (searchQuery) {
       url += '&q=' + searchQuery;
     }
-    this.props.dispatch(fetchEpisodes(url));
+    this.props.actions.onFetchEpisodes(url);
+  }
+
+  changeLocation(page, searchQuery) {
+    this.props.router.replace({
+      query: {
+        page,
+        q: searchQuery,
+      },
+      pathname: this.props.location.pathname,
+    });
+ }
+
+  handleSearch(searchQuery) {
+    this.changeLocation(1, searchQuery);
+  }
+
+  handleClearSearch() {
+    this.changeLocation(1, '');
+  }
+
+  handleSelectPage(url) {
+    const page = pageNumberFromUrl(url);
+    this.changeLocation(page, this.props.location.query.q);
+  }
+
+  handleStartPlayer(episode) {
+    this.props.actions.onStartPlayer(episode);
+  }
+
+  handleStopPlayer(episode) {
+    this.props.actions.onStopPlayer(episode);
+  }
+
+  handleAddBookmark(episode) {
+    this.props.actions.onAddBookmark(episode);
+  }
+
+  handleRemoveBookmark(episode) {
+    this.props.actions.onRemoveBookmark(episode);
   }
 
   render() {
+
+    const {
+      episodes,
+      next,
+      previous,
+      isLoading } = this.props;
+
+    if (isLoading) {
+      return <Loader />;
+    }
+
+    const searchQuery = this.props.location.query.q;
+
     return (
-      <EpisodeList fetchEpisodes={this.fetchEpisodes}
-                   {...this.props} />
+      <div>
+        <Search placeholder="Search for bookmarks"
+                searchQuery={searchQuery}
+                onClear={this.handleClearSearch}
+                onSearch={this.handleSearch} />
+        <EpisodeList episodes={episodes}
+                     next={next}
+                     previous={previous}
+                     isLoggedIn={true}
+                     onSelectPage={this.handleSelectPage}
+                     onStartPlayer={this.handleStartPlayer}
+                     onStopPlayer={this.handleStopPlayer}
+                     onAddBookmark={this.handleAddBookmark}
+                     onRemoveBookmark={this.handleRemoveBookmark} />
+      </div>
     );
   }
 }
 
 Bookmarks.propTypes = {
+  actions: PropTypes.objectOf(PropTypes.func).isRequired,
   episodes: PropTypes.array.isRequired,
-  dispatch: PropTypes.func.isRequired,
   next: PropTypes.string,
   previous: PropTypes.string,
+  router: PropTypes.object.isRequired,
+  location: PropTypes.object.isRequired,
   isLoading: PropTypes.bool.isRequired,
-  isLoggedIn: PropTypes.bool.isRequired,
 };
 
 const mapStateToProps = state => {
@@ -47,9 +143,6 @@ const mapStateToProps = state => {
       next,
       previous,
       isLoading
-    },
-    auth: {
-      isLoggedIn,
     },
   } = state;
 
@@ -60,9 +153,23 @@ const mapStateToProps = state => {
     next,
     previous,
     isLoading,
-    isLoggedIn,
   };
 
 };
 
-export default connect(mapStateToProps)(withRouter(Bookmarks));
+const mapDispatchToProps = dispatch => {
+  return {
+    actions: bindActionCreators({
+      onFetchEpisodes: fetchEpisodes,
+      onStartPlayer: startPlayer,
+      onStopPlayer: stopPlayer,
+      onAddBookmark: addBookmark,
+      onRemoveBookmark: removeBookmark,
+    }, dispatch)
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(withRouter(Bookmarks));

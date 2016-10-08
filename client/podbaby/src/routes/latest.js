@@ -8,7 +8,7 @@ import { addBookmark, removeBookmark } from '../modules/auth';
 import { startPlayer, stopPlayer } from '../modules/player';
 
 import { episodesSelector } from '../selectors';
-import { parsePageNumberFromUrl } from '../utils/pagination';
+import { pageNumberFromUrl } from '../utils/pagination';
 
 import Search from '../components/search';
 import Loader from '../components/loader';
@@ -72,7 +72,7 @@ class LatestEpisodes extends Component {
   }
 
   handleSelectPage(url) {
-    const page = parsePageNumberFromUrl(url);
+    const page = pageNumberFromUrl(url);
     this.changeLocation(page, this.props.location.query.q);
   }
 
