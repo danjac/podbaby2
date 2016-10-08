@@ -10,7 +10,7 @@ export class Search extends Component {
     super(props);
     this.handleClick = this.handleClick.bind(this);
     this.handleSearch = this.handleSearch.bind(this);
-    this.handleClear = this.handleClear.bind(this);
+    this.handleClearSearch = this.handleClearSearch.bind(this);
   }
 
   handleClick(event) {
@@ -25,7 +25,7 @@ export class Search extends Component {
     }
   }
 
-  handleClear(event) {
+  handleClearSearch(event) {
     event.preventDefault();
     this.props.onClear();
   }
@@ -53,7 +53,7 @@ export class Search extends Component {
        <bs.FormGroup>
         <bs.Button className="form-control"
                    type="submit"
-                   onClick={this.handleClear}
+                   onClick={this.handleClearSearch}
                    bsStyle="default">
           <Icon name="refresh" /> Show all
         </bs.Button>
