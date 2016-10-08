@@ -10,6 +10,7 @@ import { startPlayer, stopPlayer } from '../modules/player';
 import { episodesSelector } from '../selectors';
 import { parsePageNumberFromUrl } from '../utils/pagination';
 
+import Search from '../components/search';
 import Loader from '../components/loader';
 import EpisodeList from '../components/episode-list';
 
@@ -17,9 +18,14 @@ class LatestEpisodes extends Component {
 
   constructor(props) {
     super(props);
+
+    this.handleSearch = this.handleSearch.bind(this);
+    this.handleClearSearch = this.handleClearSearch.bind(this);
     this.handleSelectPage = this.handleSelectPage.bind(this);
+
     this.handleStartPlayer = this.handleStartPlayer.bind(this);
     this.handleStopPlayer = this.handleStopPlayer.bind(this);
+
     this.handleAddBookmark = this.handleAddBookmark.bind(this);
     this.handleRemoveBookmark = this.handleRemoveBookmark.bind(this);
   }
@@ -48,13 +54,26 @@ class LatestEpisodes extends Component {
     this.props.actions.onFetchEpisodes(url);
   }
 
-  handleSelectPage(url) {
-    const page = parsePageNumberFromUrl(url);
+  changeLocation(page, searchQuery) {
     this.props.router.replace({
       query: {
-        page: page,
+        page,
+        q: searchQuery,
       }
     });
+ }
+
+  handleSearch(searchQuery) {
+    this.changeLocation(1, searchQuery);
+  }
+
+  handleClearSearch() {
+    this.changeLocation(1, '');
+  }
+
+  handleSelectPage(url) {
+    const page = parsePageNumberFromUrl(url);
+    this.changeLocation(page, this.props.location.query.q);
   }
 
   handleStartPlayer(episode) {
@@ -86,7 +105,14 @@ class LatestEpisodes extends Component {
       return <Loader />;
     }
 
+    const searchQuery = this.props.location.query.q;
+
     return (
+      <div>
+        <Search placeholder="Search for episodes"
+                searchQuery={searchQuery}
+                onClear={this.handleClearSearch}
+                onSearch={this.handleSearch} />
         <EpisodeList episodes={episodes}
                      next={next}
                      previous={previous}
@@ -96,6 +122,7 @@ class LatestEpisodes extends Component {
                      onStopPlayer={this.handleStopPlayer}
                      onAddBookmark={this.handleAddBookmark}
                      onRemoveBookmark={this.handleRemoveBookmark} />
+      </div>
     );
   }
 }
