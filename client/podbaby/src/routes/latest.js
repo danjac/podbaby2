@@ -14,7 +14,7 @@ import Search from '../components/search';
 import Loader from '../components/loader';
 import EpisodeList from '../components/episode-list';
 
-class LatestEpisodes extends Component {
+export class LatestEpisodes extends Component {
 
   constructor(props) {
     super(props);
@@ -128,7 +128,13 @@ class LatestEpisodes extends Component {
 }
 
 LatestEpisodes.propTypes = {
-  actions: PropTypes.objectOf(PropTypes.func).isRequired,
+  actions: PropTypes.shape({
+    onStartPlayer: PropTypes.func.isRequired,
+    onStopPlayer: PropTypes.func.isRequired,
+    onAddBookmark: PropTypes.func.isRequired,
+    onRemoveBookmark: PropTypes.func.isRequired,
+    onFetchEpisodes: PropTypes.func.isRequired,
+  }).isRequired,
   episodes: PropTypes.array.isRequired,
   next: PropTypes.string,
   previous: PropTypes.string,
