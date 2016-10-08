@@ -66,13 +66,13 @@ export const Buttons = ({
         <bs.Button key="subscribeBtn"
                    onClick={() => onUnsubscribe(episode.channel)}
                    title={`Unsubscribe from ${channel.name}`}>
-                   <Icon name="minus" /></bs.Button>);
+                   <Icon name="remove" /></bs.Button>);
     } else {
       subscriptionBtn = (
         <bs.Button key="subscribeBtn"
                    onClick={() => onSubscribe(episode.channel)}
                    title={`Subscribe to ${channel.name}`}>
-                   <Icon name="plus" /></bs.Button>);
+                   <Icon name="check" /></bs.Button>);
 
     }
 
