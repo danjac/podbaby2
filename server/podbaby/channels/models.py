@@ -61,7 +61,7 @@ class Channel(TimeStampedModel):
         settings.AUTH_USER_MODEL,
         blank=True,
         through='subscriptions.Subscription',
-        related_name='subcriptions',
+        related_name='subscriptions',
     )
 
     objects = ChannelQuerySet.as_manager()

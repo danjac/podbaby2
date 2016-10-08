@@ -4,7 +4,14 @@ import { bindActionCreators } from 'redux';
 import { withRouter } from 'react-router';
 
 import { fetchEpisodes } from '../modules/episodes';
-import { addBookmark, removeBookmark } from '../modules/auth';
+
+import {
+  addBookmark,
+  removeBookmark,
+  subscribe,
+  unsubscribe,
+} from '../modules/auth';
+
 import { startPlayer, stopPlayer } from '../modules/player';
 
 import { episodesSelector } from '../selectors';
@@ -23,11 +30,6 @@ export class LatestEpisodes extends Component {
     this.handleClearSearch = this.handleClearSearch.bind(this);
     this.handleSelectPage = this.handleSelectPage.bind(this);
 
-    this.handleStartPlayer = this.handleStartPlayer.bind(this);
-    this.handleStopPlayer = this.handleStopPlayer.bind(this);
-
-    this.handleAddBookmark = this.handleAddBookmark.bind(this);
-    this.handleRemoveBookmark = this.handleRemoveBookmark.bind(this);
   }
 
   componentDidMount() {
@@ -76,22 +78,6 @@ export class LatestEpisodes extends Component {
     this.changeLocation(page, this.props.location.query.q);
   }
 
-  handleStartPlayer(episode) {
-    this.props.actions.onStartPlayer(episode);
-  }
-
-  handleStopPlayer(episode) {
-    this.props.actions.onStopPlayer(episode);
-  }
-
-  handleAddBookmark(episode) {
-    this.props.actions.onAddBookmark(episode);
-  }
-
-  handleRemoveBookmark(episode) {
-    this.props.actions.onRemoveBookmark(episode);
-  }
-
   render() {
 
     const {
@@ -99,7 +85,9 @@ export class LatestEpisodes extends Component {
       next,
       previous,
       isLoggedIn,
-      isLoading } = this.props;
+      isLoading,
+      actions,
+    } = this.props;
 
     if (isLoading) {
       return <Loader />;
@@ -118,23 +106,14 @@ export class LatestEpisodes extends Component {
                      previous={previous}
                      isLoggedIn={isLoggedIn}
                      onSelectPage={this.handleSelectPage}
-                     onStartPlayer={this.handleStartPlayer}
-                     onStopPlayer={this.handleStopPlayer}
-                     onAddBookmark={this.handleAddBookmark}
-                     onRemoveBookmark={this.handleRemoveBookmark} />
+                     {...actions} />
       </div>
     );
   }
 }
 
 LatestEpisodes.propTypes = {
-  actions: PropTypes.shape({
-    onStartPlayer: PropTypes.func.isRequired,
-    onStopPlayer: PropTypes.func.isRequired,
-    onAddBookmark: PropTypes.func.isRequired,
-    onRemoveBookmark: PropTypes.func.isRequired,
-    onFetchEpisodes: PropTypes.func.isRequired,
-  }).isRequired,
+  actions: PropTypes.objectOf(PropTypes.func).isRequired,
   episodes: PropTypes.array.isRequired,
   next: PropTypes.string,
   previous: PropTypes.string,
@@ -176,6 +155,8 @@ const mapDispatchToProps = dispatch => {
       onStopPlayer: stopPlayer,
       onAddBookmark: addBookmark,
       onRemoveBookmark: removeBookmark,
+      onSubscribe: subscribe,
+      onUnsubscribe: unsubscribe,
     }, dispatch)
   };
 };

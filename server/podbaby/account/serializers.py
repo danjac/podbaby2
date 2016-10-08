@@ -24,7 +24,17 @@ class UserSerializer(serializers.ModelSerializer):
 
     bookmarks = serializers.PrimaryKeyRelatedField(many=True, read_only=True)
 
+    subscriptions = serializers.PrimaryKeyRelatedField(
+        many=True,
+        read_only=True
+    )
+
     class Meta:
         model = User
-        fields = ('username', 'email', 'bookmarks')
+        fields = (
+            'username',
+            'email',
+            'bookmarks',
+            'subscriptions',
+        )
         read_only_fields = ('username', )

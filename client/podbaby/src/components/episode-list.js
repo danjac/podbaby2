@@ -35,6 +35,12 @@ EpisodeList.propTypes = {
   next: PropTypes.string,
   previous: PropTypes.string,
   onSelectPage: PropTypes.func.isRequired,
+  onSubscribe: PropTypes.func.isRequired,
+  onUnsubscribe: PropTypes.func.isRequired,
+  onAddBookmark: PropTypes.func.isRequired,
+  onRemoveBookmark: PropTypes.func.isRequired,
+  onStartPlayer: PropTypes.func.isRequired,
+  onStopPlayer: PropTypes.func.isRequired,
 };
 
 export default EpisodeList;
