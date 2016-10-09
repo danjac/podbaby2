@@ -105,7 +105,6 @@ class Bookmarks extends Component {
                      isLoggedIn={true}
                      onSelectPage={this.handleSelectPage}
                      {...actions} />
-      />
       </div>
     );
   }

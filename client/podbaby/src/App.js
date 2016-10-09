@@ -54,7 +54,7 @@ export class App extends Component {
           {this.props.children}
         </div>
         <Player isLoggedIn={isLoggedIn}
-                episode={playingEpisode} {...actions}/>
+                episode={playingEpisode} {...actions} />
       </div>
     );
   }
