@@ -32,7 +32,7 @@ export default function() {
         <IndexRoute component={Latest} />
         <Route path="/login/" component={Login} />
         <Route path="/signup/" component={Signup} />
-        <Route path="/bookmarks/"
+        <Route path="/playlist/"
                component={Bookmarks}
                onEnter={requireAuth} />
       </Route>

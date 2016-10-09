@@ -22,7 +22,7 @@ const LOGOUT = 'podbaby/auth/LOGOUT';
 export function subscribe(channel) {
   api.post(`/api/channels/${channel.id}/subscribe/`);
   return dispatch => {
-    dispatch(info('You have subscribed to this channel'));
+    dispatch(info('You have subscribed to this feed'));
     dispatch({
       type: SUBSCRIBE,
       payload: channel.id,
@@ -33,7 +33,7 @@ export function subscribe(channel) {
 export function unsubscribe(channel) {
   api.del(`/api/channels/${channel.id}/unsubscribe/`);
   return dispatch => {
-    dispatch(info('You have unsubscribed from this channel'));
+    dispatch(info('You have unsubscribed from this feed'));
     dispatch({
       type: UNSUBSCRIBE,
       payload: channel.id,
@@ -44,7 +44,7 @@ export function unsubscribe(channel) {
 export function addBookmark(episode) {
   api.post(`/api/episodes/${episode.id}/create_bookmark/`);
   return dispatch => {
-    dispatch(info('You have added this podcast to your bookmarks.'));
+    dispatch(info('You have added this podcast to your playlist.'));
     dispatch({
       type: ADD_BOOKMARK,
       payload: episode.id,
@@ -55,7 +55,7 @@ export function addBookmark(episode) {
 export function removeBookmark(episode) {
   api.del(`/api/episodes/${episode.id}/delete_bookmark/`);
   return dispatch => {
-    dispatch(info('You have removed this podcast from your bookmarks.'));
+    dispatch(info('You have removed this podcast from your playlist.'));
     dispatch({
       type: REMOVE_BOOKMARK,
       payload: episode.id,

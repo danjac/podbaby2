@@ -60,9 +60,9 @@ class Navbar extends Component {
               <bs.NavItem><Icon name="folder-open" /> Browse</bs.NavItem>
             </IndexLinkContainer>
             {isLoggedIn &&
-            <LinkContainer to="/bookmarks/">
+            <LinkContainer to="/playlist/">
               <bs.NavItem onClick={this.handleClick}>
-                <Icon name="star" /> Bookmarks
+                <Icon name="star" /> Playlist
               </bs.NavItem>
             </LinkContainer>}
             {isLoggedIn &&
