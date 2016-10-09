@@ -31,6 +31,8 @@ const defaultProps = {
     onStopPlayer: jest.fn(),
     onAddBookmark: jest.fn(),
     onRemoveBookmark: jest.fn(),
+    onSubscribe: jest.fn(),
+    onUnsubscribe: jest.fn(),
     onFetchEpisodes: jest.fn(),
   },
   router: {

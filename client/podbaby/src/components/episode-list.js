@@ -9,8 +9,19 @@ const EpisodeList = props => {
     next,
     previous,
     episodes,
+    ifEmpty,
     onSelectPage,
   } = props;
+
+  const style = { marginTop: 10 };
+
+  if (!episodes.length) {
+    const msg = ifEmpty || 'No episodes found';
+    console.log("MSG", msg);
+    return (
+      <div style={style}>{msg}</div>
+    );
+  }
 
   const pager = (previous || next) && (
     <Pager next={next}
@@ -18,7 +29,7 @@ const EpisodeList = props => {
            onSelect={onSelectPage} />);
 
   return (
-    <div style={{ marginTop: 10 }}>
+    <div style={style}>
       {pager}
       {episodes.map(episode => (
       <Episode key={episode.id}
@@ -34,6 +45,7 @@ EpisodeList.propTypes = {
   episodes: PropTypes.array.isRequired,
   next: PropTypes.string,
   previous: PropTypes.string,
+  ifEmpty: PropTypes.string,
   onSelectPage: PropTypes.func.isRequired,
   onSubscribe: PropTypes.func.isRequired,
   onUnsubscribe: PropTypes.func.isRequired,

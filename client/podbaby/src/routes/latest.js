@@ -95,6 +95,8 @@ export class LatestEpisodes extends Component {
 
     const searchQuery = this.props.location.query.q;
 
+    const ifEmpty = searchQuery && 'No results found for your search.';
+
     return (
       <div>
         <Search placeholder="Search for episodes"
@@ -104,6 +106,7 @@ export class LatestEpisodes extends Component {
         <EpisodeList episodes={episodes}
                      next={next}
                      previous={previous}
+                     ifEmpty={ifEmpty}
                      isLoggedIn={isLoggedIn}
                      onSelectPage={this.handleSelectPage}
                      {...actions} />

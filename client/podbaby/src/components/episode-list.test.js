@@ -34,13 +34,31 @@ const defaultProps = {
   onStopPlayer: jest.fn(),
   onAddBookmark: jest.fn(),
   onRemoveBookmark: jest.fn(),
+  onSubscribe: jest.fn(),
+  onUnsubscribe: jest.fn(),
 };
+
 
 it('should render the component', () => {
   const rendered = shallow(<EpisodeList {...defaultProps} />);
   expect(rendered.find(Pager).length).toEqual(1);
   expect(rendered.find(Episode).length).toEqual(1);
 });
+
+it('should show empty message if no episodes', () => {
+  const rendered = shallow(<EpisodeList {...defaultProps} episodes={[]} />);
+  expect(rendered.text()).toContain('No episodes found');
+  expect(rendered.find(Pager).length).toEqual(0);
+  expect(rendered.find(Episode).length).toEqual(0);
+});
+
+it('should show empty message if a message passed', () => {
+  const rendered = shallow(<EpisodeList {...defaultProps} episodes={[]} ifEmpty="No episodes!!!" />);
+  expect(rendered.text()).toContain('No episodes!!!');
+  expect(rendered.find(Pager).length).toEqual(0);
+  expect(rendered.find(Episode).length).toEqual(0);
+});
+
 
 it('should hide the pager if next and previous empty', () => {
   const rendered = shallow(<EpisodeList {...defaultProps} next="" previous="" />);

@@ -93,6 +93,11 @@ class Bookmarks extends Component {
 
     const searchQuery = this.props.location.query.q;
 
+    const ifEmpty = (
+      searchQuery ? 'No results found for your search.' :
+        "You haven't added any bookmarks yet"
+    );
+
     return (
       <div>
         <Search placeholder="Search for bookmarks"
@@ -102,6 +107,7 @@ class Bookmarks extends Component {
         <EpisodeList episodes={episodes}
                      next={next}
                      previous={previous}
+                     ifEmpty={ifEmpty}
                      isLoggedIn={true}
                      onSelectPage={this.handleSelectPage}
                      {...actions} />
