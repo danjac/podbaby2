@@ -70,6 +70,15 @@ it('should show a subscribe button if user is logged in', () => {
 
 });
 
+it('should not show a subscribe button if no subscribe action', () => {
+  const props = {...defaultProps, isLoggedIn: true, onSubscribe: undefined };
+  const rendered = shallow(<Buttons {...props} />);
+  const btnGroup = rendered.find(bs.ButtonGroup);
+  expect(btnGroup.find('[title="Subscribe to The Joe Rogan Experience"]').length).toBe(0);
+
+});
+
+
 it('should not show a bookmark button if user is logged in', () => {
   const props = {...defaultProps, isLoggedIn: false };
   const rendered = shallow(<Buttons {...props} />);
