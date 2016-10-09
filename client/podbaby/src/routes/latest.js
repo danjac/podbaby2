@@ -56,7 +56,7 @@ export class LatestEpisodes extends Component {
     this.props.actions.onFetchEpisodes(url);
   }
 
-  changeLocation(page, searchQuery) {
+  changeLocation(page=1, searchQuery) {
     this.props.router.replace({
       query: {
         page,
