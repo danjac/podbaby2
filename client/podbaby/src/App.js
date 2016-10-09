@@ -1,11 +1,20 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 import { bindActionCreators } from 'redux';
 import { withRouter } from 'react-router';
 import { connect } from 'react-redux';
 
-import { logout } from './modules/auth';
+import {
+  logout,
+  addBookmark,
+  removeBookmark,
+  subscribe,
+  unsubscribe,
+} from './modules/auth';
+
 import { dismissAlert } from './modules/alerts';
 import { stopPlayer } from './modules/player';
+
+import { playingEpisodeSelector } from './selectors';
 
 import AlertList from './components/alerts';
 import Navbar from './components/navbar';
@@ -19,45 +28,50 @@ export class App extends Component {
   constructor(props) {
     super(props);
     this.handleLogout = this.handleLogout.bind(this);
-    this.handleDismissAlert = this.handleDismissAlert.bind(this);
-    this.handleStopPlayer = this.handleStopPlayer.bind(this);
   }
 
   handleLogout() {
     const { router, actions } = this.props;
     actions.logout();
-    router.push("/")
-  }
-
-  handleDismissAlert(id) {
-    this.props.actions.dismissAlert(id);
-  }
-
-  handleStopPlayer() {
-    this.props.actions.stopPlayer();
+    router.push("/");
   }
 
   render() {
 
-    const { player, auth: { isLoggedIn} } = this.props;
+    const {
+      playingEpisode,
+      alerts,
+      auth,
+      auth: {
+        isLoggedIn,
+      }, actions } = this.props;
+
     return (
       <div>
-        <Navbar onLogout={this.handleLogout} {...this.props} />
-        <Player onStopPlayer={this.handleStopPlayer}
-                isLoggedIn={isLoggedIn}
-                player={player} />
+        <Navbar onLogout={this.handleLogout} auth={auth} />
         <div className="container" style={{ marginTop: 80 }}>
-          <AlertList onDismiss={this.handleDismissAlert} {...this.props} />
+          <AlertList onDismiss={actions.onDismissAlert} alerts={alerts} />
           {this.props.children}
         </div>
+        <Player isLoggedIn={isLoggedIn}
+                episode={playingEpisode} {...actions}/>
       </div>
     );
   }
 }
 
+App.propTypes =  {
+  actions: PropTypes.objectOf(PropTypes.func).isRequired,
+  children: PropTypes.node.isRequired,
+  router: PropTypes.object.isRequired,
+  playingEpisode: PropTypes.any,
+  auth: PropTypes.object.isRequired,
+  alerts: PropTypes.array.isRequired,
+};
+
 const mapStateToProps = state => {
   return {
-    player: state.player,
+    playingEpisode: playingEpisodeSelector(state),
     auth: state.auth,
     alerts: state.alerts,
   };
@@ -66,9 +80,13 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     actions: bindActionCreators({
-      logout,
-      dismissAlert,
-      stopPlayer,
+      onLogout: logout,
+      onDismissAlert: dismissAlert,
+      onStopPlayer: stopPlayer,
+      onAddBookmark: addBookmark,
+      onRemoveBookmark: removeBookmark,
+      onSubscribe: subscribe,
+      onUnsubscribe: unsubscribe,
     }, dispatch)
   };
 };

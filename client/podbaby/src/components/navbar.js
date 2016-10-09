@@ -59,12 +59,16 @@ class Navbar extends Component {
             <IndexLinkContainer to="/categories">
               <bs.NavItem><Icon name="folder-open" /> Browse</bs.NavItem>
             </IndexLinkContainer>
+            {isLoggedIn &&
             <LinkContainer to="/bookmarks/">
-              <bs.NavItem><Icon name="star" /> Bookmarks</bs.NavItem>
-            </LinkContainer>
-            <IndexLinkContainer to="/history">
+              <bs.NavItem onClick={this.handleClick}>
+                <Icon name="star" /> Bookmarks
+              </bs.NavItem>
+            </LinkContainer>}
+            {isLoggedIn &&
+            <LinkContainer to="/history">
               <bs.NavItem><Icon name="history" /> History</bs.NavItem>
-            </IndexLinkContainer>
+            </LinkContainer>}
           </bs.Nav>
           {isLoggedIn ? (
             <bs.Nav pullRight>

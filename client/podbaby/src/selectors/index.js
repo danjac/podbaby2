@@ -7,14 +7,29 @@ const playerSelector = state => state.player;
 export const bookmarksSelector = createSelector(
   currentUserSelector,
   currentUser => {
-    return currentUser && currentUser.bookmarks;
+    return currentUser ? currentUser.bookmarks : [];
   }
 );
 
 export const subscriptionsSelector = createSelector(
   currentUserSelector,
   currentUser => {
-    return currentUser && currentUser.subscriptions;
+    return currentUser ? currentUser.subscriptions : [];
+  }
+);
+
+export const playingEpisodeSelector = createSelector(
+  playerSelector,
+  bookmarksSelector,
+  subscriptionsSelector,
+  (player, bookmarks, subscriptions) => {
+    const { episode, isPlaying } = player;
+    if (!isPlaying) {
+      return null;
+    }
+    const isBookmarked = bookmarks.includes(episode.id);
+    const isSubscribed = subscriptions.includes(episode.channel.id);
+    return { ...episode, isPlaying: true, isBookmarked, isSubscribed };
   }
 );
 
@@ -35,7 +50,7 @@ export const episodesSelector = createSelector(
           player.episode &&
           player.episode.id === episode.id);
 
-      return { isBookmarked, isPlaying, isSubscribed, ...episode };
+      return { ...episode, isBookmarked, isPlaying, isSubscribed };
     });
   }
 );

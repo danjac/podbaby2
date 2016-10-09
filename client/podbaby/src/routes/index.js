@@ -15,7 +15,7 @@ import Signup from './signup';
 
 import { getAuthToken } from '../utils/storage';
 
-export default function({ store }) {
+export default function() {
 
   const requireAuth = (nextState, replace) => {
     // check auth token rather than state
@@ -32,7 +32,9 @@ export default function({ store }) {
         <IndexRoute component={Latest} />
         <Route path="/login/" component={Login} />
         <Route path="/signup/" component={Signup} />
-        <Route path="/bookmarks/" component={Bookmarks} onEnter={requireAuth} />
+        <Route path="/bookmarks/"
+               component={Bookmarks}
+               onEnter={requireAuth} />
       </Route>
     </Router>
   );

@@ -16,6 +16,7 @@ export const Buttons = ({
     onUnsubscribe,
   }) => {
 
+  let buttons = [];
   let playerBtn;
 
   if (episode.isPlaying) {
@@ -23,11 +24,15 @@ export const Buttons = ({
                             title="Stop"
                             onClick={onStopPlayer}>
                             <Icon name="stop" /></bs.Button>);
-  } else {
+  } else if (onStartPlayer) {
     playerBtn = (<bs.Button key="startBtn"
                             title="Play"
                             onClick={() => onStartPlayer(episode)}>
                             <Icon name="play" /></bs.Button>);
+  }
+
+  if (playerBtn) {
+    buttons.push(playerBtn);
   }
 
   const downloadBtn = (
@@ -38,14 +43,11 @@ export const Buttons = ({
       <Icon name="download" />
     </a>);
 
-  let buttons = [
-    playerBtn,
-    downloadBtn,
-  ];
+  buttons.push(downloadBtn);
 
   if (isLoggedIn) {
 
-    let bookmarkBtn, subscriptionBtn;
+    let bookmarkBtn;
 
     if (episode.isBookmarked) {
       bookmarkBtn = (
@@ -61,25 +63,27 @@ export const Buttons = ({
                    <Icon name="star-o" /></bs.Button>);
     }
 
-    if (episode.isSubscribed) {
-      subscriptionBtn = (
-        <bs.Button key="subscribeBtn"
-                   onClick={() => onUnsubscribe(episode.channel)}
-                   title={`Unsubscribe from ${channel.name}`}>
-                   <Icon name="remove" /></bs.Button>);
-    } else {
-      subscriptionBtn = (
-        <bs.Button key="subscribeBtn"
-                   onClick={() => onSubscribe(episode.channel)}
-                   title={`Subscribe to ${channel.name}`}>
-                   <Icon name="check" /></bs.Button>);
+    buttons.push(bookmarkBtn);
 
+    if (onSubscribe && onUnsubscribe) {
+      let subscriptionBtn;
+      if (episode.isSubscribed) {
+        subscriptionBtn = (
+          <bs.Button key="subscribeBtn"
+                     onClick={() => onUnsubscribe(episode.channel)}
+                     title={`Unsubscribe from ${channel.name}`}>
+                     <Icon name="remove" /></bs.Button>);
+      } else {
+        subscriptionBtn = (
+          <bs.Button key="subscribeBtn"
+                     onClick={() => onSubscribe(episode.channel)}
+                     title={`Subscribe to ${channel.name}`}>
+                     <Icon name="check" /></bs.Button>);
+
+      }
+      buttons.push(subscriptionBtn);
     }
 
-    buttons = [...buttons, ...[
-      bookmarkBtn,
-      subscriptionBtn,
-    ]];
   };
 
   buttons = buttons.map((btn, index) => (
@@ -96,12 +100,12 @@ export const Buttons = ({
 Buttons.propTypes = {
   episode: PropTypes.object.isRequired,
   isLoggedIn: PropTypes.bool.isRequired,
-  onSubscribe: PropTypes.func.isRequired,
-  onUnsubscribe: PropTypes.func.isRequired,
   onAddBookmark: PropTypes.func.isRequired,
   onRemoveBookmark: PropTypes.func.isRequired,
-  onStartPlayer: PropTypes.func.isRequired,
   onStopPlayer: PropTypes.func.isRequired,
+  onStartPlayer: PropTypes.func,
+  onSubscribe: PropTypes.func,
+  onUnsubscribe: PropTypes.func,
 };
 
 

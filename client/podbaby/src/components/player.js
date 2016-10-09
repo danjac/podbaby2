@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import * as bs from 'react-bootstrap';
 import Icon from 'react-fa';
+import Buttons from './episode-buttons';
 
 class Player extends Component {
 
@@ -11,7 +12,7 @@ class Player extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.player !== this.props.player && nextProps.player.isPlaying) {
+    if (nextProps.episode !== this.props.episode) {
       this.setState({ expanded: true });
     }
     return nextProps;
@@ -22,15 +23,9 @@ class Player extends Component {
   }
 
   render() {
-    const {
-      player: {
-        isPlaying,
-        episode,
-      },
-      onStopPlayer,
-      isLoggedIn } = this.props;
+    const { episode } = this.props;
 
-    if (!isPlaying || !episode) {
+    if (!episode) {
       return <div></div>;
     }
 
@@ -48,51 +43,11 @@ class Player extends Component {
       currentTarget.currentTime = 0;
     };
 
-    const stopBtn = (
-      <bs.Button key="stopBtn"
-                 title="Stop"
-                 onClick={onStopPlayer}>
-                 <Icon name="stop" /></bs.Button>);
-
-    const downloadBtn = (
-      <a key="downloadBtn"
-         className="btn btn-default"
-         title="Download this podcast"
-         href={episode.enclosureUrl}>
-        <Icon name="download" />
-      </a>);
-
-    let buttons = [
-      stopBtn,
-      downloadBtn,
-    ];
-
-    if (isLoggedIn) {
-      buttons = [...buttons, ...[
-
-        (<bs.Button key="bookmarkBtn"
-                    title="Bookmark this podcast">
-                    <Icon name="star" /></bs.Button>),
-
-        (<bs.Button key="subscribeBtn"
-                    title={`Subscribe to ${channel.name}`}>
-                    <Icon name="plus" /></bs.Button>),
-
-      ]];
-    };
-
-    buttons = buttons.map((btn, index) => (
-      <bs.ButtonGroup key={index}>{btn}</bs.ButtonGroup>
-    ));
-
-    const buttonGroup = expanded && (
-      <bs.ButtonGroup justified>
-        {buttons}
-      </bs.ButtonGroup>);
-
     // we need to hide the audio in CSS - will stop playing if
     // not in DOM
     const styles = expanded ? {} : { display: 'none' };
+
+    const buttons = <Buttons {...this.props} episode={episode} />;
 
     return (
       <div className="audio-player" style={expanded ? {} : {
@@ -100,7 +55,7 @@ class Player extends Component {
         width: '15%'
         }}>
           <bs.Panel header={title}
-                    footer={buttonGroup}
+            footer={buttons}
                     style={styles}>
            <audio controls
                   autoPlay
@@ -122,7 +77,7 @@ class Player extends Component {
 
 Player.propTypes = {
   onStopPlayer: PropTypes.func.isRequired,
-  player: PropTypes.object.isRequired,
+  episode: PropTypes.any,
   isLoggedIn: PropTypes.bool.isRequired,
 };
 
