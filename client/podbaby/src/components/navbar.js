@@ -53,24 +53,11 @@ class Navbar extends Component {
                 <Icon name="list" /> Podcasts
               </bs.NavItem>
             </IndexLinkContainer>
-            <IndexLinkContainer to="/feeds">
+            <LinkContainer to="/feeds">
               <bs.NavItem><Icon name="rss" /> Feeds</bs.NavItem>
-            </IndexLinkContainer>
-            <IndexLinkContainer to="/categories">
-              <bs.NavItem><Icon name="folder-open" /> Browse</bs.NavItem>
-            </IndexLinkContainer>
-            {isLoggedIn &&
-            <LinkContainer to="/playlist/">
-              <bs.NavItem onClick={this.handleClick}>
-                <Icon name="star" /> Playlist
-              </bs.NavItem>
-            </LinkContainer>}
-            {isLoggedIn &&
-            <LinkContainer to="/history">
-              <bs.NavItem><Icon name="history" /> History</bs.NavItem>
-            </LinkContainer>}
+            </LinkContainer>
           </bs.Nav>
-          {isLoggedIn ? (
+          {isLoggedIn && currentUser && (
             <bs.Nav pullRight>
               <bs.NavItem href="#">
                 <Icon name="user" /> {currentUser.username}
@@ -79,7 +66,8 @@ class Navbar extends Component {
                 <Icon name="sign-out" /> Logout
               </bs.NavItem>
             </bs.Nav>
-          ) : (
+          )}
+          {!isLoggedIn && (
           <bs.Nav pullRight>
             <LinkContainer to="/login/">
               <bs.NavItem onClick={this.handleClick}>

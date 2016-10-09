@@ -78,7 +78,7 @@ export const Buttons = ({
           <bs.Button key="subscribeBtn"
                      onClick={() => onSubscribe(episode.channel)}
                      title={`Subscribe to ${channel.name}`}>
-                     <Icon name="check" /></bs.Button>);
+                     <Icon name="plus-circle" /></bs.Button>);
 
       }
       buttons.push(subscriptionBtn);

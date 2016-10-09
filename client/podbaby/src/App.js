@@ -32,7 +32,7 @@ export class App extends Component {
 
   handleLogout() {
     const { router, actions } = this.props;
-    actions.logout();
+    actions.onLogout();
     router.push("/");
   }
 

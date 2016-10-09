@@ -13,10 +13,13 @@ const REMOVE_BOOKMARK = 'podbaby/auth/REMOVE_BOOKMARK';
 const SUBSCRIBE = 'podbaby/auth/SUBSCRIBE';
 const UNSUBSCRIBE = 'podbaby/auth/UNSUBSCRIBE';
 
+// we check if user has auth token
+const USER_LOGGED_IN = 'podbaby/auth/USER_LOGGED_IN';
+const USER_LOGGED_OUT = 'podbaby/auth/USER_LOGGED_OUT';
+
+// retrieving user details from server
 const GET_USER_SUCCESS = 'podbaby/auth/GET_USER_SUCCESS';
 const GET_USER_FAILURE = 'podbaby/auth/GET_USER_FAILURE';
-
-const LOGOUT = 'podbaby/auth/LOGOUT';
 
 
 export function subscribe(channel) {
@@ -67,10 +70,13 @@ export function removeBookmark(episode) {
 export function getCurrentUser() {
   if (!getAuthToken()) {
     return {
-      type: GET_USER_FAILURE
+      type: USER_LOGGED_OUT,
     };
   }
   return dispatch => {
+    dispatch({
+      type: USER_LOGGED_IN,
+    });
     api.get('/api/auth/me/')
       .then(payload => {
         dispatch({
@@ -89,7 +95,7 @@ export function logout() {
   removeAuthToken();
   return dispatch => {
     dispatch({
-      type: LOGOUT
+      type: USER_LOGGED_OUT,
     });
     // tbd: move this out of this function
     dispatch(info('Bye for now!'));
@@ -139,13 +145,15 @@ export default function(state = initialState, action) {
           subscriptions: subscriptions.filter(id => id !== action.payload),
         }
       };
+    case USER_LOGGED_IN:
+      return {...state, isLoggedIn: true};
     case GET_USER_SUCCESS:
       return {...state,
         isLoggedIn: true,
         currentUser: action.payload
       };
     case GET_USER_FAILURE:
-    case LOGOUT:
+    case USER_LOGGED_OUT:
       return {...initialState
       };
     default:

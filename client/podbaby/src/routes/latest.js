@@ -2,6 +2,7 @@ import React, { PropTypes, Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { withRouter } from 'react-router';
+import * as bs from 'react-bootstrap';
 
 import { fetchEpisodes } from '../modules/episodes';
 
@@ -26,6 +27,9 @@ export class LatestEpisodes extends Component {
   constructor(props) {
     super(props);
 
+    this.handleShowAll = this.handleShowAll.bind(this);
+    this.handleShowSubscriptions = this.handleShowSubscriptions.bind(this);
+
     this.handleSearch = this.handleSearch.bind(this);
     this.handleClearSearch = this.handleClearSearch.bind(this);
     this.handleSelectPage = this.handleSelectPage.bind(this);
@@ -33,8 +37,8 @@ export class LatestEpisodes extends Component {
   }
 
   componentDidMount() {
-    const { page, q } = this.props.location.query;
-    this.fetchEpisodes(page || 1, q);
+    const { page, q, show } = this.props.location.query;
+    this.fetchEpisodes(page || 1, q, show);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -43,39 +47,47 @@ export class LatestEpisodes extends Component {
     const nextQuery = nextProps.location.query;
 
     if (thisQuery !== nextQuery) {
-      const { page, q } = nextQuery;
-      this.fetchEpisodes(page, q);
+      const { page, q, show } = nextQuery;
+      this.fetchEpisodes(page, q, show);
     }
   }
 
-  fetchEpisodes(page, searchQuery) {
-    let url = '/api/episodes/?page=' + page;
+  fetchEpisodes(page=1, searchQuery, show) {
+    const { isLoggedIn, actions: { onFetchEpisodes } } = this.props;
+    let url = (show === 'all' || !isLoggedIn) ? '/api/episodes/' : '/api/episodes/subscribed/';
+    if (page) {
+      url += '?page=' + page;
+    }
     if (searchQuery) {
       url += '&q=' + searchQuery;
     }
-    this.props.actions.onFetchEpisodes(url);
+    onFetchEpisodes(url);
   }
 
-  changeLocation(page=1, searchQuery) {
-    this.props.router.replace({
-      query: {
-        page,
-        q: searchQuery,
-      }
-    });
- }
+  changeLocation(nextQuery) {
+    const query = {...this.props.location.query, ...nextQuery};
+    this.props.router.replace({ query });
+  }
+
+  handleShowAll() {
+    this.changeLocation({ page: 1, show: 'all' });
+  }
+
+  handleShowSubscriptions() {
+    this.changeLocation({ page: 1, show: 'feeds' });
+  }
 
   handleSearch(searchQuery) {
-    this.changeLocation(1, searchQuery);
+    this.changeLocation({ page: 1, q: searchQuery });
   }
 
   handleClearSearch() {
-    this.changeLocation(1, '');
+    this.changeLocation({ page: 1, q: '' });
   }
 
   handleSelectPage(url) {
     const page = pageNumberFromUrl(url);
-    this.changeLocation(page, this.props.location.query.q);
+    this.changeLocation({ page });
   }
 
   render() {
@@ -87,22 +99,33 @@ export class LatestEpisodes extends Component {
       isLoggedIn,
       isLoading,
       actions,
+      location: {
+        query
+      }
     } = this.props;
 
     if (isLoading) {
       return <Loader />;
     }
 
-    const searchQuery = this.props.location.query.q;
+    const searchQuery = query.q;
+    const showAll = query.show === 'all';
 
     const ifEmpty = searchQuery && 'No results found for your search.';
 
     return (
       <div>
+        {isLoggedIn && (
+        <bs.Nav justified bsStyle="pills" style={{ marginBottom: 20 }}>
+          <bs.NavItem active={!showAll} onClick={this.handleShowSubscriptions}>My feeds</bs.NavItem>
+          <bs.NavItem active={showAll} onClick={this.handleShowAll}>All podcasts</bs.NavItem>
+        </bs.Nav>)}
+
         <Search placeholder="Search for episodes"
                 searchQuery={searchQuery}
                 onClear={this.handleClearSearch}
                 onSearch={this.handleSearch} />
+
         <EpisodeList episodes={episodes}
                      next={next}
                      previous={previous}
