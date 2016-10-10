@@ -11,6 +11,15 @@ export function get(url) {
     });
   }
 
+  if (url.match(/api\/episodes\/1/)) {
+    return new Promise((resolve, reject) => {
+      resolve({
+        id: 1,
+        title: 'test',
+      });
+    });
+  }
+
   if (url.match(/api\/episodes/ )) {
     return new Promise((resolve, reject) => {
       resolve({
