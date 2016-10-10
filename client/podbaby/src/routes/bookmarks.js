@@ -48,11 +48,11 @@ class Bookmarks extends Component {
   }
 
   fetchEpisodes(page, searchQuery) {
-    let url = '/api/episodes/bookmarks/?page=' + page;
-    if (searchQuery) {
-      url += '&q=' + searchQuery;
-    }
-    this.props.actions.onFetchEpisodes(url);
+    const params = {
+      page: page || 1,
+      q: searchQuery || '',
+    };
+    this.props.actions.onFetchEpisodes('/api/episodes/bookmarks/', params);
   }
 
   changeLocation(page, searchQuery) {
