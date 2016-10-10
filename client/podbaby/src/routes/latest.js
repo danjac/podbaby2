@@ -55,13 +55,14 @@ export class LatestEpisodes extends Component {
   fetchEpisodes(page=1, searchQuery, show) {
     const { isLoggedIn, actions: { onFetchEpisodes } } = this.props;
     let url = (show === 'all' || !isLoggedIn) ? '/api/episodes/' : '/api/episodes/subscribed/';
+    const params = {};
     if (page) {
-      url += '?page=' + page;
+      params.page = page;
     }
     if (searchQuery) {
-      url += '&q=' + searchQuery;
+      params.q = searchQuery;
     }
-    onFetchEpisodes(url);
+    onFetchEpisodes(url, params);
   }
 
   changeLocation(nextQuery) {

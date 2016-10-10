@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { camelizeKeys, decamelizeKeys } from 'humps';
-import { partial } from 'lodash';
+import _ from 'lodash';
 import { SubmissionError } from 'redux-form';
 
 import config from '../config';
@@ -15,7 +15,7 @@ const instance = axios.create({
   transformResponse: axios.defaults.transformResponse.concat(camelizeKeys),
 });
 
-const request = (method, url, data) => {
+const request = (method, url, data, options) => {
 
   const headers = {};
 
@@ -24,12 +24,23 @@ const request = (method, url, data) => {
     headers['Authorization'] = 'Token ' + token;
   }
 
-  return instance.request({
+  console.log("OPTIONS", options);
+
+  console.log("ARGS", {
       url,
       method,
       headers,
       data,
-  })
+      ...options,
+ });
+  return instance
+    .request({
+      url,
+      method,
+      headers,
+      data,
+      ...options,
+   })
   .then(response => response.data)
     .catch(err => {
       if (err.response) {
@@ -45,8 +56,8 @@ const request = (method, url, data) => {
 };
 
 
-export const get = partial(request, 'get');
-export const post = partial(request, 'post');
-export const put = partial(request, 'put');
-export const patch = partial(request, 'patch');
-export const del = partial(request, 'delete');
+export const get = _.partial(request, 'get', _, undefined);
+export const post = _.partial(request, 'post');
+export const put = _.partial(request, 'put');
+export const patch = _.partial(request, 'patch');
+export const del = _.partial(request, 'delete');

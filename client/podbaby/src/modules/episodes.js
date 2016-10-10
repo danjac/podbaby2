@@ -12,10 +12,10 @@ const initialState = {
   previous: null,
 };
 
-export function fetchEpisodes(url) {
+export function fetchEpisodes(url, params) {
   return dispatch => {
     dispatch({ type: FETCH_EPISODES });
-    return api.get(url)
+    return api.get(url, { params })
     .then(payload => {
       dispatch({
         type: FETCH_EPISODES_SUCCESS,
