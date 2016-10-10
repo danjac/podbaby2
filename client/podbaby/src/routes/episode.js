@@ -2,13 +2,15 @@ import React, { PropTypes, Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
-import Icon from 'react-fa';
 import moment from 'moment';
 import * as bs from 'react-bootstrap';
 
 import { episodeDetailSelector } from '../selectors';
+
+import Categories from '../components/categories';
 import Buttons from '../components/episode-buttons';
 import Loader from '../components/loader';
+
 import sanitize from '../utils/sanitize';
 
 import { fetchEpisode } from '../modules/episode';
@@ -52,7 +54,12 @@ export class EpisodeDetail extends Component {
     } = this.props;
 
     if (isNotFound) {
-      return <div>Not found</div>;
+      return (
+        <bs.Jumbotron>
+          <h2>Podcast not found</h2>
+          <p>Sorry, this podcast cannot be found.</p>
+        </bs.Jumbotron>
+      );
     }
 
     if (isLoading || !episode) {
@@ -64,18 +71,6 @@ export class EpisodeDetail extends Component {
     const description = sanitize(
       episode.description || episode.summary || episode.subtitle
     );
-
-    let categories = channel.categories.map(cat => (
-      <a href="#" key={cat.id}><bs.Label style={{ display: 'inline-block' }}>{cat.name}</bs.Label>&nbsp;</a>
-    ));
-
-    if (episode.explicit) {
-      categories = [...categories, [(
-        <bs.Label key="explicit" bsStyle="danger" style={{ display: 'inline-block' }}>
-          <Icon name="warning" /> Explicit
-        </bs.Label>
-      )]];
-    }
 
     const thumbnail = channel.thumbnail || {
       url: defaultThumbnail,
@@ -101,7 +96,8 @@ export class EpisodeDetail extends Component {
                  alt={channel.name} />
           </bs.Media.Left>
           <bs.Media.Body>
-            <p>{categories}</p>
+            <Categories categories={channel.categories}
+              explicit={episode.explicit} />
             {published && <p><strong>{published}</strong></p>}
           </bs.Media.Body>
         </bs.Media>

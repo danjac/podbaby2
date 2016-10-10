@@ -10,6 +10,7 @@ import Latest from './latest';
 import Bookmarks from './bookmarks';
 import Login from './login';
 import Signup from './signup';
+import NotFound from './not-found';
 
 
 export default function(history, store) {
@@ -35,6 +36,7 @@ export default function(history, store) {
         <Route path="podcasts/:id/" component={Episode} />
         <Route path="login/" component={Login} />
         <Route path="signup/" component={Signup} />
+        <Route path="*" component={NotFound} />
       </Route>
     </Router>
   );

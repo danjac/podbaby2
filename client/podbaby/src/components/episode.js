@@ -1,10 +1,10 @@
 import React, { PropTypes } from 'react';
-import Icon from 'react-fa';
 import moment from 'moment';
 import { Link } from 'react-router';
 import * as bs from 'react-bootstrap';
 
 import sanitize from '../utils/sanitize';
+import Categories from './categories';
 import Buttons from './episode-buttons';
 
 import defaultThumbnail from '../podcast.svg';
@@ -12,24 +12,6 @@ import defaultThumbnail from '../podcast.svg';
 export const Episode = props => {
 
   const { episode, episode: { channel } } = props;
-
-  const categoryStyle = {
-    display: 'inline-block',
-  };
-
-  let categories = channel.categories.map(cat => (
-    <a href="#" key={cat.id}>
-      <bs.Label style={categoryStyle}>{cat.name}
-    </bs.Label>&nbsp;</a>
-  ));
-
-  if (episode.explicit) {
-    categories = [...categories, [(
-      <bs.Label key="explicit" bsStyle="danger" style={categoryStyle}>
-        <Icon name="warning" /> Explicit
-      </bs.Label>
-    )]];
-  }
 
   const thumbnail = channel.thumbnail || {
     url: defaultThumbnail,
@@ -62,7 +44,8 @@ export const Episode = props => {
                alt={channel.name} />
         </bs.Media.Left>
         <bs.Media.Body>
-          <p>{categories}</p>
+          <Categories categories={channel.categories}
+                      explicit={episode.explicit} />
           {published && <p><strong>{published}</strong></p>}
         </bs.Media.Body>
       </bs.Media>
