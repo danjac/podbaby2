@@ -45,7 +45,7 @@ export const Episode = props => {
               footer={<Buttons {...props} />}
               className="episode">
       <h4 style={{ textAlign: 'center' }}>
-        <a href="#">{episode.title}</a>
+        <a href={`/podcasts/${episode.id}/`}>{episode.title}</a>
       </h4>
       <bs.Media>
         <bs.Media.Left>

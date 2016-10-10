@@ -1,97 +1,64 @@
 import React, { PropTypes, Component } from 'react';
+import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
+import Icon from 'react-fa';
+import moment from 'moment';
 import * as bs from 'react-bootstrap';
 
+import Buttons from '../components/episode-buttons';
+import Loader from '../components/loader';
+import sanitize from './utils/sanitize';
+
 import { fetchEpisode } from '../modules/episode';
+
+import { startPlayer, stopPlayer } from '../modules/player';
+
+import {
+  addBookmark,
+  removeBookmark,
+  subscribe,
+  unsubscribe,
+} from '../modules/auth';
+
+import defaultThumbnail from '../podcast.svg';
+
 
 export class EpisodeDetail extends Component {
 
   componentDidMount() {
-    this.fetchEpisode(this.props);
+    this.fetchEpisode(this.props.params.id);
   }
 
   componentWillReceiveProps(nextProps) {
-    this.fetchEpisode(nextProps);
+    if (nextProps.params.id !== this.props.params.id) {
+      this.fetchEpisode(nextProps.params.id);
+    }
+    return nextProps;
   }
 
-  fetchEpisode(props) {
-    const { params, dispatch } = props;
-    dispatch(fetchEpisode(params.id));
+  fetchEpisode(id) {
+    this.props.actions.onFetchEpisode(id);
   }
 
   render() {
     const {
       isLoggedIn,
+      isLoading,
+      isNotFound,
       episode,
-      episode:
-      { channel },
+      actions,
     } = this.props;
 
-    let playerBtn;
-
-    if (episode.isPlaying) {
-      playerBtn = (<bs.Button key="stopBtn"
-                              title="Stop"
-                              onClick={this.handleStopPlayer}>
-                              <Icon name="stop" /></bs.Button>);
-    } else {
-      playerBtn = (<bs.Button key="startBtn"
-                              title="Play"
-                              onClick={this.handleStartPlayer}>
-                              <Icon name="play" /></bs.Button>);
+    if (isLoading) {
+      return <Loader />;
     }
 
-    const downloadBtn = (
-      <a key="downloadBtn"
-         className="btn btn-default"
-         title="Download this podcast"
-         href={episode.enclosureUrl}>
-        <Icon name="download" />
-      </a>);
+    if (isNotFound) {
+      return <div>Not found</div>;
+    }
 
-    let buttons = [
-      playerBtn,
-      downloadBtn,
-    ];
-
-    if (isLoggedIn) {
-
-      let bookmarkBtn;
-
-      if (episode.isBookmarked) {
-
-        bookmarkBtn = (
-          <bs.Button key="bookmarkBtn"
-                     onClick={this.handleRemoveBookmark}
-                     title="Remove bookmark">
-                     <Icon name="star" /></bs.Button>)
-      } else {
-
-        bookmarkBtn = (
-          <bs.Button key="bookmarkBtn"
-                     onClick={this.handleAddBookmark}
-                     title="Bookmark this podcast">
-                     <Icon name="star-o" /></bs.Button>)
-      }
-
-      buttons = [...buttons, ...[
-        bookmarkBtn,
-        (<bs.Button key="subscribeBtn"
-                    title={`Subscribe to ${channel.name}`}>
-                    <Icon name="plus" /></bs.Button>),
-
-      ]];
-    };
-
-    buttons = buttons.map((btn, index) => (
-      <bs.ButtonGroup key={index}>{btn}</bs.ButtonGroup>
-    ));
-
-    const buttonGroup = (
-      <bs.ButtonGroup justified>
-        {buttons}
-      </bs.ButtonGroup>);
+    const { channel } = episode;
 
     let categories = channel.categories.map(cat => (
       <a href="#" key={cat.id}><bs.Label style={{ display: 'inline-block' }}>{cat.name}</bs.Label>&nbsp;</a>
@@ -110,8 +77,6 @@ export class EpisodeDetail extends Component {
       height: 120,
       width: 120,
     };
-
-    const header = channel.name;
 
     const published = episode.published && moment(episode.published).format(
       'MMMM Do YYYY'
@@ -137,14 +102,45 @@ export class EpisodeDetail extends Component {
         </bs.Media>
         <p style={{ marginTop: 10 }}
            dangerouslySetInnerHTML={sanitize(episode.description)}></p>
-         {buttons}
+         <Buttons episode={episode}
+                  isLoggedIn={isLoggedIn}
+                  {...actions} />
       </div>
     );
 
     }
 }
 
-const mapDispatchToProps = {
+EpisodeDetail.propTypes = {
+  params: PropTypes.object.isRequired,
+  actions: PropTypes.objectOf(PropTypes.func).isRequired,
+  isLoggedIn: PropTypes.bool.isRequired,
+  isLoading: PropTypes.bool.isRequired,
+  isNotFound: PropTypes.bool.isRequired,
+  episode: PropTypes.any,
+};
+
+const mapStateToProps = state => {
+  const { isLoggedIn } = state.auth;
+  return {
+    isLoggedIn,
+    ...state.episode,
+  };
+};
+
+
+const mapDispatchToProps = dispatch => {
+  return {
+    actions: bindActionCreators({
+      onFetchEpisode: fetchEpisode,
+      onStartPlayer: startPlayer,
+      onStopPlayer: stopPlayer,
+      onAddBookmark: addBookmark,
+      onRemoveBookmark: removeBookmark,
+      onSubscribe: subscribe,
+      onUnsubscribe: unsubscribe,
+    }, dispatch)
+  };
 };
 
 export default connect(
