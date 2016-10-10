@@ -5,6 +5,7 @@ import { Router, Route, IndexRoute } from 'react-router';
 import App from '../App';
 
 import Podcasts from './podcasts';
+import Episode from './episode';
 import Latest from './latest';
 import Bookmarks from './bookmarks';
 import Login from './login';
@@ -31,8 +32,9 @@ export default function(history, store) {
                  component={Bookmarks}
                  onEnter={requireAuth} />
         </Route>
-        <Route path="/login/" component={Login} />
-        <Route path="/signup/" component={Signup} />
+        <Route path="podcasts/:id/" component={Episode} />
+        <Route path="login/" component={Login} />
+        <Route path="signup/" component={Signup} />
       </Route>
     </Router>
   );

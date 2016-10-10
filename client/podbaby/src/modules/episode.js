@@ -16,7 +16,7 @@ export function fetchEpisode(id) {
     dispatch({
       type: FETCH_EPISODE
     });
-    return api.get(`/api/episode/${id}/`)
+    return api.get(`/api/episodes/${id}/`)
       .then(payload => {
         dispatch({
           type: FETCH_EPISODES_SUCCESS,

@@ -10,7 +10,7 @@ const sanitizeOptions = {
 
 const sanitize = dirty => {
   return {
-    __html: sanitizeHtml(dirty, sanitizeOptions),
+    __html: sanitizeHtml(dirty.replace('\n', '<br>'), sanitizeOptions),
   };
 };
 

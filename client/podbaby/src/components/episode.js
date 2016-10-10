@@ -1,6 +1,7 @@
 import React, { PropTypes } from 'react';
 import Icon from 'react-fa';
 import moment from 'moment';
+import { Link } from 'react-router';
 import * as bs from 'react-bootstrap';
 
 import sanitize from '../utils/sanitize';
@@ -40,12 +41,18 @@ export const Episode = props => {
     'MMMM Do YYYY'
   );
 
+  const description = sanitize(
+    episode.subtitle || episode.summary || episode.description
+  );
+
+  const title = episode.title || channel.name;
+
   return (
     <bs.Panel header={channel.name}
               footer={<Buttons {...props} />}
               className="episode">
       <h4 style={{ textAlign: 'center' }}>
-        <a href={`/podcasts/${episode.id}/`}>{episode.title}</a>
+        <Link to={`/podcasts/${episode.id}/`}>{title}</Link>
       </h4>
       <bs.Media>
         <bs.Media.Left>
@@ -60,7 +67,7 @@ export const Episode = props => {
         </bs.Media.Body>
       </bs.Media>
       <p style={{ marginTop: 10 }}
-         dangerouslySetInnerHTML={sanitize(episode.subtitle)}></p>
+         dangerouslySetInnerHTML={description}></p>
     </bs.Panel>
   );
 };

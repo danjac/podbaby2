@@ -6,9 +6,10 @@ import Icon from 'react-fa';
 import moment from 'moment';
 import * as bs from 'react-bootstrap';
 
+import { episodeDetailSelector } from '../selectors';
 import Buttons from '../components/episode-buttons';
 import Loader from '../components/loader';
-import sanitize from './utils/sanitize';
+import sanitize from '../utils/sanitize';
 
 import { fetchEpisode } from '../modules/episode';
 
@@ -50,15 +51,19 @@ export class EpisodeDetail extends Component {
       actions,
     } = this.props;
 
-    if (isLoading) {
-      return <Loader />;
-    }
-
     if (isNotFound) {
       return <div>Not found</div>;
     }
 
+    if (isLoading || !episode) {
+      return <Loader />;
+    }
+
     const { channel } = episode;
+
+    const description = sanitize(
+      episode.description || episode.summary || episode.subtitle
+    );
 
     let categories = channel.categories.map(cat => (
       <a href="#" key={cat.id}><bs.Label style={{ display: 'inline-block' }}>{cat.name}</bs.Label>&nbsp;</a>
@@ -101,7 +106,7 @@ export class EpisodeDetail extends Component {
           </bs.Media.Body>
         </bs.Media>
         <p style={{ marginTop: 10 }}
-           dangerouslySetInnerHTML={sanitize(episode.description)}></p>
+           dangerouslySetInnerHTML={description}></p>
          <Buttons episode={episode}
                   isLoggedIn={isLoggedIn}
                   {...actions} />
@@ -122,9 +127,12 @@ EpisodeDetail.propTypes = {
 
 const mapStateToProps = state => {
   const { isLoggedIn } = state.auth;
+  const { isLoading, isNotFound } = state.episode;
   return {
     isLoggedIn,
-    ...state.episode,
+    isLoading,
+    isNotFound,
+    episode: episodeDetailSelector(state),
   };
 };
 

@@ -3,6 +3,7 @@ import { createSelector } from 'reselect';
 const currentUserSelector = state => state.auth.currentUser;
 const resultsSelector = state => state.episodes.results;
 const playerSelector = state => state.player;
+const episodeSelector = state => state.episode.episode;
 
 export const bookmarksSelector = createSelector(
   currentUserSelector,
@@ -30,6 +31,29 @@ export const playingEpisodeSelector = createSelector(
     const isBookmarked = bookmarks.includes(episode.id);
     const isSubscribed = subscriptions.includes(episode.channel.id);
     return { ...episode, isPlaying: true, isBookmarked, isSubscribed };
+  }
+);
+
+export const episodeDetailSelector = createSelector(
+  episodeSelector,
+  playerSelector,
+  bookmarksSelector,
+  subscriptionsSelector,
+  (episode, player, bookmarks, subscriptions) => {
+
+    if (!episode) {
+      return null;
+    }
+
+    const isBookmarked = bookmarks.includes(episode.id);
+    const isSubscribed = subscriptions.includes(episode.channel.id);
+
+    const isPlaying = (
+      player.isPlaying &&
+        player.episode &&
+        player.episode.id === episode.id);
+
+    return { ...episode, isBookmarked, isPlaying, isSubscribed };
   }
 );
 
