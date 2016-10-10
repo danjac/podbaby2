@@ -7,19 +7,19 @@ import {
 import { info } from './alerts';
 
 
-const ADD_BOOKMARK = 'podbaby/auth/ADD_BOOKMARK';
-const REMOVE_BOOKMARK = 'podbaby/auth/REMOVE_BOOKMARK';
+export const ADD_BOOKMARK = 'podbaby/auth/ADD_BOOKMARK';
+export const REMOVE_BOOKMARK = 'podbaby/auth/REMOVE_BOOKMARK';
 
-const SUBSCRIBE = 'podbaby/auth/SUBSCRIBE';
-const UNSUBSCRIBE = 'podbaby/auth/UNSUBSCRIBE';
+export const SUBSCRIBE = 'podbaby/auth/SUBSCRIBE';
+export const UNSUBSCRIBE = 'podbaby/auth/UNSUBSCRIBE';
 
 // we check if user has auth token
-const USER_LOGGED_IN = 'podbaby/auth/USER_LOGGED_IN';
-const USER_LOGGED_OUT = 'podbaby/auth/USER_LOGGED_OUT';
+export const USER_LOGGED_IN = 'podbaby/auth/USER_LOGGED_IN';
+export const USER_LOGGED_OUT = 'podbaby/auth/USER_LOGGED_OUT';
 
 // retrieving user details from server
-const GET_USER_SUCCESS = 'podbaby/auth/GET_USER_SUCCESS';
-const GET_USER_FAILURE = 'podbaby/auth/GET_USER_FAILURE';
+export const GET_USER_SUCCESS = 'podbaby/auth/GET_USER_SUCCESS';
+export const GET_USER_FAILURE = 'podbaby/auth/GET_USER_FAILURE';
 
 
 export function subscribe(channel) {
@@ -77,7 +77,7 @@ export function getCurrentUser() {
     dispatch({
       type: USER_LOGGED_IN,
     });
-    api.get('/api/auth/me/')
+    return api.get('/api/auth/me/')
       .then(payload => {
         dispatch({
           type: GET_USER_SUCCESS,
@@ -102,7 +102,6 @@ export function logout() {
   };
 }
 
-
 const initialState = {
   currentUser: null,
   isLoggedIn: false,
@@ -123,6 +122,7 @@ export default function(state = initialState, action) {
           bookmarks: bookmarks.concat(action.payload),
         }
       };
+
     case REMOVE_BOOKMARK:
       return {...state,
         currentUser: {
@@ -130,6 +130,7 @@ export default function(state = initialState, action) {
           bookmarks: bookmarks.filter(id => id !== action.payload),
         }
       };
+
     case SUBSCRIBE:
       return {
         ...state,
@@ -138,6 +139,7 @@ export default function(state = initialState, action) {
           subscriptions: subscriptions.concat(action.payload),
         }
       };
+
     case UNSUBSCRIBE:
       return {...state,
         currentUser: {
@@ -145,17 +147,20 @@ export default function(state = initialState, action) {
           subscriptions: subscriptions.filter(id => id !== action.payload),
         }
       };
+
     case USER_LOGGED_IN:
       return {...state, isLoggedIn: true};
+
     case GET_USER_SUCCESS:
       return {...state,
         isLoggedIn: true,
         currentUser: action.payload
       };
+
     case GET_USER_FAILURE:
     case USER_LOGGED_OUT:
-      return {...initialState
-      };
+      return {...initialState};
+
     default:
       return state;
   }

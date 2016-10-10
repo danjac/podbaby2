@@ -13,7 +13,6 @@ const initialState = {
 };
 
 export function fetchEpisodes(url) {
-  console.log("URL", url)
   return dispatch => {
     dispatch({ type: FETCH_EPISODES });
     return api.get(url)

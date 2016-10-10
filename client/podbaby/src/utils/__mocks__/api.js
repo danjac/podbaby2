@@ -1,4 +1,16 @@
 export function get(url) {
+
+  if (url.match(/api\/auth\/me/)) {
+    return new Promise((resolve, reject) => {
+      resolve({
+        bookmarks: [1, 2, 3],
+        subscriptions: [1, 2, 3],
+        username: 'tester',
+        email: 'tester@gmail.com',
+      });
+    });
+  }
+
   if (url.match(/api\/episodes/ )) {
     return new Promise((resolve, reject) => {
       resolve({
@@ -8,9 +20,12 @@ export function get(url) {
           id: 1,
           title: 'Cool stuff',
         }, ]
-      })
+      });
     });
   }
+}
+
+export function del(url) {
 }
 
 export function post(url, data) {
