@@ -48,12 +48,12 @@ export class EpisodeDetail extends Component {
     const {
       isLoggedIn,
       isLoading,
-      isNotFound,
+      notFound,
       episode,
       actions,
     } = this.props;
 
-    if (isNotFound) {
+    if (notFound) {
       return (
         <bs.Jumbotron>
           <h2>Podcast not found</h2>
@@ -117,17 +117,17 @@ EpisodeDetail.propTypes = {
   actions: PropTypes.objectOf(PropTypes.func).isRequired,
   isLoggedIn: PropTypes.bool.isRequired,
   isLoading: PropTypes.bool.isRequired,
-  isNotFound: PropTypes.bool.isRequired,
+  notFound: PropTypes.bool.isRequired,
   episode: PropTypes.any,
 };
 
 const mapStateToProps = state => {
   const { isLoggedIn } = state.auth;
-  const { isLoading, isNotFound } = state.episode;
+  const { isLoading, notFound } = state.episode;
   return {
     isLoggedIn,
     isLoading,
-    isNotFound,
+    notFound,
     episode: episodeDetailSelector(state),
   };
 };

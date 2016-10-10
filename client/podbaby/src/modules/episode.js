@@ -7,7 +7,7 @@ export const FETCH_EPISODES_FAILURE = 'podbaby/episode/FETCH_EPISODE_FAILURE';
 
 const initialState = {
   isLoading: false,
-  isNotFound: false,
+  notFound: false,
   episode: null,
 };
 
@@ -38,13 +38,13 @@ export default function(state = initialState, action) {
       return {...state,
         episode: action.payload,
         isLoading: false,
-        isNotFound: false
+        notFound: false
       };
     case FETCH_EPISODES_FAILURE:
       return {...state,
         episode: null,
         isLoading: false,
-        isNotFound: true,
+        notFound: true,
       };
     default:
       return state;
