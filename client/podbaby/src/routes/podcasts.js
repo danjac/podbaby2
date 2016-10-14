@@ -8,7 +8,6 @@ export class Podcasts extends Component {
 
   render() {
 
-    console.log("PROPS", this.props);
     const { isLoggedIn, children } = this.props;
 
     const navbar = isLoggedIn && (

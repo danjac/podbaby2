@@ -22,7 +22,7 @@ import Search from '../components/search';
 import Loader from '../components/loader';
 import EpisodeList from '../components/episode-list';
 
-export class LatestEpisodes extends Component {
+export class Episodes extends Component {
 
   constructor(props) {
     super(props);
@@ -112,7 +112,7 @@ export class LatestEpisodes extends Component {
     const searchQuery = query.q;
     const showAll = query.show === 'all';
 
-    const ifEmpty = searchQuery && 'No results found for your search.';
+    const ifEmpty = searchQuery && 'No podcasts found for your search.';
 
     return (
       <div>
@@ -122,7 +122,7 @@ export class LatestEpisodes extends Component {
           <bs.NavItem active={showAll} onClick={this.handleShowAll}>All podcasts</bs.NavItem>
         </bs.Nav>)}
 
-        <Search placeholder="Search for episodes"
+        <Search placeholder="Search for podcasts"
                 searchQuery={searchQuery}
                 onClear={this.handleClearSearch}
                 onSearch={this.handleSearch} />
@@ -139,7 +139,7 @@ export class LatestEpisodes extends Component {
   }
 }
 
-LatestEpisodes.propTypes = {
+Episodes.propTypes = {
   actions: PropTypes.objectOf(PropTypes.func).isRequired,
   episodes: PropTypes.array.isRequired,
   next: PropTypes.string,
@@ -191,4 +191,4 @@ const mapDispatchToProps = dispatch => {
 export default connect(
   mapStateToProps,
   mapDispatchToProps,
-)(withRouter(LatestEpisodes));
+)(withRouter(Episodes));

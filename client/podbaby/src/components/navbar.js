@@ -53,7 +53,7 @@ class Navbar extends Component {
                 <Icon name="list" /> Podcasts
               </bs.NavItem>
             </IndexLinkContainer>
-            <LinkContainer to="/feeds">
+            <LinkContainer to="/feeds/">
               <bs.NavItem><Icon name="rss" /> Feeds</bs.NavItem>
             </LinkContainer>
           </bs.Nav>

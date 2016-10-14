@@ -7,6 +7,7 @@ from rest_framework.routers import DefaultRouter
 from rest_framework.authtoken.views import obtain_auth_token
 
 from account.views import UserViewSet, CreateUser
+from categories.views import CategoryViewSet
 from episodes.views import EpisodeViewSet, EpisodeStreamProxy
 from channels.views import ChannelViewSet
 
@@ -15,6 +16,7 @@ router = DefaultRouter()
 router.register('^auth', UserViewSet, base_name='user')
 router.register('^episodes', EpisodeViewSet, base_name='episode')
 router.register('^channels', ChannelViewSet, base_name='channel')
+router.register('^categories', CategoryViewSet, base_name='category')
 
 
 urlpatterns = [

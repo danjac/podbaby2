@@ -16,8 +16,7 @@ const EpisodeList = props => {
   const style = { marginTop: 10 };
 
   if (!episodes.length) {
-    const msg = ifEmpty || 'No episodes found';
-    console.log("MSG", msg);
+    const msg = ifEmpty || 'No podcasts found';
     return (
       <div style={style}>{msg}</div>
     );

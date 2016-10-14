@@ -94,13 +94,13 @@ class Bookmarks extends Component {
     const searchQuery = this.props.location.query.q;
 
     const ifEmpty = (
-      searchQuery ? 'No results found for your search.' :
-        "You haven't added any bookmarks yet"
+      searchQuery ? 'No podcasts found for your search.' :
+        "You haven't added any podcasts to your playlist yet"
     );
 
     return (
       <div>
-        <Search placeholder="Search for bookmarks"
+        <Search placeholder="Search for podcasts in your playlist"
                 searchQuery={searchQuery}
                 onClear={this.handleClearSearch}
                 onSearch={this.handleSearch} />
