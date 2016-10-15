@@ -1,16 +1,16 @@
-import React, { Component } from 'react';
+import React, { PropTypes, Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 import { reduxForm, Field } from 'redux-form';
 import * as bs from 'react-bootstrap';
 
-import * as api from '../utils/api';
-import { setAuthToken } from '../utils/storage';
-import validator from '../utils/validate';
-import { formControl } from '../components/form';
-import { getCurrentUser } from '../modules/auth';
-import { success, warning } from '../modules/alerts';
+import * as api from '../../utils/api';
+import { setAuthToken } from '../../utils/storage';
+import validator from '../../utils/validate';
+import { formControl } from '../../components/form';
+import { getCurrentUser } from '../../modules/auth';
+import { success, warning } from '../../modules/alerts';
 
 
 export class Login extends Component {
@@ -39,6 +39,8 @@ export class Login extends Component {
     const { submitFailed, submitting, handleSubmit } = this.props;
 
     return (
+      <div>
+        <bs.PageHeader>Login</bs.PageHeader>
       <form onSubmit={handleSubmit(this.handleSubmit)}>
         {submitFailed && <bs.Alert bsStyle="warning">Sorry, unable to log you in</bs.Alert>}
         <Field name="username"
@@ -54,9 +56,18 @@ export class Login extends Component {
                    className="form-control"
                    type="submit">Login</bs.Button>
       </form>
+      </div>
     );
   }
 }
+
+Login.propTypes = {
+  actions: PropTypes.objectOf(PropTypes.func).isRequired,
+  router: PropTypes.object.isRequired,
+  handleSubmit: PropTypes.func.isRequired,
+  submitFailed: PropTypes.bool.isRequired,
+  submitting: PropTypes.bool.isRequired,
+};
 
 
 const mapDispatchToProps = dispatch => {

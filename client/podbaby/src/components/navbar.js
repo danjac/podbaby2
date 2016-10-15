@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import * as bs from 'react-bootstrap';
 import Icon from 'react-fa';
 import { Link } from 'react-router';
-import { LinkContainer, IndexLinkContainer } from 'react-router-bootstrap';
+import { LinkContainer } from 'react-router-bootstrap';
 
 
 class Navbar extends Component {
@@ -40,47 +40,70 @@ class Navbar extends Component {
         <bs.Navbar.Header>
           <bs.Navbar.Brand>
             <Link to={{ pathname: '/', query: { page: 1 }}}
-                  onClick={this.handleClick}>
-              <Icon name='headphones' /> Podbaby
+                  onClick={this.handleClick}> Podbaby
             </Link>
           </bs.Navbar.Brand>
           <bs.Navbar.Toggle />
         </bs.Navbar.Header>
         <bs.Navbar.Collapse>
           <bs.Nav>
-            <IndexLinkContainer to="/">
-              <bs.NavItem onClick={this.handleClick}>
-                <Icon name="list" /> Podcasts
+
+            {isLoggedIn && (
+              <bs.NavDropdown title={<span><Icon name="headphones" /> Podcasts</span>} id="podcasts-dropdown">
+                <LinkContainer to="/podcasts/me/">
+                  <bs.MenuItem><Icon name="user" /> My feeds</bs.MenuItem>
+                </LinkContainer>
+                <LinkContainer to="/podcasts/all/">
+                  <bs.MenuItem><Icon name="list" /> All podcasts</bs.MenuItem>
+                </LinkContainer>
+                <LinkContainer to="/podcasts/starred/">
+                  <bs.MenuItem><Icon name="star" /> Starred</bs.MenuItem>
+                </LinkContainer>
+                <bs.MenuItem><Icon name="history" /> History</bs.MenuItem>
+              </bs.NavDropdown>)}
+
+            {!isLoggedIn && (
+            <LinkContainer to="/podcasts/all/">
+              <bs.NavItem>
+                <Icon name="headphones" /> Podcasts
               </bs.NavItem>
-            </IndexLinkContainer>
-            <LinkContainer to="/feeds/">
-              <bs.NavItem><Icon name="rss" /> Feeds</bs.NavItem>
-            </LinkContainer>
+            </LinkContainer>)}
+
+            <bs.NavDropdown title={<span><Icon name="rss" /> Feeds</span>} id="feeds-dropdown">
+              {isLoggedIn && (
+              <LinkContainer to="/feeds/me/">
+                <bs.MenuItem><Icon name="user" /> My feeds</bs.MenuItem>
+              </LinkContainer>)}
+              <LinkContainer to="/feeds/all/">
+                <bs.MenuItem><Icon name="list" /> All feeds</bs.MenuItem>
+              </LinkContainer>
+              <LinkContainer to="/feeds/categories/">
+                <bs.MenuItem><Icon name="folder" /> Browse</bs.MenuItem>
+              </LinkContainer>
+            </bs.NavDropdown>
+
           </bs.Nav>
           {isLoggedIn && currentUser && (
             <bs.Nav pullRight>
-              <bs.NavItem href="#">
-                <Icon name="user" /> {currentUser.username}
-              </bs.NavItem>
+              <bs.NavDropdown title={<span><Icon name="user" /> {currentUser.username}</span>} id="user-dropdown">
+              </bs.NavDropdown>
               <bs.NavItem href="#" onClick={this.handleLogout}>
                 <Icon name="sign-out" /> Logout
               </bs.NavItem>
-            </bs.Nav>
-          )}
+            </bs.Nav>)}
           {!isLoggedIn && (
           <bs.Nav pullRight>
-            <LinkContainer to="/login/">
+            <LinkContainer to="/account/login/">
               <bs.NavItem onClick={this.handleClick}>
                 <Icon name="sign-in" /> Login
               </bs.NavItem>
             </LinkContainer>
-            <LinkContainer to="/signup/">
+            <LinkContainer to="/account/signup/">
               <bs.NavItem>
                 <Icon name="user-plus" /> Join
               </bs.NavItem>
             </LinkContainer>
-          </bs.Nav>
-          )}
+          </bs.Nav>)}
       </bs.Navbar.Collapse>
       </bs.Navbar>
     );

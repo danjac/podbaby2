@@ -49,7 +49,7 @@ export class App extends Component {
     return (
       <div>
         <Navbar onLogout={this.handleLogout} auth={auth} />
-        <div className="container" style={{ marginTop: 80 }}>
+        <div className="container" style={{ marginTop: 30 }}>
           <AlertList onDismiss={actions.onDismissAlert} alerts={alerts} />
           {this.props.children}
         </div>

@@ -2,26 +2,27 @@ import React, { PropTypes, Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { withRouter } from 'react-router';
+// import * as bs from 'react-bootstrap';
 
-import { fetchEpisodes } from '../modules/episodes';
+import { fetchEpisodes } from '../../modules/episodes';
 
 import {
   addBookmark,
   removeBookmark,
   subscribe,
   unsubscribe,
-} from '../modules/auth';
+} from '../../modules/auth';
 
-import { startPlayer, stopPlayer } from '../modules/player';
+import { startPlayer, stopPlayer } from '../../modules/player';
 
-import { episodesSelector } from '../selectors';
-import { pageNumberFromUrl } from '../utils/pagination';
+import { episodesSelector } from '../../selectors';
+import { pageNumberFromUrl } from '../../utils/pagination';
 
-import Search from '../components/search';
-import Loader from '../components/loader';
-import EpisodeList from '../components/episode-list';
+import Search from '../../components/search';
+import Loader from '../../components/loader';
+import EpisodeList from '../../components/episode-list';
 
-class Bookmarks extends Component {
+export class Episodes extends Component {
 
   constructor(props) {
     super(props);
@@ -29,6 +30,7 @@ class Bookmarks extends Component {
     this.handleSearch = this.handleSearch.bind(this);
     this.handleClearSearch = this.handleClearSearch.bind(this);
     this.handleSelectPage = this.handleSelectPage.bind(this);
+
   }
 
   componentDidMount() {
@@ -47,35 +49,35 @@ class Bookmarks extends Component {
     }
   }
 
-  fetchEpisodes(page, searchQuery) {
-    const params = {
-      page: page || 1,
-      q: searchQuery || '',
-    };
-    this.props.actions.onFetchEpisodes('/api/episodes/bookmarks/', params);
+  fetchEpisodes(page=1, searchQuery, show) {
+    const { actions: { onFetchEpisodes } } = this.props;
+    let url = '/api/episodes/subscribed/';
+    const params = {};
+    if (page) {
+      params.page = page;
+    }
+    if (searchQuery) {
+      params.q = searchQuery;
+    }
+    onFetchEpisodes(url, params);
   }
 
-  changeLocation(page, searchQuery) {
-    this.props.router.replace({
-      query: {
-        page,
-        q: searchQuery,
-      },
-      pathname: this.props.location.pathname,
-    });
- }
+  changeLocation(nextQuery) {
+    const query = {...this.props.location.query, ...nextQuery};
+    this.props.router.replace({ ...this.props.location, query });
+  }
 
   handleSearch(searchQuery) {
-    this.changeLocation(1, searchQuery);
+    this.changeLocation({ page: 1, q: searchQuery });
   }
 
   handleClearSearch() {
-    this.changeLocation(1, '');
+    this.changeLocation({ page: 1, q: '' });
   }
 
   handleSelectPage(url) {
     const page = pageNumberFromUrl(url);
-    this.changeLocation(page, this.props.location.query.q);
+    this.changeLocation({ page });
   }
 
   render() {
@@ -85,25 +87,30 @@ class Bookmarks extends Component {
       next,
       previous,
       isLoading,
-      actions } = this.props;
+      actions,
+      location: {
+        query
+      }
+    } = this.props;
 
     if (isLoading) {
       return <Loader />;
     }
 
-    const searchQuery = this.props.location.query.q;
+    const searchQuery = query.q;
 
-    const ifEmpty = (
-      searchQuery ? 'No podcasts found for your search.' :
-        "You haven't added any podcasts to your playlist yet"
-    );
+    const ifEmpty = searchQuery && 'No podcasts found for your search.';
 
     return (
       <div>
-        <Search placeholder="Search for podcasts in your playlist"
+        <div className="page-header">
+          <h2>My feeds</h2>
+        </div>
+        <Search placeholder="Search for podcasts"
                 searchQuery={searchQuery}
                 onClear={this.handleClearSearch}
                 onSearch={this.handleSearch} />
+
         <EpisodeList episodes={episodes}
                      next={next}
                      previous={previous}
@@ -116,7 +123,7 @@ class Bookmarks extends Component {
   }
 }
 
-Bookmarks.propTypes = {
+Episodes.propTypes = {
   actions: PropTypes.objectOf(PropTypes.func).isRequired,
   episodes: PropTypes.array.isRequired,
   next: PropTypes.string,
@@ -163,4 +170,4 @@ const mapDispatchToProps = dispatch => {
 export default connect(
   mapStateToProps,
   mapDispatchToProps,
-)(withRouter(Bookmarks));
+)(withRouter(Episodes));

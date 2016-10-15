@@ -24,10 +24,11 @@ const AlertList = ({ alerts, onDismiss }) => {
          style={{
            position: 'fixed',
            height: '50px',
-           width: 300,
+           width: '99%',
            opacity: 0.9,
            textAlign: 'center',
            margin: '5% auto',
+           top: 50,
            left: 0,
            right: 0,
            zIndex: 200,

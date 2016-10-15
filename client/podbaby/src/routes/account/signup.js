@@ -5,12 +5,12 @@ import { reduxForm, Field, SubmissionError } from 'redux-form';
 import { withRouter } from 'react-router';
 import * as bs from 'react-bootstrap';
 
-import * as api from '../utils/api';
-import { setAuthToken } from '../utils/storage';
-import validator from '../utils/validate';
-import { getCurrentUser } from '../modules/auth';
-import { formControl } from '../components/form';
-import { success } from '../modules/alerts';
+import * as api from '../../utils/api';
+import { setAuthToken } from '../../utils/storage';
+import validator from '../../utils/validate';
+import { getCurrentUser } from '../../modules/auth';
+import { formControl } from '../../components/form';
+import { success } from '../../modules/alerts';
 
 
 class Signup extends Component {

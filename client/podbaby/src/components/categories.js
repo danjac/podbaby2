@@ -7,6 +7,7 @@ const Categories = ({ categories, explicit }) => {
   const style={
     display: 'inline-block',
     marginRight: 10,
+    marginBottom: 5,
     padding: 5,
   };
 

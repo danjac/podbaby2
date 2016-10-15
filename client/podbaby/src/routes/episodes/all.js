@@ -2,33 +2,29 @@ import React, { PropTypes, Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { withRouter } from 'react-router';
-import * as bs from 'react-bootstrap';
 
-import { fetchEpisodes } from '../modules/episodes';
+import { fetchEpisodes } from '../../modules/episodes';
 
 import {
   addBookmark,
   removeBookmark,
   subscribe,
   unsubscribe,
-} from '../modules/auth';
+} from '../../modules/auth';
 
-import { startPlayer, stopPlayer } from '../modules/player';
+import { startPlayer, stopPlayer } from '../../modules/player';
 
-import { episodesSelector } from '../selectors';
-import { pageNumberFromUrl } from '../utils/pagination';
+import { episodesSelector } from '../../selectors';
+import { pageNumberFromUrl } from '../../utils/pagination';
 
-import Search from '../components/search';
-import Loader from '../components/loader';
-import EpisodeList from '../components/episode-list';
+import Search from '../../components/search';
+import Loader from '../../components/loader';
+import EpisodeList from '../../components/episode-list';
 
 export class Episodes extends Component {
 
   constructor(props) {
     super(props);
-
-    this.handleShowAll = this.handleShowAll.bind(this);
-    this.handleShowSubscriptions = this.handleShowSubscriptions.bind(this);
 
     this.handleSearch = this.handleSearch.bind(this);
     this.handleClearSearch = this.handleClearSearch.bind(this);
@@ -37,8 +33,8 @@ export class Episodes extends Component {
   }
 
   componentDidMount() {
-    const { page, q, show } = this.props.location.query;
-    this.fetchEpisodes(page || 1, q, show);
+    const { page, q } = this.props.location.query;
+    this.fetchEpisodes(page || 1, q);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -47,14 +43,14 @@ export class Episodes extends Component {
     const nextQuery = nextProps.location.query;
 
     if (thisQuery !== nextQuery) {
-      const { page, q, show } = nextQuery;
-      this.fetchEpisodes(page, q, show);
+      const { page, q } = nextQuery;
+      this.fetchEpisodes(page, q);
     }
   }
 
   fetchEpisodes(page=1, searchQuery, show) {
-    const { isLoggedIn, actions: { onFetchEpisodes } } = this.props;
-    let url = (show === 'all' || !isLoggedIn) ? '/api/episodes/' : '/api/episodes/subscribed/';
+    const { actions: { onFetchEpisodes } } = this.props;
+    let url = '/api/episodes/';
     const params = {};
     if (page) {
       params.page = page;
@@ -67,15 +63,7 @@ export class Episodes extends Component {
 
   changeLocation(nextQuery) {
     const query = {...this.props.location.query, ...nextQuery};
-    this.props.router.replace({ query });
-  }
-
-  handleShowAll() {
-    this.changeLocation({ page: 1, show: 'all' });
-  }
-
-  handleShowSubscriptions() {
-    this.changeLocation({ page: 1, show: 'feeds' });
+    this.props.router.replace({ ...this.props.location, query });
   }
 
   handleSearch(searchQuery) {
@@ -110,18 +98,14 @@ export class Episodes extends Component {
     }
 
     const searchQuery = query.q;
-    const showAll = query.show === 'all';
 
     const ifEmpty = searchQuery && 'No podcasts found for your search.';
 
     return (
       <div>
-        {isLoggedIn && (
-        <bs.Nav justified bsStyle="pills" style={{ marginBottom: 20 }}>
-          <bs.NavItem active={!showAll} onClick={this.handleShowSubscriptions}>My feeds</bs.NavItem>
-          <bs.NavItem active={showAll} onClick={this.handleShowAll}>All podcasts</bs.NavItem>
-        </bs.Nav>)}
-
+        <div className="page-header">
+          <h2>All Podcasts</h2>
+        </div>
         <Search placeholder="Search for podcasts"
                 searchQuery={searchQuery}
                 onClear={this.handleClearSearch}
@@ -188,7 +172,4 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(withRouter(Episodes));
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Episodes));

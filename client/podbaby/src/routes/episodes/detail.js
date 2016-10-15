@@ -4,27 +4,28 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 import moment from 'moment';
 import * as bs from 'react-bootstrap';
+import Icon from 'react-fa';
 
-import { episodeDetailSelector } from '../selectors';
+import { episodeDetailSelector } from '../../selectors';
 
-import Categories from '../components/categories';
-import Buttons from '../components/episode-buttons';
-import Loader from '../components/loader';
+import Categories from '../../components/categories';
+import Buttons from '../../components/episode-buttons';
+import Loader from '../../components/loader';
 
-import sanitize from '../utils/sanitize';
+import sanitize from '../../utils/sanitize';
 
-import { fetchEpisode } from '../modules/episode';
+import { fetchEpisode } from '../../modules/episode';
 
-import { startPlayer, stopPlayer } from '../modules/player';
+import { startPlayer, stopPlayer } from '../../modules/player';
 
 import {
   addBookmark,
   removeBookmark,
   subscribe,
   unsubscribe,
-} from '../modules/auth';
+} from '../../modules/auth';
 
-import defaultThumbnail from '../podcast.svg';
+import defaultThumbnail from '../../podcast.svg';
 
 
 export class EpisodeDetail extends Component {
@@ -82,30 +83,42 @@ export class EpisodeDetail extends Component {
       'MMMM Do YYYY'
     );
 
+    const buttons = (
+      <Buttons episode={episode}
+                isLoggedIn={isLoggedIn}
+                {...actions} />
+
+    );
     return (
       <div>
-        <div style={{ textAlign: 'center' }}>
+        <div className="page-header">
           <h2>{episode.title}</h2>
           <h3><a href="#">{channel.name}</a></h3>
         </div>
-        <bs.Media>
-          <bs.Media.Left>
-            <img src={thumbnail.url}
-                 width={thumbnail.width}
-                 height={thumbnail.height}
-                 alt={channel.name} />
-          </bs.Media.Left>
-          <bs.Media.Body>
-            <Categories categories={channel.categories}
-              explicit={episode.explicit} />
-            {published && <p><strong>{published}</strong></p>}
-          </bs.Media.Body>
-        </bs.Media>
-        <p style={{ marginTop: 10 }}
+        <bs.Panel footer={buttons}>
+          <bs.Media>
+            <bs.Media.Left>
+              <img src={thumbnail.url}
+                   width={thumbnail.width}
+                   height={thumbnail.height}
+                   alt={channel.name} />
+            </bs.Media.Left>
+            <bs.Media.Body>
+              <Categories categories={channel.categories}
+                explicit={episode.explicit} />
+              {published && <p><strong>{published}</strong></p>}
+              {episode.link && (
+              <p>
+                <a href={episode.link} className="btn btn-default btn-sm">
+                  <Icon name="globe" /> Link to episode
+                </a>
+              </p>
+              )}
+            </bs.Media.Body>
+          </bs.Media>
+        </bs.Panel>
+        <p className="episode-description" style={{ marginTop: 10 }}
            dangerouslySetInnerHTML={description}></p>
-         <Buttons episode={episode}
-                  isLoggedIn={isLoggedIn}
-                  {...actions} />
       </div>
     );
 

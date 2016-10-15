@@ -4,16 +4,15 @@ import { Router, Route, IndexRoute } from 'react-router';
 
 import App from '../App';
 
-import Podcasts from './podcasts';
-import Episode from './episode';
-import Episodes from './episodes';
-import Bookmarks from './bookmarks';
-import Feeds from './feeds';
-import Channels from './channels';
-import Subscriptions from './subscriptions';
-import Categories from './categories';
-import Login from './login';
-import Signup from './signup';
+import EpisodeDetail from './episodes/detail';
+import AllEpisodes from './episodes/all';
+import UserEpisodes from './episodes/user';
+import Bookmarks from './episodes/bookmarks';
+import Channels from './channels/channels';
+import Subscriptions from './channels/subscriptions';
+import Categories from './channels/categories';
+import Login from './account/login';
+import Signup from './account/signup';
 import NotFound from './not-found';
 
 
@@ -28,16 +27,24 @@ export default function(history, store) {
     }
   };
 
+  const resolveDefaultPage = (nextState, replace) => {
+    const { isLoggedIn } = store.getState().auth;
+    const pathname = isLoggedIn ? '/podcasts/me/' : '/podcasts/all/';
+    replace({ pathname });
+  };
+
   return  (
     <Router history={history}>
       <Route path="/" component={App}>
-        <Route component={Podcasts}>
-          <IndexRoute component={Episodes} />
-          <Route path="playlist/" component={Bookmarks} onEnter={requireAuth} />
+        <IndexRoute onEnter={resolveDefaultPage} />
+        <Route path="podcasts/">
+          <Route path="all/" component={AllEpisodes} />
+          <Route path="me/" component={UserEpisodes} onEnter={requireAuth} />
+          <Route path="starred/" component={Bookmarks} onEnter={requireAuth} />
+          <Route path=":id/" component={EpisodeDetail} />
         </Route>
-        <Route path="podcasts/:id/" component={Episode} />
-        <Route path="/feeds/" component={Feeds}>
-          <IndexRoute component={Channels} />
+        <Route path="feeds/">
+          <Route path="all/" component={Channels} />
           <Route path="me/" component={Subscriptions} onEnter={requireAuth} />
           <Route path="browse/" component={Categories} />
         </Route>

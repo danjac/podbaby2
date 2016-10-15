@@ -1,3 +1,7 @@
+body {
+  padding-top: 70;
+}
+
 .audio-player {
   opacity: 0.9;
   background-color: #000;
@@ -12,6 +16,7 @@
   bottom: 0;
   z-index: 100;
 }
+
 .audio-player .panel {
   margin-bottom: 5px;
 }
@@ -39,4 +44,8 @@
 
 .episode .panel-heading {
   text-align: center;
+}
+
+p.episode-description {
+  word-break: break-word;
 }
