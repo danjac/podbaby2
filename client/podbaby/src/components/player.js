@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import * as bs from 'react-bootstrap';
 import Icon from 'react-fa';
+import { Link } from 'react-router';
 import Buttons from './episode-buttons';
 
 class Player extends Component {
@@ -45,6 +46,8 @@ class Player extends Component {
       title += ":" + episode.title;
     }
 
+    const header = <Link to={`/podcasts/${episode.id}/`}>{title}</Link>;
+
     const { expanded } = this.state;
 
     const onPlay = ({ currentTarget }) => {
@@ -62,8 +65,8 @@ class Player extends Component {
         left: '85%',
         width: '15%'
         }}>
-          <bs.Panel header={title}
-            footer={buttons}
+          <bs.Panel header={header}
+                    footer={buttons}
                     style={styles}>
            <audio controls
                   autoPlay
