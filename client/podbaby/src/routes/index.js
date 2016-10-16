@@ -11,8 +11,8 @@ import Bookmarks from './episodes/bookmarks';
 import Channels from './channels/channels';
 import Subscriptions from './channels/subscriptions';
 import Categories from './channels/categories';
-import Login from './account/login';
-import Signup from './account/signup';
+import Login from './auth/login';
+import Signup from './auth/signup';
 import NotFound from './not-found';
 
 

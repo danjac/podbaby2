@@ -5,6 +5,7 @@ import player from './player';
 import categories from './categories';
 import episode from './episode';
 import episodes from './episodes';
+import channels from './channels';
 import auth from './auth';
 import alerts from './alerts';
 
@@ -14,6 +15,7 @@ export default combineReducers({
   alerts,
   episode,
   episodes,
+  channels,
   categories,
   form: formReducer,
 });
