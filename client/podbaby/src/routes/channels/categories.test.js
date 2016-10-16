@@ -9,6 +9,9 @@ const defaultProps = {
       name: 'Comedy',
     }
   ],
+  actions: {
+    onFetchCategories: jest.fn(),
+  },
   isLoading: false,
 };
 

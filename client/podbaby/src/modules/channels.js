@@ -1,8 +1,8 @@
 import * as api from '../utils/api';
 
-export const FETCH_EPISODES = 'podbaby/episodes/FETCH_EPISODES';
-export const FETCH_EPISODES_SUCCESS = 'podbaby/episodes/FETCH_EPISODES_SUCCESS';
-export const FETCH_EPISODES_FAILURE = 'podbaby/episodes/FETCH_EPISODES_FAILURE';
+export const FETCH_CHANNELS = 'podbaby/CHANNELS/FETCH_CHANNELS';
+export const FETCH_CHANNELS_SUCCESS = 'podbaby/CHANNELS/FETCH_CHANNELS_SUCCESS';
+export const FETCH_CHANNELS_FAILURE = 'podbaby/CHANNELS/FETCH_CHANNELS_FAILURE';
 
 
 const initialState = {
@@ -12,18 +12,18 @@ const initialState = {
   previous: null,
 };
 
-export function fetchEpisodes(url, params) {
+export function fetchChannels(url, params) {
   return dispatch => {
-    dispatch({ type: FETCH_EPISODES });
+    dispatch({ type: FETCH_CHANNELS });
     return api.get(url, { params })
     .then(payload => {
       dispatch({
-        type: FETCH_EPISODES_SUCCESS,
+        type: FETCH_CHANNELS_SUCCESS,
         payload,
       });
     }, error => {
       dispatch({
-        type: FETCH_EPISODES_FAILURE,
+        type: FETCH_CHANNELS_FAILURE,
         error,
       });
     });
@@ -32,11 +32,11 @@ export function fetchEpisodes(url, params) {
 
 export default function (state=initialState, action) {
   switch (action.type) {
-    case FETCH_EPISODES:
+    case FETCH_CHANNELS:
       return { ...state, isLoading: true };
-    case FETCH_EPISODES_FAILURE:
+    case FETCH_CHANNELS_FAILURE:
       return initialState;
-    case FETCH_EPISODES_SUCCESS:
+    case FETCH_CHANNELS_SUCCESS:
       return { ...state, ...action.payload, isLoading: false };
     default:
       return state;
