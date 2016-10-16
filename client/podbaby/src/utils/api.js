@@ -6,13 +6,16 @@ import { SubmissionError } from 'redux-form';
 import config from '../config';
 import { getAuthToken } from './storage';
 
+const transformRequest = [...axios.defaults.transformRequest, decamelizeKeys];
+const transformResponse = [...axios.defaults.transformResponse, camelizeKeys];
+
 const instance = axios.create({
   baseURL: config.API_URL,
   xsrfCookieName: 'csrftoken',
   xsrfHeaderName: 'X-CSRFToken',
   withCredentials: true,
-  transformRequest: axios.defaults.transformRequest.concat(decamelizeKeys),
-  transformResponse: axios.defaults.transformResponse.concat(camelizeKeys),
+  transformRequest,
+  transformResponse,
 });
 
 const request = (method, url, data, options) => {
@@ -24,15 +27,6 @@ const request = (method, url, data, options) => {
     headers['Authorization'] = 'Token ' + token;
   }
 
-  console.log("OPTIONS", options);
-
-  console.log("ARGS", {
-      url,
-      method,
-      headers,
-      data,
-      ...options,
- });
   return instance
     .request({
       url,

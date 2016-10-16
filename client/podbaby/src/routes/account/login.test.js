@@ -4,11 +4,11 @@ import { shallow } from 'enzyme';
 import { Provider } from 'react-redux';
 import { reduxForm } from 'redux-form';
 
-import { getAuthToken } from '../utils/storage';
+import { getAuthToken } from '../../utils/storage';
 import { Login } from './login';
 
-jest.mock('../utils/storage');
-jest.mock('../utils/api');
+jest.mock('../../utils/storage');
+jest.mock('../../utils/api');
 
 it('should just render the page', () => {
   const props = {

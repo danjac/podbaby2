@@ -1,5 +1,24 @@
 export function get(url) {
 
+  if (url.match(/api\/categories/)) {
+    return new Promise((resolve, reject) => {
+      resolve([
+        {
+          id: 1,
+          name: 'Comedy',
+        },
+        {
+          id: 1,
+          name: 'Art',
+        },
+        {
+          id: 1,
+          name: 'Movies',
+        },
+      ]);
+    });
+  }
+
   if (url.match(/api\/auth\/me/)) {
     return new Promise((resolve, reject) => {
       resolve({

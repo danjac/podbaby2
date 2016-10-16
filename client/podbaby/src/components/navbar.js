@@ -77,7 +77,7 @@ class Navbar extends Component {
               <LinkContainer to="/feeds/all/">
                 <bs.MenuItem><Icon name="list" /> All feeds</bs.MenuItem>
               </LinkContainer>
-              <LinkContainer to="/feeds/categories/">
+              <LinkContainer to="/feeds/browse/">
                 <bs.MenuItem><Icon name="folder" /> Browse</bs.MenuItem>
               </LinkContainer>
             </bs.NavDropdown>

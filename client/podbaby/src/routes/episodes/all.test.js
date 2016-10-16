@@ -1,6 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import { LatestEpisodes } from './latest';
+import { Episodes } from './all';
 
 const defaultProps = {
   next: '/?page=3',
@@ -46,13 +46,13 @@ const defaultProps = {
 };
 
 it('should render the component', () => {
-  const rendered = shallow(<LatestEpisodes {...defaultProps} />);
+  const rendered = shallow(<Episodes {...defaultProps} />);
   expect(rendered).toBeTruthy();
 });
 
 it('should handle page selection', () => {
   const props = {...defaultProps, router: { replace: jest.fn() }};
-  const comp = new LatestEpisodes(props);
+  const comp = new Episodes(props);
   comp.handleSelectPage('/api/episodes/?page=2');
   expect(props.router.replace).toBeCalledWith({ query: { page: 2, q: undefined }});
 });
