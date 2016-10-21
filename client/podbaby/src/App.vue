@@ -56,13 +56,11 @@
         </div><!-- /.navbar-collapse -->
       </div><!-- /.container-fluid -->
     </nav>
-    <episodes></episodes>
+    <router-view></router-view>
   </div>
 </template>
 
 <script>
-import Episodes from './components/Episodes'
-
 // load Bootstrap JS
 window.jQuery = require('jquery')
 require('bootstrap')
@@ -70,7 +68,6 @@ require('bootstrap')
 export default {
   name: 'app',
   components: {
-    Episodes
   }
 }
 </script>

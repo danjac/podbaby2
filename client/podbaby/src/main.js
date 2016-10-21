@@ -1,11 +1,15 @@
 import Vue from 'vue'
 import VueResource from 'vue-resource'
+import VueRouter from 'vue-router'
+
 import App from './App'
+import Episodes from './components/Episodes'
 import { camelizeKeys, decamelizeKeys } from 'humps'
+
+// HTTP configuration
 
 Vue.use(VueResource)
 
-// HTTP configuration
 Vue.http.options.root = 'http://localhost:8000/api'
 Vue.http.options.credentials = true
 
@@ -21,9 +25,23 @@ Vue.http.interceptors.push((request, next) => {
   })
 })
 
+// Router configuration
+
+Vue.use(VueRouter)
+
+const routes = [
+  { path: '/', component: Episodes }
+]
+
+const router = new VueRouter({
+  routes,
+  mode: 'history'
+})
+
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
   template: '<App/>',
-  components: { App }
+  components: { App },
+  router
 })

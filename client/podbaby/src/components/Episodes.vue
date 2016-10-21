@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="page-header">
-      <h1>Episodes</h1>
+      <h1>Podcasts</h1>
     </div>
     <h1 v-if="loading" class="loader">
       <i class="fa fa-refresh fa-spin fa-5x fa-fw"></i>
@@ -25,7 +25,9 @@
           </div>
           <div class="media-body">
             <h4 class="media-heading">
-              <a href="">{{episode.channel.name}}</a>
+              <router-link :to="{ query: { page: 2 } }">
+              {{episode.channel.name}}
+              </router-link>
             </h4>
             <h5>{{episode.title}}</h5>
             <span class="label label-default category"
@@ -58,6 +60,11 @@ export default {
   components: {
     Icon,
     Pager
+  },
+  watch: {
+    '$route' (to, from) {
+      console.log(to, from)
+    }
   },
   data () {
     return {
