@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 import * as bs from 'react-bootstrap';
 import Icon from 'react-fa';
+import { truncate } from 'lodash';
 
 import sanitize from '../../utils/sanitize';
 import Loader from '../../components/loader';
@@ -46,7 +47,7 @@ const Channel = ({ channel }) => {
         </bs.Media.Body>
       </bs.Media>
       <p style={{ marginTop: 10 }}
-         dangerouslySetInnerHTML={sanitize(channel.description)}></p>
+         dangerouslySetInnerHTML={sanitize(truncate(channel.description, { length: 200 }))}></p>
     </bs.Panel>
   );
 

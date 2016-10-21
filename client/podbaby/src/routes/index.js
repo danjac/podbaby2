@@ -37,19 +37,25 @@ export default function(history, store) {
     <Router history={history}>
       <Route path="/" component={App}>
         <IndexRoute onEnter={resolveDefaultPage} />
+
         <Route path="podcasts/">
           <Route path="all/" component={AllEpisodes} />
           <Route path="me/" component={UserEpisodes} onEnter={requireAuth} />
           <Route path="starred/" component={Bookmarks} onEnter={requireAuth} />
           <Route path=":id/" component={EpisodeDetail} />
         </Route>
+
         <Route path="feeds/">
           <Route path="all/" component={Channels} />
           <Route path="me/" component={Subscriptions} onEnter={requireAuth} />
           <Route path="browse/" component={Categories} />
         </Route>
-        <Route path="login/" component={Login} />
-        <Route path="signup/" component={Signup} />
+
+        <Route path="account/">
+          <Route path="login/" component={Login} />
+          <Route path="signup/" component={Signup} />
+        </Route>
+
         <Route path="*" component={NotFound} />
       </Route>
     </Router>
