@@ -13,14 +13,14 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" href="#">Podbaby</a>
+        <router-link to="/" class="navbar-brand">Podbaby</router-link>
       </div>
 
       <!-- Collect the nav links, forms, and other content for toggling -->
       <div class="collapse navbar-collapse" id="bs-navbar-collapse">
         <ul class="nav navbar-nav">
           <router-link tag="li" to="/" exact>
-            <a>Podcasts</a>
+            <a><icon name="headphones"></icon> Podcasts</a>
           </router-link>
           <li><a href="#" data-toggle="collapse" data-target="#bs-navbar-collapse">Link</a></li>
           <li class="dropdown">
@@ -58,3 +58,13 @@
     </div><!-- /.container-fluid -->
   </nav>
 </template>
+
+<script>
+import Icon from './Icon'
+
+export default {
+  components: {
+    Icon
+  }
+}
+</script>

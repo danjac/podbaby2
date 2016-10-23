@@ -3,36 +3,32 @@
     <div class="page-header">
       <h1>Podcasts</h1>
     </div>
-    <h1 v-if="loading" class="loader">
-      <i class="fa fa-refresh fa-spin fa-5x fa-fw"></i>
-      <span class="sr-only">Loading...</span>
-    </h1>
+    <Loader v-if="loading"></Loader>
     <div v-else>
-    <pager @previous-page="previousPage"
-           @next-page="nextPage"
-           :previous="previous"
-           :next="next"></pager>
+    <pager @previous-page="fetchPrevious"
+           @next-page="fetchNext"
+           :previous="previousPage"
+           :next="nextPage"></pager>
     <ul class="list-group">
       <li class="list-group-item" v-for="episode in episodes">
 
         <div class="media">
           <div class="media-left">
-            <a href="" v-if="episode.channel.thumbnail">
-              <img :src="episode.channel.thumbnail.url"
-                   :alt="episode.channel.name"
-                   class="media-object" />
-            </a>
+            <img v-if="episode.channel.thumbnail"
+                 :src="episode.channel.thumbnail.url"
+                 :alt="episode.channel.name"
+                 class="media-object" />
           </div>
           <div class="media-body">
             <h4 class="media-heading">
-              <router-link :to="{ query: { page: 2 } }">
-              {{episode.channel.name}}
+              <router-link :to="{ name: 'episode', params: { id: episode.id } }">
+              {{ episode.channel.name }}
               </router-link>
             </h4>
             <h5>{{episode.title}}</h5>
             <span class="label label-default category"
                   v-for="category in episode.channel.categories">
-              <a href="#">{{category.name}}</a>
+              <a href="#">{{ category.name }}</a>
             </span>
             <span v-if="episode.explicit" class="label label-danger category">
               <icon name="warning"></icon>
@@ -41,61 +37,57 @@
           </div>
         </div>
 
-        <p class="description">{{episode.subtitle}}</p>
+        <p class="description">{{ episode.subtitle }}</p>
       </li>
     </ul>
-    <pager @previous-page="previousPage"
-           @next-page="nextPage"
-           :previous="previous"
-           :next="next"></pager>
+    <pager @previous-page="fetchPrevious"
+           @next-page="fetchNext"
+           :previous="previousPage"
+           :next="nextPage"></pager>
     </div>
   </div>
 </template>
 
 <script>
+import { mapGetters, mapActions } from 'vuex'
+
+import * as getterTypes from '../store/types/getters'
+import * as actionTypes from '../store/types/actions'
+
 import Icon from './Icon'
 import Pager from './Pager'
+import Loader from './Loader'
 
 export default {
   components: {
     Icon,
-    Pager
+    Pager,
+    Loader
   },
   watch: {
     '$route' (to, from) {
-      console.log(to, from)
+      if (to !== from) {
+        this.fetch(to.query.page)
+      }
     }
   },
-  data () {
-    return {
-      episodes: [],
-      previous: null,
-      next: null,
-      loading: false
-    }
-  },
+  computed: mapGetters({
+    episodes: [getterTypes.EPISODES],
+    nextPage: [getterTypes.EPISODES_NEXT_PAGE],
+    previousPage: [getterTypes.EPISODES_PREVIOUS_PAGE],
+    loading: [getterTypes.EPISODES_LOADING]
+  }),
   created () {
-    this.fetch()
+    this.fetch(this.$route.query.page)
   },
-  methods: {
-    fetch (url) {
-      this.loading = true
-      this.$http.get(url || 'episodes/').then(response => {
-        this.episodes = response.body.results
-        this.previous = response.body.previous
-        this.next = response.body.next
-        this.loading = false
-      })
+  methods: {...mapActions({
+    fetch: [actionTypes.FETCH_EPISODES]
+  }),
+    fetchNext () {
+      this.$router.push({ query: { page: this.nextPage } })
     },
-    nextPage () {
-      if (this.next) {
-        this.fetch(this.next)
-      }
-    },
-    previousPage () {
-      if (this.previous) {
-        this.fetch(this.previous)
-      }
+    fetchPrevious () {
+      this.$router.push({ query: { page: this.previousPage } })
     }
   }
 }
