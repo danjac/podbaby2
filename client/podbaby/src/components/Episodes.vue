@@ -78,6 +78,7 @@ export default {
     loading: [getterTypes.EPISODES_LOADING]
   }),
   created () {
+    console.log('PAGE', this.$route.query)
     this.fetch(this.$route.query.page)
   },
   methods: {...mapActions({
