@@ -1,4 +1,4 @@
-import Vue from 'vue'
+import { fetchEpisodes } from '../../api/episodes'
 
 import * as getterTypes from '../types/getters'
 import * as actionTypes from '../types/actions'
@@ -17,10 +17,9 @@ export default {
 
   actions: {
     [actionTypes.FETCH_EPISODES] ({ commit }, page = 1) {
-      const url = 'episodes/?page=' + page
       commit(mutationTypes.FETCH_EPISODES)
-      Vue.http.get(url).then(response => {
-        commit(mutationTypes.FETCH_EPISODES_DONE, response.body)
+      fetchEpisodes(page).then(payload => {
+        commit(mutationTypes.FETCH_EPISODES_DONE, payload)
       })
     }
   },
@@ -33,7 +32,7 @@ export default {
   },
 
   mutations: {
-    [mutationTypes.FETCH_EPISODES] (state, payload) {
+    [mutationTypes.FETCH_EPISODES] (state) {
       state.loading = true
     },
     [mutationTypes.FETCH_EPISODES_DONE] (state, payload) {

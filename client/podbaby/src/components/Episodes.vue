@@ -37,7 +37,7 @@
           </div>
         </div>
 
-        <p class="description">{{ episode.subtitle }}</p>
+        <p class="description" v-html="episode.subtitle"></p>
       </li>
     </ul>
     <pager @previous-page="fetchPrevious"
