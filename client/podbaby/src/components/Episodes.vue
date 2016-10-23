@@ -65,10 +65,8 @@ export default {
     Loader
   },
   watch: {
-    '$route' (to, from) {
-      if (to !== from) {
-        this.fetch(to.query.page)
-      }
+    '$route' (to) {
+      this.fetch(to.query.page)
     }
   },
   computed: mapGetters({
@@ -78,7 +76,6 @@ export default {
     loading: [getterTypes.EPISODES_LOADING]
   }),
   created () {
-    console.log('PAGE', this.$route.query)
     this.fetch(this.$route.query.page)
   },
   methods: {...mapActions({
