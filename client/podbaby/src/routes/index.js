@@ -4,17 +4,17 @@ import { Router, Route, IndexRoute } from 'react-router';
 
 import App from '../App';
 
-import EpisodeDetail from './episodes/detail';
-import AllEpisodes from './episodes/all';
-import UserEpisodes from './episodes/user';
-import Bookmarks from './episodes/bookmarks';
-import Channels from './channels/channels';
-import Subscriptions from './channels/subscriptions';
-import Categories from './channels/categories';
-import Login from './auth/login';
-import Signup from './auth/signup';
-import NotFound from './not-found';
+import EpisodeDetail from '../containers/episodes/detail';
+import AllEpisodes from '../containers/episodes/all';
+import UserEpisodes from '../containers/episodes/user';
+import Bookmarks from '../containers/episodes/bookmarks';
+import Channels from '../containers/channels/channels';
+import Subscriptions from '../containers/channels/subscriptions';
+import Categories from '../containers/channels/categories';
+import Login from '../containers/auth/login';
+import Signup from '../containers/auth/signup';
 
+import NotFound from './not-found';
 
 export default function(history, store) {
 

@@ -2,6 +2,7 @@ import React, { PropTypes, Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { withRouter } from 'react-router';
+import * as bs from 'react-bootstrap';
 
 import { fetchEpisodes } from '../../modules/episodes';
 
@@ -15,12 +16,13 @@ import {
 import { startPlayer, stopPlayer } from '../../modules/player';
 
 import { episodesSelector } from '../../selectors';
+import { pageNumberFromUrl } from '../../utils/pagination';
 
 import Search from '../../components/search';
 import Loader from '../../components/loader';
 import EpisodeList from '../../components/episode-list';
 
-export class Episodes extends Component {
+class Bookmarks extends Component {
 
   constructor(props) {
     super(props);
@@ -28,7 +30,6 @@ export class Episodes extends Component {
     this.handleSearch = this.handleSearch.bind(this);
     this.handleClearSearch = this.handleClearSearch.bind(this);
     this.handleSelectPage = this.handleSelectPage.bind(this);
-
   }
 
   componentDidMount() {
@@ -47,26 +48,35 @@ export class Episodes extends Component {
     }
   }
 
-  fetchEpisodes(page=1, searchQuery) {
-    const { actions: { onFetchEpisodes } } = this.props;
-    onFetchEpisodes(page, searchQuery);
+  fetchEpisodes(page, searchQuery) {
+    const params = {
+      page: page || 1,
+      q: searchQuery || '',
+    };
+    this.props.actions.onFetchEpisodes('/api/episodes/bookmarks/', params);
   }
 
-  changeLocation(nextQuery) {
-    const query = {...this.props.location.query, ...nextQuery};
-    this.props.router.replace({ ...this.props.location, query });
-  }
+  changeLocation(page, searchQuery) {
+    this.props.router.replace({
+      ...this.props.location,
+      query: {
+        page,
+        q: searchQuery,
+      },
+    });
+ }
 
   handleSearch(searchQuery) {
-    this.changeLocation({ page: 1, q: searchQuery });
+    this.changeLocation(1, searchQuery);
   }
 
   handleClearSearch() {
-    this.changeLocation({ page: 1, q: '' });
+    this.changeLocation(1, '');
   }
 
-  handleSelectPage(page) {
-    this.changeLocation({ page });
+  handleSelectPage(url) {
+    const page = pageNumberFromUrl(url);
+    this.changeLocation(page, this.props.location.query.q);
   }
 
   render() {
@@ -75,37 +85,32 @@ export class Episodes extends Component {
       episodes,
       next,
       previous,
-      isLoggedIn,
       isLoading,
-      actions,
-      location: {
-        query
-      }
-    } = this.props;
+      actions } = this.props;
 
     if (isLoading) {
       return <Loader />;
     }
 
-    const searchQuery = query.q;
+    const searchQuery = this.props.location.query.q;
 
-    const ifEmpty = searchQuery && 'No podcasts found for your search.';
+    const ifEmpty = (
+      searchQuery ? 'No podcasts found for your search.' :
+        "You haven't added any podcasts to your playlist yet"
+    );
 
     return (
       <div>
-        <div className="page-header">
-          <h2>All Podcasts</h2>
-        </div>
-        <Search placeholder="Search for podcasts"
+        <bs.PageHeader>Starred podcasts</bs.PageHeader>
+        <Search placeholder="Search for starred podcasts"
                 searchQuery={searchQuery}
                 onClear={this.handleClearSearch}
                 onSearch={this.handleSearch} />
-
         <EpisodeList episodes={episodes}
                      next={next}
                      previous={previous}
                      ifEmpty={ifEmpty}
-                     isLoggedIn={isLoggedIn}
+                     isLoggedIn={true}
                      onSelectPage={this.handleSelectPage}
                      {...actions} />
       </div>
@@ -113,14 +118,13 @@ export class Episodes extends Component {
   }
 }
 
-Episodes.propTypes = {
+Bookmarks.propTypes = {
   actions: PropTypes.objectOf(PropTypes.func).isRequired,
   episodes: PropTypes.array.isRequired,
   next: PropTypes.string,
   previous: PropTypes.string,
   router: PropTypes.object.isRequired,
   location: PropTypes.object.isRequired,
-  isLoggedIn: PropTypes.bool.isRequired,
   isLoading: PropTypes.bool.isRequired,
 };
 
@@ -131,9 +135,6 @@ const mapStateToProps = state => {
       previous,
       isLoading
     },
-    auth: {
-      isLoggedIn,
-    },
   } = state;
 
   const episodes = episodesSelector(state);
@@ -143,7 +144,6 @@ const mapStateToProps = state => {
     next,
     previous,
     isLoading,
-    isLoggedIn,
   };
 
 };
@@ -162,4 +162,7 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Episodes));
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(withRouter(Bookmarks));

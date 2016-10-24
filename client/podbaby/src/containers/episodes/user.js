@@ -2,6 +2,7 @@ import React, { PropTypes, Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { withRouter } from 'react-router';
+// import * as bs from 'react-bootstrap';
 
 import { fetchEpisodes } from '../../modules/episodes';
 
@@ -15,6 +16,7 @@ import {
 import { startPlayer, stopPlayer } from '../../modules/player';
 
 import { episodesSelector } from '../../selectors';
+import { pageNumberFromUrl } from '../../utils/pagination';
 
 import Search from '../../components/search';
 import Loader from '../../components/loader';
@@ -47,9 +49,17 @@ export class Episodes extends Component {
     }
   }
 
-  fetchEpisodes(page=1, searchQuery) {
+  fetchEpisodes(page=1, searchQuery, show) {
     const { actions: { onFetchEpisodes } } = this.props;
-    onFetchEpisodes(page, searchQuery);
+    let url = '/api/episodes/subscribed/';
+    const params = {};
+    if (page) {
+      params.page = page;
+    }
+    if (searchQuery) {
+      params.q = searchQuery;
+    }
+    onFetchEpisodes(url, params);
   }
 
   changeLocation(nextQuery) {
@@ -65,7 +75,8 @@ export class Episodes extends Component {
     this.changeLocation({ page: 1, q: '' });
   }
 
-  handleSelectPage(page) {
+  handleSelectPage(url) {
+    const page = pageNumberFromUrl(url);
     this.changeLocation({ page });
   }
 
@@ -75,7 +86,6 @@ export class Episodes extends Component {
       episodes,
       next,
       previous,
-      isLoggedIn,
       isLoading,
       actions,
       location: {
@@ -94,7 +104,7 @@ export class Episodes extends Component {
     return (
       <div>
         <div className="page-header">
-          <h2>All Podcasts</h2>
+          <h2>My feeds</h2>
         </div>
         <Search placeholder="Search for podcasts"
                 searchQuery={searchQuery}
@@ -105,7 +115,7 @@ export class Episodes extends Component {
                      next={next}
                      previous={previous}
                      ifEmpty={ifEmpty}
-                     isLoggedIn={isLoggedIn}
+                     isLoggedIn={true}
                      onSelectPage={this.handleSelectPage}
                      {...actions} />
       </div>
@@ -120,7 +130,6 @@ Episodes.propTypes = {
   previous: PropTypes.string,
   router: PropTypes.object.isRequired,
   location: PropTypes.object.isRequired,
-  isLoggedIn: PropTypes.bool.isRequired,
   isLoading: PropTypes.bool.isRequired,
 };
 
@@ -131,9 +140,6 @@ const mapStateToProps = state => {
       previous,
       isLoading
     },
-    auth: {
-      isLoggedIn,
-    },
   } = state;
 
   const episodes = episodesSelector(state);
@@ -143,7 +149,6 @@ const mapStateToProps = state => {
     next,
     previous,
     isLoading,
-    isLoggedIn,
   };
 
 };
@@ -162,4 +167,7 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Episodes));
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(withRouter(Episodes));

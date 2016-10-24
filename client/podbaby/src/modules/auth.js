@@ -1,4 +1,5 @@
-import * as api from '../utils/api';
+import * as api from '../api/auth';
+
 import {
   getAuthToken,
   removeAuthToken
@@ -23,7 +24,7 @@ export const GET_USER_FAILURE = 'podbaby/auth/GET_USER_FAILURE';
 
 
 export function subscribe(channel) {
-  api.post(`/api/channels/${channel.id}/subscribe/`);
+  api.subscribe(channel.id);
   return dispatch => {
     dispatch(info('You have subscribed to this feed'));
     dispatch({
@@ -34,7 +35,7 @@ export function subscribe(channel) {
 }
 
 export function unsubscribe(channel) {
-  api.del(`/api/channels/${channel.id}/unsubscribe/`);
+  api.unsubscribe(channel.id);
   return dispatch => {
     dispatch(info('You have unsubscribed from this feed'));
     dispatch({
@@ -45,7 +46,7 @@ export function unsubscribe(channel) {
 }
 
 export function addBookmark(episode) {
-  api.post(`/api/episodes/${episode.id}/create_bookmark/`);
+  api.addBookmark(episode.id);
   return dispatch => {
     dispatch(info('You have added this podcast to your playlist.'));
     dispatch({
@@ -56,7 +57,7 @@ export function addBookmark(episode) {
 }
 
 export function removeBookmark(episode) {
-  api.del(`/api/episodes/${episode.id}/delete_bookmark/`);
+  api.removeBookmark(episode.id);
   return dispatch => {
     dispatch(info('You have removed this podcast from your playlist.'));
     dispatch({
@@ -77,7 +78,7 @@ export function getCurrentUser() {
     dispatch({
       type: USER_LOGGED_IN,
     });
-    return api.get('/api/auth/me/')
+    return api.getCurrentUser()
       .then(payload => {
         dispatch({
           type: GET_USER_SUCCESS,
@@ -97,7 +98,6 @@ export function logout() {
     dispatch({
       type: USER_LOGGED_OUT,
     });
-    // tbd: move this out of this function
     dispatch(info('Bye for now!'));
   };
 }

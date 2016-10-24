@@ -1,9 +1,9 @@
-import * as api from '../utils/api';
+import { getEpisodes, getBookmarks } from '../api/episodes';
+import { pageNumberFromUrl } from '../utils/pagination';
 
 export const FETCH_EPISODES = 'podbaby/episodes/FETCH_EPISODES';
 export const FETCH_EPISODES_SUCCESS = 'podbaby/episodes/FETCH_EPISODES_SUCCESS';
 export const FETCH_EPISODES_FAILURE = 'podbaby/episodes/FETCH_EPISODES_FAILURE';
-
 
 const initialState = {
   isLoading: false,
@@ -12,10 +12,10 @@ const initialState = {
   previous: null,
 };
 
-export function fetchEpisodes(url, params) {
+const fetch = (apiCall, page, searchQuery) => {
   return dispatch => {
     dispatch({ type: FETCH_EPISODES });
-    return api.get(url, { params })
+    return apiCall(page, searchQuery)
     .then(payload => {
       dispatch({
         type: FETCH_EPISODES_SUCCESS,
@@ -28,6 +28,14 @@ export function fetchEpisodes(url, params) {
       });
     });
   };
+};
+
+export function fetchEpisodes(page, searchQuery) {
+  return fetch(getEpisodes, page, searchQuery);
+}
+
+export function fetchBookmarks(page, searchQuery) {
+  return fetch(getBookmarks, page, searchQuery);
 }
 
 export default function (state=initialState, action) {
@@ -37,7 +45,17 @@ export default function (state=initialState, action) {
     case FETCH_EPISODES_FAILURE:
       return initialState;
     case FETCH_EPISODES_SUCCESS:
-      return { ...state, ...action.payload, isLoading: false };
+
+      const { previous, next } = action.payload;
+
+      return {
+        ...state,
+        ...action.payload,
+        isLoading: false,
+        previous: pageNumberFromUrl(previous),
+        next: pageNumberFromUrl(next),
+      };
+
     default:
       return state;
   }
