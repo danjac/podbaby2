@@ -4,7 +4,7 @@ import { bindActionCreators } from 'redux';
 import { withRouter } from 'react-router';
 import * as bs from 'react-bootstrap';
 
-import { fetchEpisodes } from '../../modules/episodes';
+import { fetchBookmarks } from '../../modules/episodes';
 
 import {
   addBookmark,
@@ -16,7 +16,6 @@ import {
 import { startPlayer, stopPlayer } from '../../modules/player';
 
 import { episodesSelector } from '../../selectors';
-import { pageNumberFromUrl } from '../../utils/pagination';
 
 import Search from '../../components/search';
 import Loader from '../../components/loader';
@@ -49,11 +48,7 @@ class Bookmarks extends Component {
   }
 
   fetchEpisodes(page, searchQuery) {
-    const params = {
-      page: page || 1,
-      q: searchQuery || '',
-    };
-    this.props.actions.onFetchEpisodes('/api/episodes/bookmarks/', params);
+    this.props.actions.onFetchBookmarks(page, searchQuery);
   }
 
   changeLocation(page, searchQuery) {
@@ -74,9 +69,8 @@ class Bookmarks extends Component {
     this.changeLocation(1, '');
   }
 
-  handleSelectPage(url) {
-    const page = pageNumberFromUrl(url);
-    this.changeLocation(page, this.props.location.query.q);
+  handleSelectPage(page) {
+    this.changeLocation(page);
   }
 
   render() {
@@ -121,8 +115,8 @@ class Bookmarks extends Component {
 Bookmarks.propTypes = {
   actions: PropTypes.objectOf(PropTypes.func).isRequired,
   episodes: PropTypes.array.isRequired,
-  next: PropTypes.string,
-  previous: PropTypes.string,
+  next: PropTypes.number,
+  previous: PropTypes.number,
   router: PropTypes.object.isRequired,
   location: PropTypes.object.isRequired,
   isLoading: PropTypes.bool.isRequired,
@@ -151,7 +145,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     actions: bindActionCreators({
-      onFetchEpisodes: fetchEpisodes,
+      onFetchBookmarks: fetchBookmarks,
       onStartPlayer: startPlayer,
       onStopPlayer: stopPlayer,
       onAddBookmark: addBookmark,

@@ -15,6 +15,10 @@ export const getEpisodes = (page, searchQuery) => {
   return fetch('/api/episodes/', page, searchQuery);
 };
 
+export const getSubscribed = (page, searchQuery) => {
+  return fetch('/api/episodes/subscribed/', page, searchQuery);
+};
+
 export const getBookmarks = (page, searchQuery) => {
   return fetch('/api/episodes/bookmarks/', page, searchQuery);
 };

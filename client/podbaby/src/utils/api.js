@@ -3,14 +3,15 @@ import { camelizeKeys, decamelizeKeys } from 'humps';
 import _ from 'lodash';
 import { SubmissionError } from 'redux-form';
 
-import config from '../config';
 import { getAuthToken } from './storage';
+
+const baseURL = process.env.NODE_ENV === 'production' ? 'https://podbaby.me/' : 'http://localhost:8000/';
 
 const transformRequest = [...axios.defaults.transformRequest, decamelizeKeys];
 const transformResponse = [...axios.defaults.transformResponse, camelizeKeys];
 
 const instance = axios.create({
-  baseURL: config.API_URL,
+  baseURL,
   xsrfCookieName: 'csrftoken',
   xsrfHeaderName: 'X-CSRFToken',
   withCredentials: true,

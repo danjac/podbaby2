@@ -8,7 +8,7 @@ import { getAuthToken } from '../utils/storage';
 const transformRequest = [...axios.defaults.transformRequest, decamelizeKeys];
 const transformResponse = [...axios.defaults.transformResponse, camelizeKeys];
 
-const baseURL = process.env.NODE_ENV === 'production' ? 'https://podbaby.me/' : 'http:localhost:8000/';
+const baseURL = process.env.NODE_ENV === 'production' ? 'https://podbaby.me/' : 'http://localhost:8000/';
 
 const instance = axios.create({
   baseURL,

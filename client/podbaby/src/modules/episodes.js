@@ -1,4 +1,9 @@
-import { getEpisodes, getBookmarks } from '../api/episodes';
+import {
+  getEpisodes,
+  getBookmarks,
+  getSubscribed,
+} from '../api/episodes';
+
 import { pageNumberFromUrl } from '../utils/pagination';
 
 export const FETCH_EPISODES = 'podbaby/episodes/FETCH_EPISODES';
@@ -36,6 +41,10 @@ export function fetchEpisodes(page, searchQuery) {
 
 export function fetchBookmarks(page, searchQuery) {
   return fetch(getBookmarks, page, searchQuery);
+}
+
+export function fetchSubscribed(page, searchQuery) {
+  return fetch(getSubscribed, page, searchQuery);
 }
 
 export default function (state=initialState, action) {

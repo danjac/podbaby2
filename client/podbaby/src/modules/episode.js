@@ -1,4 +1,4 @@
-import * as api from '../utils/api';
+import { getEpisode } from '../api/episode';
 
 export const FETCH_EPISODE = 'podbaby/episode/FETCH_EPISODE';
 export const FETCH_EPISODES_SUCCESS = 'podbaby/episode/FETCH_EPISODE_SUCCESS';
@@ -16,7 +16,7 @@ export function fetchEpisode(id) {
     dispatch({
       type: FETCH_EPISODE
     });
-    return api.get(`/api/episodes/${id}/`)
+    return getEpisode(id)
       .then(payload => {
         dispatch({
           type: FETCH_EPISODES_SUCCESS,

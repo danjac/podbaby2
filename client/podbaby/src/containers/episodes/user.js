@@ -4,7 +4,7 @@ import { bindActionCreators } from 'redux';
 import { withRouter } from 'react-router';
 // import * as bs from 'react-bootstrap';
 
-import { fetchEpisodes } from '../../modules/episodes';
+import { fetchSubscribed } from '../../modules/episodes';
 
 import {
   addBookmark,
@@ -16,7 +16,6 @@ import {
 import { startPlayer, stopPlayer } from '../../modules/player';
 
 import { episodesSelector } from '../../selectors';
-import { pageNumberFromUrl } from '../../utils/pagination';
 
 import Search from '../../components/search';
 import Loader from '../../components/loader';
@@ -50,16 +49,8 @@ export class Episodes extends Component {
   }
 
   fetchEpisodes(page=1, searchQuery, show) {
-    const { actions: { onFetchEpisodes } } = this.props;
-    let url = '/api/episodes/subscribed/';
-    const params = {};
-    if (page) {
-      params.page = page;
-    }
-    if (searchQuery) {
-      params.q = searchQuery;
-    }
-    onFetchEpisodes(url, params);
+    const { actions: { onFetchSubscribed } } = this.props;
+    onFetchSubscribed(page, searchQuery);
   }
 
   changeLocation(nextQuery) {
@@ -75,8 +66,7 @@ export class Episodes extends Component {
     this.changeLocation({ page: 1, q: '' });
   }
 
-  handleSelectPage(url) {
-    const page = pageNumberFromUrl(url);
+  handleSelectPage(page) {
     this.changeLocation({ page });
   }
 
@@ -156,7 +146,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     actions: bindActionCreators({
-      onFetchEpisodes: fetchEpisodes,
+      onFetchSubscribed: fetchSubscribed,
       onStartPlayer: startPlayer,
       onStopPlayer: stopPlayer,
       onAddBookmark: addBookmark,
