@@ -83,7 +83,7 @@ class EpisodeViewSet(viewsets.ReadOnlyModelViewSet):
 
     @detail_route(methods=['POST'],
                   permission_classes=[permissions.IsAuthenticated])
-    def create_bookmark(self, request, pk):
+    def add_bookmark(self, request, pk):
         Bookmark.objects.get_or_create(
             episode=self.get_object(),
             user=self.request.user,
@@ -92,7 +92,7 @@ class EpisodeViewSet(viewsets.ReadOnlyModelViewSet):
 
     @detail_route(methods=['DELETE'],
                   permission_classes=[permissions.IsAuthenticated])
-    def delete_bookmark(self, request, pk):
+    def remove_bookmark(self, request, pk):
         Bookmark.objects.filter(
             user__pk=self.request.user.id,
             episode__pk=pk,

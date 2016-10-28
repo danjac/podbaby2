@@ -86,7 +86,7 @@ class EpisodeViewSetTests(APITestCase):
         data = json.loads(resp.content.decode('utf-8'))
         self.assertEqual(len(data['results']), 3)
 
-    def test_create_bookmark(self):
+    def test_add_bookmark(self):
 
         episode = EpisodeFactory.create()
 
@@ -95,7 +95,7 @@ class EpisodeViewSetTests(APITestCase):
         self.client.credentials(HTTP_AUTHORIZATION='Token ' + token.key)
 
         resp = self.client.post(
-            '/api/episodes/{}/create_bookmark/'.format(
+            '/api/episodes/{}/add_bookmark/'.format(
                 episode.id
             ), format='json')
 
@@ -103,7 +103,7 @@ class EpisodeViewSetTests(APITestCase):
 
         self.assertTrue(Bookmark.objects.exists())
 
-    def test_delete_bookmark(self):
+    def test_remove_bookmark(self):
 
         episode = EpisodeFactory.create()
         user = UserFactory.create()
@@ -114,7 +114,7 @@ class EpisodeViewSetTests(APITestCase):
         self.client.credentials(HTTP_AUTHORIZATION='Token ' + token.key)
 
         resp = self.client.delete(
-            '/api/episodes/{}/delete_bookmark/'.format(
+            '/api/episodes/{}/remove_bookmark/'.format(
                 episode.id
             ), format='json')
 

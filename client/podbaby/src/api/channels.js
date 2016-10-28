@@ -2,9 +2,9 @@ import { partial } from 'lodash';
 
 import http from './http-client';
 
-const API_BASE_URL = '/api/episodes/';
+const API_BASE_URL = '/api/channels/';
 
-export const get = id => http.get(`${API_BASE_URL}/{id}/`);
+export const get = id => http.get(`${API_BASE_URL}${id}/`);
 
 const fetchMany = (url, page, searchQuery) => {
   const params = {};
@@ -18,5 +18,4 @@ const fetchMany = (url, page, searchQuery) => {
 };
 
 export const fetchAll = partial(fetchMany, API_BASE_URL);
-export const fetchSubscribed = partial(fetchMany, API_BASE_URL + 'subscribed/');
-export const fetchBookmarked = partial(fetchMany, API_BASE_URL + 'bookmarked/');
+export const fetchSubscribed = partial(fetchMany, API_BASE_URL + '/subscribed');
