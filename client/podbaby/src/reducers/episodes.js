@@ -4,13 +4,15 @@ import {
   FETCH_EPISODES_FAILURE,
 } from '../action-types';
 
-import { pageNumberFromUrl } from './utils';
+import {
+  pageNumberFromUrl
+} from './utils';
 
 const initialState = {
   loading: false,
   results: [],
-  next: null,
-  previous: null,
+  next: 0,
+  previous: 0,
   error: null,
 };
 
@@ -25,7 +27,10 @@ export default function(state = initialState, action) {
       };
 
     case FETCH_EPISODES_FAILURE:
-      return { ...state, error: action.error };
+      return {...state,
+        loading: false,
+        error: action.error
+      };
 
     case FETCH_EPISODES_SUCCESS:
 
