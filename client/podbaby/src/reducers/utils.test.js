@@ -1,10 +1,20 @@
-export function pageNumberFromUrl(url) {
-  if (!url) {
-    return 0
-  }
-  const match = /.*?[\?&]page=(\d+).*?/.exec(url);
-  if (match) {
-    return Number(match[1]).valueOf();
-  }
-  return 1;
-}
+import {
+  pageNumberFromUrl
+} from './utils';
+
+describe('pageNumberFromUrl', () => {
+  it('should parse 1 from url if no page found', () => {
+    const url = '/api/episodes/';
+    expect(pageNumberFromUrl(url)).toBe(1);
+  });
+
+  it('should parse page from url', () => {
+    const url = '/api/episodes/?page=3';
+    expect(pageNumberFromUrl(url)).toBe(3);
+  });
+
+  it('should not parse non-numeric page from url', () => {
+    const url = '/api/episodes/?page=x';
+    expect(pageNumberFromUrl(url)).toBe(1);
+  });
+});

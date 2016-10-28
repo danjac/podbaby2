@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react';
 
 import Pager from './Pager';
-import Episode from './Episode';
+import EpisodeListItem from './EpisodeListItem';
 
 const EpisodeList = props => {
 
@@ -31,7 +31,7 @@ const EpisodeList = props => {
     <div style={style}>
       {pager}
       {episodes.map(episode => (
-      <Episode key={episode.id} episode={episode} {...props} />
+      <EpisodeListItem key={episode.id} episode={episode} {...props} />
       ))}
       {pager}
     </div>

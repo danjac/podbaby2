@@ -24,7 +24,7 @@ const defaultProps = {
     title: 'Brian Redban',
     subtitle: 'Joe & Redban talk shit',
   },
-  isLoggedIn: false,
+  authenticated: false,
   onStartPlayer: jest.fn(),
   onStopPlayer: jest.fn(),
   onAddBookmark: jest.fn(),
