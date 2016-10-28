@@ -12,16 +12,25 @@ const initialState = {
 
 export default function(state = initialState, action) {
 
-  switch(action.type) {
+  switch (action.type) {
 
     case FETCH_EPISODE_REQUEST:
-      return { ...state, loading: true };
+      return {...state,
+        loading: true,
+        error: null,
+      };
 
     case FETCH_EPISODE_SUCCESS:
-      return { ...state, loading: false, episode: action.payload };
+      return {...state,
+        loading: false,
+        episode: action.payload
+      };
 
     case FETCH_EPISODE_FAILURE:
-      return { ...state, loading: false, error: action.error };
+      return {...state,
+        loading: false,
+        error: action.error
+      };
 
     default:
       return state;
