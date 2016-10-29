@@ -4,6 +4,7 @@ import thunk from 'redux-thunk';
 import {
   FETCH_USER_REQUEST,
   FETCH_USER_SUCCESS,
+  FETCH_USER_FAILURE,
   NOT_AUTHENTICATED,
   LOGOUT,
 } from '../action-types';
@@ -47,7 +48,9 @@ describe('fetchUser', () => {
         });
       });
     });
+
     const store = createMockStore();
+
     return store.dispatch(fetchUser('token'))
       .then(() => {
         const actions = store.getActions();
@@ -55,7 +58,61 @@ describe('fetchUser', () => {
         expect(actions[0].type).toEqual(FETCH_USER_REQUEST);
         expect(actions[1].type).toEqual(FETCH_USER_SUCCESS);
         expect(actions[1].payload.name).toEqual('tester');
+        const storage = require('../local-storage');
+        expect(storage.auth.setToken).toBeCalledWith('token');
       });
   });
 
+  it('should get token and call if available', () => {
+    const api = require('../api');
+    api.auth.getUser.mockImplementation(() => {
+      return new Promise(resolve => {
+        resolve({
+          name: 'tester',
+        });
+      });
+    });
+
+    const storage = require('../local-storage');
+    storage.auth.getToken.mockImplementation(() => 'token');
+
+    const store = createMockStore();
+
+    return store.dispatch(fetchUser())
+      .then(() => {
+        const actions = store.getActions();
+        expect(actions.length).toBe(2);
+        expect(actions[0].type).toEqual(FETCH_USER_REQUEST);
+        expect(actions[1].type).toEqual(FETCH_USER_SUCCESS);
+        expect(actions[1].payload.name).toEqual('tester');
+        expect(storage.auth.getToken).toBeCalled();
+      });
+  });
+
+  it('should return with FETCH_USER_FAILURE on error', () => {
+    const api = require('../api');
+    const error = new Error('No user found');
+
+    api.auth.getUser.mockImplementation(() => {
+      return new Promise(() => {
+        throw error;
+      });
+    });
+
+    const storage = require('../local-storage');
+    storage.auth.getToken.mockImplementation(() => 'token');
+
+    const store = createMockStore();
+
+    return store.dispatch(fetchUser())
+      .then(() => {
+        const actions = store.getActions();
+        expect(actions.length).toBe(2);
+        expect(actions[0].type).toEqual(FETCH_USER_REQUEST);
+        expect(actions[1].type).toEqual(FETCH_USER_FAILURE);
+        expect(actions[1].error).toEqual(error);
+        expect(storage.auth.getToken).toBeCalled();
+      });
+
+  });
 });
