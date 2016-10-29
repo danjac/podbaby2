@@ -1,20 +1,22 @@
-import React, { PropTypes } from 'react';
+import React, {
+  PropTypes
+} from 'react';
 import Icon from 'react-fa';
 import * as bs from 'react-bootstrap';
 
 export const EpisodeButtons = ({
-    episode,
-    episode: {
-      channel,
-    },
-    authenticated,
-    onAddBookmark,
-    onRemoveBookmark,
-    onStartPlayer,
-    onStopPlayer,
-    onSubscribe,
-    onUnsubscribe,
-  }) => {
+  episode,
+  episode: {
+    channel,
+  },
+  authenticated,
+  onAddBookmark,
+  onRemoveBookmark,
+  onStartPlayer,
+  onStopPlayer,
+  onSubscribe,
+  onUnsubscribe,
+}) => {
 
   let buttons = [];
   let playerBtn;

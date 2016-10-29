@@ -1,4 +1,6 @@
-import React, { PropTypes } from 'react';
+import React, {
+  PropTypes
+} from 'react';
 
 import Pager from './Pager';
 import EpisodeListItem from './EpisodeListItem';
@@ -13,7 +15,9 @@ const EpisodeList = props => {
     onSelectPage,
   } = props;
 
-  const style = { marginTop: 10 };
+  const style = {
+    marginTop: 10
+  };
 
   if (!episodes.length) {
     const msg = ifEmpty || 'No podcasts found';

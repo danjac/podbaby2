@@ -1,18 +1,32 @@
-import React, { PropTypes } from 'react';
+import React, {
+  PropTypes
+} from 'react';
+
 import moment from 'moment';
-import { Link } from 'react-router';
+
+import {
+  Link
+} from 'react-router';
+
 import * as bs from 'react-bootstrap';
 
-import { sanitize } from './utils';
+import {
+  sanitize
+} from './utils';
 
-import ChannelLabels from './ChannelLabels';
+import Labels from './Labels';
 import EpisodeButtons from './EpisodeButtons';
 
 import defaultThumbnail from '../podcast.svg';
 
 export const EpisodeListItem = props => {
 
-  const { episode, episode: { channel } } = props;
+  const {
+    episode,
+    episode: {
+      channel
+    }
+  } = props;
 
   const thumbnail = channel.thumbnail || {
     url: defaultThumbnail,
@@ -29,14 +43,17 @@ export const EpisodeListItem = props => {
   );
 
   const title = episode.title || channel.name;
+  const buttons = <EpisodeButtons {...props } />;
 
   return (
     <bs.Panel header={channel.name}
-      footer={<EpisodeButtons {...props} />}
+      footer={buttons}
       className="episode">
+
       <h4 style={{ textAlign: 'center' }}>
         <Link to={`/podcasts/${episode.id}/`}>{title}</Link>
       </h4>
+
       <bs.Media>
         <bs.Media.Left>
           <img src={thumbnail.url}
@@ -45,7 +62,7 @@ export const EpisodeListItem = props => {
             alt={channel.name} />
         </bs.Media.Left>
         <bs.Media.Body>
-          <ChannelLabels categories={channel.categories}
+          <Labels categories={channel.categories}
             explicit={episode.explicit} />
           {published && <p><strong>{published}</strong></p>}
         </bs.Media.Body>

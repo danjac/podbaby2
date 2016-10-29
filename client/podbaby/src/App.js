@@ -1,7 +1,16 @@
-import React, { Component, PropTypes } from 'react';
+import React, {
+  Component,
+  PropTypes
+} from 'react';
 // import { bindActionCreators } from 'redux';
-import { withRouter } from 'react-router';
-import { connect } from 'react-redux';
+
+import {
+  withRouter
+} from 'react-router';
+
+import {
+  connect
+} from 'react-redux';
 
 import './App.css';
 
@@ -23,7 +32,7 @@ export class App extends Component {
 
   render() {
 
-   return (
+    return (
       <div>
         {this.props.children}
       </div>
@@ -31,14 +40,13 @@ export class App extends Component {
   }
 }
 
-App.propTypes =  {
+App.propTypes = {
   children: PropTypes.node.isRequired,
 };
 
 
 const mapStateToProps = state => {
-  return {
-  };
+  return {};
 };
 
 /*

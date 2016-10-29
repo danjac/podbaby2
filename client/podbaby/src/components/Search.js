@@ -1,5 +1,10 @@
-import React, { Component, PropTypes } from 'react';
-import { findDOMNode } from 'react-dom';
+import React, {
+  Component,
+  PropTypes
+} from 'react';
+import {
+  findDOMNode
+} from 'react-dom';
 import * as bs from 'react-bootstrap';
 import Icon from 'react-fa';
 
@@ -25,7 +30,11 @@ export class Search extends Component {
   }
 
   render() {
-    const { placeholder, searchQuery, onClear } = this.props;
+    const {
+      placeholder,
+      searchQuery,
+      onClear
+    } = this.props;
 
     return (
       <form onSubmit={this.handleSearch}>
@@ -38,8 +47,8 @@ export class Search extends Component {
         </bs.FormGroup>
         <bs.FormGroup>
           <bs.Button className="form-control"
-                   type="submit"
-                   bsStyle="primary">
+                     type="submit"
+                     bsStyle="primary">
             <Icon name="search" /> Search
           </bs.Button>
        </bs.FormGroup>

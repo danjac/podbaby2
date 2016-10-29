@@ -2,27 +2,10 @@ import {
   ADD_BOOKMARK,
   REMOVE_BOOKMARK,
   FETCH_USER_SUCCESS,
-  FETCH_USER_FAILURE,
-  NOT_AUTHENTICATED,
   LOGOUT,
 } from '../action-types';
 
 import reducer from './bookmarks';
-
-it('should handle NOT_AUTHENTICATED', () => {
-  const state = reducer([1, 2], {
-    type: NOT_AUTHENTICATED,
-  });
-  expect(state).toEqual([]);
-});
-
-it('should handle FETCH_USER_FAILURE', () => {
-  const state = reducer([1, 2], {
-    type: FETCH_USER_FAILURE,
-  });
-  expect(state).toEqual([]);
-});
-
 
 it('should handle LOGOUT', () => {
   const state = reducer([1, 2], {

@@ -1,10 +1,16 @@
-import React, { PropTypes } from 'react';
+import React, {
+  PropTypes
+} from 'react';
+
 import * as bs from 'react-bootstrap';
 import Icon from 'react-fa';
 
-const Categories = ({ categories, explicit }) => {
+const Categories = ({
+  categories,
+  explicit,
+}) => {
 
-  const style={
+  const style = {
     display: 'inline-block',
     marginRight: 10,
     marginBottom: 5,
