@@ -1,6 +1,6 @@
-// bookmarks
-export const ADD_BOOKMARK = 'podbaby/ADD_BOOKMARK';
-export const REMOVE_BOOKMARK = 'podbaby/REMOVE_BOOKMARK';
+// alerts
+export const ADD_ALERT = 'podbay/ADD_ALERT';
+export const REMOVE_ALERT = 'podbay/REMOVE_ALERT';
 
 // auth
 export const FETCH_USER_FAILURE = 'podbaby/FETCH_USERS_FAILURE';
@@ -8,6 +8,15 @@ export const FETCH_USER_REQUEST = 'podbaby/FETCH_USERS_REQUEST';
 export const FETCH_USER_SUCCESS = 'podbaby/FETCH_USERS_SUCCESS';
 export const LOGOUT = 'podbaby/LOGOUT';
 export const NOT_AUTHENTICATED = 'podbaby/NOT_AUTHENTICATED';
+
+// bookmarks
+export const ADD_BOOKMARK = 'podbaby/ADD_BOOKMARK';
+export const REMOVE_BOOKMARK = 'podbaby/REMOVE_BOOKMARK';
+
+// categories
+export const FETCH_CATEGORIES_FAILURE = 'podbaby/FETCH_CATEGORIES_FAILURE';
+export const FETCH_CATEGORIES_REQUEST = 'podbaby/FETCH_CATEGORIES_REQUEST';
+export const FETCH_CATEGORIES_SUCCESS = 'podbaby/FETCH_CATEGORIES_SUCCESS';
 
 // channels
 export const FETCH_CHANNELS_FAILURE = 'podbaby/FETCH_CHANNELS_FAILURE';
