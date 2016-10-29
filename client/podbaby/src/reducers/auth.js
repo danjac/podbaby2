@@ -20,18 +20,18 @@ export default function(state = initialState, action) {
     case LOGOUT:
       return {...state,
         authenticated: false,
-        user: null
+        user: null,
       };
 
     case NOT_AUTHENTICATED:
       return {...state,
         authenticated: false,
-        user: null
+        user: null,
       };
 
     case FETCH_USER_REQUEST:
       return {...state,
-        loading: true
+        loading: true,
       };
 
     case FETCH_USER_FAILURE:
@@ -39,14 +39,14 @@ export default function(state = initialState, action) {
         error: action.error,
         authenticated: false,
         user: null,
-        loading: false
+        loading: false,
       };
 
     case FETCH_USER_SUCCESS:
       return {...state,
         user: action.payload,
         authenticated: true,
-        loading: false
+        loading: false,
       };
 
     default:

@@ -50,7 +50,7 @@ it('should handle FETCH_USER_SUCCESS', () => {
     type: FETCH_USER_SUCCESS,
     payload: {
       name: 'test',
-    }
+    },
   });
 
   expect(state.loading).toEqual(false);
@@ -62,11 +62,11 @@ it('should handle NOT_AUTHENTICATED', () => {
 
   const state = reducer({
     user: {
-      name: 'test'
+      name: 'test',
     },
-    authenticated: true
+    authenticated: true,
   }, {
-    type: NOT_AUTHENTICATED
+    type: NOT_AUTHENTICATED,
   });
 
   expect(state.authenticated).toEqual(false);
@@ -78,11 +78,11 @@ it('should handle LOGOUT', () => {
 
   const state = reducer({
     user: {
-      name: 'test'
+      name: 'test',
     },
-    authenticated: true
+    authenticated: true,
   }, {
-    type: LOGOUT
+    type: LOGOUT,
   });
 
   expect(state.authenticated).toEqual(false);

@@ -1,6 +1,6 @@
 // alerts
-export const ADD_ALERT = 'podbay/ADD_ALERT';
-export const REMOVE_ALERT = 'podbay/REMOVE_ALERT';
+export const ADD_ALERT = 'podbaby/ADD_ALERT';
+export const REMOVE_ALERT = 'podbaby/REMOVE_ALERT';
 
 // auth
 export const FETCH_USER_FAILURE = 'podbaby/FETCH_USERS_FAILURE';
