@@ -1,25 +1,30 @@
-import { combineReducers } from 'redux';
-import { reducer as formReducer } from 'redux-form';
+import {
+  combineReducers,
+} from 'redux';
 
-// import alerts from './alerts';
+import {
+  reducer as formReducer,
+} from 'redux-form';
+
+import alerts from './alerts';
 import auth from './auth';
 import bookmarks from './bookmarks';
-// import categories from './categories';
+import categories from './categories';
 import channels from './channels';
 import episode from './episode';
 import episodes from './episodes';
 import player from './player';
-// import subscriptions from './subscriptions';
+import subscriptions from './subscriptions';
 
 export default combineReducers({
-  // alerts,
+  alerts,
   auth,
   bookmarks,
-  // categories,
+  categories,
   channels,
   episode,
   episodes,
   player,
-  // subscriptions,
+  subscriptions,
   form: formReducer,
 });
