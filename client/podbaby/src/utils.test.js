@@ -1,8 +1,12 @@
 import {
-  pageNumberFromUrl
+  pageNumberFromUrl,
 } from './utils';
 
 describe('pageNumberFromUrl', () => {
+  it('should parse 0 from url if null', () => {
+    expect(pageNumberFromUrl(null)).toBe(0);
+  });
+
   it('should parse 1 from url if no page found', () => {
     const url = '/api/episodes/';
     expect(pageNumberFromUrl(url)).toBe(1);

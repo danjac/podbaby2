@@ -1,17 +1,17 @@
 import {
-  ADD_ALERT,
-  REMOVE_ALERT,
+  CREATE_ALERT,
+  DISMISS_ALERT,
 } from '../action-types';
 
 import reducer from './alerts';
 
-it('should REMOVE_ALERT', () => {
+it('should DISMISS_ALERT', () => {
   const state = reducer([{
     id: 1,
   }, {
     id: 2,
   }, ], {
-    type: REMOVE_ALERT,
+    type: DISMISS_ALERT,
     payload: 2,
   }, );
 
@@ -20,10 +20,10 @@ it('should REMOVE_ALERT', () => {
 
 });
 
-it('should ADD_ALERT', () => {
+it('should CREATE_ALERT', () => {
 
   const state = reducer([], {
-    type: ADD_ALERT,
+    type: CREATE_ALERT,
     payload: {
       id: 1,
       type: 'success',

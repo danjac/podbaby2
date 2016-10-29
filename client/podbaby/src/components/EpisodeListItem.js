@@ -1,18 +1,18 @@
 import React, {
-  PropTypes
+  PropTypes,
 } from 'react';
 
 import moment from 'moment';
 
 import {
-  Link
+  Link,
 } from 'react-router';
 
 import * as bs from 'react-bootstrap';
 
 import {
-  sanitize
-} from './utils';
+  sanitize,
+} from '../utils';
 
 import Labels from './Labels';
 import EpisodeButtons from './EpisodeButtons';
@@ -24,8 +24,8 @@ export const EpisodeListItem = props => {
   const {
     episode,
     episode: {
-      channel
-    }
+      channel,
+    },
   } = props;
 
   const thumbnail = channel.thumbnail || {
@@ -50,7 +50,7 @@ export const EpisodeListItem = props => {
       footer={buttons}
       className="episode">
 
-      <h4 style={{ textAlign: 'center' }}>
+      <h4 style={{ textAlign: 'center',  }}>
         <Link to={`/podcasts/${episode.id}/`}>{title}</Link>
       </h4>
 
@@ -67,7 +67,7 @@ export const EpisodeListItem = props => {
           {published && <p><strong>{published}</strong></p>}
         </bs.Media.Body>
       </bs.Media>
-      <p style={{ marginTop: 10 }}
+      <p style={{ marginTop: 10,  }}
         dangerouslySetInnerHTML={description}></p>
     </bs.Panel>
   );

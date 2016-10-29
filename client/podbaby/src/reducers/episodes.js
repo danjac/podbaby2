@@ -5,8 +5,8 @@ import {
 } from '../action-types';
 
 import {
-  pageNumberFromUrl
-} from './utils';
+  pageNumberFromUrl,
+} from '../utils';
 
 const initialState = {
   loading: false,
@@ -29,7 +29,7 @@ export default function(state = initialState, action) {
     case FETCH_EPISODES_FAILURE:
       return {...state,
         loading: false,
-        error: action.error
+        error: action.error,
       };
 
     case FETCH_EPISODES_SUCCESS:
