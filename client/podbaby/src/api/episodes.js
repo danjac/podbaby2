@@ -1,4 +1,6 @@
-import { partial } from 'lodash';
+import {
+  partial,
+} from 'lodash';
 
 import http from './http-client';
 

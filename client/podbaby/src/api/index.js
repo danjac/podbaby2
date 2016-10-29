@@ -1,4 +1,11 @@
-export * as auth from './auth';
-export * as categories from './categories';
-export * as channels from './channels';
-export * as episodes from './episodes';
+import * as auth from './auth';
+import * as categories from './categories';
+import * as channels from './channels';
+import * as episodes from './episodes';
+
+export {
+  auth,
+  categories,
+  channels,
+  episodes,
+};

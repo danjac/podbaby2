@@ -1,4 +1,5 @@
 import * as api from '../api';
+import * as storage from '../local-storage';
 
 import {
   FETCH_USER_FAILURE,
@@ -8,36 +9,34 @@ import {
   LOGOUT,
 } from '../action-types';
 
-const AUTH_TOKEN = 'auth-token';
-
 export function logout() {
-  window.localStorage.removeItem(AUTH_TOKEN);
+  storage.auth.removeToken();
   return {
-    type: LOGOUT
+    type: LOGOUT,
   };
 }
 
 export function fetchUser(token) {
 
   if (token) {
-    window.localStorage.setItem(AUTH_TOKEN, token);
+    storage.auth.setToken(token);
   } else {
-    token = window.localStorage.getItem(AUTH_TOKEN);
+    token = storage.auth.getToken();
   }
 
   if (!token) {
     return {
-      type: NOT_AUTHENTICATED
+      type: NOT_AUTHENTICATED,
     };
   }
 
   return dispatch => {
 
     dispatch({
-      type: FETCH_USER_REQUEST
+      type: FETCH_USER_REQUEST,
     });
 
-    api.auth.getUser()
+    return api.auth.getUser()
       .then(payload => {
 
         dispatch({
