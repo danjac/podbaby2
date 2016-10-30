@@ -20,18 +20,28 @@ jest.mock('../local-storage');
 const createMockStore = configureMockStore([thunk]);
 
 describe('logout', () => {
+
+  const storage = require('../local-storage');
+
   it('Should logout', () => {
     const action = logout();
     expect(action.type).toBe(LOGOUT);
-    const storage = require('../local-storage');
     expect(storage.auth.removeToken).toBeCalled();
   });
 });
 
 describe('fetchUser', () => {
 
+  const storage = require('../local-storage');
+  const api = require('../api');
+
+  beforeEach(() => {
+    api.auth.getUser.mockClear();
+    storage.auth.getToken.mockClear();
+    storage.auth.setToken.mockClear();
+  });
+
   it('should return NOT_AUTHENTICATED if no auth token', () => {
-    const storage = require('../local-storage');
     storage.auth.getToken.mockImplementation(() => null);
 
     const action = fetchUser();
@@ -40,7 +50,6 @@ describe('fetchUser', () => {
   });
 
   it('should store token and fetch user if token provided as arg', () => {
-    const api = require('../api');
     api.auth.getUser.mockImplementation(() => {
       return new Promise(resolve => {
         resolve({
@@ -58,13 +67,11 @@ describe('fetchUser', () => {
         expect(actions[0].type).toBe(FETCH_USER_REQUEST);
         expect(actions[1].type).toBe(FETCH_USER_SUCCESS);
         expect(actions[1].payload.name).toBe('tester');
-        const storage = require('../local-storage');
         expect(storage.auth.setToken).toBeCalledWith('token');
       });
   });
 
   it('should get token and call if available', () => {
-    const api = require('../api');
     api.auth.getUser.mockImplementation(() => {
       return new Promise(resolve => {
         resolve({
@@ -73,7 +80,6 @@ describe('fetchUser', () => {
       });
     });
 
-    const storage = require('../local-storage');
     storage.auth.getToken.mockImplementation(() => 'token');
 
     const store = createMockStore();
@@ -90,7 +96,6 @@ describe('fetchUser', () => {
   });
 
   it('should return with FETCH_USER_FAILURE on error', () => {
-    const api = require('../api');
     const error = new Error('No user found');
 
     api.auth.getUser.mockImplementation(() => {
@@ -99,7 +104,6 @@ describe('fetchUser', () => {
       });
     });
 
-    const storage = require('../local-storage');
     storage.auth.getToken.mockImplementation(() => 'token');
 
     const store = createMockStore();

@@ -30,9 +30,13 @@ const mockPayload = {
 
 describe('fetchAllEpisodes', () => {
 
-  it('should fetch all episodes', () => {
+  const api = require('../api');
 
-    const api = require('../api');
+  beforeEach(() => {
+    api.episodes.fetchAll.mockClear();
+  });
+
+  it('should fetch all episodes', () => {
 
     api.episodes.fetchAll.mockImplementation(() => {
       return new Promise(resolve => {
@@ -58,8 +62,6 @@ describe('fetchAllEpisodes', () => {
   it('should handle error', () => {
 
     const error = new Error('Whoops');
-
-    const api = require('../api');
 
     api.episodes.fetchAll.mockImplementation(() => {
       return new Promise(() => {
@@ -84,9 +86,14 @@ describe('fetchAllEpisodes', () => {
 
 describe('fetchBookmarkedEpisodes', () => {
 
-  it('should fetch all episodes', () => {
+  const api = require('../api');
 
-    const api = require('../api');
+  beforeEach(() => {
+    api.episodes.fetchBookmarked.mockClear();
+  });
+
+
+  it('should fetch all episodes', () => {
 
     api.episodes.fetchBookmarked.mockImplementation(() => {
       return new Promise(resolve => {
@@ -113,8 +120,6 @@ describe('fetchBookmarkedEpisodes', () => {
 
     const error = new Error('Whoops');
 
-    const api = require('../api');
-
     api.episodes.fetchBookmarked.mockImplementation(() => {
       return new Promise(() => {
         throw error;
@@ -138,10 +143,13 @@ describe('fetchBookmarkedEpisodes', () => {
 
 
 describe('fetchSubscribedEpisodes', () => {
+  const api = require('../api');
+
+  beforeEach(() => {
+    api.episodes.fetchSubscribed.mockClear();
+  });
 
   it('should fetch all episodes', () => {
-
-    const api = require('../api');
 
     api.episodes.fetchSubscribed.mockImplementation(() => {
       return new Promise(resolve => {
@@ -167,8 +175,6 @@ describe('fetchSubscribedEpisodes', () => {
   it('should handle error', () => {
 
     const error = new Error('Whoops');
-
-    const api = require('../api');
 
     api.episodes.fetchSubscribed.mockImplementation(() => {
       return new Promise(() => {

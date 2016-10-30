@@ -1,42 +1,42 @@
 import * as api from '../api';
-import * as storage from '../storage';
+import * as storage from '../local-storage';
 
 import {
   START_PLAYER,
   STOP_PLAYER,
+  RELOAD_PLAYER,
 } from '../action-types';
 
 export function reloadPlayer() {
-  // get seconds played
-  return dispatch => {
-    const episode = storage.player.getEpisode();
-    if (episode) {
-      dispatch(startPlayer(episode, false));
-    }
+  return {
+    type: RELOAD_PLAYER,
+    payload: storage.player.load(),
   };
 }
 
-export function savePlayer(episode, seconds) {
-  storage.player.save
-
-}
-
-export function startPlayer(episode, notify) {
+export function startPlayer(episode, notify = false) {
 
   if (notify) {
-    api.player.notify(episode.id);
+    api.plays.save(episode.id);
   }
+
+  savePlayer(episode, 0);
 
   return {
     type: START_PLAYER,
-    payload: {
-      episode,
-    },
+    payload: episode,
   };
 }
 
 export function stopPlayer() {
   return {
-    type: STOP_PLAYER
+    type: STOP_PLAYER,
   };
+}
+
+export function savePlayer(episode, currentTime) {
+  storage.player.save({
+    episode,
+    currentTime,
+  });
 }
