@@ -29,6 +29,8 @@ export function startPlayer(episode, notify = false) {
 }
 
 export function stopPlayer() {
+  storage.player.remove();
+
   return {
     type: STOP_PLAYER,
   };

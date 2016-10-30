@@ -1,18 +1,29 @@
 import {
   START_PLAYER,
-  // STOP_PLAYER,
-  // RELOAD_PLAYER,
+  STOP_PLAYER,
+  RELOAD_PLAYER,
 } from '../action-types';
 
 import {
   startPlayer,
-  // reloadPlayer,
-  // stopPlayer,
-  // savePlayer,
+  reloadPlayer,
+  stopPlayer,
 } from './player';
 
 jest.mock('../api');
 jest.mock('../local-storage');
+
+describe('stopPlayer', () => {
+
+  const storage = require('../local-storage');
+
+  it('should remove player on stop', () => {
+    const action = stopPlayer();
+    expect(action.type).toBe(STOP_PLAYER);
+    expect(storage.player.remove).toBeCalled();
+  });
+
+});
 
 describe('startPlayer', () => {
 
@@ -58,4 +69,35 @@ describe('startPlayer', () => {
       currentTime: 0,
     });
   });
+});
+
+describe('reloadPlayer', () => {
+
+  const storage = require('../local-storage');
+
+  beforeEach(() => {
+    storage.player.load.mockClear();
+  });
+
+  it('should have null in payload if empty', () => {
+    storage.player.load.mockImplementation(() => null);
+    const action = reloadPlayer();
+    expect(action.type).toBe(RELOAD_PLAYER);
+    expect(action.payload).toBe(null);
+  });
+
+  it('should have episode and current time in payload', () => {
+    const payload = {
+      episode: {
+        id: 1,
+      },
+      currentTime: 300,
+    };
+    storage.player.load.mockImplementation(() => payload);
+    const action = reloadPlayer();
+    expect(action.type).toBe(RELOAD_PLAYER);
+    expect(action.payload).toBe(payload);
+  });
+
+
 });
