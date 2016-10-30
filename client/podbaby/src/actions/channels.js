@@ -14,7 +14,7 @@ const fetch = (apiCall, page, searchQuery) => {
   return dispatch => {
 
     dispatch({
-      type: FETCH_CHANNELS_REQUEST
+      type: FETCH_CHANNELS_REQUEST,
     });
 
     return apiCall(page, searchQuery)
@@ -41,10 +41,3 @@ const fetch = (apiCall, page, searchQuery) => {
 export const fetchAllChannels = partial(fetch, api.channels.fetchAll);
 export const fetchSubscribedChannels = partial(fetch, api.channels.fetchSubscribed);
 
-export const fetchChannelsByCategory = (id, page, searchQuery) => {
-  return fetch(
-    () => api.categories.fetchChannels(id),
-    page,
-    searchQuery
-  );
-};

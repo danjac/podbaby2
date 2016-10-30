@@ -72,6 +72,4 @@ describe('fetchEpisode', () => {
         expect(api.episodes.get).toBeCalledWith(1);
       });
   });
-
-
 });
