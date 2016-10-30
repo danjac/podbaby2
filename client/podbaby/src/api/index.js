@@ -4,6 +4,7 @@ import * as categories from './categories';
 import * as channels from './channels';
 import * as episodes from './episodes';
 import * as plays from './plays';
+import * as subscriptions from './subscriptions';
 
 export {
   auth,
@@ -12,4 +13,5 @@ export {
   channels,
   episodes,
   plays,
+  subscriptions,
 };
