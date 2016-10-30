@@ -62,6 +62,7 @@ class HttpClient {
             case 400:
               throw new SubmissionError(err.response.data);
             default:
+
           }
         }
         throw err;
@@ -79,6 +80,7 @@ class HttpClient {
       data,
     });
   }
+
 
   put(url, data, options) {
     return this.handleRequest('PUT', {...options,

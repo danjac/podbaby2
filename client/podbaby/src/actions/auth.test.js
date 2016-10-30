@@ -17,12 +17,12 @@ import {
 jest.mock('../api');
 jest.mock('../local-storage');
 
-const createMockStore = configureMockStore([thunk, ]);
+const createMockStore = configureMockStore([thunk]);
 
 describe('logout', () => {
   it('Should logout', () => {
     const action = logout();
-    expect(action.type).toEqual(LOGOUT);
+    expect(action.type).toBe(LOGOUT);
     const storage = require('../local-storage');
     expect(storage.auth.removeToken).toBeCalled();
   });
@@ -35,7 +35,7 @@ describe('fetchUser', () => {
     storage.auth.getToken.mockImplementation(() => null);
 
     const action = fetchUser();
-    expect(action.type).toEqual(NOT_AUTHENTICATED);
+    expect(action.type).toBe(NOT_AUTHENTICATED);
 
   });
 
@@ -55,9 +55,9 @@ describe('fetchUser', () => {
       .then(() => {
         const actions = store.getActions();
         expect(actions.length).toBe(2);
-        expect(actions[0].type).toEqual(FETCH_USER_REQUEST);
-        expect(actions[1].type).toEqual(FETCH_USER_SUCCESS);
-        expect(actions[1].payload.name).toEqual('tester');
+        expect(actions[0].type).toBe(FETCH_USER_REQUEST);
+        expect(actions[1].type).toBe(FETCH_USER_SUCCESS);
+        expect(actions[1].payload.name).toBe('tester');
         const storage = require('../local-storage');
         expect(storage.auth.setToken).toBeCalledWith('token');
       });
@@ -82,9 +82,9 @@ describe('fetchUser', () => {
       .then(() => {
         const actions = store.getActions();
         expect(actions.length).toBe(2);
-        expect(actions[0].type).toEqual(FETCH_USER_REQUEST);
-        expect(actions[1].type).toEqual(FETCH_USER_SUCCESS);
-        expect(actions[1].payload.name).toEqual('tester');
+        expect(actions[0].type).toBe(FETCH_USER_REQUEST);
+        expect(actions[1].type).toBe(FETCH_USER_SUCCESS);
+        expect(actions[1].payload.name).toBe('tester');
         expect(storage.auth.getToken).toBeCalled();
       });
   });
@@ -108,9 +108,9 @@ describe('fetchUser', () => {
       .then(() => {
         const actions = store.getActions();
         expect(actions.length).toBe(2);
-        expect(actions[0].type).toEqual(FETCH_USER_REQUEST);
-        expect(actions[1].type).toEqual(FETCH_USER_FAILURE);
-        expect(actions[1].error).toEqual(error);
+        expect(actions[0].type).toBe(FETCH_USER_REQUEST);
+        expect(actions[1].type).toBe(FETCH_USER_FAILURE);
+        expect(actions[1].error).toBe(error);
         expect(storage.auth.getToken).toBeCalled();
       });
 

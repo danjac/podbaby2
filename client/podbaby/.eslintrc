@@ -1,7 +1,7 @@
 {
     "extends": "react-app",
     "rules": {
-        "comma-dangle": [1, "always"],
+        "comma-dangle": [1, "always-multiline"],
         "semi": [1, "always"],
         "react/prop-types": 2 
     }
