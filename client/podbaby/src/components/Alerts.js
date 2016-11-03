@@ -1,15 +1,16 @@
 import React, {
-  PropTypes
+  PropTypes,
 } from 'react';
 
 import * as bs from 'react-bootstrap';
 
-const Alert = ({
+export const Alert = ({
   alert,
-  onDismiss
+  onDismiss,
 }) => {
   return (
-    <bs.Alert bsStyle={alert.level} onDismiss={() => onDismiss(alert.id)}>
+    <bs.Alert bsStyle={alert.style}
+              onDismiss={() => onDismiss(alert.id)}>
       {alert.message}
     </bs.Alert>
   );
@@ -23,7 +24,7 @@ Alert.propTypes = {
 
 const AlertList = ({
   alerts,
-  onDismiss
+  onDismiss,
 }) => {
   if (!alerts) {
     return <div />;
@@ -45,7 +46,9 @@ const AlertList = ({
     <div className="container"
          style={style}>
       {alerts.map(alert => (
-        <Alert key={alert.id} alert={alert} onDismiss={onDismiss} />
+        <Alert key={alert.id}
+               alert={alert}
+               onDismiss={onDismiss} />
       ))}
     </div>
   );
