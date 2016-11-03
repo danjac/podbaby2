@@ -13,12 +13,12 @@ const FormControl = ({ field }) => {
   const props = omit(field, ['input', 'meta', 'label']);
 
   return (
-      <bs.FormGroup validationState={validationState}>
-        {field.label && <bs.ControlLabel>{field.label}</bs.ControlLabel>}
-        <bs.FormControl type={field.type} {...field.input} {...props} />
-        <bs.FormControl.Feedback />
-        {field.meta.touched && field.meta.error && <bs.HelpBlock>{field.meta.error}</bs.HelpBlock>}
-      </bs.FormGroup>
+    <bs.FormGroup validationState={validationState}>
+      {field.label && <bs.ControlLabel>{field.label}</bs.ControlLabel>}
+      <bs.FormControl type={field.type} {...field.input} {...props} />
+      <bs.FormControl.Feedback />
+      {field.meta.touched && field.meta.error && <bs.HelpBlock>{field.meta.error}</bs.HelpBlock>}
+    </bs.FormGroup>
   );
 
 };

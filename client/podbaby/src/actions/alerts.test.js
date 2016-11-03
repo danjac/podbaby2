@@ -1,14 +1,9 @@
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 
-import {
-  CREATE_ALERT,
-  DISMISS_ALERT,
-} from '../action-types';
+import { CREATE_ALERT, DISMISS_ALERT } from '../action-types';
 
-import {
-  createAlert,
-} from './alerts';
+import { createAlert } from './alerts';
 
 jest.useFakeTimers();
 

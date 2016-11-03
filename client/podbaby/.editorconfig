@@ -1,0 +1,17 @@
+root = true
+
+[*]
+indent_style = space
+indent_size = 2
+
+[**.js]
+e4x = true
+brace_style = collapse-preserve-inline
+keep_array_indentation = true
+keep_function_indentation = true
+
+[**.jsx]
+e4x = true
+brace_style = collapse-preserve-inline
+keep_array_indentation = true
+keep_function_indentation = true

@@ -1,12 +1,6 @@
-import {
-  SUBSCRIBE,
-  UNSUBSCRIBE,
-} from '../action-types';
+import { SUBSCRIBE, UNSUBSCRIBE } from '../action-types';
 
-import {
-  subscribe,
-  unsubscribe,
-} from './subscriptions';
+import { subscribe, unsubscribe } from './subscriptions';
 
 jest.mock('../api');
 
@@ -37,6 +31,3 @@ describe('unsubscribe', () => {
   });
 
 });
-
-
-

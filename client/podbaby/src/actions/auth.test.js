@@ -9,10 +9,7 @@ import {
   LOGOUT,
 } from '../action-types';
 
-import {
-  logout,
-  fetchUser,
-} from './auth';
+import { logout, fetchUser } from './auth';
 
 jest.mock('../api');
 jest.mock('../local-storage');

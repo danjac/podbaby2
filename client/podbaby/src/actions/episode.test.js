@@ -8,9 +8,7 @@ import {
 } from '../action-types';
 
 
-import {
-  fetchEpisode,
-} from './episode';
+import { fetchEpisode } from './episode';
 
 
 jest.mock('../api');
@@ -34,9 +32,7 @@ describe('fetchEpisode', () => {
     };
 
     api.episodes.get.mockImplementation(() => {
-      return new Promise(resolve => {
-        resolve(episode);
-      });
+      return new Promise(resolve => resolve(episode));
     });
 
     const store = createMockStore();

@@ -1,10 +1,10 @@
 import sanitizeHtml from 'sanitize-html';
 
 const sanitizeOptions = {
-  allowedTags: ['a', 'code', 'em', 'strong', 'b', 'br', 'span', 'pre', ],
+  allowedTags: ['a', 'code', 'em', 'strong', 'b', 'br', 'span', 'pre'],
   allowedAttributes: {
-    a: ['href', ],
-    span: ['style', ],
+    a: ['href'],
+    span: ['style'],
   },
 };
 
@@ -14,7 +14,7 @@ export const sanitize = dirty => {
   };
 };
 
-export function pageNumberFromUrl(url) {
+export const pageNumberFromUrl = url => {
   if (!url) {
     return 0;
   }
@@ -23,4 +23,19 @@ export function pageNumberFromUrl(url) {
     return Number(match[1]).valueOf();
   }
   return 1;
-}
+};
+
+export const createAction = (type, payload) => ({ type, payload });
+export const createError = (type, error) => ({ type, error });
+
+export const dispatchApiCall = (
+  dispatch,
+  apiCall,
+  requestType,
+  successType,
+  failureType) => {
+  dispatch(createAction(requestType));
+  return apiCall
+    .then(payload => dispatch(createAction(successType, payload)))
+    .catch(error => dispatch(createError(failureType, error)));
+};

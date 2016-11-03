@@ -1,4 +1,5 @@
 import * as api from '../api';
+import { dispatchApiCall } from '../utils';
 
 import {
   FETCH_EPISODE_FAILURE,
@@ -6,28 +7,10 @@ import {
   FETCH_EPISODE_SUCCESS,
 } from '../action-types';
 
-export function fetchEpisode(id) {
-
-  return dispatch => {
-    dispatch({ type: FETCH_EPISODE_REQUEST });
-    return api.episodes.get(id)
-    .then(payload => {
-
-      dispatch({
-        type: FETCH_EPISODE_SUCCESS,
-        payload,
-      });
-
-    })
-    .catch(error => {
-
-      dispatch({
-        type: FETCH_EPISODE_FAILURE,
-        error,
-      });
-
-    });
-  };
-}
-
-
+export const fetchEpisode = id => dispatch => dispatchApiCall(
+  dispatch,
+  api.episodes.get(id),
+  FETCH_EPISODE_REQUEST,
+  FETCH_EPISODE_SUCCESS,
+  FETCH_EPISODE_FAILURE,
+);

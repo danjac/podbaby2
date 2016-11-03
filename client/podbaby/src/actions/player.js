@@ -1,5 +1,6 @@
 import * as api from '../api';
 import * as storage from '../local-storage';
+import { createAction } from '../utils';
 
 import {
   START_PLAYER,
@@ -8,10 +9,7 @@ import {
 } from '../action-types';
 
 export function reloadPlayer() {
-  return {
-    type: RELOAD_PLAYER,
-    payload: storage.player.load(),
-  };
+  return createAction(RELOAD_PLAYER, storage.player.load());
 }
 
 export function startPlayer(episode, notify = false) {
@@ -20,25 +18,17 @@ export function startPlayer(episode, notify = false) {
     api.plays.save(episode.id);
   }
 
-  savePlayer(episode, 0);
+  saveSessionState(episode, 0);
 
-  return {
-    type: START_PLAYER,
-    payload: episode,
-  };
+  return createAction(START_PLAYER, episode);
 }
 
 export function stopPlayer() {
   storage.player.remove();
 
-  return {
-    type: STOP_PLAYER,
-  };
+  return createAction(STOP_PLAYER);
 }
 
-export function savePlayer(episode, currentTime) {
-  storage.player.save({
-    episode,
-    currentTime,
-  });
+export function saveSessionState(episode, currentTime) {
+  storage.player.save({ episode, currentTime });
 }

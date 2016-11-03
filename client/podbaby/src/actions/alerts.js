@@ -1,32 +1,19 @@
-import {
-  uniqueId,
-  partial,
-} from 'lodash';
+import { uniqueId, partial } from 'lodash';
 
-import {
-  CREATE_ALERT,
-  DISMISS_ALERT,
-} from '../action-types';
+import { CREATE_ALERT, DISMISS_ALERT } from '../action-types';
+import { createAction } from '../utils';
 
 
-export const dismissAlert = id => {
-  return {
-    type: DISMISS_ALERT,
-    payload: id,
-  };
-};
+export const dismissAlert = id => createAction(DISMISS_ALERT, id);
 
 export const createAlert = (style, message) => {
   const id = uniqueId();
   return dispatch => {
-    dispatch({
-      type: CREATE_ALERT,
-      payload: {
-        id,
-        style,
-        message,
-      },
-    });
+    dispatch(createAction(CREATE_ALERT, {
+      id,
+      style,
+      message,
+    }));
     window.setTimeout(() => {
       dispatch(dismissAlert(id));
     }, 3000);

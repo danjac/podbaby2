@@ -1,14 +1,9 @@
-import React, {
-  PropTypes
-} from 'react';
+import React, { PropTypes } from 'react';
 
 import * as bs from 'react-bootstrap';
 import Icon from 'react-fa';
 
-const Categories = ({
-  categories,
-  explicit,
-}) => {
+const Labels = ({ categories, explicit }) => {
 
   const style = {
     display: 'inline-block',
@@ -17,12 +12,12 @@ const Categories = ({
     padding: 5,
   };
 
-  const items = categories.map(cat => (
+  const labels = categories.map(cat => (
     <bs.Label key={cat.id} style={style}>{cat.name}</bs.Label>
   ));
 
   if (explicit) {
-    items.push(
+    labels.push(
       <bs.Label key="explicit"
                 bsStyle="danger"
                 style={style}>
@@ -31,13 +26,13 @@ const Categories = ({
     );
   }
 
-  return <div>{items}</div>;
+  return <div>{labels}</div>;
 
 };
 
-Categories.propTypes = {
+Labels.propTypes = {
   explicit: PropTypes.bool.isRequired,
   categories: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
 
-export default Categories;
+export default Labels;

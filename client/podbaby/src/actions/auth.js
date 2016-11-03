@@ -1,5 +1,6 @@
 import * as api from '../api';
 import * as storage from '../local-storage';
+import { createAction, dispatchApiCall } from '../utils';
 
 import {
   FETCH_USER_FAILURE,
@@ -9,14 +10,12 @@ import {
   LOGOUT,
 } from '../action-types';
 
-export function logout() {
+export const logout = () => {
   storage.auth.removeToken();
-  return {
-    type: LOGOUT,
-  };
-}
+  return createAction(LOGOUT);
+};
 
-export function fetchUser(token) {
+export const fetchUser = token => {
 
   if (token) {
     storage.auth.setToken(token);
@@ -25,33 +24,15 @@ export function fetchUser(token) {
   }
 
   if (!token) {
-    return {
-      type: NOT_AUTHENTICATED,
-    };
+    return createAction(NOT_AUTHENTICATED);
   }
 
-  return dispatch => {
+  return dispatch => dispatchApiCall(
+    dispatch,
+    api.auth.getUser(),
+    FETCH_USER_REQUEST,
+    FETCH_USER_SUCCESS,
+    FETCH_USER_FAILURE,
+  );
 
-    dispatch({
-      type: FETCH_USER_REQUEST,
-    });
-
-    return api.auth.getUser()
-      .then(payload => {
-
-        dispatch({
-          type: FETCH_USER_SUCCESS,
-          payload,
-        });
-
-      })
-      .catch(error => {
-
-        dispatch({
-          type: FETCH_USER_FAILURE,
-          error,
-        });
-
-      });
-  };
-}
+};

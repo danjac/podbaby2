@@ -30,7 +30,7 @@ class Navbar extends Component {
 
   render() {
 
-    const { auth: { isLoggedIn, currentUser } } = this.props;
+    const { auth: { authenticated, currentUser } } = this.props;
     const { expanded } = this.state;
 
     return (
@@ -49,7 +49,7 @@ class Navbar extends Component {
         <bs.Navbar.Collapse>
           <bs.Nav>
 
-            {isLoggedIn && (
+            {authenticated && (
               <bs.NavDropdown title={<span><Icon name="headphones" /> Podcasts</span>} id="podcasts-dropdown">
                 <LinkContainer to="/podcasts/me/">
                   <bs.MenuItem><Icon name="user" /> My feeds</bs.MenuItem>
@@ -63,7 +63,7 @@ class Navbar extends Component {
                 <bs.MenuItem><Icon name="history" /> History</bs.MenuItem>
               </bs.NavDropdown>)}
 
-            {!isLoggedIn && (
+            {!authenticated && (
             <LinkContainer to="/podcasts/all/">
               <bs.NavItem>
                 <Icon name="headphones" /> Podcasts
@@ -71,7 +71,7 @@ class Navbar extends Component {
             </LinkContainer>)}
 
             <bs.NavDropdown title={<span><Icon name="rss" /> Feeds</span>} id="feeds-dropdown">
-              {isLoggedIn && (
+              {authenticated && (
               <LinkContainer to="/feeds/me/">
                 <bs.MenuItem><Icon name="user" /> My feeds</bs.MenuItem>
               </LinkContainer>)}
@@ -84,7 +84,7 @@ class Navbar extends Component {
             </bs.NavDropdown>
 
           </bs.Nav>
-          {isLoggedIn && currentUser && (
+          {authenticated && currentUser && (
             <bs.Nav pullRight>
               <bs.NavDropdown title={<span><Icon name="user" /> {currentUser.username}</span>} id="user-dropdown">
               </bs.NavDropdown>
@@ -92,7 +92,7 @@ class Navbar extends Component {
                 <Icon name="sign-out" /> Logout
               </bs.NavItem>
             </bs.Nav>)}
-          {!isLoggedIn && (
+          {!authenticated && (
           <bs.Nav pullRight>
             <LinkContainer to="/account/login/">
               <bs.NavItem onClick={this.handleClick}>
