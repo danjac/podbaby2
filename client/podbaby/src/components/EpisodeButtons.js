@@ -1,6 +1,7 @@
 import React, {
-  PropTypes
+  PropTypes,
 } from 'react';
+
 import Icon from 'react-fa';
 import * as bs from 'react-bootstrap';
 

@@ -1,20 +1,33 @@
-import React, { Component, PropTypes } from 'react';
+import React, {
+  Component,
+  PropTypes,
+} from 'react';
+
 import * as bs from 'react-bootstrap';
+
 import Icon from 'react-fa';
-import { Link } from 'react-router';
-import Buttons from './episode-buttons';
+
+import {
+  Link,
+} from 'react-router';
+
+import EpisodeButtons from './EpisodeButtons';
 
 class Player extends Component {
 
   constructor(props) {
     super(props);
-    this.state = { expanded: true };
+    this.state = {
+      expanded: true,
+    };
     this.handleToggle = this.handleToggle.bind(this);
   }
 
   componentWillReceiveProps(nextProps) {
 
-    const { episode } = this.props;
+    const {
+      episode,
+    } = this.props;
     const nextEpisode = nextProps.episode;
 
     const expand = (
@@ -22,25 +35,29 @@ class Player extends Component {
     );
 
     if (expand) {
-      this.setState({ expanded: true });
+      this.setState({
+        expanded: true,
+      });
     }
     return nextProps;
   }
 
   handleToggle() {
-    this.setState({ expanded: !this.state.expanded });
+    this.setState({
+      expanded: !this.state.expanded,
+    });
   }
 
   render() {
-    const { episode } = this.props;
+    const {
+      episode,
+    } = this.props;
 
     if (!episode) {
       return <div></div>;
     }
 
-    const { channel } = episode;
-
-    let title = channel.name;
+    let title = episode.channel.name;
 
     if (episode.title) {
       title += ":" + episode.title;
@@ -48,31 +65,43 @@ class Player extends Component {
 
     const header = <Link to={`/podcasts/${episode.id}/`}>{title}</Link>;
 
-    const { expanded } = this.state;
+    const {
+      expanded,
+    } = this.state;
 
-    const onPlay = ({ currentTarget }) => {
+    // placeholder
+    const onPlay = ({
+      currentTarget,
+    }) => {
       currentTarget.currentTime = 0;
     };
 
     // we need to hide the audio in CSS - will stop playing if
-    // not in DOM
-    const styles = expanded ? {} : { display: 'none' };
+    // removed from DOM
 
-    const buttons = <Buttons {...this.props} episode={episode} />;
+    const containerStyle = expanded ? {} : {
+      left: '85%',
+      width: '15%',
+    };
+
+    const panelStyle = expanded ? {} : {
+      display: 'none',
+    };
+
+    const buttons = <EpisodeButtons {...this.props} />;
 
     return (
-      <div className="audio-player" style={expanded ? {} : {
-        left: '85%',
-        width: '15%'
-        }}>
+      <div className="audio-player"
+           style={containerStyle}>
           <bs.Panel header={header}
                     footer={buttons}
-                    style={styles}>
+                    style={panelStyle}>
            <audio controls
                   autoPlay
                   onPlay={onPlay}
                   src={episode.streamUrl}>
-            <source src={episode.streamUrl} type={episode.enclosureType} />
+             <source src={episode.streamUrl}
+                     type={episode.enclosureType} />
           </audio>
         </bs.Panel>
         <bs.Button bsStyle="primary"
@@ -87,9 +116,14 @@ class Player extends Component {
 };
 
 Player.propTypes = {
-  onStopPlayer: PropTypes.func.isRequired,
   episode: PropTypes.any,
-  isLoggedIn: PropTypes.bool.isRequired,
+  authenticated: PropTypes.bool.isRequired,
+  onAddBookmark: PropTypes.func.isRequired,
+  onRemoveBookmark: PropTypes.func.isRequired,
+  onStopPlayer: PropTypes.func.isRequired,
+  onStartPlayer: PropTypes.func,
+  onSubscribe: PropTypes.func,
+  onUnsubscribe: PropTypes.func,
 };
 
 export default Player;
