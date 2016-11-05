@@ -5,7 +5,7 @@ import * as bs from 'react-bootstrap';
 import Labels from './Labels';
 
 it('should render the component', () => {
-  const props ={
+  const props = {
     categories: [
       {
         id: 1,
@@ -19,7 +19,7 @@ it('should render the component', () => {
 });
 
 it('should show an explicit label', () => {
-  const props ={
+  const props = {
     categories: [
       {
         id: 1,
