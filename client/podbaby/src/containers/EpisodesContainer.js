@@ -14,8 +14,9 @@ export class EpisodesContainer extends Component {
 
   constructor(props) {
     super(props);
-    this.handleSearch = this.handleSearch.bind();
+    this.handleSearch = this.handleSearch.bind(this);
     this.handleClearSearch = this.handleClearSearch.bind(this);
+    this.handleUpdate = this.handleUpdate.bind(this);
     this.handleSelectPage = this.handleSelectPage.bind(this);
   }
 
@@ -42,7 +43,7 @@ export class EpisodesContainer extends Component {
 
   changeLocation(nextQuery) {
     const query = {...this.props.location.query, ...nextQuery };
-    this.props.router.replace({...this.props.location, query });
+    this.props.router.replace({ ...this.props.location, query });
   }
 
   handleSearch(searchQuery) {
@@ -53,6 +54,10 @@ export class EpisodesContainer extends Component {
     this.changeLocation({ page: 1, q: '' });
   }
 
+  handleUpdate() {
+    this.fetchEpisodes();
+  }
+
   handleSelectPage(page) {
     this.changeLocation({ page });
   }
@@ -61,9 +66,13 @@ export class EpisodesContainer extends Component {
 
     const searchQuery = this.props.location.query && this.props.location.query.q;
 
+    const canUpdate = !searchQuery && !this.props.previous;
+
     return <Episodes onSearch={this.handleSearch}
                      onClearSearch={this.handleClearSearch}
                      onSelectPage={this.handleSelectPage}
+                     onUpdate={this.handleUpdate}
+                     canUpdate={canUpdate}
                      searchQuery={searchQuery}
                      {...this.props} />;
   }

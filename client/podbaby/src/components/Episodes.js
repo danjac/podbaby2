@@ -1,4 +1,6 @@
 import React, { PropTypes, Component } from 'react';
+import * as bs from 'react-bootstrap';
+import Icon from 'react-fa';
 
 import { episodeActionPropTypes } from '../prop-types';
 
@@ -16,9 +18,11 @@ class Episodes extends Component {
       previous,
       authenticated,
       loading,
+      canUpdate,
       onSearch,
       onClearSearch,
       onSelectPage,
+      onUpdate,
       searchQuery,
     } = this.props;
 
@@ -38,6 +42,12 @@ class Episodes extends Component {
                 onClear={onClearSearch}
                 onSearch={onSearch} />
 
+       {canUpdate && (
+        <bs.Button className="form-control"
+                   onClick={onUpdate}
+                   bsStyle="default">
+          <Icon name="refresh" /> Update</bs.Button>)}
+
         <EpisodeList episodes={episodes}
                      next={next}
                      previous={previous}
@@ -56,9 +66,11 @@ Episodes.propTypes = {
   previous: PropTypes.number,
   authenticated: PropTypes.bool.isRequired,
   loading: PropTypes.bool.isRequired,
+  canUpdate: PropTypes.bool.isRequired,
   searchQuery: PropTypes.string,
   onSearch: PropTypes.func.isRequired,
   onClearSearch: PropTypes.func.isRequired,
+  onUpdate: PropTypes.func.isRequired,
   onSelectPage: PropTypes.func.isRequired,
   ...episodeActionPropTypes,
 };
