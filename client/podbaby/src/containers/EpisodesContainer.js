@@ -43,7 +43,7 @@ export class EpisodesContainer extends Component {
 
   changeLocation(nextQuery) {
     const query = {...this.props.location.query, ...nextQuery };
-    this.props.router.replace({ ...this.props.location, query });
+    this.props.router.replace({...this.props.location, query });
   }
 
   handleSearch(searchQuery) {
@@ -54,17 +54,19 @@ export class EpisodesContainer extends Component {
     this.changeLocation({ page: 1, q: '' });
   }
 
-  handleUpdate() {
-    this.fetchEpisodes();
-  }
-
   handleSelectPage(page) {
     this.changeLocation({ page });
   }
 
+  handleUpdate() {
+    this.fetchEpisodes();
+  }
+
   render() {
 
-    const searchQuery = this.props.location.query && this.props.location.query.q;
+    const { location: { query } } = this.props;
+
+    const searchQuery = query && query.q;
 
     const canUpdate = !searchQuery && !this.props.previous;
 

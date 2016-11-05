@@ -1,8 +1,124 @@
 import {
   channelsSelector,
   episodesSelector,
+  episodeSelector,
   playingEpisodeSelector,
 } from './index';
+
+describe('episodeSelector', () => {
+  it('should return null if not available', () => {
+    const state = {
+      player: {
+        playing: false,
+        episode: null,
+      },
+      subscriptions: [],
+      bookmarks: [],
+      episode: {
+        episode: null,
+      },
+    };
+    expect(episodeSelector(state)).toBe(null);
+  });
+
+  it('should indicate if episode is playing', () => {
+    const state = {
+      episode: {
+        episode: {
+          id: 1,
+          channel: {
+            id: 1,
+          },
+        },
+      },
+      player: {
+        episode: {
+          id: 1,
+        },
+        playing: true,
+      },
+      subscriptions: [],
+      bookmarks: [],
+    };
+    const episode = episodeSelector(state);
+    expect(episode.id).toBe(state.episode.episode.id);
+    expect(episode.bookmarked).toBe(false);
+    expect(episode.subscribed).toBe(false);
+    expect(episode.playing).toBe(true);
+  });
+
+  it('should indicate if episode bookmarked', () => {
+    const state = {
+      episode: {
+        episode: {
+          id: 1,
+          channel: {
+            id: 1,
+          },
+        },
+      },
+      player: {
+        episode: null,
+      },
+      subscriptions: [2],
+      bookmarks: [1],
+    };
+    const episode = episodeSelector(state);
+    expect(episode.id).toBe(state.episode.episode.id);
+    expect(episode.bookmarked).toBe(true);
+    expect(episode.subscribed).toBe(false);
+    expect(episode.playing).toBe(false);
+  });
+
+  it('should indicate if episode channel subscribed', () => {
+    const state = {
+      episode: {
+        episode: {
+          id: 1,
+          channel: {
+            id: 1,
+          },
+        },
+      },
+      player: {
+        episode: null,
+      },
+      subscriptions: [1],
+      bookmarks: [2],
+    };
+    const episode = episodeSelector(state);
+    expect(episode.id).toBe(state.episode.episode.id);
+    expect(episode.bookmarked).toBe(false);
+    expect(episode.subscribed).toBe(true);
+    expect(episode.playing).toBe(false);
+  });
+});
+
+describe('channelsSelector', () => {
+  it('should indicate channels subscribed', () => {
+
+    const state = {
+      channels: {
+        results: [{
+          id: 1,
+          name: 'first',
+        }, {
+          id: 2,
+          name: 'second',
+        }],
+      },
+      subscriptions: [2],
+    };
+
+    const channels = channelsSelector(state);
+
+    expect(channels.length).toBe(2);
+    expect(channels[0].subscribed).toBe(false);
+    expect(channels[1].subscribed).toBe(true);
+
+  });
+});
+
 
 describe('playingEpisodeSelector', () => {
   it('should return null if not playing', () => {
