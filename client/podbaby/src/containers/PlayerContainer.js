@@ -2,9 +2,9 @@ import React, { PropTypes, Component } from 'react';
 import { connect } from 'react-redux';
 
 import { playingEpisodeSelector } from '../selectors';
+import { episodeActionPropTypes } from '../prop-types';
 import Player from '../components/Player';
 
-import { episodeActionPropTypes } from './prop-types';
 import { bindEpisodeActions } from './utils';
 
 export class PlayerContainer extends Component {
