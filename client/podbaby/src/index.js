@@ -3,18 +3,17 @@ import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { browserHistory } from 'react-router';
 
-
 import configureRoutes from './routes';
 import configureStore from './store';
-import { getCurrentUser } from './modules/auth';
+
+import { fetchUser } from './actions/auth';
 
 import './index.css';
-
 
 const store = configureStore();
 const routes = configureRoutes(browserHistory, store);
 
-store.dispatch(getCurrentUser());
+store.dispatch(fetchUser());
 
 
 ReactDOM.render(

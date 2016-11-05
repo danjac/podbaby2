@@ -17,7 +17,7 @@ Alert.propTypes = {
   alert: PropTypes.object.isRequired,
 };
 
-const AlertList = ({ alerts, onDismiss }) => {
+const Alerts = ({ alerts, onDismiss }) => {
   if (!alerts) {
     return <div />;
   }
@@ -46,9 +46,9 @@ const AlertList = ({ alerts, onDismiss }) => {
   );
 };
 
-AlertList.propTypes = {
+Alerts.propTypes = {
   onDismiss: PropTypes.func.isRequired,
   alerts: PropTypes.array.isRequired,
 };
 
-export default AlertList;
+export default Alerts;

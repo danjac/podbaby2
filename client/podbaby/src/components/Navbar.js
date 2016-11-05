@@ -68,7 +68,7 @@ class Navbar extends Component {
 
   render() {
 
-    const { auth: { authenticated, currentUser } } = this.props;
+    const { auth: { authenticated, user } } = this.props;
     const { expanded } = this.state;
 
     return (
@@ -104,15 +104,14 @@ class Navbar extends Component {
             </bs.NavDropdown>
 
           </bs.Nav>
-          {authenticated && currentUser && (
+          {authenticated && user && (
             <bs.Nav pullRight>
-              <bs.NavDropdown title={<span><Icon name="user" /> {currentUser.username}</span>} id="user-dropdown">
+              <bs.NavDropdown title={<span><Icon name="user" /> {user.username}</span>} id="user-dropdown">
               </bs.NavDropdown>
               <bs.NavItem href="#" onClick={this.handleLogout}>
                 <Icon name="sign-out" /> Logout
               </bs.NavItem>
             </bs.Nav>)}
-            o
           {!authenticated && (
           <bs.Nav pullRight>
             <LinkNavItem to="/account/login/" icon="sign-in" onClick={this.handleClose}>Login</LinkNavItem>
