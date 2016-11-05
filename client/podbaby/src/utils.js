@@ -9,12 +9,15 @@ const sanitizeOptions = {
 };
 
 export const sanitize = dirty => {
+  // cleans HTML allowing only specific tags
   return {
     __html: sanitizeHtml(dirty.replace('\n', '<br>'), sanitizeOptions),
   };
 };
 
 export const pageNumberFromUrl = url => {
+  // parses page number from an API url
+  // if url falsy, returns 0; otherwise returns default of 1
   if (!url) {
     return 0;
   }
@@ -29,6 +32,7 @@ export const createAction = (type, payload) => ({ type, payload });
 export const createErrorAction = (type, error) => ({ type, error });
 
 export const dispatchApiCall = (
+  // does multiple dispatch of request/success/failure from promise
   dispatch,
   apiCall,
   requestType,
