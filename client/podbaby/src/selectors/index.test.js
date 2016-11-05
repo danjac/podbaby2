@@ -2,7 +2,7 @@ import {
   channelsSelector,
   episodesSelector,
   playingEpisodeSelector,
-} from './selectors';
+} from './index';
 
 describe('playingEpisodeSelector', () => {
   it('should return null if not playing', () => {

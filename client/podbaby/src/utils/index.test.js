@@ -1,7 +1,7 @@
 import {
   pageNumberFromUrl,
   dispatchApiCall,
-} from './utils';
+} from './index';
 
 describe('dispatchApiCall', () => {
 

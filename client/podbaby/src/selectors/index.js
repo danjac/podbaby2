@@ -1,6 +1,4 @@
-import {
-  createSelector,
-} from 'reselect';
+import { createSelector } from 'reselect';
 
 const subscriptionsSelector = state => state.subscriptions;
 const bookmarksSelector = state => state.bookmarks;
