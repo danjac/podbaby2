@@ -1,10 +1,12 @@
 import React, { PropTypes, Component } from 'react';
 
+import { episodeActionPropTypes } from '../prop-types';
+
 import Search from './Search';
 import Loader from './Loader';
 import EpisodeList from './EpisodeList';
 
-export class Episodes extends Component {
+class Episodes extends Component {
 
   render() {
 
@@ -18,8 +20,8 @@ export class Episodes extends Component {
       onClearSearch,
       onSelectPage,
       location: {
-        query
-      }
+        query,
+      },
     } = this.props;
 
     if (loading) {
@@ -63,10 +65,7 @@ Episodes.propTypes = {
   onSearch: PropTypes.func.isRequired,
   onClearSearch: PropTypes.func.isRequired,
   onSelectPage: PropTypes.func.isRequired,
-  onStartPlayer: PropTypes.func.isRequired,
-  onStopPlayer: PropTypes.func.isRequired,
-  onAddBookmark: PropTypes.func.isRequired,
-  onRemoveBookmark: PropTypes.func.isRequired,
-  onSubscribe: PropTypes.func.isRequired,
-  onUnubscribe: PropTypes.func.isRequired,
+  ...episodeActionPropTypes,
 };
+
+export default Episodes;
