@@ -49,7 +49,9 @@ class HttpClient {
       })
       .then(response => response.data)
       .catch(err => {
-        if (err.response && err.response.status === 400 && isPlainObject(err.response.data)) {
+        if (err.response &&
+          err.response.status === 400 &&
+          isPlainObject(err.response.data)) {
           throw new SubmissionError(err.response.data);
         }
         throw err;
@@ -61,20 +63,20 @@ class HttpClient {
   }
 
   post(url, data, options) {
-    return this.handleRequest('POST', {...options, data });
+    return this.handleRequest('POST', url, {...options, data });
   }
 
 
   put(url, data, options) {
-    return this.handleRequest('PUT', {...options, data });
+    return this.handleRequest('PUT', url, {...options, data });
   }
 
   patch(url, data, options) {
-    return this.handleRequest('PATCH', {...options, data });
+    return this.handleRequest('PATCH', url, {...options, data });
   }
 
   del(url, options) {
-    return this.handleRequest('DELETE', options);
+    return this.handleRequest('DELETE', url, options);
   }
 
 }

@@ -5,18 +5,7 @@ import { Router, Route, IndexRoute } from 'react-router';
 
 import AppContainer from './containers/AppContainer';
 import EpisodesContainer from './containers/EpisodesContainer';
-
-//import EpisodeDetail from '../containers/episodes/detail';
-//import AllEpisodes from '../containers/episodes/all';
-//import UserEpisodes from '../containers/episodes/user';
-//import Bookmarks from '../containers/episodes/bookmarks';
-//import Channels from '../containers/channels/channels';
-//import Subscriptions from '../containers/channels/subscriptions';
-//import Categories from '../containers/channels/categories';
-//import Login from '../containers/auth/login';
-//import Signup from '../containers/auth/signup';
-
-//import NotFound from './not-found';
+import LoginContainer from './containers/LoginContainer';
 
 export default function(history, store) {
 
@@ -41,7 +30,9 @@ export default function(history, store) {
         <IndexRoute onEnter={resolveDefaultPage} />
         <Route path="podcasts/">
           <Route path="all/" component={EpisodesContainer} />
+          <Route path="me/" component={EpisodesContainer} />
         </Route>
+        <Route path="login/" component={LoginContainer} />
         {/*
         <Route path="podcasts/">
           <Route path="all/" component={AllEpisodes} />

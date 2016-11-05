@@ -114,8 +114,8 @@ class Navbar extends Component {
             </bs.Nav>)}
           {!authenticated && (
           <bs.Nav pullRight>
-            <LinkNavItem to="/account/login/" icon="sign-in" onClick={this.handleClose}>Login</LinkNavItem>
-            <LinkNavItem to="/account/join/" icon="user-plus" onClick={this.handleClose}>Join</LinkNavItem>
+            <LinkNavItem to="/login/" icon="sign-in" onClick={this.handleClose}>Login</LinkNavItem>
+            <LinkNavItem to="/join/" icon="user-plus" onClick={this.handleClose}>Join</LinkNavItem>
           </bs.Nav>)}
       </bs.Navbar.Collapse>
       </bs.Navbar>

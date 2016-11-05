@@ -5,10 +5,10 @@ import { SUBSCRIBE, UNSUBSCRIBE } from '../action-types';
 
 export const subscribe = channel => {
   api.subscriptions.subscribe(channel.id);
-  return createAction(SUBSCRIBE, channel);
+  return createAction(SUBSCRIBE, channel.id);
 };
 
 export const unsubscribe = channel => {
   api.subscriptions.unsubscribe(channel.id);
-  return createAction(UNSUBSCRIBE, channel);
+  return createAction(UNSUBSCRIBE, channel.id);
 };

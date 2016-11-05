@@ -4,25 +4,27 @@ import { shallow, mount } from 'enzyme';
 import FormControl from './FormControl';
 
 it('should render the component', () => {
-  const field = {
+  const props = {
     type: 'text',
     label: 'Name',
+    input: {},
     meta: {},
   };
-  const rendered = shallow(<FormControl field={field} />);
+  const rendered = shallow(<FormControl {...props} />);
   expect(rendered).toBeTruthy();
 });
 
 it('should display an error', () => {
-  const field = {
+  const props = {
     type: 'text',
     label: 'Name',
+    input: {},
     meta: {
       error: 'Name is missing',
       touched: true,
     },
   };
 
-  const rendered = mount(<FormControl field={field} />);
+  const rendered = mount(<FormControl {...props} />);
   expect(rendered.text()).toContain('Name is missing');
 });

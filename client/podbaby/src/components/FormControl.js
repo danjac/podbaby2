@@ -1,30 +1,43 @@
 import React, { PropTypes } from 'react';
 import * as bs from 'react-bootstrap';
-import { omit } from 'lodash';
 
-const FormControl = ({ field }) => {
+const FormControl = ({
+
+  input,
+  type,
+  label,
+  inputProps,
+
+  meta: {
+    touched,
+    error,
+  },
+
+}) => {
 
   let validationState;
 
-  if (field.meta.touched) {
-    validationState = field.meta.error ? 'error' : 'success';
+  if (touched) {
+    validationState = error ? 'error' : 'success';
   }
-
-  const props = omit(field, ['input', 'meta', 'label']);
 
   return (
     <bs.FormGroup validationState={validationState}>
-      {field.label && <bs.ControlLabel>{field.label}</bs.ControlLabel>}
-      <bs.FormControl type={field.type} {...field.input} {...props} />
+      {label && <bs.ControlLabel>{label}</bs.ControlLabel>}
+      <bs.FormControl type={type} {...input} {...inputProps} />
       <bs.FormControl.Feedback />
-      {field.meta.touched && field.meta.error && <bs.HelpBlock>{field.meta.error}</bs.HelpBlock>}
+      {touched && error && <bs.HelpBlock>{error}</bs.HelpBlock>}
     </bs.FormGroup>
   );
 
 };
 
 FormControl.propTypes = {
-  field: PropTypes.object.isRequired,
+  meta: PropTypes.object.isRequired,
+  input: PropTypes.object.isRequired,
+  inputProps: PropTypes.object,
+  label: PropTypes.string,
+  type: PropTypes.string,
 };
 
 export default FormControl;
