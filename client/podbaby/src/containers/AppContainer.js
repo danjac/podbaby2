@@ -13,7 +13,7 @@ export class AppContainer extends Component {
   render() {
 
     return (
-      <div>
+      <div className="container">
         <NavContainer />
         <AlertsContainer />
         {this.props.children}

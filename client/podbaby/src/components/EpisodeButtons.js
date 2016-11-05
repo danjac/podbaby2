@@ -20,7 +20,7 @@ export const EpisodeButtons = ({
   let buttons = [];
   let playerBtn;
 
-  if (episode.isPlaying) {
+  if (episode.playing) {
     playerBtn = (<bs.Button key="stopBtn"
                             title="Stop"
                             onClick={onStopPlayer}>

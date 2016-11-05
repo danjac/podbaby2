@@ -19,16 +19,12 @@ class Episodes extends Component {
       onSearch,
       onClearSearch,
       onSelectPage,
-      location: {
-        query,
-      },
+      searchQuery,
     } = this.props;
 
     if (loading) {
       return <Loader />;
     }
-
-    const searchQuery = query.q;
 
     const ifEmpty = searchQuery && 'No podcasts found for your search.';
 
@@ -58,10 +54,9 @@ Episodes.propTypes = {
   episodes: PropTypes.array.isRequired,
   next: PropTypes.number,
   previous: PropTypes.number,
-  router: PropTypes.object.isRequired,
-  location: PropTypes.object.isRequired,
   authenticated: PropTypes.bool.isRequired,
   loading: PropTypes.bool.isRequired,
+  searchQuery: PropTypes.string,
   onSearch: PropTypes.func.isRequired,
   onClearSearch: PropTypes.func.isRequired,
   onSelectPage: PropTypes.func.isRequired,

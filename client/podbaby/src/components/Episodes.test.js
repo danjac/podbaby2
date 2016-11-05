@@ -12,9 +12,7 @@ import Episodes from './Episodes';
     next: 0,
     previous: 0,
     router: {},
-    location: {
-      query: '',
-    },
+    searchQuery: '',
     loading: false,
     authenticated: false,
     onSearch: jest.fn(),

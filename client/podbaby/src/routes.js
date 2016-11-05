@@ -3,8 +3,8 @@ import React from 'react';
 
 import { Router, Route, IndexRoute } from 'react-router';
 
-import App from '../containers/AppContainer';
-import EpisodesContainer from '../containers/EpisodesContainer';
+import AppContainer from './containers/AppContainer';
+import EpisodesContainer from './containers/EpisodesContainer';
 
 //import EpisodeDetail from '../containers/episodes/detail';
 //import AllEpisodes from '../containers/episodes/all';
@@ -37,7 +37,7 @@ export default function(history, store) {
 
   return  (
     <Router history={history}>
-      <Route path="/" component={App}>
+      <Route path="/" component={AppContainer}>
         <IndexRoute onEnter={resolveDefaultPage} />
         <Route path="podcasts/">
           <Route path="all/" component={EpisodesContainer} />
