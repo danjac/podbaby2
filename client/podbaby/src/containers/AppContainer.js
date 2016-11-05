@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 
 import NavContainer from './NavContainer';
 import AlertsContainer from './AlertsContainer';
+import PlayerContainer from './PlayerContainer';
 
 import './AppContainer.css';
 
@@ -16,6 +17,7 @@ export class AppContainer extends Component {
         <NavContainer />
         <AlertsContainer />
         {this.props.children}
+        <PlayerContainer />
       </div>
     );
   }

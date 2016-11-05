@@ -18,6 +18,24 @@ export const channelsSelector = createSelector(
   },
 );
 
+export const playingEpisodeSelector = createSelector(
+  playerSelector,
+  subscriptionsSelector,
+  bookmarksSelector,
+  (player, subscriptions, bookmarks) => {
+    const { episode } = player;
+    if (!episode) {
+      return null;
+    }
+    return {
+      ...episode,
+      playing: true,
+      subscribed: subscriptions.includes(episode.channel.id),
+      bookmarked: bookmarks.includes(episode.id),
+    };
+  }
+);
+
 export const episodesSelector = createSelector(
   state => state.episodes.results,
   playerSelector,

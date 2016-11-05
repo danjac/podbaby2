@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 
-import {  AlertsContainer } from './AlertsContainer';
+import { AlertsContainer } from './AlertsContainer';
 
 it('should render the container', () => {
   const props = {
