@@ -1,7 +1,7 @@
 import { partial } from 'lodash';
 
 import * as api from '../api';
-import { dispatchApiCall } from '../utils';
+import { dispatchApiCall } from './utils';
 
 import {
   FETCH_EPISODES_FAILURE,

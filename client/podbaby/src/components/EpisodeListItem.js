@@ -3,10 +3,10 @@ import { Link } from 'react-router';
 import * as bs from 'react-bootstrap';
 import moment from 'moment';
 
-import { sanitize } from '../utils';
 import defaultThumbnail from '../podcast.svg';
 import Labels from './Labels';
 import EpisodeButtons from './EpisodeButtons';
+import { sanitize } from './utils';
 
 export const EpisodeListItem = props => {
 

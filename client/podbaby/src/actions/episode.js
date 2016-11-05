@@ -1,5 +1,5 @@
 import * as api from '../api';
-import { dispatchApiCall } from '../utils';
+import { dispatchApiCall } from './utils';
 
 import {
   FETCH_EPISODE_FAILURE,

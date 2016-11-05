@@ -1,6 +1,6 @@
 import * as api from '../api';
 import * as storage from '../local-storage';
-import { createAction, dispatchApiCall } from '../utils';
+import { createAction, dispatchApiCall } from './utils';
 
 import {
   FETCH_USER_FAILURE,

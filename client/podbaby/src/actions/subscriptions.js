@@ -1,5 +1,5 @@
 import * as api from '../api';
-import { createAction } from '../utils';
+import { createAction } from './utils';
 
 import { SUBSCRIBE, UNSUBSCRIBE } from '../action-types';
 

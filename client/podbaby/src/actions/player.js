@@ -1,6 +1,6 @@
 import * as api from '../api';
 import * as storage from '../local-storage';
-import { createAction } from '../utils';
+import { createAction } from './utils';
 
 import {
   START_PLAYER,

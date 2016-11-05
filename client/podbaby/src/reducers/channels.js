@@ -4,9 +4,7 @@ import {
   FETCH_CHANNELS_FAILURE,
 } from '../action-types';
 
-import {
-  pageNumberFromUrl,
-} from '../utils';
+import { pageNumberFromUrl } from './utils';
 
 const initialState = {
   loading: false,

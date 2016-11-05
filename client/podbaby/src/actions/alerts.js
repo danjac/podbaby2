@@ -1,7 +1,7 @@
 import { uniqueId, partial } from 'lodash';
 
 import { CREATE_ALERT, DISMISS_ALERT } from '../action-types';
-import { createAction } from '../utils';
+import { createAction } from './utils';
 
 
 export const dismissAlert = id => createAction(DISMISS_ALERT, id);

@@ -4,9 +4,7 @@ import {
   FETCH_EPISODES_FAILURE,
 } from '../action-types';
 
-import {
-  pageNumberFromUrl,
-} from '../utils';
+import { pageNumberFromUrl } from './utils';
 
 const initialState = {
   loading: false,
