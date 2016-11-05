@@ -4,11 +4,9 @@ import * as bs from 'react-bootstrap';
 import moment from 'moment';
 
 import { sanitize } from '../utils';
-
+import defaultThumbnail from '../podcast.svg';
 import Labels from './Labels';
 import EpisodeButtons from './EpisodeButtons';
-
-import defaultThumbnail from '../podcast.svg';
 
 export const EpisodeListItem = props => {
 

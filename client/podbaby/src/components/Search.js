@@ -1,10 +1,5 @@
-import React, {
-  Component,
-  PropTypes
-} from 'react';
-import {
-  findDOMNode
-} from 'react-dom';
+import React, { Component, PropTypes } from 'react';
+import { findDOMNode } from 'react-dom';
 import * as bs from 'react-bootstrap';
 import Icon from 'react-fa';
 
@@ -33,7 +28,7 @@ export class Search extends Component {
     const {
       placeholder,
       searchQuery,
-      onClear
+      onClear,
     } = this.props;
 
     return (

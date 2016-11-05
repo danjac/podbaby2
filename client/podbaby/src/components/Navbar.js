@@ -5,12 +5,50 @@ import { Link } from 'react-router';
 import { LinkContainer } from 'react-router-bootstrap';
 
 
+const LinkNavItem = ({ to, icon, onClick, children }) => (
+  <LinkContainer to={to}>
+    <bs.NavItem onClick={onClick}>
+      <Icon name={icon} /> {children}
+    </bs.NavItem>
+  </LinkContainer>
+);
+
+LinkNavItem.propTypes = {
+  to: PropTypes.oneOfType([
+    React.PropTypes.string,
+    React.PropTypes.object,
+  ]).isRequired,
+  icon: PropTypes.string.isRequired,
+  children: PropTypes.node,
+  onClick: PropTypes.func,
+};
+
+
+const LinkMenuItem = ({ to, icon, onClick, children }) => (
+  <LinkContainer to={to}>
+    <bs.MenuItem onClick={onClick}>
+      <Icon name={icon} /> {children}
+      </bs.MenuItem>
+  </LinkContainer>
+);
+
+LinkMenuItem.propTypes = {
+  to: PropTypes.oneOfType([
+    React.PropTypes.string,
+    React.PropTypes.object,
+  ]).isRequired,
+  icon: PropTypes.string.isRequired,
+  children: PropTypes.node,
+  onClick: PropTypes.func,
+};
+
+
 class Navbar extends Component {
 
   constructor(props) {
     super(props);
     this.state = { expanded: false };
-    this.handleClick = this.handleClick.bind(this);
+    this.handleClose = this.handleClose.bind(this);
     this.handleLogout = this.handleLogout.bind(this);
     this.handleToggle = this.handleToggle.bind(this);
   }
@@ -19,7 +57,7 @@ class Navbar extends Component {
     this.setState({ expanded: !this.state.expanded });
   }
 
-  handleClick() {
+  handleClose() {
     this.setState({ expanded: false });
   }
 
@@ -41,7 +79,7 @@ class Navbar extends Component {
         <bs.Navbar.Header>
           <bs.Navbar.Brand>
             <Link to={{ pathname: '/', query: { page: 1 }}}
-                  onClick={this.handleClick}> Podbaby
+                  onClick={this.handleClose}> Podbaby
             </Link>
           </bs.Navbar.Brand>
           <bs.Navbar.Toggle />
@@ -51,36 +89,18 @@ class Navbar extends Component {
 
             {authenticated && (
               <bs.NavDropdown title={<span><Icon name="headphones" /> Podcasts</span>} id="podcasts-dropdown">
-                <LinkContainer to="/podcasts/me/">
-                  <bs.MenuItem><Icon name="user" /> My feeds</bs.MenuItem>
-                </LinkContainer>
-                <LinkContainer to="/podcasts/all/">
-                  <bs.MenuItem><Icon name="list" /> All podcasts</bs.MenuItem>
-                </LinkContainer>
-                <LinkContainer to="/podcasts/starred/">
-                  <bs.MenuItem><Icon name="star" /> Starred</bs.MenuItem>
-                </LinkContainer>
-                <bs.MenuItem><Icon name="history" /> History</bs.MenuItem>
+                <LinkMenuItem to="/podcasts/me/" icon="user" onClick={this.handleClose}>My podcasts</LinkMenuItem>
+                <LinkMenuItem to="/podcasts/all/" icon="list" onClick={this.handleClose}>All podcasts</LinkMenuItem>
+                <LinkMenuItem to="/podcasts/starred/" icon="star" onClick={this.handleClose}>Starred podcasts</LinkMenuItem>
+                <LinkMenuItem to="/podcasts/history/" icon="history" onClick={this.handleClose}>Listening history</LinkMenuItem>
               </bs.NavDropdown>)}
 
-            {!authenticated && (
-            <LinkContainer to="/podcasts/all/">
-              <bs.NavItem>
-                <Icon name="headphones" /> Podcasts
-              </bs.NavItem>
-            </LinkContainer>)}
+            {!authenticated && <LinkNavItem to="/podcasts/all/" icon="headphones">Podcasts</LinkNavItem>}
 
             <bs.NavDropdown title={<span><Icon name="rss" /> Feeds</span>} id="feeds-dropdown">
-              {authenticated && (
-              <LinkContainer to="/feeds/me/">
-                <bs.MenuItem><Icon name="user" /> My feeds</bs.MenuItem>
-              </LinkContainer>)}
-              <LinkContainer to="/feeds/all/">
-                <bs.MenuItem><Icon name="list" /> All feeds</bs.MenuItem>
-              </LinkContainer>
-              <LinkContainer to="/feeds/browse/">
-                <bs.MenuItem><Icon name="folder" /> Browse</bs.MenuItem>
-              </LinkContainer>
+              {authenticated && <LinkMenuItem to="/feeds/me/" icon="user" onClick={this.handleClose}>My feeds</LinkMenuItem>}
+              <LinkMenuItem to="/feeds/all/" icon="user" onClick={this.handleClose}>All feeds</LinkMenuItem>
+              <LinkMenuItem to="/feeds/browse/" icon="user" onClick={this.handleClose}>Browse categories</LinkMenuItem>
             </bs.NavDropdown>
 
           </bs.Nav>
@@ -92,18 +112,11 @@ class Navbar extends Component {
                 <Icon name="sign-out" /> Logout
               </bs.NavItem>
             </bs.Nav>)}
+            o
           {!authenticated && (
           <bs.Nav pullRight>
-            <LinkContainer to="/account/login/">
-              <bs.NavItem onClick={this.handleClick}>
-                <Icon name="sign-in" /> Login
-              </bs.NavItem>
-            </LinkContainer>
-            <LinkContainer to="/account/signup/">
-              <bs.NavItem>
-                <Icon name="user-plus" /> Join
-              </bs.NavItem>
-            </LinkContainer>
+            <LinkNavItem to="/account/login/" icon="sign-in" onClick={this.handleClose}>Login</LinkNavItem>
+            <LinkNavItem to="/account/join/" icon="user-plus" onClick={this.handleClose}>Join</LinkNavItem>
           </bs.Nav>)}
       </bs.Navbar.Collapse>
       </bs.Navbar>

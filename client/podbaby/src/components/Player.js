@@ -1,15 +1,7 @@
-import React, {
-  Component,
-  PropTypes,
-} from 'react';
-
+import React, { Component, PropTypes } from 'react';
 import * as bs from 'react-bootstrap';
-
 import Icon from 'react-fa';
-
-import {
-  Link,
-} from 'react-router';
+import { Link } from 'react-router';
 
 import EpisodeButtons from './EpisodeButtons';
 
@@ -17,41 +9,31 @@ class Player extends Component {
 
   constructor(props) {
     super(props);
-    this.state = {
-      expanded: true,
-    };
+    this.state = { expanded: true };
     this.handleToggle = this.handleToggle.bind(this);
   }
 
   componentWillReceiveProps(nextProps) {
 
-    const {
-      episode,
-    } = this.props;
-    const nextEpisode = nextProps.episode;
+    const { episode } = this.props;
+    const { nextEpisode } = nextProps;
 
     const expand = (
       (episode && episode.id) !== (nextEpisode && nextEpisode.id)
     );
 
     if (expand) {
-      this.setState({
-        expanded: true,
-      });
+      this.setState({ expanded: true });
     }
     return nextProps;
   }
 
   handleToggle() {
-    this.setState({
-      expanded: !this.state.expanded,
-    });
+    this.setState({ expanded: !this.state.expanded });
   }
 
   render() {
-    const {
-      episode,
-    } = this.props;
+    const { episode } = this.props;
 
     if (!episode) {
       return <div></div>;
@@ -65,16 +47,10 @@ class Player extends Component {
 
     const header = <Link to={`/podcasts/${episode.id}/`}>{title}</Link>;
 
-    const {
-      expanded,
-    } = this.state;
+    const { expanded } = this.state;
 
     // placeholder
-    const onPlay = ({
-      currentTarget,
-    }) => {
-      currentTarget.currentTime = 0;
-    };
+    const onPlay = ({ currentTarget }) => currentTarget.currentTime = 0;
 
     // we need to hide the audio in CSS - will stop playing if
     // removed from DOM

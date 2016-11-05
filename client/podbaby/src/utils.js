@@ -26,7 +26,7 @@ export const pageNumberFromUrl = url => {
 };
 
 export const createAction = (type, payload) => ({ type, payload });
-export const createError = (type, error) => ({ type, error });
+export const createErrorAction = (type, error) => ({ type, error });
 
 export const dispatchApiCall = (
   dispatch,
@@ -37,5 +37,5 @@ export const dispatchApiCall = (
   dispatch(createAction(requestType));
   return apiCall
     .then(payload => dispatch(createAction(successType, payload)))
-    .catch(error => dispatch(createError(failureType, error)));
+    .catch(error => dispatch(createErrorAction(failureType, error)));
 };

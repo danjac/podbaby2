@@ -1,15 +1,7 @@
 import axios from 'axios';
-
-import {
-  camelizeKeys,
-  decamelizeKeys,
-} from 'humps';
-
-import _ from 'lodash';
-
-import {
-  SubmissionError,
-} from 'redux-form';
+import { camelizeKeys, decamelizeKeys } from 'humps';
+import { isPlainObject } from 'lodash';
+import { SubmissionError } from 'redux-form';
 
 const baseURL = process.env.NODE_ENV === 'production' ? 'https://podbaby.me/' : 'http://localhost:8000/';
 
@@ -57,41 +49,28 @@ class HttpClient {
       })
       .then(response => response.data)
       .catch(err => {
-        if (err.response) {
-          switch (err.response.status) {
-            case 400:
-              throw new SubmissionError(err.response.data);
-            default:
-
-          }
+        if (err.response && err.response.status === 400 && isPlainObject(err.response.data)) {
+          throw new SubmissionError(err.response.data);
         }
         throw err;
       });
   }
 
   get(url, params, options) {
-    return this.handleRequest('GET', url, {...options,
-      params,
-    });
+    return this.handleRequest('GET', url, {...options, params });
   }
 
   post(url, data, options) {
-    return this.handleRequest('POST', {...options,
-      data,
-    });
+    return this.handleRequest('POST', {...options, data });
   }
 
 
   put(url, data, options) {
-    return this.handleRequest('PUT', {...options,
-      data,
-    });
+    return this.handleRequest('PUT', {...options, data });
   }
 
   patch(url, data, options) {
-    return this.handleRequest('PATCH', {...options,
-      data,
-    });
+    return this.handleRequest('PATCH', {...options, data });
   }
 
   del(url, options) {

@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react';
 import * as bs from 'react-bootstrap';
 
-const Pager = ({ onSelect, next, previous })=> {
+const Pager = ({ onSelect, next, previous }) => {
 
   return (
     <bs.Pager>
