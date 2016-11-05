@@ -3,6 +3,8 @@ import { connect } from 'react-redux';
 
 import { playingEpisodeSelector } from '../selectors';
 import Player from '../components/Player';
+
+import { episodeActionPropTypes } from './prop-types';
 import { bindEpisodeActions } from './utils';
 
 export class PlayerContainer extends Component {
@@ -15,12 +17,7 @@ PlayerContainer.propTypes = {
   episode: PropTypes.object,
   currentTime: PropTypes.number.isRequired,
   authenticated: PropTypes.bool.isRequired,
-  onAddBookmark: PropTypes.func.isRequired,
-  onRemoveBookmark: PropTypes.func.isRequired,
-  onStopPlayer: PropTypes.func.isRequired,
-  onStartPlayer: PropTypes.func.isRequired,
-  onSubscribe: PropTypes.func.isRequired,
-  onUnsubscribe: PropTypes.func.isRequired,
+  ...episodeActionPropTypes,
 };
 
 
