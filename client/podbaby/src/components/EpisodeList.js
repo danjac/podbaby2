@@ -1,6 +1,6 @@
-import React, {
-  PropTypes
-} from 'react';
+import React, { PropTypes } from 'react';
+
+import { episodeActionPropTypes } from '../prop-types';
 
 import Pager from './Pager';
 import EpisodeListItem from './EpisodeListItem';
@@ -16,7 +16,7 @@ const EpisodeList = props => {
   } = props;
 
   const style = {
-    marginTop: 10
+    marginTop: 10,
   };
 
   if (!episodes.length) {
@@ -48,12 +48,7 @@ EpisodeList.propTypes = {
   previous: PropTypes.number,
   ifEmpty: PropTypes.string,
   onSelectPage: PropTypes.func.isRequired,
-  onSubscribe: PropTypes.func.isRequired,
-  onUnsubscribe: PropTypes.func.isRequired,
-  onAddBookmark: PropTypes.func.isRequired,
-  onRemoveBookmark: PropTypes.func.isRequired,
-  onStartPlayer: PropTypes.func.isRequired,
-  onStopPlayer: PropTypes.func.isRequired,
+  ...episodeActionPropTypes,
 };
 
 export default EpisodeList;

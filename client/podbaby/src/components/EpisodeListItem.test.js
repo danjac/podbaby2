@@ -1,6 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import * as bs from 'react-bootstrap';
+
 import { EpisodeListItem } from './EpisodeListItem';
 
 const defaultProps = {
@@ -25,6 +26,8 @@ const defaultProps = {
     subtitle: 'Joe & Redban talk shit',
   },
   authenticated: false,
+  onSubscribe: jest.fn(),
+  onUnsubscribe: jest.fn(),
   onStartPlayer: jest.fn(),
   onStopPlayer: jest.fn(),
   onAddBookmark: jest.fn(),

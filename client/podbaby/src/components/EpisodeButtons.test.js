@@ -13,8 +13,10 @@ import {
 const createDefaultProps = () => {
   return {
     episode: {
+      id: 1,
       isPlaying: false,
       channel: {
+        id: 1,
         name: 'The Joe Rogan Experience',
       },
     },
@@ -95,11 +97,15 @@ it('should show a subscribe button if user is logged in', () => {
 
 });
 
-it('should not show a subscribe button if no subscribe action', () => {
+it('should not show a subscribe button if channel subscribe', () => {
+  const defaultProps = createDefaultProps();
   const props = {
-    ...createDefaultProps(),
+    ...defaultProps,
+    episode: {
+      ...defaultProps.episode,
+      subscribed: true,
+    },
     authenticated: true,
-    onSubscribe: undefined,
   };
   const rendered = shallow(<EpisodeButtons {...props} />);
   const btnGroup = rendered.find(bs.ButtonGroup);
