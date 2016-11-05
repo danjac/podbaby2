@@ -1,13 +1,9 @@
 import React, { PropTypes, Component } from 'react';
-import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
 import { playingEpisodeSelector } from '../selectors';
-import { addBookmark, removeBookmark } from '../actions/bookmarks';
-import { startPlayer, stopPlayer } from '../actions/player';
-import { subscribe, unsubscribe } from '../actions/subscriptions';
-
 import Player from '../components/Player';
+import { bindEpisodeActions } from './utils';
 
 export class PlayerContainer extends Component {
   render() {
@@ -40,16 +36,7 @@ const mapStateToProps = state => {
   };
 };
 
-const mapDispatchToProps = state => {
-  return bindActionCreators({
-    onAddBookmark: addBookmark,
-    onRemoveBookmark: removeBookmark,
-    onStopPlayer: stopPlayer,
-    onStartPlayer: startPlayer,
-    onSubscribe: subscribe,
-    onUnsubscribe: unsubscribe,
-  });
-};
+const mapDispatchToProps = dispatch => bindEpisodeActions(dispatch);
 
 export default connect(
   mapStateToProps,
