@@ -7,10 +7,8 @@ it('should render the component', () => {
 
   const props = {
     onLogout: jest.fn(),
-    auth: {
-      authenticated: false,
-      user: null,
-    },
+    authenticated: false,
+    user: null,
   };
 
   const rendered = shallow(<Navbar {...props} />);

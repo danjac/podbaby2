@@ -68,7 +68,7 @@ class Navbar extends Component {
 
   render() {
 
-    const { auth: { authenticated, user } } = this.props;
+    const { authenticated, user } = this.props;
     const { expanded } = this.state;
 
     return (
@@ -125,7 +125,8 @@ class Navbar extends Component {
 
 Navbar.propTypes = {
   onLogout: PropTypes.func.isRequired,
-  auth: PropTypes.object.isRequired,
+  authenticated: PropTypes.bool.isRequired,
+  user: PropTypes.object,
 };
 
 export default Navbar;
