@@ -1,10 +1,10 @@
-import { bindActionsCreators } from 'redux';
+import { bindActionCreators } from 'redux';
 
 import { addBookmark, removeBookmark } from '../actions/bookmarks';
 import { startPlayer, stopPlayer } from '../actions/player';
 import { subscribe, unsubscribe } from '../actions/subscriptions';
 
-export const bindEpisodeActions = dispatch => bindActionsCreators({
+export const bindEpisodeActions = dispatch => bindActionCreators({
   onAddBookmark: addBookmark,
   onRemoveBookmark: removeBookmark,
   onStopPlayer: stopPlayer,
@@ -13,7 +13,7 @@ export const bindEpisodeActions = dispatch => bindActionsCreators({
   onUnsubscribe: unsubscribe,
 }, dispatch);
 
-export const bindChannelActions = dispatch => bindActionsCreators({
+export const bindChannelActions = dispatch => bindActionCreators({
   onSubscribe: subscribe,
   onUnsubscribe: unsubscribe,
 }, dispatch);
