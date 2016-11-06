@@ -19,22 +19,36 @@ export const mockLocation = () => {
   };
 };
 
+export const mockChannel = () => {
+  return {
+    id: 1,
+    subscribed: false,
+    name: 'The Joe Rogan Experience',
+    categories: [
+      {
+        id: 1,
+        name: 'Comedy',
+        },
+      ],
+    explicit: true,
+    thumbnail: {
+      url: 'test.jpg',
+      height: 120,
+      width: 120,
+    },
+
+  };
+};
+
+
 export const mockEpisode = () => {
   return {
     id: 1,
+    title: 'Brian Redban',
     playing: false,
     bookmarked: false,
     subscribed: false,
-    channel: {
-      id: 1,
-      name: 'The Joe Rogan Experience',
-      categories: [
-        {
-          id: 1,
-          name: 'Comedy',
-        },
-      ],
-    },
+    channel: mockChannel(),
     explicit: true,
   };
 };

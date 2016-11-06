@@ -1,36 +1,22 @@
 import React from 'react';
 
-import {
-  shallow,
-} from 'enzyme';
+import { shallow } from 'enzyme';
 
 import * as bs from 'react-bootstrap';
 
 import {
-  EpisodeButtons,
-} from './EpisodeButtons';
+  mockEpisode,
+  mockEpisodeActions,
+} from '../mocks';
+
+import { EpisodeButtons } from './EpisodeButtons';
 
 const createDefaultProps = () => {
   return {
-    episode: {
-      id: 1,
-      playing: false,
-      bookmarked: false,
-      subscribed: false,
-      channel: {
-        id: 1,
-        name: 'The Joe Rogan Experience',
-      },
-
-    },
+    episode: mockEpisode(),
     authenticated: false,
     canSubscribe: true,
-    onStartPlayer: jest.fn(),
-    onStopPlayer: jest.fn(),
-    onAddBookmark: jest.fn(),
-    onRemoveBookmark: jest.fn(),
-    onSubscribe: jest.fn(),
-    onUnsubscribe: jest.fn(),
+    ...mockEpisodeActions(),
   };
 };
 
@@ -92,8 +78,14 @@ it('should not show a bookmark button if user is logged in', () => {
 });
 
 it('should show a subscribe button if user is logged in', () => {
-  const props = {...createDefaultProps(),
+  const defaults = createDefaultProps();
+  const props = {...defaults,
+    episode: {
+      ...defaults.episode,
+      subscribed: false,
+    },
     authenticated: true,
+    canSubscribe: true,
   };
   const rendered = shallow(<EpisodeButtons {...props} />);
   const btnGroup = rendered.find(bs.ButtonGroup);
@@ -109,7 +101,6 @@ it('should not show a subscribe or unsubscribe button if canSubscribe is false',
   const rendered = shallow(<EpisodeButtons {...props} />);
   const btnGroup = rendered.find(bs.ButtonGroup);
   expect(btnGroup.find('[title="Subscribe to The Joe Rogan Experience"]').length).toBe(0);
-
   expect(btnGroup.find('[title="Unsubscribe from The Joe Rogan Experience"]').length).toBe(0);
 });
 

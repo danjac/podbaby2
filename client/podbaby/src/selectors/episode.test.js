@@ -39,6 +39,7 @@ describe('episodeSelector', () => {
     expect(episode.id).toBe(state.episode.episode.id);
     expect(episode.bookmarked).toBe(false);
     expect(episode.subscribed).toBe(false);
+    expect(episode.channel.subscribed).toBe(false);
     expect(episode.playing).toBe(true);
   });
 
@@ -62,6 +63,7 @@ describe('episodeSelector', () => {
     expect(episode.id).toBe(state.episode.episode.id);
     expect(episode.bookmarked).toBe(true);
     expect(episode.subscribed).toBe(false);
+    expect(episode.channel.subscribed).toBe(false);
     expect(episode.playing).toBe(false);
   });
 
@@ -85,6 +87,7 @@ describe('episodeSelector', () => {
     expect(episode.id).toBe(state.episode.episode.id);
     expect(episode.bookmarked).toBe(false);
     expect(episode.subscribed).toBe(true);
+    expect(episode.channel.subscribed).toBe(true);
     expect(episode.playing).toBe(false);
   });
 });

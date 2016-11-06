@@ -28,7 +28,7 @@ export const thumbnailShape = PropTypes.shape({
 export const channelShape = PropTypes.shape({
   id: PropTypes.any.isRequired,
   thumbnail: thumbnailShape,
-  // subscribed: PropTypes.bool.isRequired,
+  subscribed: PropTypes.bool.isRequired,
   categories: PropTypes.arrayOf(categoryShape),
 });
 

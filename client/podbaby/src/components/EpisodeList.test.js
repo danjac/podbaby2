@@ -1,44 +1,19 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 
+import { mockEpisode, mockEpisodeActions } from '../mocks';
+
 import Pager from './Pager';
 import EpisodeListItem from './EpisodeListItem';
 import EpisodeList from './EpisodeList';
-
 
 const defaultProps = {
   next: 3,
   previous: 1,
   onSelectPage: jest.fn(),
-  episodes: [{
-    id: 1,
-    explicit: true,
-    playing: false,
-    bookmarked: false,
-    subscribed: false,
-    channel: {
-      id: 1,
-      name: 'The Joe Rogan Experience',
-      thumbnail: {
-        url: 'test.jpg',
-        height: 120,
-        width: 120,
-      },
-      categories: [{
-        id: 1,
-        name: 'Comedy',
-      }],
-    },
-    title: 'Brian Redban',
-    subtitle: 'Joe & Redban talk shit',
-  }],
+  episodes: [mockEpisode()],
   authenticated: false,
-  onStartPlayer: jest.fn(),
-  onStopPlayer: jest.fn(),
-  onAddBookmark: jest.fn(),
-  onRemoveBookmark: jest.fn(),
-  onSubscribe: jest.fn(),
-  onUnsubscribe: jest.fn(),
+  ...mockEpisodeActions(),
 };
 
 

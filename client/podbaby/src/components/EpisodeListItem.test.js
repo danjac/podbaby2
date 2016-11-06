@@ -4,39 +4,15 @@ import * as bs from 'react-bootstrap';
 
 import { EpisodeListItem } from './EpisodeListItem';
 
+import {
+  mockEpisode,
+  mockEpisodeActions,
+} from '../mocks';
+
 const defaultProps = {
-  episode: {
-    id: 1,
-    explicit: true,
-    playing: false,
-    bookmarked: false,
-    subscribed: false,
-    channel: {
-      id: 1,
-      name: 'The Joe Rogan Experience',
-      thumbnail: {
-        url: 'test.jpg',
-        height: 120,
-        width: 120,
-      },
-      categories: [
-        {
-          id: 1,
-          name: 'Comedy',
-        },
-      ],
-    },
-    title: 'Brian Redban',
-    subtitle: 'Joe & Redban talk shit',
-  },
-  canSubscribe: true,
+  episode: mockEpisode(),
   authenticated: false,
-  onSubscribe: jest.fn(),
-  onUnsubscribe: jest.fn(),
-  onStartPlayer: jest.fn(),
-  onStopPlayer: jest.fn(),
-  onAddBookmark: jest.fn(),
-  onRemoveBookmark: jest.fn(),
+  ...mockEpisodeActions(),
 };
 
 it('should render the component', () => {
