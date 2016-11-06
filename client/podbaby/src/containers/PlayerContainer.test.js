@@ -2,8 +2,8 @@ import React from 'react';
 import { shallow } from 'enzyme';
 
 import {
-  fakeEpisode,
-  fakeEpisodeActions,
+  mockEpisode,
+  mockEpisodeActions,
 } from '../test-utils';
 
 import { PlayerContainer } from './PlayerContainer';
@@ -11,10 +11,10 @@ import { PlayerContainer } from './PlayerContainer';
 it('should render the container', () => {
 
   const props = {
-    episode: fakeEpisode(),
+    episode: mockEpisode(),
     currentTime: 30,
     authenticated: false,
-    ...fakeEpisodeActions(),
+    ...mockEpisodeActions(),
   };
 
   const rendered = shallow(<PlayerContainer {...props} />);

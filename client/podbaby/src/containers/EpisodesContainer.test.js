@@ -2,10 +2,10 @@ import React from 'react';
 import { mount } from 'enzyme';
 
 import {
-  fakeRouter,
-  fakeLocation,
-  fakeEpisode,
-  fakeEpisodeActions,
+  mockRouter,
+  mockLocation,
+  mockEpisode,
+  mockEpisodeActions,
 } from '../test-utils';
 
 import { EpisodesContainer } from './EpisodesContainer';
@@ -13,20 +13,20 @@ import { EpisodesContainer } from './EpisodesContainer';
 const defaultProps = () => {
   return {
     episodes: [
-      fakeEpisode(),
+      mockEpisode(),
     ],
     loading: false,
     authenticated: false,
     location: {
-      ...fakeLocation(),
+      ...mockLocation(),
       query: {
         page: 1,
         q: '',
       },
     },
-    router: fakeRouter(),
+    router: mockRouter(),
     onFetchEpisodes: jest.fn(),
-    ...fakeEpisodeActions(),
+    ...mockEpisodeActions(),
   };
 };
 

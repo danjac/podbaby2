@@ -1,4 +1,4 @@
-export const fakeRouter = () => {
+export const mockRouter = () => {
   return {
     replace: jest.fn(),
     push: jest.fn(),
@@ -10,7 +10,7 @@ export const fakeRouter = () => {
   };
 };
 
-export const fakeLocation = () => {
+export const mockLocation = () => {
   return {
     search: '',
     action: '',
@@ -19,7 +19,7 @@ export const fakeLocation = () => {
   };
 };
 
-export const fakeEpisode = () => {
+export const mockEpisode = () => {
   return {
     id: 1,
     playing: false,
@@ -39,7 +39,7 @@ export const fakeEpisode = () => {
   };
 };
 
-export const fakeEpisodeActions = () => {
+export const mockEpisodeActions = () => {
   return {
     onStartPlayer: jest.fn(),
     onStopPlayer: jest.fn(),
