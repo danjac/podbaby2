@@ -4,7 +4,7 @@ import { addBookmark, removeBookmark } from '../actions/bookmarks';
 import { startPlayer, stopPlayer } from '../actions/player';
 import { subscribe, unsubscribe } from '../actions/subscriptions';
 
-export const bindEpisodeActions = dispatch => bindActionCreators({
+export const bindEpisodeActionCreators = dispatch => bindActionCreators({
   onAddBookmark: addBookmark,
   onRemoveBookmark: removeBookmark,
   onStopPlayer: stopPlayer,
@@ -13,7 +13,7 @@ export const bindEpisodeActions = dispatch => bindActionCreators({
   onUnsubscribe: unsubscribe,
 }, dispatch);
 
-export const bindChannelActions = dispatch => bindActionCreators({
+export const bindChannelActionCreators = dispatch => bindActionCreators({
   onSubscribe: subscribe,
   onUnsubscribe: unsubscribe,
 }, dispatch);

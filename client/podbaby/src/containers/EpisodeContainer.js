@@ -3,12 +3,12 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 
-import { episodeActionPropTypes } from '../prop-types';
+import { episodePropTypes } from '../prop-types';
 import { episodeSelector } from '../selectors';
 import { fetchEpisode } from '../actions/episode';
 import EpisodeDetail from '../components/EpisodeDetail';
 
-import { bindEpisodeActions } from './utils';
+import { bindEpisodeActionCreators } from './utils';
 
 export class EpisodeContainer extends Component {
   componentDidMount() {
@@ -37,7 +37,7 @@ EpisodeContainer.propTypes = {
   authenticated: PropTypes.bool.isRequired,
   loading: PropTypes.bool.isRequired,
   error: PropTypes.object,
-  ...episodeActionPropTypes,
+  ...episodePropTypes,
 };
 
 const mapStateToProps = state => {
@@ -60,7 +60,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    ...bindEpisodeActions(dispatch),
+    ...bindEpisodeActionCreators(dispatch),
     ...bindActionCreators({
       onFetchEpisode: fetchEpisode,
     }, dispatch),

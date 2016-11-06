@@ -5,7 +5,7 @@ import { playingEpisodeSelector } from '../selectors';
 import { episodePropTypes } from '../prop-types';
 import Player from '../components/Player';
 
-import { bindEpisodeActions } from './utils';
+import { bindEpisodeActionCreators } from './utils';
 
 export class PlayerContainer extends Component {
   render() {
@@ -31,7 +31,7 @@ const mapStateToProps = state => {
   };
 };
 
-const mapDispatchToProps = dispatch => bindEpisodeActions(dispatch);
+const mapDispatchToProps = dispatch => bindEpisodeActionCreators(dispatch);
 
 export default connect(
   mapStateToProps,
