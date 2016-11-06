@@ -1,4 +1,4 @@
-import http from './HTTPClient';
+import http from './client';
 
 export const getUser = () => http.get('/api/auth/me/');
 

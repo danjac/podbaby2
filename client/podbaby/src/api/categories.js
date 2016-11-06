@@ -1,5 +1,5 @@
-import http from './HTTPClient';
+import client from './client';
 
-const API_BASE_URL = '/api/categories';
+const API_BASE_URL = '/api/categories/';
 
-export const fetchAll = () => http.get(API_BASE_URL);
+export const fetchAll = () => client.get(API_BASE_URL);

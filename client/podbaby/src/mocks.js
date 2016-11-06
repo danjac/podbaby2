@@ -19,17 +19,21 @@ export const mockLocation = () => {
   };
 };
 
+export const mockCategories = () => {
+  return [
+    {
+      id: 1,
+      name: 'Comedy',
+    },
+  ];
+};
+
 export const mockChannel = () => {
   return {
     id: 1,
     subscribed: false,
     name: 'The Joe Rogan Experience',
-    categories: [
-      {
-        id: 1,
-        name: 'Comedy',
-        },
-      ],
+    categories: mockCategories(),
     explicit: true,
     thumbnail: {
       url: 'test.jpg',

@@ -2,7 +2,7 @@ import {
   partial,
 } from 'lodash';
 
-import http from './HTTPClient';
+import http from './client';
 
 const API_BASE_URL = '/api/episodes/';
 
