@@ -34,7 +34,6 @@ describe('fetchUser', () => {
 
   beforeEach(() => {
     api.auth.getUser.mockClear();
-    storage.auth.getToken.mockClear();
     storage.auth.setToken.mockClear();
   });
 
