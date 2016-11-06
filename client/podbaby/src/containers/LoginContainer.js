@@ -4,8 +4,7 @@ import { withRouter } from 'react-router';
 import { reduxForm } from 'redux-form';
 
 import * as api from '../api';
-import { fetchUser } from '../actions/auth';
-import { success } from '../actions/alerts';
+import { fetchAuthenticatedUser } from '../actions/auth';
 import Login from '../components/Login';
 
 export class LoginContainer extends Component {
@@ -21,10 +20,7 @@ export class LoginContainer extends Component {
 
     return api.auth.login(fields)
       .then(({ token }) => {
-        // make this a separate action e.g. fetchAuthenticatedUser()
-        // dispatch success in action
-        dispatch(fetchUser(token));
-        dispatch(success('Welcome back!'));
+        dispatch(fetchAuthenticatedUser(token));
         router.push('/');
       });
   }

@@ -46,28 +46,6 @@ describe('fetchUser', () => {
 
   });
 
-  it('should store token and fetch user if token provided as arg', () => {
-    api.auth.getUser.mockImplementation(() => {
-      return new Promise(resolve => {
-        resolve({
-          name: 'tester',
-        });
-      });
-    });
-
-    const store = createMockStore();
-
-    return store.dispatch(fetchUser('token'))
-      .then(() => {
-        const actions = store.getActions();
-        expect(actions.length).toBe(2);
-        expect(actions[0].type).toBe(FETCH_USER_REQUEST);
-        expect(actions[1].type).toBe(FETCH_USER_SUCCESS);
-        expect(actions[1].payload.name).toBe('tester');
-        expect(storage.auth.setToken).toBeCalledWith('token');
-      });
-  });
-
   it('should get token and call if available', () => {
     api.auth.getUser.mockImplementation(() => {
       return new Promise(resolve => {
