@@ -7,7 +7,7 @@ import {
   FETCH_EPISODES_FAILURE,
   FETCH_EPISODES_REQUEST,
   FETCH_EPISODES_SUCCESS,
-} from '../action-types';
+} from '../actionTypes';
 
 
 const fetch = (apiCall, page, searchQuery) => dispatch => dispatchApiCall(

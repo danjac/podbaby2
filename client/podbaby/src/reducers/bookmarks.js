@@ -3,7 +3,7 @@ import {
   REMOVE_BOOKMARK,
   FETCH_USER_SUCCESS,
   LOGOUT,
-} from '../action-types';
+} from '../actionTypes';
 
 const initialState = [];
 

@@ -2,7 +2,7 @@ import {
   RELOAD_PLAYER,
   START_PLAYER,
   STOP_PLAYER,
-} from '../action-types';
+} from '../actionTypes';
 
 import reducer from './player';
 

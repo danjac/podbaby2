@@ -2,7 +2,7 @@ import React, { PropTypes, Component } from 'react';
 import { connect } from 'react-redux';
 
 import { playingEpisodeSelector } from '../selectors';
-import { episodePropTypes } from '../prop-types';
+import { episodePropTypes } from '../propTypes';
 import Player from '../components/Player';
 
 import { bindEpisodeActionCreators } from './utils';

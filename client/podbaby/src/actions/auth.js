@@ -4,10 +4,10 @@ import {
   FETCH_USER_SUCCESS,
   NOT_AUTHENTICATED,
   LOGOUT,
-} from '../action-types';
+} from '../actionTypes';
 
 import * as api from '../api';
-import * as storage from '../local-storage';
+import * as storage from '../storage';
 
 import { createAction, dispatchApiCall } from './utils';
 

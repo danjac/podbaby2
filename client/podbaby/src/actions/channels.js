@@ -7,7 +7,7 @@ import {
   FETCH_CHANNELS_FAILURE,
   FETCH_CHANNELS_REQUEST,
   FETCH_CHANNELS_SUCCESS,
-} from '../action-types';
+} from '../actionTypes';
 
 
 const fetch = (apiCall, page, searchQuery) => dispatch => dispatchApiCall(

@@ -2,7 +2,7 @@ import {
   START_PLAYER,
   STOP_PLAYER,
   RELOAD_PLAYER,
-} from '../action-types';
+} from '../actionTypes';
 
 import {
   startPlayer,
@@ -11,11 +11,11 @@ import {
 } from './player';
 
 jest.mock('../api');
-jest.mock('../local-storage');
+jest.mock('../storage');
 
 describe('stopPlayer', () => {
 
-  const storage = require('../local-storage');
+  const storage = require('../storage');
 
   it('should remove player on stop', () => {
     const action = stopPlayer();
@@ -28,7 +28,7 @@ describe('stopPlayer', () => {
 describe('startPlayer', () => {
 
   const api = require('../api');
-  const storage = require('../local-storage');
+  const storage = require('../storage');
 
   beforeEach(() => {
     api.plays.save.mockClear();
@@ -73,7 +73,7 @@ describe('startPlayer', () => {
 
 describe('reloadPlayer', () => {
 
-  const storage = require('../local-storage');
+  const storage = require('../storage');
 
   beforeEach(() => {
     storage.player.load.mockClear();

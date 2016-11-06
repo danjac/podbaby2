@@ -4,7 +4,7 @@ import {
   FETCH_USER_SUCCESS,
   NOT_AUTHENTICATED,
   LOGOUT,
-} from '../action-types';
+} from '../actionTypes';
 
 import reducer from './auth';
 

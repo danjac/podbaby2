@@ -3,7 +3,7 @@ import {
   UNSUBSCRIBE,
   FETCH_USER_SUCCESS,
   LOGOUT,
-} from '../action-types';
+} from '../actionTypes';
 
 const initialState = [];
 

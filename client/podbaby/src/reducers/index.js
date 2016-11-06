@@ -1,10 +1,6 @@
-import {
-  combineReducers,
-} from 'redux';
+import { combineReducers } from 'redux';
 
-import {
-  reducer as formReducer,
-} from 'redux-form';
+import { reducer as formReducer } from 'redux-form';
 
 import alerts from './alerts';
 import auth from './auth';

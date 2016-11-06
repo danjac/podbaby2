@@ -1,12 +1,12 @@
 import * as api from '../api';
-import * as storage from '../local-storage';
+import * as storage from '../storage';
 import { createAction } from './utils';
 
 import {
   START_PLAYER,
   STOP_PLAYER,
   RELOAD_PLAYER,
-} from '../action-types';
+} from '../actionTypes';
 
 export function reloadPlayer() {
   return createAction(RELOAD_PLAYER, storage.player.load());

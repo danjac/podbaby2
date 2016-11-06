@@ -2,7 +2,7 @@ import {
   FETCH_CHANNELS_REQUEST,
   FETCH_CHANNELS_SUCCESS,
   FETCH_CHANNELS_FAILURE,
-} from '../action-types';
+} from '../actionTypes';
 
 import { pageNumberFromUrl } from './utils';
 

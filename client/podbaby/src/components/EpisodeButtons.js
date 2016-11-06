@@ -3,7 +3,7 @@ import React, { PropTypes } from 'react';
 import Icon from 'react-fa';
 import * as bs from 'react-bootstrap';
 
-import { episodePropTypes } from '../prop-types';
+import { episodePropTypes } from '../propTypes';
 
 export const EpisodeButtons = ({
   episode,

@@ -3,7 +3,7 @@ import * as bs from 'react-bootstrap';
 import Icon from 'react-fa';
 import { Link } from 'react-router';
 
-import { episodePropTypes, authPropTypes } from '../prop-types';
+import { episodePropTypes, authPropTypes } from '../propTypes';
 
 import EpisodeButtons from './EpisodeButtons';
 

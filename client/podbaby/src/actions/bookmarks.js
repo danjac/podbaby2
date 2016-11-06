@@ -1,5 +1,5 @@
 import * as api from '../api';
-import { ADD_BOOKMARK, REMOVE_BOOKMARK } from '../action-types';
+import { ADD_BOOKMARK, REMOVE_BOOKMARK } from '../actionTypes';
 
 import { createAction } from './utils';
 

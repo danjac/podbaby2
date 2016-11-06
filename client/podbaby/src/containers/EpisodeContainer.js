@@ -3,7 +3,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 
-import { episodePropTypes } from '../prop-types';
+import { episodePropTypes } from '../propTypes';
 import { episodeSelector } from '../selectors';
 import { fetchEpisode } from '../actions/episode';
 import EpisodeDetail from '../components/EpisodeDetail';

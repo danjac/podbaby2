@@ -3,7 +3,7 @@ import * as bs from 'react-bootstrap';
 import Icon from 'react-fa';
 import moment from 'moment';
 
-import { episodePropTypes } from '../prop-types';
+import { episodePropTypes } from '../propTypes';
 
 import Loader from './Loader';
 import EpisodeButtons from './EpisodeButtons';

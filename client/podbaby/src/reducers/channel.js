@@ -2,7 +2,7 @@ import {
   FETCH_CHANNEL_FAILURE,
   FETCH_CHANNEL_REQUEST,
   FETCH_CHANNEL_SUCCESS,
-} from '../action-types';
+} from '../actionTypes';
 
 const initialState = {
   loading: false,

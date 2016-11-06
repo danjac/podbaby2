@@ -4,7 +4,7 @@ import { shallow } from 'enzyme';
 import { LoginContainer } from './LoginContainer';
 
 jest.mock('../api');
-jest.mock('../local-storage');
+jest.mock('../storage');
 
 it('should render the container', () => {
   const props = {
@@ -20,7 +20,7 @@ it('should render the container', () => {
 
 it('should handle submit', () => {
 
-  //const storage = require('../local-storage');
+  //const storage = require('../storage');
   const api = require('../api');
 
   const props = {

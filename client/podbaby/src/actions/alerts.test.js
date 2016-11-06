@@ -1,7 +1,7 @@
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 
-import { CREATE_ALERT, DISMISS_ALERT } from '../action-types';
+import { CREATE_ALERT, DISMISS_ALERT } from '../actionTypes';
 
 import { createAlert } from './alerts';
 

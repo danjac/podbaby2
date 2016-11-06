@@ -15,7 +15,6 @@ const routes = configureRoutes(browserHistory, store);
 
 store.dispatch(fetchUser());
 
-
 ReactDOM.render(
   <Provider store={store}>
   {routes}

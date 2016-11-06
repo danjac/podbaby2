@@ -5,7 +5,7 @@ import {
   FETCH_CATEGORIES_FAILURE,
   FETCH_CATEGORIES_REQUEST,
   FETCH_CATEGORIES_SUCCESS,
-} from '../action-types';
+} from '../actionTypes';
 
 import {
   fetchCategories,

@@ -1,4 +1,4 @@
-import { ADD_BOOKMARK, REMOVE_BOOKMARK } from '../action-types';
+import { ADD_BOOKMARK, REMOVE_BOOKMARK } from '../actionTypes';
 
 import { addBookmark, removeBookmark } from './bookmarks';
 

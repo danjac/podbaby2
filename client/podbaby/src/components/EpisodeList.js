@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react';
 
-import { episodesPropTypes } from '../prop-types';
+import { episodesPropTypes } from '../propTypes';
 
 import Pager from './Pager';
 import EpisodeListItem from './EpisodeListItem';

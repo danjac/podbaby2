@@ -1,6 +1,6 @@
 import { uniqueId, partial } from 'lodash';
 
-import { CREATE_ALERT, DISMISS_ALERT } from '../action-types';
+import { CREATE_ALERT, DISMISS_ALERT } from '../actionTypes';
 import { createAction } from './utils';
 
 

@@ -2,7 +2,7 @@ import {
   FETCH_EPISODES_REQUEST,
   FETCH_EPISODES_SUCCESS,
   FETCH_EPISODES_FAILURE,
-} from '../action-types';
+} from '../actionTypes';
 
 import reducer from './episodes';
 

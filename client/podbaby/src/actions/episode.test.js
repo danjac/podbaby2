@@ -5,7 +5,7 @@ import {
   FETCH_EPISODE_FAILURE,
   FETCH_EPISODE_REQUEST,
   FETCH_EPISODE_SUCCESS,
-} from '../action-types';
+} from '../actionTypes';
 
 
 import { fetchEpisode } from './episode';

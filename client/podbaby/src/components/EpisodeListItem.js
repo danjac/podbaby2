@@ -3,7 +3,7 @@ import { Link } from 'react-router';
 import * as bs from 'react-bootstrap';
 import moment from 'moment';
 
-import { episodePropTypes } from '../prop-types';
+import { episodePropTypes } from '../propTypes';
 import defaultThumbnail from './podcast.svg';
 import Labels from './Labels';
 import EpisodeButtons from './EpisodeButtons';

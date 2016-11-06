@@ -6,7 +6,7 @@ import { routerShape, locationShape } from 'react-router/lib/PropTypes';
 
 import { fetchAllEpisodes } from '../actions/episodes';
 import { episodesSelector } from '../selectors';
-import { episodesPropTypes, authPropTypes } from '../prop-types';
+import { episodesPropTypes, authPropTypes } from '../propTypes';
 import Episodes from '../components/Episodes';
 
 import { bindEpisodeActionCreators } from './utils';

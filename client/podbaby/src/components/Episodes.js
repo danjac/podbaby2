@@ -2,7 +2,7 @@ import React, { PropTypes, Component } from 'react';
 import * as bs from 'react-bootstrap';
 import Icon from 'react-fa';
 
-import { episodeActionPropTypes } from '../prop-types';
+import { episodeActionPropTypes } from '../propTypes';
 
 import Search from './Search';
 import Loader from './Loader';

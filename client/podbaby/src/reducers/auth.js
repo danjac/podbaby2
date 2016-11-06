@@ -4,7 +4,7 @@ import {
   FETCH_USER_SUCCESS,
   LOGOUT,
   NOT_AUTHENTICATED,
-} from '../action-types';
+} from '../actionTypes';
 
 const initialState = {
   authenticated: false,

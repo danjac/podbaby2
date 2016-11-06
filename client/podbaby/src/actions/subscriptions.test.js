@@ -1,4 +1,4 @@
-import { SUBSCRIBE, UNSUBSCRIBE } from '../action-types';
+import { SUBSCRIBE, UNSUBSCRIBE } from '../actionTypes';
 
 import { subscribe, unsubscribe } from './subscriptions';
 

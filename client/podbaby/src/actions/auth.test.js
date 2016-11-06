@@ -8,7 +8,7 @@ import {
   NOT_AUTHENTICATED,
   CREATE_ALERT,
   LOGOUT,
-} from '../action-types';
+} from '../actionTypes';
 
 import {
   logout,
@@ -17,13 +17,13 @@ import {
 } from './auth';
 
 jest.mock('../api');
-jest.mock('../local-storage');
+jest.mock('../storage');
 
 const createMockStore = configureMockStore([thunk]);
 
 describe('logout', () => {
 
-  const storage = require('../local-storage');
+  const storage = require('../storage');
 
   it('Should logout', () => {
     const store = createMockStore();
@@ -35,7 +35,7 @@ describe('logout', () => {
 
 describe('fetchAuthenticatedUser', () => {
 
-  const storage = require('../local-storage');
+  const storage = require('../storage');
   const api = require('../api');
 
   it('should get token and call if available', () => {
@@ -73,7 +73,7 @@ describe('fetchAuthenticatedUser', () => {
 
 describe('fetchUser', () => {
 
-  const storage = require('../local-storage');
+  const storage = require('../storage');
   const api = require('../api');
 
   beforeEach(() => {
