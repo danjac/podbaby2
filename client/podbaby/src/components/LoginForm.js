@@ -4,7 +4,7 @@ import { Field } from 'redux-form';
 
 import FormControl from './FormControl';
 
-class Login extends Component {
+class LoginForm extends Component {
 
   render() {
 
@@ -46,10 +46,10 @@ class Login extends Component {
   }
 }
 
-Login.propTypes = {
+LoginForm.propTypes = {
   onSubmit: PropTypes.func.isRequired,
   submitFailed: PropTypes.bool.isRequired,
   submitting: PropTypes.bool.isRequired,
 };
 
-export default Login;
+export default LoginForm;

@@ -45,9 +45,7 @@ describe('fetchAuthenticatedUser', () => {
     };
 
     api.auth.getUser.mockImplementation(() => {
-      return new Promise(resolve => {
-        resolve(user);
-      });
+      return new Promise(resolve => resolve(user));
     });
 
     const store = createMockStore({

@@ -5,7 +5,7 @@ import { reduxForm } from 'redux-form';
 
 import * as api from '../api';
 import { fetchAuthenticatedUser } from '../actions/auth';
-import Login from '../components/Login';
+import LoginForm from '../components/LoginForm';
 
 export class LoginContainer extends Component {
 
@@ -30,7 +30,7 @@ export class LoginContainer extends Component {
     const { handleSubmit } = this.props;
     const onSubmit = handleSubmit(this.handleSubmit);
 
-    return <Login onSubmit={onSubmit} {...this.props} />;
+    return <LoginForm onSubmit={onSubmit} {...this.props} />;
   }
 
 }
