@@ -37,6 +37,7 @@ EpisodeContainer.propTypes = {
   authenticated: PropTypes.bool.isRequired,
   loading: PropTypes.bool.isRequired,
   error: PropTypes.object,
+  onFetchEpisode: PropTypes.func.isRequired,
   ...episodePropTypes,
 };
 

@@ -9,7 +9,7 @@ import { episodesSelector } from '../selectors';
 import { episodesPropTypes, authPropTypes } from '../prop-types';
 import Episodes from '../components/Episodes';
 
-import { bindEpisodeActions } from './utils';
+import { bindEpisodeActionCreators } from './utils';
 
 export class EpisodesContainer extends Component {
 
@@ -115,7 +115,7 @@ const mapDispatchToProps = dispatch => {
     ...bindActionCreators({
       onFetchEpisodes: fetchAllEpisodes,
     }, dispatch),
-    ...bindEpisodeActions(dispatch),
+    ...bindEpisodeActionCreators(dispatch),
   };
 };
 

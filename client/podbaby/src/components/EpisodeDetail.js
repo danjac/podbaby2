@@ -3,7 +3,7 @@ import * as bs from 'react-bootstrap';
 import Icon from 'react-fa';
 import moment from 'moment';
 
-import { episodeActionPropTypes } from '../prop-types';
+import { episodePropTypes } from '../prop-types';
 
 import Loader from './Loader';
 import EpisodeButtons from './EpisodeButtons';
@@ -37,7 +37,7 @@ class EpisodeDetail extends Component {
     const { channel } = episode;
 
     const description = sanitize(
-      episode.description || episode.summary || episode.subtitle
+      episode.description || episode.summary || episode.subtitle || ''
     );
 
     const thumbnail = channel.thumbnail || {
@@ -89,11 +89,10 @@ class EpisodeDetail extends Component {
 }
 
 EpisodeDetail.propTypes = {
-  episode: PropTypes.object,
   authenticated: PropTypes.bool.isRequired,
   error: PropTypes.object,
   loading: PropTypes.bool.isRequired,
-  ...episodeActionPropTypes,
+  ...episodePropTypes,
 };
 
 export default EpisodeDetail;

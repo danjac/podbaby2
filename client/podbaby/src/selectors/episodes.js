@@ -10,10 +10,15 @@ export const episodesSelector = createSelector(
   bookmarksSelector,
   (episodes, player, subscriptions, bookmarks) => {
     return episodes.map(episode => {
+      const subscribed = isSubscribed(subscriptions, episode.channel);
       return {...episode,
-        subscribed: isSubscribed(subscriptions, episode.channel),
+        subscribed,
         bookmarked: isBookmarked(bookmarks, episode),
         playing: isPlaying(player, episode),
+        channel: {
+          ...episode.channel,
+          subscribed,
+        },
       };
     });
   },
