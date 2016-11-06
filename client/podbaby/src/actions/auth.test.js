@@ -6,10 +6,15 @@ import {
   FETCH_USER_SUCCESS,
   FETCH_USER_FAILURE,
   NOT_AUTHENTICATED,
+  CREATE_ALERT,
   LOGOUT,
 } from '../action-types';
 
-import { logout, fetchUser } from './auth';
+import {
+  logout,
+  fetchUser,
+  fetchAuthenticatedUser,
+} from './auth';
 
 jest.mock('../api');
 jest.mock('../local-storage');
@@ -21,9 +26,50 @@ describe('logout', () => {
   const storage = require('../local-storage');
 
   it('Should logout', () => {
-    const action = logout();
-    expect(action.type).toBe(LOGOUT);
+    const store = createMockStore();
+    store.dispatch(logout());
+    expect(store.getActions()[0].type).toBe(LOGOUT);
     expect(storage.auth.removeToken).toBeCalled();
+  });
+});
+
+describe('fetchAuthenticatedUser', () => {
+
+  const storage = require('../local-storage');
+  const api = require('../api');
+
+  it('should get token and call if available', () => {
+
+    const user = {
+        username: 'tester',
+    };
+
+    api.auth.getUser.mockImplementation(() => {
+      return new Promise(resolve => {
+        resolve(user);
+      });
+    });
+
+    const store = createMockStore({
+      auth: {
+        user,
+      },
+    });
+
+    return store.dispatch(fetchAuthenticatedUser())
+      .then(() => {
+        const actions = store.getActions();
+        expect(actions.length).toBe(3);
+
+        expect(actions[0].type).toBe(FETCH_USER_REQUEST);
+        expect(actions[1].type).toBe(FETCH_USER_SUCCESS);
+        expect(actions[1].payload.username).toBe('tester');
+        expect(actions[2].type).toBe(CREATE_ALERT);
+        expect(actions[2].payload.message).toBe('Welcome back, tester');
+
+        expect(storage.auth.setToken).toBeCalled();
+      });
+
   });
 });
 
@@ -49,7 +95,7 @@ describe('fetchUser', () => {
     api.auth.getUser.mockImplementation(() => {
       return new Promise(resolve => {
         resolve({
-          name: 'tester',
+          username: 'tester',
         });
       });
     });
@@ -64,7 +110,7 @@ describe('fetchUser', () => {
         expect(actions.length).toBe(2);
         expect(actions[0].type).toBe(FETCH_USER_REQUEST);
         expect(actions[1].type).toBe(FETCH_USER_SUCCESS);
-        expect(actions[1].payload.name).toBe('tester');
+        expect(actions[1].payload.username).toBe('tester');
         expect(storage.auth.getToken).toBeCalled();
       });
   });
@@ -93,4 +139,5 @@ describe('fetchUser', () => {
       });
 
   });
+
 });
