@@ -12,8 +12,8 @@ describe('subscribe', () => {
     const channel = { id: 1 };
     const action = subscribe(channel);
     expect(action.type).toBe(SUBSCRIBE);
-    expect(action.payload).toBe(channel);
-    expect(api.subscriptions.subscribe).toBeCalledWith(channel.id);
+    expect(action.payload).toBe(1);
+    expect(api.subscriptions.subscribe).toBeCalledWith(1);
   });
 
 });
@@ -26,8 +26,8 @@ describe('unsubscribe', () => {
     const channel = { id: 1 };
     const action = unsubscribe(channel);
     expect(action.type).toBe(UNSUBSCRIBE);
-    expect(action.payload).toBe(channel);
-    expect(api.subscriptions.unsubscribe).toBeCalledWith(channel.id);
+    expect(action.payload).toBe(1);
+    expect(api.subscriptions.unsubscribe).toBeCalledWith(1);
   });
 
 });
