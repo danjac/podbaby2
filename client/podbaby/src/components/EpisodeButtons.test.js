@@ -39,7 +39,7 @@ it('should render the component', () => {
 it('should enable play button if not playing', () => {
   const defaultProps = createDefaultProps();
   const episode = {...defaultProps.episode,
-    isPlaying: false,
+    playing: false,
   };
   const props = {...defaultProps,
     episode,
@@ -55,7 +55,7 @@ it('should enable play button if not playing', () => {
 it('should enable stop button if playing', () => {
   const defaultProps = createDefaultProps();
   const episode = {...defaultProps.episode,
-    isPlaying: true,
+    playing: true,
   };
   const props = {...defaultProps,
     episode,
@@ -96,6 +96,19 @@ it('should show a subscribe button if user is logged in', () => {
   expect(btnGroup.find('[title="Subscribe to The Joe Rogan Experience"]').length).toBe(1);
 
 });
+
+it('should not show a subscribe or unsubscribe button if canSubscribe is false', () => {
+  const props = {...createDefaultProps(),
+    authenticated: true,
+    canSubscribe: false,
+  };
+  const rendered = shallow(<EpisodeButtons {...props} />);
+  const btnGroup = rendered.find(bs.ButtonGroup);
+  expect(btnGroup.find('[title="Subscribe to The Joe Rogan Experience"]').length).toBe(0);
+
+  expect(btnGroup.find('[title="Unsubscribe from The Joe Rogan Experience"]').length).toBe(0);
+});
+
 
 it('should not show a subscribe button if channel subscribe', () => {
   const defaultProps = createDefaultProps();

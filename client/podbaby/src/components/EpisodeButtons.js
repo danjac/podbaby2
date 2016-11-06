@@ -9,6 +9,7 @@ export const EpisodeButtons = ({
   episode,
   episode: { channel },
   authenticated,
+  canSubscribe,
   onAddBookmark,
   onRemoveBookmark,
   onStartPlayer,
@@ -55,33 +56,35 @@ export const EpisodeButtons = ({
         <bs.Button key="bookmarkBtn"
                    onClick={() => onRemoveBookmark(episode)}
                    title="Remove bookmark">
-                   <Icon name="star" /></bs.Button>);
+                   <Icon name="bookmark" /></bs.Button>);
     } else {
       bookmarkBtn = (
         <bs.Button key="bookmarkBtn"
                    onClick={() => onAddBookmark(episode)}
                    title="Bookmark this podcast">
-                   <Icon name="star-o" /></bs.Button>);
+                   <Icon name="bookmark-o" /></bs.Button>);
     }
 
     buttons.push(bookmarkBtn);
 
-    let subscriptionBtn;
-    if (episode.subscribed) {
-      subscriptionBtn = (
-        <bs.Button key="subscribeBtn"
-                     onClick={() => onUnsubscribe(episode.channel)}
-                     title={`Unsubscribe from ${channel.name}`}>
-                     <Icon name="remove" /></bs.Button>);
-    } else {
-      subscriptionBtn = (
-        <bs.Button key="subscribeBtn"
-                     onClick={() => onSubscribe(episode.channel)}
-                     title={`Subscribe to ${channel.name}`}>
-                     <Icon name="plus-circle" /></bs.Button>);
+    if (canSubscribe) {
+      let subscriptionBtn;
+      if (episode.subscribed) {
+        subscriptionBtn = (
+          <bs.Button key="subscribeBtn"
+                       onClick={() => onUnsubscribe(episode.channel)}
+                       title={`Unsubscribe from ${channel.name}`}>
+                       <Icon name="remove" /></bs.Button>);
+      } else {
+        subscriptionBtn = (
+          <bs.Button key="subscribeBtn"
+                       onClick={() => onSubscribe(episode.channel)}
+                       title={`Subscribe to ${channel.name}`}>
+                       <Icon name="plus-circle" /></bs.Button>);
 
+      }
+      buttons.push(subscriptionBtn);
     }
-    buttons.push(subscriptionBtn);
 
   };
 
@@ -99,8 +102,12 @@ export const EpisodeButtons = ({
 EpisodeButtons.propTypes = {
   episode: PropTypes.object.isRequired,
   authenticated: PropTypes.bool.isRequired,
+  canSubscribe: PropTypes.bool.isRequired,
   ...episodeActionPropTypes,
 };
 
+EpisodeButtons.defaultProps = {
+  canSubscribe: true,
+};
 
 export default EpisodeButtons;

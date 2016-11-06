@@ -91,8 +91,8 @@ class Navbar extends Component {
               <bs.NavDropdown title={<span><Icon name="headphones" /> Podcasts</span>} id="podcasts-dropdown">
                 <LinkMenuItem to="/podcasts/me/" icon="user" onClick={this.handleClose}>My podcasts</LinkMenuItem>
                 <LinkMenuItem to="/podcasts/all/" icon="list" onClick={this.handleClose}>All podcasts</LinkMenuItem>
-                <LinkMenuItem to="/podcasts/starred/" icon="star" onClick={this.handleClose}>Starred podcasts</LinkMenuItem>
-                <LinkMenuItem to="/podcasts/history/" icon="history" onClick={this.handleClose}>Listening history</LinkMenuItem>
+                <LinkMenuItem to="/podcasts/bookmarks/" icon="bookmark" onClick={this.handleClose}> Bookmarks</LinkMenuItem>
+                <LinkMenuItem to="/podcasts/history/" icon="history" onClick={this.handleClose}> History</LinkMenuItem>
               </bs.NavDropdown>)}
 
             {!authenticated && <LinkNavItem to="/podcasts/all/" icon="headphones">Podcasts</LinkNavItem>}
