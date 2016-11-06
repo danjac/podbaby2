@@ -4,7 +4,7 @@ import * as bs from 'react-bootstrap';
 import moment from 'moment';
 
 import { episodeActionPropTypes } from '../prop-types';
-import defaultThumbnail from '../podcast.svg';
+import defaultThumbnail from './podcast.svg';
 import Labels from './Labels';
 import EpisodeButtons from './EpisodeButtons';
 import { sanitize } from './utils';
@@ -65,8 +65,14 @@ export const EpisodeListItem = props => {
 
 EpisodeListItem.propTypes = {
   episode: PropTypes.object.isRequired,
+  canSubscribe: PropTypes.bool.isRequired,
   ...episodeActionPropTypes,
 };
+
+EpisodeListItem.defaultProps = {
+  canSubscribe: true,
+};
+
 
 
 export default EpisodeListItem;

@@ -48,7 +48,12 @@ EpisodeList.propTypes = {
   previous: PropTypes.number,
   ifEmpty: PropTypes.string,
   onSelectPage: PropTypes.func.isRequired,
+  canSubscribe: PropTypes.bool.isRequired,
   ...episodeActionPropTypes,
+};
+
+EpisodeList.defaultProps = {
+  canSubscribe: true,
 };
 
 export default EpisodeList;

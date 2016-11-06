@@ -3,9 +3,9 @@ export const CREATE_ALERT = 'podbaby/CREATE_ALERT';
 export const DISMISS_ALERT = 'podbaby/DISMISS_ALERT';
 
 // auth
-export const FETCH_USER_FAILURE = 'podbaby/FETCH_USERS_FAILURE';
-export const FETCH_USER_REQUEST = 'podbaby/FETCH_USERS_REQUEST';
-export const FETCH_USER_SUCCESS = 'podbaby/FETCH_USERS_SUCCESS';
+export const FETCH_USER_FAILURE = 'podbaby/FETCH_USER_FAILURE';
+export const FETCH_USER_REQUEST = 'podbaby/FETCH_USER_REQUEST';
+export const FETCH_USER_SUCCESS = 'podbaby/FETCH_USER_SUCCESS';
 export const LOGOUT = 'podbaby/LOGOUT';
 export const NOT_AUTHENTICATED = 'podbaby/NOT_AUTHENTICATED';
 
@@ -34,9 +34,9 @@ export const FETCH_EPISODES_REQUEST = 'podbaby/FETCH_EPISODES_REQUEST';
 export const FETCH_EPISODES_SUCCESS = 'podbaby/FETCH_EPISODES_SUCCESS';
 
 // episode
-export const FETCH_EPISODE_FAILURE = 'podbaby/FETCH_EPISODES_FAILURE';
-export const FETCH_EPISODE_REQUEST = 'podbaby/FETCH_EPISODES_REQUEST';
-export const FETCH_EPISODE_SUCCESS = 'podbaby/FETCH_EPISODES_SUCCESS';
+export const FETCH_EPISODE_FAILURE = 'podbaby/FETCH_EPISODE_FAILURE';
+export const FETCH_EPISODE_REQUEST = 'podbaby/FETCH_EPISODE_REQUEST';
+export const FETCH_EPISODE_SUCCESS = 'podbaby/FETCH_EPISODE_SUCCESS';
 
 // player
 export const RELOAD_PLAYER = 'podbaby/RELOAD_PLAYER';

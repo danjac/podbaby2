@@ -21,6 +21,7 @@ const createDefaultProps = () => {
       },
     },
     authenticated: false,
+    canSubscribe: true,
     onStartPlayer: jest.fn(),
     onStopPlayer: jest.fn(),
     onAddBookmark: jest.fn(),

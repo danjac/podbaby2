@@ -5,6 +5,7 @@ import { Router, Route, IndexRoute } from 'react-router';
 
 import AppContainer from './containers/AppContainer';
 import EpisodesContainer from './containers/EpisodesContainer';
+import EpisodeContainer from './containers/EpisodeContainer';
 import LoginContainer from './containers/LoginContainer';
 
 export default function(history, store) {
@@ -31,6 +32,7 @@ export default function(history, store) {
         <Route path="podcasts/">
           <Route path="all/" component={EpisodesContainer} />
           <Route path="me/" component={EpisodesContainer} />
+          <Route path=":id/" component={EpisodeContainer} />
         </Route>
         <Route path="login/" component={LoginContainer} />
         {/*

@@ -6,7 +6,7 @@ import http from './http-client';
 
 const API_BASE_URL = '/api/episodes/';
 
-export const get = id => http.get(`${API_BASE_URL}/{id}/`);
+export const get = id => http.get(`${API_BASE_URL}${id}/`);
 
 const fetchMany = (url, page, searchQuery) => {
   const params = {};
