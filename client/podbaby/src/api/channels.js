@@ -1,6 +1,6 @@
 import { partial } from 'lodash';
 
-import http from './http-client';
+import http from './HTTPClient';
 
 const API_BASE_URL = '/api/channels/';
 
