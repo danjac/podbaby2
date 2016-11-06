@@ -4,7 +4,7 @@ import { shallow } from 'enzyme';
 import {
   mockEpisode,
   mockEpisodeActions,
-} from '../test-utils';
+} from '../mocks';
 
 import { PlayerContainer } from './PlayerContainer';
 

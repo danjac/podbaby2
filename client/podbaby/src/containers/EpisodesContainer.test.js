@@ -6,7 +6,7 @@ import {
   mockLocation,
   mockEpisode,
   mockEpisodeActions,
-} from '../test-utils';
+} from '../mocks';
 
 import { EpisodesContainer } from './EpisodesContainer';
 
