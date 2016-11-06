@@ -29,7 +29,7 @@ export const EpisodeListItem = props => {
   );
 
   const description = sanitize(
-    episode.subtitle || episode.summary || episode.description
+    (episode.subtitle || episode.summary || episode.description) || ''
   );
 
   const title = episode.title || channel.name;
@@ -52,7 +52,7 @@ export const EpisodeListItem = props => {
             alt={channel.name} />
         </bs.Media.Left>
         <bs.Media.Body>
-          <Labels categories={channel.categories}
+          <Labels categories={channel.categories || []}
             explicit={episode.explicit} />
           {published && <p><strong>{published}</strong></p>}
         </bs.Media.Body>

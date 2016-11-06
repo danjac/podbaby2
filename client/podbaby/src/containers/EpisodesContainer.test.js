@@ -1,38 +1,32 @@
 import React from 'react';
 import { mount } from 'enzyme';
 
+import {
+  fakeRouter,
+  fakeLocation,
+  fakeEpisode,
+  fakeEpisodeActions,
+} from '../test-utils';
+
 import { EpisodesContainer } from './EpisodesContainer';
 
 const defaultProps = () => {
   return {
-    episodes: [],
+    episodes: [
+      fakeEpisode(),
+    ],
     loading: false,
     authenticated: false,
     location: {
-      search: '',
-      action: '',
-      pathname: '/',
+      ...fakeLocation(),
       query: {
         page: 1,
         q: '',
       },
     },
-    router: {
-      replace: jest.fn(),
-      push: jest.fn(),
-      go: jest.fn(),
-      goBack: jest.fn(),
-      goForward: jest.fn(),
-      setRouteLeaveHook: jest.fn(),
-      isActive: () => true,
-    },
+    router: fakeRouter(),
     onFetchEpisodes: jest.fn(),
-    onStartPlayer: jest.fn(),
-    onStopPlayer: jest.fn(),
-    onAddBookmark: jest.fn(),
-    onRemoveBookmark: jest.fn(),
-    onSubscribe: jest.fn(),
-    onUnsubscribe: jest.fn(),
+    ...fakeEpisodeActions(),
   };
 };
 

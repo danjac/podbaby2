@@ -14,10 +14,22 @@ export const channelActionPropTypes = {
   onUnsubscribe: PropTypes.func.isRequired,
 };
 
+export const categoryShape = PropTypes.shape({
+  id: PropTypes.any.isRequired,
+  name: PropTypes.string.isRequired,
+});
+
+export const thumbnailShape = PropTypes.shape({
+  url: PropTypes.string,
+  width: PropTypes.number,
+  height: PropTypes.number,
+});
+
 export const channelShape = PropTypes.shape({
   id: PropTypes.any.isRequired,
-  //subscribed: PropTypes.bool.isRequired,
-  // categories: PropTypes.arrayOf(categoryShape),
+  thumbnail: thumbnailShape,
+  // subscribed: PropTypes.bool.isRequired,
+  categories: PropTypes.arrayOf(categoryShape),
 });
 
 export const userShape = PropTypes.shape({
@@ -38,7 +50,7 @@ export const episodeShape = PropTypes.shape({
 });
 
 export const channelPropTypes = {
-  channel: channelShape.isRequired,
+  channel: channelShape,
   ...channelActionPropTypes,
 };
 

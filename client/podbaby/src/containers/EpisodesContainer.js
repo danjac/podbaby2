@@ -85,7 +85,6 @@ EpisodesContainer.propTypes = {
   ...episodesPropTypes,
   ...authPropTypes,
   loading: PropTypes.bool.isRequired,
-  // tbd use router/location shapes
   location: locationShape.isRequired,
   router: routerShape.isRequired,
   onFetchEpisodes: PropTypes.func.isRequired,
