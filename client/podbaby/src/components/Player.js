@@ -1,9 +1,9 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
 import * as bs from 'react-bootstrap';
 import Icon from 'react-fa';
 import { Link } from 'react-router';
 
-import { episodeActionPropTypes } from '../prop-types';
+import { episodePropTypes, authPropTypes } from '../prop-types';
 
 import EpisodeButtons from './EpisodeButtons';
 
@@ -94,9 +94,12 @@ class Player extends Component {
 };
 
 Player.propTypes = {
-  episode: PropTypes.any,
-  authenticated: PropTypes.bool.isRequired,
-  ...episodeActionPropTypes,
+  ...episodePropTypes,
+  ...authPropTypes,
+};
+
+Player.defaultProps = {
+  canSubscribe: true,
 };
 
 export default Player;

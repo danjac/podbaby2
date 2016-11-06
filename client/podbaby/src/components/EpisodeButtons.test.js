@@ -14,11 +14,14 @@ const createDefaultProps = () => {
   return {
     episode: {
       id: 1,
-      isPlaying: false,
+      playing: false,
+      bookmarked: false,
+      subscribed: false,
       channel: {
         id: 1,
         name: 'The Joe Rogan Experience',
       },
+
     },
     authenticated: false,
     canSubscribe: true,

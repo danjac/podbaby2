@@ -13,8 +13,11 @@ const defaultProps = {
   episodes: [{
     id: 1,
     explicit: true,
-    isPlaying: false,
+    playing: false,
+    bookmarked: false,
+    subscribed: false,
     channel: {
+      id: 1,
       name: 'The Joe Rogan Experience',
       thumbnail: {
         url: 'test.jpg',
@@ -24,11 +27,11 @@ const defaultProps = {
       categories: [{
         id: 1,
         name: 'Comedy',
-      }, ],
+      }],
     },
     title: 'Brian Redban',
     subtitle: 'Joe & Redban talk shit',
-  }, ],
+  }],
   authenticated: false,
   onStartPlayer: jest.fn(),
   onStopPlayer: jest.fn(),

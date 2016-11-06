@@ -2,10 +2,11 @@ import React, { PropTypes, Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
+import { routerShape, locationShape } from 'react-router/lib/PropTypes';
 
 import { fetchAllEpisodes } from '../actions/episodes';
 import { episodesSelector } from '../selectors';
-import { episodeActionPropTypes } from '../prop-types';
+import { episodesPropTypes, authPropTypes } from '../prop-types';
 import Episodes from '../components/Episodes';
 
 import { bindEpisodeActions } from './utils';
@@ -81,15 +82,13 @@ export class EpisodesContainer extends Component {
 }
 
 EpisodesContainer.propTypes = {
-  episodes: PropTypes.array.isRequired,
-  next: PropTypes.number,
-  previous: PropTypes.number,
+  ...episodesPropTypes,
+  ...authPropTypes,
   loading: PropTypes.bool.isRequired,
-  authenticated: PropTypes.bool.isRequired,
-  location: PropTypes.object.isRequired,
-  router: PropTypes.object.isRequired,
+  // tbd use router/location shapes
+  location: locationShape.isRequired,
+  router: routerShape.isRequired,
   onFetchEpisodes: PropTypes.func.isRequired,
-  ...episodeActionPropTypes,
 };
 
 

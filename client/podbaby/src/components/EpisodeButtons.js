@@ -3,7 +3,7 @@ import React, { PropTypes } from 'react';
 import Icon from 'react-fa';
 import * as bs from 'react-bootstrap';
 
-import { episodeActionPropTypes } from '../prop-types';
+import { episodePropTypes } from '../prop-types';
 
 export const EpisodeButtons = ({
   episode,
@@ -100,10 +100,8 @@ export const EpisodeButtons = ({
 };
 
 EpisodeButtons.propTypes = {
-  episode: PropTypes.object.isRequired,
+  ...episodePropTypes,
   authenticated: PropTypes.bool.isRequired,
-  canSubscribe: PropTypes.bool.isRequired,
-  ...episodeActionPropTypes,
 };
 
 EpisodeButtons.defaultProps = {

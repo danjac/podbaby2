@@ -9,6 +9,9 @@ const defaultProps = () => {
     loading: false,
     authenticated: false,
     location: {
+      search: '',
+      action: '',
+      pathname: '/',
       query: {
         page: 1,
         q: '',
@@ -16,6 +19,12 @@ const defaultProps = () => {
     },
     router: {
       replace: jest.fn(),
+      push: jest.fn(),
+      go: jest.fn(),
+      goBack: jest.fn(),
+      goForward: jest.fn(),
+      setRouteLeaveHook: jest.fn(),
+      isActive: () => true,
     },
     onFetchEpisodes: jest.fn(),
     onStartPlayer: jest.fn(),
@@ -38,6 +47,7 @@ it('should fetch episodes if page or query different', () => {
   const rendered = mount(<EpisodesContainer {...props} />);
   rendered.setProps({
     location: {
+      ...props.location,
       query: {
         page: 2,
         q: 'test',
@@ -56,13 +66,15 @@ it('should handle search', () => {
     q: 'test',
   };
   expect(props.router.replace).toHaveBeenCalledTimes(1);
-  expect(props.router.replace).toBeCalledWith({ query });
+  expect(props.router.replace).toBeCalledWith({ ...props.location, query });
 });
 
 it('should handle select page', () => {
+  const defaults = defaultProps();
   const props = {
-    ...defaultProps(),
+    ...defaults,
     location: {
+      ...defaults.location,
       query: {
         page: 3,
         q: 'test',
@@ -76,13 +88,15 @@ it('should handle select page', () => {
     q: 'test',
   };
   expect(props.router.replace).toHaveBeenCalledTimes(1);
-  expect(props.router.replace).toBeCalledWith({ query });
+  expect(props.router.replace).toBeCalledWith({ ...props.location, query });
 });
 
 it('should handle clear search', () => {
+  const defaults = defaultProps();
   const props = {
-    ...defaultProps(),
+    ...defaults,
     location: {
+      ...defaults.location,
       query: {
         page: 3,
         q: '',
@@ -96,5 +110,5 @@ it('should handle clear search', () => {
     q: '',
   };
   expect(props.router.replace).toHaveBeenCalledTimes(1);
-  expect(props.router.replace).toBeCalledWith({ query });
+  expect(props.router.replace).toBeCalledWith({ ...props.location, query });
 });

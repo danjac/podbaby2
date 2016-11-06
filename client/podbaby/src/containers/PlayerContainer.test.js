@@ -8,7 +8,12 @@ it('should render the container', () => {
   const episode = {
     id: 1,
     title: 'test',
-    channel: {},
+    playing: true,
+    bookmarked: false,
+    subscribed: false,
+    channel: {
+      id: 1,
+    },
   };
 
   const props = {

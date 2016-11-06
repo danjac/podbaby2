@@ -6,9 +6,13 @@ import { EpisodeListItem } from './EpisodeListItem';
 
 const defaultProps = {
   episode: {
+    id: 1,
     explicit: true,
-    isPlaying: false,
+    playing: false,
+    bookmarked: false,
+    subscribed: false,
     channel: {
+      id: 1,
       name: 'The Joe Rogan Experience',
       thumbnail: {
         url: 'test.jpg',
@@ -25,6 +29,7 @@ const defaultProps = {
     title: 'Brian Redban',
     subtitle: 'Joe & Redban talk shit',
   },
+  canSubscribe: true,
   authenticated: false,
   onSubscribe: jest.fn(),
   onUnsubscribe: jest.fn(),

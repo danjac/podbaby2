@@ -9,8 +9,12 @@ import Player from './Player';
 const createDefaultProps = () => {
   return {
     episode: {
+      id: 1,
       playing: false,
+      bookmarked: false,
+      subscribed: false,
       channel: {
+        id: 1,
         name: 'The Joe Rogan Experience',
       },
     },

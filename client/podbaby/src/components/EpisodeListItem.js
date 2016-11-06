@@ -1,9 +1,9 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
 import { Link } from 'react-router';
 import * as bs from 'react-bootstrap';
 import moment from 'moment';
 
-import { episodeActionPropTypes } from '../prop-types';
+import { episodePropTypes } from '../prop-types';
 import defaultThumbnail from './podcast.svg';
 import Labels from './Labels';
 import EpisodeButtons from './EpisodeButtons';
@@ -63,16 +63,6 @@ export const EpisodeListItem = props => {
   );
 };
 
-EpisodeListItem.propTypes = {
-  episode: PropTypes.object.isRequired,
-  canSubscribe: PropTypes.bool.isRequired,
-  ...episodeActionPropTypes,
-};
-
-EpisodeListItem.defaultProps = {
-  canSubscribe: true,
-};
-
-
+EpisodeListItem.propTypes = episodePropTypes;
 
 export default EpisodeListItem;

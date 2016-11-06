@@ -2,7 +2,7 @@ import React, { PropTypes, Component } from 'react';
 import { connect } from 'react-redux';
 
 import { playingEpisodeSelector } from '../selectors';
-import { episodeActionPropTypes } from '../prop-types';
+import { episodePropTypes } from '../prop-types';
 import Player from '../components/Player';
 
 import { bindEpisodeActions } from './utils';
@@ -14,12 +14,10 @@ export class PlayerContainer extends Component {
 }
 
 PlayerContainer.propTypes = {
-  episode: PropTypes.object,
+  ...episodePropTypes,
   currentTime: PropTypes.number.isRequired,
   authenticated: PropTypes.bool.isRequired,
-  ...episodeActionPropTypes,
 };
-
 
 const mapStateToProps = state => {
   const {
