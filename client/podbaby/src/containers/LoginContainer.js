@@ -5,6 +5,7 @@ import { reduxForm } from 'redux-form';
 
 import * as api from '../api';
 import { fetchAuthenticatedUser } from '../actions/auth';
+import { loginValidator } from '../validators';
 import LoginForm from '../components/LoginForm';
 
 export class LoginContainer extends Component {
@@ -45,4 +46,5 @@ LoginContainer.propTypes = {
 
 export default connect()(reduxForm({
   form: 'login',
+  validate: loginValidator,
 })(withRouter(LoginContainer)));
