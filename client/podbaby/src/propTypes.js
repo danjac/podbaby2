@@ -69,6 +69,7 @@ export const episodesPropTypes = {
   episodes: PropTypes.arrayOf(episodeShape),
   next: PropTypes.number,
   previous: PropTypes.number,
+  authenticated: PropTypes.bool.isRequired,
   canSubscribe: PropTypes.bool,
   ...episodeActionPropTypes,
 };

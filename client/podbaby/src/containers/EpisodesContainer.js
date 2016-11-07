@@ -1,93 +1,39 @@
 import React, { PropTypes, Component } from 'react';
-import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
-import { routerShape, locationShape } from 'react-router/lib/PropTypes';
 
 import { fetchAllEpisodes } from '../actions/episodes';
 import { episodesSelector } from '../selectors';
-import { episodesPropTypes, authPropTypes } from '../propTypes';
+import { episodesPropTypes } from '../propTypes';
 import Episodes from '../components/Episodes';
 
+import paginatedSearch from './paginatedSearch';
 import { bindEpisodeActionCreators } from './utils';
 
 export class EpisodesContainer extends Component {
 
   constructor(props) {
     super(props);
-    this.handleSearch = this.handleSearch.bind(this);
-    this.handleClearSearch = this.handleClearSearch.bind(this);
     this.handleUpdate = this.handleUpdate.bind(this);
-    this.handleSelectPage = this.handleSelectPage.bind(this);
-  }
-
-  componentDidMount() {
-    const { page, q } = this.props.location.query;
-    this.fetchEpisodes(page || 1, q);
-  }
-
-  componentWillReceiveProps(nextProps) {
-
-    const thisQuery = this.props.location.query;
-    const nextQuery = nextProps.location.query;
-
-    if (thisQuery !== nextQuery) {
-      const { page, q } = nextQuery;
-      this.fetchEpisodes(page, q);
-    }
-  }
-
-  fetchEpisodes(page = 1, searchQuery) {
-    const { onFetchEpisodes } = this.props;
-    onFetchEpisodes(page, searchQuery);
-  }
-
-  changeLocation(nextQuery) {
-    const query = {...this.props.location.query, ...nextQuery };
-    this.props.router.replace({...this.props.location, query });
-  }
-
-  handleSearch(searchQuery) {
-    this.changeLocation({ page: 1, q: searchQuery });
-  }
-
-  handleClearSearch() {
-    this.changeLocation({ page: 1, q: '' });
-  }
-
-  handleSelectPage(page) {
-    this.changeLocation({ page });
   }
 
   handleUpdate() {
-    this.fetchEpisodes();
+    this.props.dispatch(fetchAllEpisodes());
   }
 
   render() {
 
-    const { location: { query } } = this.props;
+    const canUpdate = !this.props.searchQuery && !this.props.previous;
 
-    const searchQuery = query && query.q;
-
-    const canUpdate = !searchQuery && !this.props.previous;
-
-    return <Episodes onSearch={this.handleSearch}
-                     onClearSearch={this.handleClearSearch}
-                     onSelectPage={this.handleSelectPage}
-                     onUpdate={this.handleUpdate}
-                     canUpdate={canUpdate}
-                     searchQuery={searchQuery}
-                     {...this.props} />;
+    return <Episodes onUpdate={this.handleUpdate}
+                     canUpdate={canUpdate} {...this.props} />;
   }
 }
 
 EpisodesContainer.propTypes = {
   ...episodesPropTypes,
-  ...authPropTypes,
+  searchQuery: PropTypes.string,
   loading: PropTypes.bool.isRequired,
-  location: locationShape.isRequired,
-  router: routerShape.isRequired,
-  onFetchEpisodes: PropTypes.func.isRequired,
 };
 
 
@@ -110,16 +56,11 @@ const mapStateToProps = state => {
   };
 };
 
-const mapDispatchToProps = dispatch => {
-  return {
-    ...bindActionCreators({
-      onFetchEpisodes: fetchAllEpisodes,
-    }, dispatch),
-    ...bindEpisodeActionCreators(dispatch),
-  };
-};
+const mapDispatchToProps = dispatch => bindEpisodeActionCreators(dispatch);
+
+const fetchData = (dispatch, page, searchQuery) => dispatch(fetchAllEpisodes(page, searchQuery));
 
 export default connect(
   mapStateToProps,
   mapDispatchToProps,
-)(withRouter(EpisodesContainer));
+)(withRouter(paginatedSearch(fetchData)(EpisodesContainer)));
