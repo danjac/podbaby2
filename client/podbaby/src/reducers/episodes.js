@@ -27,6 +27,9 @@ export default function(state = initialState, action) {
     case FETCH_EPISODES_FAILURE:
       return {...state,
         loading: false,
+        results: [],
+        next: 0,
+        previous: 0,
         error: action.error,
       };
 

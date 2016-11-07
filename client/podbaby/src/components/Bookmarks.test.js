@@ -3,15 +3,19 @@ import { shallow } from 'enzyme';
 
 import { mockEpisode, mockEpisodeActions } from '../test-utils/mocks';
 
-import Episodes from './Episodes';
+import Bookmarks from './Bookmarks';
 
 const defaultProps = {
   ...mockEpisodeActions(),
-  episodes: [mockEpisode()],
-  header: 'All podcasts',
+  episodes: [
+    {
+      ...mockEpisode(),
+      bookmarked: true,
+    },
+  ],
   searchQuery: '',
   loading: false,
-  authenticated: false,
+  authenticated: true,
   onSearch: jest.fn(),
   onUpdate: jest.fn(),
   onSelectPage: jest.fn(),
@@ -19,6 +23,6 @@ const defaultProps = {
 };
 
 it('should render the component', () => {
-  const rendered = shallow(<Episodes {...defaultProps} />);
+  const rendered = shallow(<Bookmarks {...defaultProps} />);
   expect(rendered).toBeTruthy();
 });

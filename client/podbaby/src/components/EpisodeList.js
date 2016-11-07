@@ -26,10 +26,10 @@ const EpisodeList = props => {
     );
   }
 
-  const pager = (previous || next) && (
+  const pager = (previous || next) ? (
     <Pager next={next}
            previous={previous}
-           onSelect={onSelectPage} />);
+           onSelect={onSelectPage} />) : '';
 
   return (
     <div style={style}>

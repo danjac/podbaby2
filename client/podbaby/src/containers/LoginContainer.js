@@ -2,6 +2,7 @@ import React, { PropTypes, Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 import { reduxForm } from 'redux-form';
+import { routerShape } from 'react-router/lib/PropTypes';
 
 import * as api from '../api';
 import { fetchAuthenticatedUser } from '../actions/auth';
@@ -16,6 +17,7 @@ export class LoginContainer extends Component {
   }
 
   handleSubmit(fields) {
+    console.log('SUBMITTING', fields);
 
     const { router, dispatch } = this.props;
 
@@ -38,7 +40,7 @@ export class LoginContainer extends Component {
 
 LoginContainer.propTypes = {
   dispatch: PropTypes.func.isRequired,
-  router: PropTypes.object.isRequired,
+  router: routerShape,
   handleSubmit: PropTypes.func.isRequired,
   submitFailed: PropTypes.bool.isRequired,
   submitting: PropTypes.bool.isRequired,

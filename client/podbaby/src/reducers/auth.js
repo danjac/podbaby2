@@ -32,6 +32,7 @@ export default function(state = initialState, action) {
     case FETCH_USER_REQUEST:
       return {...state,
         loading: true,
+        authenticated: true,
       };
 
     case FETCH_USER_FAILURE:

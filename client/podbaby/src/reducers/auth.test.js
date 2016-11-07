@@ -12,11 +12,13 @@ it('should handle FETCH_USER_REQUEST', () => {
 
   const state = reducer({
     loading: false,
+    authenticated: false,
   }, {
     type: FETCH_USER_REQUEST,
   });
 
   expect(state.loading).toEqual(true);
+  expect(state.authenticated).toEqual(true);
 });
 
 

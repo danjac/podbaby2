@@ -88,7 +88,7 @@ class Navbar extends Component {
           <bs.Nav>
 
             {authenticated && (
-              <bs.NavDropdown title={<span><Icon name="headphones" />Podcasts</span>} id="podcasts-dropdown">
+              <bs.NavDropdown title={<span><Icon name="headphones" /> Podcasts</span>} id="podcasts-dropdown">
                 <LinkMenuItem to="/podcasts/me/" icon="user" onClick={this.handleClose}>My podcasts</LinkMenuItem>
                 <LinkMenuItem to="/podcasts/all/" icon="list" onClick={this.handleClose}>All podcasts</LinkMenuItem>
                 <LinkMenuItem to="/podcasts/bookmarks/" icon="bookmark" onClick={this.handleClose}>Bookmarks</LinkMenuItem>
@@ -104,6 +104,7 @@ class Navbar extends Component {
             </bs.NavDropdown>
 
           </bs.Nav>
+
           {authenticated && user && (
             <bs.Nav pullRight>
               <bs.NavDropdown title={<span><Icon name="user" /> {user.username}</span>} id="user-dropdown">
@@ -112,11 +113,13 @@ class Navbar extends Component {
                 <Icon name="sign-out" /> Logout
               </bs.NavItem>
             </bs.Nav>)}
+
           {!authenticated && (
           <bs.Nav pullRight>
             <LinkNavItem to="/login/" icon="sign-in" onClick={this.handleClose}>Login</LinkNavItem>
             <LinkNavItem to="/join/" icon="user-plus" onClick={this.handleClose}>Join</LinkNavItem>
           </bs.Nav>)}
+
       </bs.Navbar.Collapse>
       </bs.Navbar>
     );

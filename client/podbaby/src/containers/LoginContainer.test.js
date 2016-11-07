@@ -1,6 +1,8 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 
+import { mockRouter } from '../test-utils/mocks';
+
 import { LoginContainer } from './LoginContainer';
 
 jest.mock('../api');
@@ -10,7 +12,7 @@ it('should render the container', () => {
   const props = {
     dispatch: jest.fn(),
     handleSubmit: () => jest.fn(),
-    router: {},
+    router: mockRouter(),
     submitFailed: false,
     submitting: false,
   };
@@ -26,9 +28,7 @@ it('should handle submit', () => {
   const props = {
     dispatch: jest.fn(),
     handleSubmit: () => jest.fn(),
-    router: {
-      push: jest.fn(),
-    },
+    router: mockRouter(),
     submitFailed: false,
     submitting: false,
   };

@@ -1,4 +1,4 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
 
 import Icon from 'react-fa';
 import * as bs from 'react-bootstrap';
@@ -74,7 +74,7 @@ export const EpisodeButtons = ({
           <bs.Button key="subscribeBtn"
                        onClick={() => onUnsubscribe(episode.channel)}
                        title={`Unsubscribe from ${channel.name}`}>
-                       <Icon name="remove" /></bs.Button>);
+                       <Icon name="minus-circle" /></bs.Button>);
       } else {
         subscriptionBtn = (
           <bs.Button key="subscribeBtn"
@@ -101,7 +101,6 @@ export const EpisodeButtons = ({
 
 EpisodeButtons.propTypes = {
   ...episodePropTypes,
-  authenticated: PropTypes.bool.isRequired,
 };
 
 EpisodeButtons.defaultProps = {
