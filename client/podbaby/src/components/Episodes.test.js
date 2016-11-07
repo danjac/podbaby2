@@ -1,17 +1,13 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 
+import { mockEpisode, mockEpisodeActions } from '../mocks';
+
 import Episodes from './Episodes';
   const defaultProps = {
-    episodes: [
-      {
-        id: 1,
-        title: 'test',
-      },
-    ],
-    next: 0,
-    previous: 0,
-    router: {},
+    ...mockEpisodeActions(),
+    episodes: [mockEpisode()],
+    header: 'All podcasts',
     searchQuery: '',
     loading: false,
     canUpdate: true,
@@ -20,12 +16,6 @@ import Episodes from './Episodes';
     onUpdate: jest.fn(),
     onSelectPage: jest.fn(),
     onClearSearch: jest.fn(),
-    onStartPlayer: jest.fn(),
-    onStopPlayer: jest.fn(),
-    onAddBookmark: jest.fn(),
-    onRemoveBookmark: jest.fn(),
-    onSubscribe: jest.fn(),
-    onUnsubscribe: jest.fn(),
   };
 
 it('should render the component', () => {

@@ -4,7 +4,7 @@ import { withRouter } from 'react-router';
 
 import { fetchAllEpisodes } from '../actions/episodes';
 import { episodesSelector } from '../selectors';
-import { episodesPropTypes } from '../propTypes';
+import { episodesPropTypes, searchPropTypes } from '../propTypes';
 import Episodes from '../components/Episodes';
 
 import paginatedSearch from './paginatedSearch';
@@ -25,14 +25,15 @@ export class EpisodesContainer extends Component {
 
     const canUpdate = !this.props.searchQuery && !this.props.previous;
 
-    return <Episodes onUpdate={this.handleUpdate}
+    return <Episodes header='All podcasts'
+                     onUpdate={this.handleUpdate}
                      canUpdate={canUpdate} {...this.props} />;
   }
 }
 
 EpisodesContainer.propTypes = {
   ...episodesPropTypes,
-  searchQuery: PropTypes.string,
+  ...searchPropTypes,
   loading: PropTypes.bool.isRequired,
 };
 

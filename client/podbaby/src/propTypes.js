@@ -61,8 +61,16 @@ export const channelsPropTypes = {
 
 export const episodePropTypes = {
   episode: episodeShape,
-  canSubscribe: PropTypes.bool,
+  authenticated: PropTypes.bool.isRequired,
+  withChannel: PropTypes.bool,
   ...episodeActionPropTypes,
+};
+
+export const searchPropTypes = {
+  searchQuery: PropTypes.string,
+  onSearch: PropTypes.func.isRequired,
+  onClearSearch: PropTypes.func.isRequired,
+  onSelectPage: PropTypes.func.isRequired,
 };
 
 export const episodesPropTypes = {
@@ -70,6 +78,6 @@ export const episodesPropTypes = {
   next: PropTypes.number,
   previous: PropTypes.number,
   authenticated: PropTypes.bool.isRequired,
-  canSubscribe: PropTypes.bool,
+  withChannel: PropTypes.bool,
   ...episodeActionPropTypes,
 };

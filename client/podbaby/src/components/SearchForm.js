@@ -4,7 +4,7 @@ import * as bs from 'react-bootstrap';
 import Icon from 'react-fa';
 
 
-export class Search extends Component {
+export class SearchForm extends Component {
 
   constructor(props) {
     super(props);
@@ -28,7 +28,7 @@ export class Search extends Component {
     const {
       placeholder,
       searchQuery,
-      onClear,
+      onClearSearch,
     } = this.props;
 
     return (
@@ -47,11 +47,11 @@ export class Search extends Component {
             <Icon name="search" /> Search
           </bs.Button>
        </bs.FormGroup>
-       {searchQuery && onClear &&
+       {searchQuery && onClearSearch &&
        <bs.FormGroup>
         <bs.Button className="form-control"
                    type="submit"
-                   onClick={onClear}
+                   onClick={onClearSearch}
                    bsStyle="default">
           <Icon name="refresh" /> Show all
         </bs.Button>
@@ -61,11 +61,11 @@ export class Search extends Component {
   }
 }
 
-Search.propTypes = {
-  onSearch: PropTypes.func.isRequired,
-  onClear: PropTypes.func,
-  searchQuery: PropTypes.string,
+SearchForm.propTypes = {
   placeholder: PropTypes.string,
+  searchQuery: PropTypes.string,
+  onSearch: PropTypes.func.isRequired,
+  onClearSearch: PropTypes.func.isRequired,
 };
 
-export default Search;
+export default SearchForm;

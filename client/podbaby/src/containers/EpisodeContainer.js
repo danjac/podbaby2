@@ -34,7 +34,6 @@ export class EpisodeContainer extends Component {
 
 EpisodeContainer.propTypes = {
   params: PropTypes.object.isRequired,
-  authenticated: PropTypes.bool.isRequired,
   loading: PropTypes.bool.isRequired,
   error: PropTypes.object,
   onFetchEpisode: PropTypes.func.isRequired,
