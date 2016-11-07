@@ -9,7 +9,7 @@ export const EpisodeButtons = ({
   episode,
   episode: { channel },
   authenticated,
-  canSubscribe,
+  withChannel,
   onAddBookmark,
   onRemoveBookmark,
   onStartPlayer,
@@ -67,7 +67,7 @@ export const EpisodeButtons = ({
 
     buttons.push(bookmarkBtn);
 
-    if (canSubscribe) {
+    if (withChannel) {
       let subscriptionBtn;
       if (episode.subscribed) {
         subscriptionBtn = (
@@ -105,7 +105,7 @@ EpisodeButtons.propTypes = {
 };
 
 EpisodeButtons.defaultProps = {
-  canSubscribe: true,
+  withChannel: true,
 };
 
 export default EpisodeButtons;

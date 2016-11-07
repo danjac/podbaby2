@@ -99,7 +99,7 @@ Player.propTypes = {
 };
 
 Player.defaultProps = {
-  canSubscribe: true,
+  withChannel: true,
 };
 
 export default Player;

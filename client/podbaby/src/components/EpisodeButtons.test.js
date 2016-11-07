@@ -15,7 +15,7 @@ const createDefaultProps = () => {
   return {
     episode: mockEpisode(),
     authenticated: false,
-    canSubscribe: true,
+    withChannel: true,
     ...mockEpisodeActions(),
   };
 };
@@ -85,7 +85,7 @@ it('should show a subscribe button if user is logged in', () => {
       subscribed: false,
     },
     authenticated: true,
-    canSubscribe: true,
+    withChannel: true,
   };
   const rendered = shallow(<EpisodeButtons {...props} />);
   const btnGroup = rendered.find(bs.ButtonGroup);
@@ -93,10 +93,10 @@ it('should show a subscribe button if user is logged in', () => {
 
 });
 
-it('should not show a subscribe or unsubscribe button if canSubscribe is false', () => {
+it('should not show a subscribe or unsubscribe button if withChannel is false', () => {
   const props = {...createDefaultProps(),
     authenticated: true,
-    canSubscribe: false,
+    withChannel: false,
   };
   const rendered = shallow(<EpisodeButtons {...props} />);
   const btnGroup = rendered.find(bs.ButtonGroup);

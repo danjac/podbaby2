@@ -13,6 +13,7 @@ export const EpisodeListItem = props => {
 
   const {
     episode,
+    withChannel,
     episode: {
       channel,
     },
@@ -32,11 +33,15 @@ export const EpisodeListItem = props => {
     (episode.subtitle || episode.summary || episode.description) || ''
   );
 
-  const title = episode.title || channel.name;
+  const title = episode.title || (withChannel ? channel.name : 'Podcast');
   const buttons = <EpisodeButtons {...props } />;
 
+  const categories = withChannel ? channel.categories : [];
+
+  const header = withChannel ? channel.name : undefined;
+
   return (
-    <bs.Panel header={channel.name}
+    <bs.Panel header={header}
       footer={buttons}
       className="episode">
 
@@ -52,7 +57,7 @@ export const EpisodeListItem = props => {
             alt={channel.name} />
         </bs.Media.Left>
         <bs.Media.Body>
-          <Labels categories={channel.categories || []}
+          <Labels categories={categories}
             explicit={episode.explicit} />
           {published && <p><strong>{published}</strong></p>}
         </bs.Media.Body>
@@ -64,5 +69,9 @@ export const EpisodeListItem = props => {
 };
 
 EpisodeListItem.propTypes = episodePropTypes;
+
+EpisodeListItem.defaultProps = {
+  withChannel: true,
+};
 
 export default EpisodeListItem;
