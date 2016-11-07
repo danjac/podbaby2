@@ -38,7 +38,9 @@ export const EpisodeListItem = props => {
 
   const categories = withChannel ? channel.categories : [];
 
-  const header = withChannel ? channel.name : undefined;
+  const header = withChannel ? (
+    <Link to={`/feeds/${channel.id}/`}>{channel.name}</Link>
+  ) : undefined;
 
   return (
     <bs.Panel header={header}
@@ -51,10 +53,11 @@ export const EpisodeListItem = props => {
 
       <bs.Media>
         <bs.Media.Left>
-          <img src={thumbnail.url}
-            width={thumbnail.width}
-            height={thumbnail.height}
-            alt={channel.name} />
+          {withChannel && (
+            <img src={thumbnail.url}
+                 width={thumbnail.width}
+                 height={thumbnail.height}
+                 alt={channel.name} />)}
         </bs.Media.Left>
         <bs.Media.Body>
           <Labels categories={categories}

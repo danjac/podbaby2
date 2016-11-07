@@ -1,5 +1,6 @@
 import React, { PropTypes, Component } from 'react';
 import * as bs from 'react-bootstrap';
+import { Link } from 'react-router';
 import Icon from 'react-fa';
 import moment from 'moment';
 
@@ -56,7 +57,7 @@ class EpisodeDetail extends Component {
       <div>
         <div className="page-header">
           <h2>{episode.title}</h2>
-          <h3><a href="#">{channel.name}</a></h3>
+          <h3><Link to={`/feeds/${channel.id}/`}>{channel.name}</Link></h3>
         </div>
         <bs.Panel footer={buttons}>
           <bs.Media>

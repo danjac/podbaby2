@@ -6,6 +6,7 @@ import alerts from './alerts';
 import auth from './auth';
 import bookmarks from './bookmarks';
 import categories from './categories';
+import channel from './channel';
 import channels from './channels';
 import episode from './episode';
 import episodes from './episodes';
@@ -17,6 +18,7 @@ export default combineReducers({
   auth,
   bookmarks,
   categories,
+  channel,
   channels,
   episode,
   episodes,

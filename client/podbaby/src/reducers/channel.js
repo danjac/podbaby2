@@ -23,13 +23,13 @@ export default function(state = initialState, action) {
     case FETCH_CHANNEL_SUCCESS:
       return {...state,
         loading: false,
-        channel: action.payload
+        channel: action.payload,
       };
 
     case FETCH_CHANNEL_FAILURE:
       return {...state,
         loading: false,
-        error: action.error
+        error: action.error,
       };
 
     default:

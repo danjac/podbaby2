@@ -20,5 +20,13 @@ const fetch = (apiCall, page, searchQuery) => dispatch => dispatchApiCall(
 
 
 export const fetchAllEpisodes = partial(fetch, api.episodes.fetchAll);
+
 export const fetchBookmarkedEpisodes = partial(fetch, api.episodes.fetchBookmarked);
+
 export const fetchSubscribedEpisodes = partial(fetch, api.episodes.fetchSubscribed);
+
+export const fetchEpisodesForChannel = (id, page, searchQuery) => fetch(
+  (page, searchQuery) => api.episodes.fetchForChannel(id, page, searchQuery),
+  page,
+  searchQuery,
+);

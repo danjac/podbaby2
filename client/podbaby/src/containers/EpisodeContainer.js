@@ -11,6 +11,7 @@ import EpisodeDetail from '../components/EpisodeDetail';
 import { bindEpisodeActionCreators } from './utils';
 
 export class EpisodeContainer extends Component {
+
   componentDidMount() {
     this.fetchEpisode(this.props.params.id);
   }

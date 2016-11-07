@@ -20,3 +20,9 @@ const fetchMany = (url, page, searchQuery) => {
 export const fetchAll = partial(fetchMany, API_BASE_URL);
 export const fetchSubscribed = partial(fetchMany, API_BASE_URL + 'subscribed/');
 export const fetchBookmarked = partial(fetchMany, API_BASE_URL + 'bookmarks/');
+
+export const fetchForChannel = (id, page, searchQuery) => fetchMany(
+  `/api/channels/${id}/episodes/`,
+  page,
+  searchQuery,
+);

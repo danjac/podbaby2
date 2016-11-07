@@ -17,7 +17,6 @@ export class LoginContainer extends Component {
   }
 
   handleSubmit(fields) {
-    console.log('SUBMITTING', fields);
 
     const { router, dispatch } = this.props;
 

@@ -23,7 +23,7 @@ it('should render the component', () => {
   const props = defaultProps();
   const rendered = shallow(<EpisodeListItem {...props} />);
   const panel = rendered.find(bs.Panel);
-  expect(panel.prop('header')).toBe(props.episode.channel.name);
+  expect(panel.prop('header')).toBeDefined();
 });
 
 it('should render the channel thumbnail if provided', () => {
