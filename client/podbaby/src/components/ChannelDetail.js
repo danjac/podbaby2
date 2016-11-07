@@ -94,19 +94,18 @@ class ChannelDetail extends Component {
             </bs.Media.Left>
             <bs.Media.Body>
               <Labels categories={channel.categories}
-                      explicit={channel.isExplicit} />
-              {channel.link && (
-              <bs.ButtonGroup>
-                <a href={channel.link} className="btn btn-default btn-sm">
-                  <Icon name="globe" /> Website
-                </a>
-                <a href={channel.rssFeed} className="btn btn-default btn-sm">
-                  <Icon name="rss" /> RSS
-                </a>
-              </bs.ButtonGroup>
-              )}
+                      explicit={channel.explicit} />
             </bs.Media.Body>
           </bs.Media>
+          <bs.ButtonGroup justified style={{ marginTop: 10 }}>
+            {channel.link && (
+            <a href={channel.link} className="btn btn-default btn-sm">
+              <Icon name="globe" /> Website
+            </a>)}
+            <a href={channel.rssFeed} className="btn btn-default btn-sm">
+              <Icon name="rss" /> RSS
+            </a>
+          </bs.ButtonGroup>
         <p className="episode-description" style={{ marginTop: 10 }}
            dangerouslySetInnerHTML={description}></p>
         </bs.Panel>

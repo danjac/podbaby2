@@ -34,7 +34,7 @@ export const mockChannel = () => {
     subscribed: false,
     name: 'The Joe Rogan Experience',
     categories: mockCategories(),
-    isExplicit: true,
+    explicit: true,
     thumbnail: {
       url: 'test.jpg',
       height: 120,

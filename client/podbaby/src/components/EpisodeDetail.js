@@ -71,15 +71,21 @@ class EpisodeDetail extends Component {
               <Labels categories={channel.categories}
                 explicit={episode.explicit} />
               {published && <p><strong>{published}</strong></p>}
-              {episode.link && (
-              <p>
-                <a href={episode.link} className="btn btn-default btn-sm">
-                  <Icon name="globe" /> Link to episode
-                </a>
-              </p>
-              )}
             </bs.Media.Body>
           </bs.Media>
+          <bs.ButtonGroup justified style={{ marginTop: 10 }}>
+            {episode.link && (
+              <a href={episode.link} className="btn btn-default btn-sm">
+                <Icon name="globe" /> Link
+              </a>)}
+            {channel.link && (
+            <a href={channel.link} className="btn btn-default btn-sm">
+              <Icon name="globe" /> Website
+            </a>)}
+            <a href={channel.rssFeed} className="btn btn-default btn-sm">
+              <Icon name="rss" /> RSS
+            </a>
+          </bs.ButtonGroup>
           <p className="episode-description" style={{ marginTop: 10 }}
              dangerouslySetInnerHTML={description}></p>
         </bs.Panel>
