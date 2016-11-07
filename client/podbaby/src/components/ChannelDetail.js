@@ -107,9 +107,9 @@ class ChannelDetail extends Component {
               )}
             </bs.Media.Body>
           </bs.Media>
-        </bs.Panel>
         <p className="episode-description" style={{ marginTop: 10 }}
            dangerouslySetInnerHTML={description}></p>
+        </bs.Panel>
 
         {episodes}
       </div>

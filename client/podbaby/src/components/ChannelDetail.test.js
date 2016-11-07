@@ -1,0 +1,33 @@
+import React from 'react';
+import { shallow } from 'enzyme';
+
+//import Loader from './Loader';
+import ChannelDetail from './ChannelDetail';
+
+import {
+  mockEpisodeActions,
+  mockChannel,
+  mockEpisode,
+} from '../test-utils/mocks';
+
+it('should render the component', () => {
+  const props = {
+    channelLoading: false,
+    episodesLoading: false,
+    authenticated: false,
+    channel: mockChannel(),
+    episodes: [
+      mockEpisode(),
+    ],
+    onSearch: jest.fn(),
+    onSelectPage: jest.fn(),
+    onClearSearch: jest.fn(),
+    ...mockEpisodeActions(),
+  };
+
+  const rendered = shallow(<ChannelDetail {...props} />);
+  expect(rendered).toBeTruthy();
+});
+
+
+
