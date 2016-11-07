@@ -10,7 +10,6 @@ import Episodes from './Episodes';
     header: 'All podcasts',
     searchQuery: '',
     loading: false,
-    canUpdate: true,
     authenticated: false,
     onSearch: jest.fn(),
     onUpdate: jest.fn(),

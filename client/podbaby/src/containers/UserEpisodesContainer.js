@@ -2,7 +2,7 @@ import React, { PropTypes, Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 
-import { fetchAllEpisodes } from '../actions/episodes';
+import { fetchSubscribedEpisodes } from '../actions/episodes';
 import { episodesSelector } from '../selectors';
 import { episodesPropTypes, searchPropTypes } from '../propTypes';
 import Episodes from '../components/Episodes';
@@ -10,7 +10,7 @@ import Episodes from '../components/Episodes';
 import paginatedSearch from './paginatedSearch';
 import { bindEpisodeActionCreators } from './utils';
 
-export class EpisodesContainer extends Component {
+export class UserEpisodesContainer extends Component {
 
   constructor(props) {
     super(props);
@@ -18,17 +18,17 @@ export class EpisodesContainer extends Component {
   }
 
   handleUpdate() {
-    this.props.dispatch(fetchAllEpisodes());
+    this.props.dispatch(fetchSubscribedEpisodes());
   }
 
   render() {
 
-    return <Episodes header='All podcasts'
+    return <Episodes header='My podcasts'
                      onUpdate={this.handleUpdate} {...this.props} />;
   }
 }
 
-EpisodesContainer.propTypes = {
+UserEpisodesContainer.propTypes = {
   ...episodesPropTypes,
   ...searchPropTypes,
   loading: PropTypes.bool.isRequired,
@@ -56,9 +56,11 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => bindEpisodeActionCreators(dispatch);
 
-const fetchData = (dispatch, page, searchQuery) => dispatch(fetchAllEpisodes(page, searchQuery));
+const fetchData = (dispatch, page, searchQuery) => dispatch(
+  fetchSubscribedEpisodes(page, searchQuery)
+);
 
 export default connect(
   mapStateToProps,
   mapDispatchToProps,
-)(withRouter(paginatedSearch(fetchData)(EpisodesContainer)));
+)(withRouter(paginatedSearch(fetchData)(UserEpisodesContainer)));

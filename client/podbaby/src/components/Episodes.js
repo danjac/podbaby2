@@ -15,9 +15,9 @@ class Episodes extends Component {
     const {
       loading,
       header,
-      canUpdate,
       onUpdate,
       searchQuery,
+      previous,
     } = this.props;
 
     if (loading) {
@@ -25,6 +25,7 @@ class Episodes extends Component {
     }
 
     const ifEmpty = searchQuery && 'Sorry, no results found for your search';
+    const showUpdateBtn = !previous && !searchQuery;
 
     return (
       <div>
@@ -33,7 +34,7 @@ class Episodes extends Component {
         </div>
         <SearchForm placeholder="Search for podcasts" {...this.props} />
 
-       {canUpdate && (
+       {showUpdateBtn && (
         <bs.Button className="form-control"
                    onClick={onUpdate}
                    bsStyle="default">
@@ -51,7 +52,6 @@ Episodes.propTypes = {
   ...searchPropTypes,
   loading: PropTypes.bool.isRequired,
   header: PropTypes.string.isRequired,
-  canUpdate: PropTypes.bool.isRequired,
   onUpdate: PropTypes.func.isRequired,
 };
 
