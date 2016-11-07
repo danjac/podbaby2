@@ -7,7 +7,7 @@ import * as bs from 'react-bootstrap';
 import {
   mockEpisode,
   mockEpisodeActions,
-} from '../mocks';
+} from '../test-utils/mocks';
 
 import { EpisodeButtons } from './EpisodeButtons';
 

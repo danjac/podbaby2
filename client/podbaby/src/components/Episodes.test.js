@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 
-import { mockEpisode, mockEpisodeActions } from '../mocks';
+import { mockEpisode, mockEpisodeActions } from '../test-utils/mocks';
 
 import Episodes from './Episodes';
   const defaultProps = {

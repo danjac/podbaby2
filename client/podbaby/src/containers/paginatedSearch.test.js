@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow, mount } from 'enzyme';
 
-import { mockRouter, mockLocation } from '../mocks';
+import { mockRouter, mockLocation } from '../test-utils/mocks';
 import { paginatedSearch } from './paginatedSearch';
 
 const WrapperComponent = () => <div></div>;

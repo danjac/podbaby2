@@ -6,24 +6,27 @@ import {
   mockEpisodeActions,
 } from '../test-utils/mocks';
 
-import { UserEpisodesContainer } from './UserEpisodesContainer';
+import { BookmarksContainer } from './BookmarksContainer';
 
 const defaultProps = () => {
   return {
     episodes: [
-      mockEpisode(),
+      {
+        ...mockEpisode(),
+        bookmarked: true,
+      },
     ],
     onSearch: jest.fn(),
     onSelectPage: jest.fn(),
     onClearSearch: jest.fn(),
     loading: false,
-    authenticated: false,
+    authenticated: true,
     ...mockEpisodeActions(),
   };
 };
 
 it('should render the container', () => {
   const props = defaultProps();
-  const rendered = shallow(<UserEpisodesContainer {...props} />);
+  const rendered = shallow(<BookmarksContainer {...props} />);
   expect(rendered).toBeTruthy();
 });

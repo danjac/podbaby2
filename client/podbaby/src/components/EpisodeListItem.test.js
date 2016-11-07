@@ -2,12 +2,12 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import * as bs from 'react-bootstrap';
 
-import { EpisodeListItem } from './EpisodeListItem';
-
 import {
   mockEpisode,
   mockEpisodeActions,
-} from '../mocks';
+} from '../test-utils/mocks';
+
+import { EpisodeListItem } from './EpisodeListItem';
 
 const defaultProps = () => {
   return {

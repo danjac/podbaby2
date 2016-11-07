@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow, mount } from 'enzyme';
 
-import { mockCategories } from '../mocks';
+import { mockCategories } from '../test-utils/mocks';
 import { CategoriesContainer } from './CategoriesContainer';
 
 it('renders the component', () => {

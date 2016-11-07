@@ -4,7 +4,7 @@ import { shallow, mount } from 'enzyme';
 import Loader from './Loader';
 import EpisodeDetail from './EpisodeDetail';
 
-import { mockEpisodeActions, mockEpisode } from '../mocks';
+import { mockEpisodeActions, mockEpisode } from '../test-utils/mocks';
 
 it('should render the component', () => {
   const props = {
