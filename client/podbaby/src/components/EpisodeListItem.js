@@ -11,13 +11,7 @@ import { sanitize } from './utils';
 
 export const EpisodeListItem = props => {
 
-  const {
-    episode,
-    withChannel,
-    episode: {
-      channel,
-    },
-  } = props;
+  const { episode, episode: { channel } } = props;
 
   const thumbnail = channel.thumbnail || {
     url: defaultThumbnail,
@@ -33,19 +27,12 @@ export const EpisodeListItem = props => {
     (episode.subtitle || episode.summary || episode.description) || ''
   );
 
-  const title = episode.title || (withChannel ? channel.name : 'Podcast');
+  const title = episode.title || channel.name;
   const buttons = <EpisodeButtons {...props } />;
-
-  const categories = withChannel ? channel.categories : [];
-
-  const header = withChannel ? (
-    <Link to={`/feeds/${channel.id}/`}>{channel.name}</Link>
-  ) : undefined;
+  const header = <Link to={`/feeds/${channel.id}/`}>{channel.name}</Link>;
 
   return (
-    <bs.Panel header={header}
-      footer={buttons}
-      className="episode">
+    <bs.Panel header={header} footer={buttons} className="episode">
 
       <h4 style={{ textAlign: 'center' }}>
         <Link to={`/podcasts/${episode.id}/`}>{title}</Link>
@@ -53,15 +40,13 @@ export const EpisodeListItem = props => {
 
       <bs.Media>
         <bs.Media.Left>
-          {withChannel && (
-            <img src={thumbnail.url}
-                 width={thumbnail.width}
-                 height={thumbnail.height}
-                 alt={channel.name} />)}
+          <img src={thumbnail.url}
+               width={thumbnail.width}
+               height={thumbnail.height}
+               alt={channel.name} />
         </bs.Media.Left>
         <bs.Media.Body>
-          <Labels categories={categories}
-            explicit={episode.explicit} />
+          <Labels categories={channel.categories} explicit={episode.explicit} />
           {published && <p><strong>{published}</strong></p>}
         </bs.Media.Body>
       </bs.Media>
@@ -72,9 +57,5 @@ export const EpisodeListItem = props => {
 };
 
 EpisodeListItem.propTypes = episodePropTypes;
-
-EpisodeListItem.defaultProps = {
-  withChannel: true,
-};
 
 export default EpisodeListItem;

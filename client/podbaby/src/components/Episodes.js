@@ -38,8 +38,7 @@ class Episodes extends Component {
                    bsStyle="default">
           <Icon name="refresh" /> Update</bs.Button>)}
 
-        <EpisodeList ifEmpty={ifEmpty}
-                     {...this.props} />
+        <EpisodeList ifEmpty={ifEmpty} {...this.props} />
       </div>
     );
   }

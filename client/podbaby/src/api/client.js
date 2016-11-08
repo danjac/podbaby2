@@ -62,6 +62,18 @@ class HttpClient {
     return this.handleRequest('GET', url, {...options, params });
   }
 
+  fetchMany(url, page, searchQuery) {
+    const params = {};
+    if (page) {
+      params.page = page;
+    }
+    if (searchQuery) {
+      params.q = searchQuery;
+    }
+    return this.get(url, params);
+  };
+
+
   post(url, data, options) {
     return this.handleRequest('POST', url, {...options, data });
   }

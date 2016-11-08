@@ -13,7 +13,6 @@ const defaultProps = () => {
   return {
     episode: mockEpisode(),
     authenticated: false,
-    withChannel: true,
     ...mockEpisodeActions(),
   };
 };
@@ -41,9 +40,4 @@ it('should render the default thumbnail if not provided', () => {
   expect(img.prop('src')).not.toContain('test.jpg');
 });
 
-it('should not show channel name in header if withChannel is false', () => {
-  const props = defaultProps();
-  const rendered = shallow(<EpisodeListItem {...props} withChannel={false} />);
-  const panel = rendered.find(bs.Panel);
-  expect(panel.prop('header')).toBeUndefined();
-});
+

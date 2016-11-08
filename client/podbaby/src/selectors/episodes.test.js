@@ -42,15 +42,15 @@ describe('episodesSelector', () => {
     const episodes = episodesSelector(state);
     expect(episodes.length).toBe(3);
 
-    expect(episodes[0].subscribed).toBe(false);
+    expect(episodes[0].channel.subscribed).toBe(false);
     expect(episodes[0].bookmarked).toBe(true);
     expect(episodes[0].playing).toBe(false);
 
-    expect(episodes[1].subscribed).toBe(true);
+    expect(episodes[1].channel.subscribed).toBe(true);
     expect(episodes[1].bookmarked).toBe(false);
     expect(episodes[1].playing).toBe(false);
 
-    expect(episodes[2].subscribed).toBe(false);
+    expect(episodes[2].channel.subscribed).toBe(false);
     expect(episodes[2].bookmarked).toBe(false);
     expect(episodes[2].playing).toBe(true);
   });

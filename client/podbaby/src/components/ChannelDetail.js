@@ -12,6 +12,7 @@ import SearchForm from './SearchForm';
 import Loader from './Loader';
 import EpisodeList from './EpisodeList';
 import Labels from './Labels';
+import ChannelEpisodeListItem from './ChannelEpisodeListItem';
 import { sanitize } from './utils';
 
 import defaultThumbnail from './podcast.svg';
@@ -59,7 +60,7 @@ class ChannelDetail extends Component {
         <SearchForm placeholder="Search for podcasts" {...this.props} />
 
         <EpisodeList ifEmpty={ifEmpty}
-                     withChannel={false}
+                     component={ChannelEpisodeListItem}
                      {...this.props} />
       </div>
     );

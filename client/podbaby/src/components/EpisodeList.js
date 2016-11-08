@@ -1,4 +1,4 @@
-import React, { PropTypes } from 'react';
+import React, { PropTypes, createElement } from 'react';
 
 import { episodesPropTypes } from '../propTypes';
 
@@ -8,6 +8,7 @@ import EpisodeListItem from './EpisodeListItem';
 const EpisodeList = props => {
 
   const {
+    component,
     next,
     previous,
     episodes,
@@ -34,9 +35,7 @@ const EpisodeList = props => {
   return (
     <div style={style}>
       {pager}
-      {episodes.map(episode => (
-      <EpisodeListItem key={episode.id} episode={episode} {...props} />
-      ))}
+      {episodes.map(episode => createElement(component, { key: episode.id, episode, ...props }))}
       {pager}
     </div>
   );
@@ -44,8 +43,13 @@ const EpisodeList = props => {
 
 EpisodeList.propTypes = {
   ...episodesPropTypes.isRequired,
+  component: PropTypes.func.isRequired,
   ifEmpty: PropTypes.string,
   onSelectPage: PropTypes.func.isRequired,
+};
+
+EpisodeList.defaultProps = {
+  component: EpisodeListItem,
 };
 
 export default EpisodeList;

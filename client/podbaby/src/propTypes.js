@@ -1,17 +1,17 @@
 import { PropTypes } from 'react';
 
 export const episodeActionPropTypes = {
-  onAddBookmark: PropTypes.func.isRequired,
-  onRemoveBookmark: PropTypes.func.isRequired,
-  onStopPlayer: PropTypes.func.isRequired,
-  onStartPlayer: PropTypes.func.isRequired,
-  onSubscribe: PropTypes.func.isRequired,
-  onUnsubscribe: PropTypes.func.isRequired,
+  onAddBookmark: PropTypes.func,
+  onRemoveBookmark: PropTypes.func,
+  onStopPlayer: PropTypes.func,
+  onStartPlayer: PropTypes.func,
+  onSubscribe: PropTypes.func,
+  onUnsubscribe: PropTypes.func,
 };
 
 export const channelActionPropTypes = {
-  onSubscribe: PropTypes.func.isRequired,
-  onUnsubscribe: PropTypes.func.isRequired,
+  onSubscribe: PropTypes.func,
+  onUnsubscribe: PropTypes.func,
 };
 
 export const categoryShape = PropTypes.shape({
@@ -45,13 +45,24 @@ export const episodeShape = PropTypes.shape({
   id: PropTypes.any.isRequired,
   playing: PropTypes.bool.isRequired,
   bookmarked: PropTypes.bool.isRequired,
-  subscribed: PropTypes.bool.isRequired,
-  channel: channelShape.isRequired,
+  channel: channelShape,
 });
 
 export const channelPropTypes = {
   channel: channelShape,
   ...channelActionPropTypes,
+};
+
+export const channelEpisodeShape = PropTypes.shape({
+  id: PropTypes.any.isRequired,
+  playing: PropTypes.bool.isRequired,
+  bookmarked: PropTypes.bool.isRequired,
+});
+
+export const channelEpisodePropTypes = {
+  episode: channelEpisodeShape,
+  authenticated: PropTypes.bool.isRequired,
+  ...episodeActionPropTypes,
 };
 
 export const channelsPropTypes = {
@@ -62,7 +73,6 @@ export const channelsPropTypes = {
 export const episodePropTypes = {
   episode: episodeShape,
   authenticated: PropTypes.bool.isRequired,
-  withChannel: PropTypes.bool,
   ...episodeActionPropTypes,
 };
 
@@ -78,6 +88,5 @@ export const episodesPropTypes = {
   next: PropTypes.number,
   previous: PropTypes.number,
   authenticated: PropTypes.bool.isRequired,
-  withChannel: PropTypes.bool,
   ...episodeActionPropTypes,
 };

@@ -2,17 +2,10 @@ import React, { PropTypes, Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 
-import { fetchChannel } from '../actions/channel';
-import { fetchEpisodesForChannel } from '../actions/episodes';
+import { fetchChannel, fetchEpisodesForChannel } from '../actions/channel';
+import { channelSelector, channelEpisodesSelector } from '../selectors';
 
-import { channelSelector } from '../selectors';
-import { channelEpisodesSelector } from '../selectors';
-
-import {
-  episodesPropTypes,
-  searchPropTypes,
-  channelPropTypes,
-} from '../propTypes';
+import { searchPropTypes, channelPropTypes } from '../propTypes';
 
 import ChannelDetail from '../components/ChannelDetail';
 
@@ -44,7 +37,6 @@ export class ChannelContainer extends Component {
 
 ChannelContainer.propTypes = {
   ...channelPropTypes,
-  ...episodesPropTypes,
   ...searchPropTypes,
   params: PropTypes.object.isRequired,
   channelLoading: PropTypes.bool.isRequired,

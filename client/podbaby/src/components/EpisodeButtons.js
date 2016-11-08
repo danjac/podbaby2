@@ -1,9 +1,11 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
 
 import Icon from 'react-fa';
 import * as bs from 'react-bootstrap';
 
-import { episodePropTypes } from '../propTypes';
+import {
+  episodePropTypes,
+} from '../propTypes';
 
 export const EpisodeButtons = ({
   episode,
@@ -21,7 +23,7 @@ export const EpisodeButtons = ({
   let buttons = [];
   let playerBtn;
 
-  if (episode.playing) {
+  if (onStopPlayer && episode.playing) {
     playerBtn = (<bs.Button key="stopBtn"
                             title="Stop"
                             onClick={onStopPlayer}>
@@ -51,13 +53,13 @@ export const EpisodeButtons = ({
 
     let bookmarkBtn;
 
-    if (episode.bookmarked) {
+    if (episode.bookmarked && onRemoveBookmark) {
       bookmarkBtn = (
         <bs.Button key="bookmarkBtn"
                    onClick={() => onRemoveBookmark(episode)}
                    title="Remove bookmark">
                    <Icon name="bookmark" /></bs.Button>);
-    } else {
+    } else if (onAddBookmark) {
       bookmarkBtn = (
         <bs.Button key="bookmarkBtn"
                    onClick={() => onAddBookmark(episode)}
@@ -69,13 +71,13 @@ export const EpisodeButtons = ({
 
     if (withChannel) {
       let subscriptionBtn;
-      if (episode.subscribed) {
+      if (onUnsubscribe && episode.subscribed) {
         subscriptionBtn = (
           <bs.Button key="subscribeBtn"
                        onClick={() => onUnsubscribe(episode.channel)}
                        title={`Unsubscribe from ${channel.name}`}>
                        <Icon name="minus-circle" /></bs.Button>);
-      } else {
+      } else if (onSubscribe) {
         subscriptionBtn = (
           <bs.Button key="subscribeBtn"
                        onClick={() => onSubscribe(episode.channel)}
@@ -101,6 +103,7 @@ export const EpisodeButtons = ({
 
 EpisodeButtons.propTypes = {
   ...episodePropTypes,
+  subscribed: PropTypes.bool,
 };
 
 EpisodeButtons.defaultProps = {
