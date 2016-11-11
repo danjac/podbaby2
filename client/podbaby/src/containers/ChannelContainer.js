@@ -42,14 +42,16 @@ ChannelContainer.propTypes = {
 const mapStateToProps = state => {
   const {
     auth: { authenticated },
-    episodes: {
-      next,
-      previous,
+    channel: {
+      episodes: {
+        next,
+        previous,
+      },
     },
   } = state;
 
   const channelLoading = state.channel.loading;
-  const episodesLoading = state.episodes.loading;
+  const episodesLoading = state.channel.episodes.loading;
 
   return {
     channel: channelSelector(state),
@@ -62,7 +64,10 @@ const mapStateToProps = state => {
   };
 };
 
-const mapDispatchToProps = dispatch => bindEpisodeActionCreators(dispatch);
+const mapDispatchToProps = dispatch => ({
+  dispatch,
+  ...bindEpisodeActionCreators(dispatch),
+});
 
 const fetchEpisodes = (dispatch, page, searchQuery, { id }) => dispatch(
   fetchEpisodesForChannel(id, page, searchQuery)

@@ -7,6 +7,8 @@ import {
   FETCH_CHANNEL_SUCCESS,
 } from '../actionTypes';
 
+import { pageNumberFromUrl } from './utils';
+
 const initialState = {
   loading: false,
   channel: null,
@@ -59,9 +61,9 @@ export default function(state = initialState, action) {
       return {...state,
         episodes: {
           loading: false,
+          next: pageNumberFromUrl(next),
+          previous: pageNumberFromUrl(previous),
           results,
-          next,
-          previous,
         },
       };
 
