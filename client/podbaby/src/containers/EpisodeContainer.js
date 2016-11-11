@@ -1,5 +1,4 @@
 import React, { PropTypes, Component } from 'react';
-import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 
@@ -55,14 +54,7 @@ const mapStateToProps = state => {
   };
 };
 
-const mapDispatchToProps = dispatch => {
-  return {
-    ...bindEpisodeActionCreators(dispatch),
-    ...bindActionCreators({
-      onFetchEpisode: fetchEpisode,
-    }, dispatch),
-  };
-};
+const mapDispatchToProps = dispatch => bindEpisodeActionCreators(dispatch);
 
 export default connect(
   mapStateToProps,
