@@ -9,8 +9,9 @@ import ChannelContainer from '../containers/ChannelContainer';
 import ChannelsContainer from '../containers/ChannelsContainer';
 import EpisodeContainer from '../containers/EpisodeContainer';
 import EpisodesContainer from '../containers/EpisodesContainer';
-import UserEpisodesContainer from '../containers/UserEpisodesContainer';
 import LoginContainer from '../containers/LoginContainer';
+import SubscriptionsContainer from '../containers/SubscriptionsContainer';
+import UserEpisodesContainer from '../containers/UserEpisodesContainer';
 
 import { requireAuth, resolveDefaultPage } from './utils';
 
@@ -30,7 +31,7 @@ export const createRouterConfigurator = (history, store, requireAuth, resolveDef
 
         <Route path="feeds/">
           <Route path="all/" component={ChannelsContainer} />
-          <Route path="me/" component={ChannelsContainer} />
+          <Route path="me/" component={SubscriptionsContainer} onEnter={requireAuth} />
           <Route path="browse/" component={CategoriesContainer} />
           <Route path=":id/" component={ChannelContainer} />
         </Route>

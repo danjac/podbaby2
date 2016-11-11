@@ -32,9 +32,12 @@ export const EpisodeListItem = props => {
   const header = <Link to={`/feeds/${channel.id}/`}>{channel.name}</Link>;
 
   return (
-    <bs.Panel header={header} footer={buttons} className="episode">
+    <bs.Panel bsStyle="primary"
+              header={header}
+              footer={buttons}
+              className="episode">
 
-      <h4 style={{ textAlign: 'center' }}>
+      <h4>
         <Link to={`/podcasts/${episode.id}/`}>{title}</Link>
       </h4>
 

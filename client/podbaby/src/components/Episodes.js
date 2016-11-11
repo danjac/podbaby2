@@ -12,7 +12,6 @@ class Episodes extends Component {
 
     const {
       loading,
-      header,
       onUpdate,
       searchQuery,
       previous,
@@ -27,7 +26,6 @@ class Episodes extends Component {
 
     return (
       <div>
-        <bs.PageHeader>{header}</bs.PageHeader>
         <SearchForm placeholder="Search for podcasts" {...this.props} />
 
        {showUpdateBtn && (
@@ -46,7 +44,6 @@ Episodes.propTypes = {
   loading: PropTypes.bool.isRequired,
   searchQuery: PropTypes.string,
   previous: PropTypes.number,
-  header: PropTypes.string.isRequired,
   onUpdate: PropTypes.func.isRequired,
 };
 

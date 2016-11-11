@@ -32,31 +32,33 @@ export class SearchForm extends Component {
     } = this.props;
 
     return (
-      <form onSubmit={this.handleSearch}>
-        <bs.FormGroup>
-          <bs.FormControl type="search"
-                          ref="search"
-                          onClick={this.handleClick}
-                          defaultValue={searchQuery}
-                          placeholder={placeholder} />
-        </bs.FormGroup>
-        <bs.FormGroup>
+      <bs.Panel>
+        <form onSubmit={this.handleSearch}>
+          <bs.FormGroup>
+            <bs.FormControl type="search"
+                            ref="search"
+                            onClick={this.handleClick}
+                            defaultValue={searchQuery}
+                            placeholder={placeholder} />
+          </bs.FormGroup>
+          <bs.FormGroup>
+            <bs.Button className="form-control"
+                       type="submit"
+                       bsStyle="primary">
+              <Icon name="search" /> Search
+            </bs.Button>
+         </bs.FormGroup>
+         {searchQuery && onClearSearch &&
+         <bs.FormGroup>
           <bs.Button className="form-control"
                      type="submit"
-                     bsStyle="primary">
-            <Icon name="search" /> Search
+                     onClick={onClearSearch}
+                     bsStyle="default">
+            <Icon name="refresh" /> Show all
           </bs.Button>
-       </bs.FormGroup>
-       {searchQuery && onClearSearch &&
-       <bs.FormGroup>
-        <bs.Button className="form-control"
-                   type="submit"
-                   onClick={onClearSearch}
-                   bsStyle="default">
-          <Icon name="refresh" /> Show all
-        </bs.Button>
-       </bs.FormGroup>}
-      </form>
+         </bs.FormGroup>}
+        </form>
+      </bs.Panel>
     );
   }
 }

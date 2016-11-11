@@ -30,6 +30,7 @@ export const ChannelEpisodeListItem = props => {
   return (
     <bs.Panel header={header}
               footer={buttons}
+              bsStyle="primary"
               className="episode">
 
       {episode.explicit && (

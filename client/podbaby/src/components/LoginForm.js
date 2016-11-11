@@ -1,6 +1,7 @@
 import React, { PropTypes, Component } from 'react';
 import * as bs from 'react-bootstrap';
 import { Field } from 'redux-form';
+import Icon from 'react-fa';
 
 import FormControl from './FormControl';
 
@@ -12,9 +13,8 @@ class LoginForm extends Component {
 
     return (
       <div>
-        <bs.PageHeader>Login</bs.PageHeader>
-
         <form onSubmit={onSubmit}>
+          <bs.Well>Please enter your username and password to sign in.</bs.Well>
 
           {submitFailed && (
             <bs.Alert bsStyle="warning">
@@ -38,7 +38,8 @@ class LoginForm extends Component {
           <bs.Button bsStyle="primary"
             disabled={submitting}
             className="form-control"
-            type="submit">Login</bs.Button>
+            type="submit">
+            <Icon name="sign-in" /> Login</bs.Button>
 
         </form>
       </div>

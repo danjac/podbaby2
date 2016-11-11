@@ -18,7 +18,6 @@ class Categories extends Component {
 
     return (
       <div>
-        <bs.PageHeader>Browse categories</bs.PageHeader>
         <bs.ListGroup>
           {categories.map(category => (
           <bs.ListGroupItem key={category.id}

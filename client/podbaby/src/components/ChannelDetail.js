@@ -61,11 +61,14 @@ class ChannelDetail extends Component {
     );
 
     const buttons = <ChannelButtons {...this.props} />;
+    const header = <h3 className="panel-title">{channel.name}</h3>;
 
     return (
       <div>
-        <bs.PageHeader>{channel.name}</bs.PageHeader>
-        <bs.Panel footer={buttons}>
+        <bs.Panel bsStyle="primary"
+                  header={header}
+                  footer={buttons}
+                  className="channel">
           <bs.Media>
             <bs.Media.Left>
               <img src={thumbnail.url}

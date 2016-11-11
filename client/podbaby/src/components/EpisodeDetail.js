@@ -52,13 +52,15 @@ class EpisodeDetail extends Component {
 
     const buttons = <EpisodeButtons {...this.props} />;
 
+    const header = <Link to={`/feeds/${channel.id}/`}>{channel.name}</Link>;
+
     return (
       <div>
-        <div className="page-header">
-          <h2>{episode.title}</h2>
-          <h3><Link to={`/feeds/${channel.id}/`}>{channel.name}</Link></h3>
-        </div>
-        <bs.Panel footer={buttons}>
+        <bs.Panel bsStyle="primary"
+                  header={header}
+                  footer={buttons}
+                  className="episode">
+          <h4>{episode.title}</h4>
           <bs.Media>
             <bs.Media.Left>
               <img src={thumbnail.url}

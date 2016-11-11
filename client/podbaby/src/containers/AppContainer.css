@@ -41,6 +41,10 @@
   text-align: center;
 }
 
+.channel .panel-heading {
+  text-align: center;
+}
+
 p.episode-description {
   word-break: break-word;
 }
