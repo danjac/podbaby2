@@ -58,10 +58,6 @@ class HttpClient {
       });
   }
 
-  get(url, params, options) {
-    return this.handleRequest('GET', url, {...options, params });
-  }
-
   fetchMany(url, page, searchQuery) {
     const params = {};
     if (page) {
@@ -73,6 +69,9 @@ class HttpClient {
     return this.get(url, params);
   };
 
+  get(url, params, options) {
+    return this.handleRequest('GET', url, {...options, params });
+  }
 
   post(url, data, options) {
     return this.handleRequest('POST', url, {...options, data });

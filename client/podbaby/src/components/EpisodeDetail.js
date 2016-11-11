@@ -1,7 +1,6 @@
 import React, { PropTypes, Component } from 'react';
 import * as bs from 'react-bootstrap';
 import { Link } from 'react-router';
-import Icon from 'react-fa';
 import moment from 'moment';
 
 import { episodeShape } from '../propTypes';
@@ -73,19 +72,6 @@ class EpisodeDetail extends Component {
               {published && <p><strong>{published}</strong></p>}
             </bs.Media.Body>
           </bs.Media>
-          <bs.ButtonGroup justified style={{ marginTop: 10 }}>
-            {episode.link && (
-              <a href={episode.link} className="btn btn-default btn-sm">
-                <Icon name="globe" /> Link
-              </a>)}
-            {channel.link && (
-            <a href={channel.link} className="btn btn-default btn-sm">
-              <Icon name="globe" /> Website
-            </a>)}
-            <a href={channel.rssFeed} className="btn btn-default btn-sm">
-              <Icon name="rss" /> RSS
-            </a>
-          </bs.ButtonGroup>
           <p className="episode-description" style={{ marginTop: 10 }}
              dangerouslySetInnerHTML={description}></p>
         </bs.Panel>

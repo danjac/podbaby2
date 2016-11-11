@@ -6,6 +6,7 @@ import AppContainer from '../containers/AppContainer';
 import BookmarksContainer from '../containers/BookmarksContainer';
 import CategoriesContainer from '../containers/CategoriesContainer';
 import ChannelContainer from '../containers/ChannelContainer';
+import ChannelsContainer from '../containers/ChannelsContainer';
 import EpisodeContainer from '../containers/EpisodeContainer';
 import EpisodesContainer from '../containers/EpisodesContainer';
 import UserEpisodesContainer from '../containers/UserEpisodesContainer';
@@ -28,6 +29,8 @@ export const createRouterConfigurator = (history, store, requireAuth, resolveDef
         </Route>
 
         <Route path="feeds/">
+          <Route path="all/" component={ChannelsContainer} />
+          <Route path="me/" component={ChannelsContainer} />
           <Route path="browse/" component={CategoriesContainer} />
           <Route path=":id/" component={ChannelContainer} />
         </Route>

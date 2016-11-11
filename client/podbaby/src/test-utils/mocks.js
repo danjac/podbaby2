@@ -35,6 +35,8 @@ export const mockChannel = () => {
     name: 'The Joe Rogan Experience',
     categories: mockCategories(),
     explicit: true,
+    website: 'https://',
+    rssFeed: 'https://',
     thumbnail: {
       url: 'test.jpg',
       height: 120,
@@ -54,6 +56,13 @@ export const mockEpisode = () => {
     subscribed: false,
     channel: mockChannel(),
     explicit: true,
+  };
+};
+
+export const mockChannelActions = () => {
+  return {
+    onSubscribe: jest.fn(),
+    onUnsubscribe: jest.fn(),
   };
 };
 

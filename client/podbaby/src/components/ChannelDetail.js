@@ -1,6 +1,5 @@
 import React, { PropTypes, Component } from 'react';
 import * as bs from 'react-bootstrap';
-import Icon from 'react-fa';
 
 import {
   channelShape,
@@ -11,6 +10,7 @@ import Loader from './Loader';
 import EpisodeList from './EpisodeList';
 import Labels from './Labels';
 import ChannelEpisodeListItem from './ChannelEpisodeListItem';
+import ChannelButtons from './ChannelButtons';
 import { sanitize } from './utils';
 
 import defaultThumbnail from './podcast.svg';
@@ -25,9 +25,6 @@ class ChannelDetail extends Component {
       episodesLoading,
       searchQuery,
       error,
-      authenticated,
-      onSubscribe,
-      onUnsubscribe,
     } = this.props;
 
     if (error) {
@@ -63,27 +60,12 @@ class ChannelDetail extends Component {
       </div>
     );
 
-    let subscriptionBtn;
-
-    if (authenticated) {
-      if (channel.subscribed) {
-        subscriptionBtn = (
-          <bs.Button className="form-control"
-                     onClick={() => onUnsubscribe(channel)}>
-                       <Icon name="minus-circle" /> Unsubscribe</bs.Button>);
-      } else {
-        subscriptionBtn = (
-          <bs.Button className="form-control"
-                     onClick={() => onSubscribe(channel)}>
-                       <Icon name="plus-circle" /> Subscribe</bs.Button>);
-      }
-
-    }
+    const buttons = <ChannelButtons {...this.props} />;
 
     return (
       <div>
         <bs.PageHeader>{channel.name}</bs.PageHeader>
-        <bs.Panel footer={subscriptionBtn}>
+        <bs.Panel footer={buttons}>
           <bs.Media>
             <bs.Media.Left>
               <img src={thumbnail.url}
@@ -96,19 +78,9 @@ class ChannelDetail extends Component {
                       explicit={channel.explicit} />
             </bs.Media.Body>
           </bs.Media>
-          <bs.ButtonGroup justified style={{ marginTop: 10 }}>
-            {channel.link && (
-            <a href={channel.link} className="btn btn-default btn-sm">
-              <Icon name="globe" /> Website
-            </a>)}
-            <a href={channel.rssFeed} className="btn btn-default btn-sm">
-              <Icon name="rss" /> RSS
-            </a>
-          </bs.ButtonGroup>
         <p className="episode-description" style={{ marginTop: 10 }}
            dangerouslySetInnerHTML={description}></p>
         </bs.Panel>
-
         {episodes}
       </div>
     );
@@ -119,9 +91,6 @@ ChannelDetail.propTypes = {
   channel: channelShape,
   error: PropTypes.object,
   searchQuery: PropTypes.string,
-  onSubscribe: PropTypes.func.isRequired,
-  onUnsubscribe: PropTypes.func.isRequired,
-  authenticated: PropTypes.bool.isRequired,
   channelLoading: PropTypes.bool.isRequired,
   episodesLoading: PropTypes.bool.isRequired,
 };
