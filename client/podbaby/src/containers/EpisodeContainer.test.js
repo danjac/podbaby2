@@ -8,9 +8,9 @@ import { EpisodeContainer } from './EpisodeContainer';
 const defaultProps = () => ({
   episode: mockEpisode(),
   params: { id: 1 },
+  dispatch: jest.fn(),
   authenticated: false,
   loading: false,
-  onFetchEpisode: jest.fn(),
   ...mockEpisodeActions(),
 });
 
@@ -23,12 +23,12 @@ it('should render the container', () => {
 it('should fetch episode on mount', () => {
   const props = defaultProps();
   mount(<EpisodeContainer {...props} />);
-  expect(props.onFetchEpisode).toBeCalledWith(1);
+  expect(props.dispatch).toBeCalled();
 });
 
 it('should fetch episode if id parameter changes', () => {
   const props = defaultProps();
   const rendered = mount(<EpisodeContainer {...props} />);
   rendered.setProps({ params: { id: 2 }});
-  expect(props.onFetchEpisode).toBeCalledWith(2);
+  expect(props.dispatch).toBeCalled();
 });

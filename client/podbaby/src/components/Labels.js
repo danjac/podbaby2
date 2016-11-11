@@ -1,5 +1,7 @@
 import React, { PropTypes } from 'react';
 
+import { categoryShape } from '../propTypes';
+
 import * as bs from 'react-bootstrap';
 import Icon from 'react-fa';
 
@@ -32,7 +34,7 @@ const Labels = ({ categories, explicit }) => {
 
 Labels.propTypes = {
   explicit: PropTypes.bool.isRequired,
-  categories: PropTypes.arrayOf(PropTypes.object).isRequired,
+  categories: PropTypes.arrayOf(categoryShape).isRequired,
 };
 
 export default Labels;

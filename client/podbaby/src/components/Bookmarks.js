@@ -1,8 +1,6 @@
 import React, { PropTypes, Component } from 'react';
 import * as bs from 'react-bootstrap';
 
-import { episodesPropTypes, searchPropTypes } from '../propTypes';
-
 import SearchForm from './SearchForm';
 import Loader from './Loader';
 import EpisodeList from './EpisodeList';
@@ -35,8 +33,7 @@ class Bookmarks extends Component {
 }
 
 Bookmarks.propTypes = {
-  ...episodesPropTypes,
-  ...searchPropTypes,
+  searchQuery: PropTypes.string,
   loading: PropTypes.bool.isRequired,
 };
 

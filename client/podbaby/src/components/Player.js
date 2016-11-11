@@ -3,7 +3,7 @@ import * as bs from 'react-bootstrap';
 import Icon from 'react-fa';
 import { Link } from 'react-router';
 
-import { episodePropTypes, authPropTypes } from '../propTypes';
+import { episodeShape } from '../propTypes';
 
 import EpisodeButtons from './EpisodeButtons';
 
@@ -94,12 +94,7 @@ class Player extends Component {
 };
 
 Player.propTypes = {
-  ...episodePropTypes,
-  ...authPropTypes,
-};
-
-Player.defaultProps = {
-  withChannel: true,
+  episode: episodeShape,
 };
 
 export default Player;

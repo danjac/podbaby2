@@ -41,8 +41,6 @@ LoginContainer.propTypes = {
   dispatch: PropTypes.func.isRequired,
   router: routerShape,
   handleSubmit: PropTypes.func.isRequired,
-  submitFailed: PropTypes.bool.isRequired,
-  submitting: PropTypes.bool.isRequired,
 };
 
 export default connect()(reduxForm({

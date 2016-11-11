@@ -2,8 +2,6 @@ import React, { PropTypes, Component } from 'react';
 import * as bs from 'react-bootstrap';
 import Icon from 'react-fa';
 
-import { episodesPropTypes, searchPropTypes } from '../propTypes';
-
 import SearchForm from './SearchForm';
 import Loader from './Loader';
 import EpisodeList from './EpisodeList';
@@ -45,9 +43,9 @@ class Episodes extends Component {
 }
 
 Episodes.propTypes = {
-  ...episodesPropTypes,
-  ...searchPropTypes,
   loading: PropTypes.bool.isRequired,
+  searchQuery: PropTypes.string,
+  previous: PropTypes.number,
   header: PropTypes.string.isRequired,
   onUpdate: PropTypes.func.isRequired,
 };

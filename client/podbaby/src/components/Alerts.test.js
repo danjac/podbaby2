@@ -5,12 +5,12 @@ import Alerts, { Alert } from './Alerts';
 it('should render a list of alerts', () => {
   const alerts = [
     {
-      id: 1,
+      id: '1',
       style: 'success',
       message: 'it works',
     },
     {
-      id: 2,
+      id: '2',
       style: 'warning',
       message: 'it fails',
     },

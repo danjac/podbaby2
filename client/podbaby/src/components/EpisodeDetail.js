@@ -4,7 +4,7 @@ import { Link } from 'react-router';
 import Icon from 'react-fa';
 import moment from 'moment';
 
-import { episodePropTypes } from '../propTypes';
+import { episodeShape } from '../propTypes';
 
 import Loader from './Loader';
 import EpisodeButtons from './EpisodeButtons';
@@ -96,10 +96,10 @@ class EpisodeDetail extends Component {
 }
 
 EpisodeDetail.propTypes = {
+  episode: episodeShape,
   authenticated: PropTypes.bool.isRequired,
   error: PropTypes.object,
   loading: PropTypes.bool.isRequired,
-  ...episodePropTypes,
 };
 
 export default EpisodeDetail;

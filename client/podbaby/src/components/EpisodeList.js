@@ -1,6 +1,6 @@
 import React, { PropTypes, createElement } from 'react';
 
-import { episodesPropTypes } from '../propTypes';
+import { episodeShape } from '../propTypes';
 
 import Pager from './Pager';
 import EpisodeListItem from './EpisodeListItem';
@@ -35,14 +35,17 @@ const EpisodeList = props => {
   return (
     <div style={style}>
       {pager}
-      {episodes.map(episode => createElement(component, { key: episode.id, episode, ...props }))}
+      {episodes.map(episode => createElement(
+        component, { key: episode.id, episode, ...props }))}
       {pager}
     </div>
   );
 };
 
 EpisodeList.propTypes = {
-  ...episodesPropTypes.isRequired,
+  episodes: PropTypes.arrayOf(episodeShape),
+  next: PropTypes.number,
+  previous: PropTypes.number,
   component: PropTypes.func.isRequired,
   ifEmpty: PropTypes.string,
   onSelectPage: PropTypes.func.isRequired,

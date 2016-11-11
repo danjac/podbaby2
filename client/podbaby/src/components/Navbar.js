@@ -127,9 +127,9 @@ class Navbar extends Component {
 }
 
 Navbar.propTypes = {
-  onLogout: PropTypes.func.isRequired,
   authenticated: PropTypes.bool.isRequired,
   user: PropTypes.object,
+  onLogout: PropTypes.func.isRequired,
 };
 
 export default Navbar;

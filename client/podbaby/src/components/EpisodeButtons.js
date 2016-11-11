@@ -3,9 +3,7 @@ import React, { PropTypes } from 'react';
 import Icon from 'react-fa';
 import * as bs from 'react-bootstrap';
 
-import {
-  episodePropTypes,
-} from '../propTypes';
+import { episodeShape } from '../propTypes';
 
 export const EpisodeButtons = ({
   episode,
@@ -22,6 +20,7 @@ export const EpisodeButtons = ({
 
   let buttons = [];
   let playerBtn;
+
 
   if (onStopPlayer && episode.playing) {
     playerBtn = (<bs.Button key="stopBtn"
@@ -70,8 +69,9 @@ export const EpisodeButtons = ({
     buttons.push(bookmarkBtn);
 
     if (withChannel) {
+      const { subscribed } = channel;
       let subscriptionBtn;
-      if (onUnsubscribe && episode.subscribed) {
+      if (onUnsubscribe && subscribed) {
         subscriptionBtn = (
           <bs.Button key="subscribeBtn"
                        onClick={() => onUnsubscribe(episode.channel)}
@@ -102,8 +102,15 @@ export const EpisodeButtons = ({
 };
 
 EpisodeButtons.propTypes = {
-  ...episodePropTypes,
-  subscribed: PropTypes.bool,
+  episode: episodeShape,
+  withChannel: PropTypes.bool.isRequired,
+  authenticated: PropTypes.bool.isRequired,
+  onAddBookmark: PropTypes.func.isRequired,
+  onRemoveBookmark: PropTypes.func.isRequired,
+  onStartPlayer: PropTypes.func.isRequired,
+  onStopPlayer: PropTypes.func.isRequired,
+  onSubscribe: PropTypes.func.isRequired,
+  onUnsubscribe: PropTypes.func.isRequired,
 };
 
 EpisodeButtons.defaultProps = {

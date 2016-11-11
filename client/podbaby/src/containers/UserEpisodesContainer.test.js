@@ -13,6 +13,7 @@ const defaultProps = () => {
     episodes: [
       mockEpisode(),
     ],
+    dispatch: jest.fn(),
     onSearch: jest.fn(),
     onSelectPage: jest.fn(),
     onClearSearch: jest.fn(),

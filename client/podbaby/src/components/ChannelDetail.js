@@ -3,9 +3,7 @@ import * as bs from 'react-bootstrap';
 import Icon from 'react-fa';
 
 import {
-  episodesPropTypes,
-  searchPropTypes,
-  channelPropTypes,
+  channelShape,
 } from '../propTypes';
 
 import SearchForm from './SearchForm';
@@ -82,8 +80,8 @@ class ChannelDetail extends Component {
 
     }
 
-      return (
-        <div>
+    return (
+      <div>
         <bs.PageHeader>{channel.name}</bs.PageHeader>
         <bs.Panel footer={subscriptionBtn}>
           <bs.Media>
@@ -113,16 +111,19 @@ class ChannelDetail extends Component {
 
         {episodes}
       </div>
-      );
-    }
+    );
   }
+}
 
-  ChannelDetail.propTypes = {
-    ...episodesPropTypes,
-    ...channelPropTypes,
-    ...searchPropTypes,
-    channelLoading: PropTypes.bool.isRequired,
-    episodesLoading: PropTypes.bool.isRequired,
-  };
+ChannelDetail.propTypes = {
+  channel: channelShape,
+  error: PropTypes.object,
+  searchQuery: PropTypes.string,
+  onSubscribe: PropTypes.func.isRequired,
+  onUnsubscribe: PropTypes.func.isRequired,
+  authenticated: PropTypes.bool.isRequired,
+  channelLoading: PropTypes.bool.isRequired,
+  episodesLoading: PropTypes.bool.isRequired,
+};
 
-  export default ChannelDetail;
+export default ChannelDetail;

@@ -26,9 +26,7 @@ export class NavContainer extends Component {
 
 NavContainer.propTypes = {
   dispatch: PropTypes.func.isRequired,
-  authenticated: PropTypes.bool.isRequired,
   router: routerShape,
-  user: PropTypes.object,
 };
 
 const mapStateToProps = state => {

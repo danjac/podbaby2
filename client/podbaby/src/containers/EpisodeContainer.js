@@ -3,7 +3,6 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 
-import { episodePropTypes } from '../propTypes';
 import { episodeSelector } from '../selectors';
 import { fetchEpisode } from '../actions/episode';
 import EpisodeDetail from '../components/EpisodeDetail';
@@ -24,7 +23,7 @@ export class EpisodeContainer extends Component {
   }
 
   fetchEpisode(id) {
-    this.props.onFetchEpisode(id);
+    this.props.dispatch(fetchEpisode(id));
   }
 
   render() {
@@ -34,11 +33,8 @@ export class EpisodeContainer extends Component {
 }
 
 EpisodeContainer.propTypes = {
+  dispatch: PropTypes.func.isRequired,
   params: PropTypes.object.isRequired,
-  loading: PropTypes.bool.isRequired,
-  error: PropTypes.object,
-  onFetchEpisode: PropTypes.func.isRequired,
-  ...episodePropTypes,
 };
 
 const mapStateToProps = state => {

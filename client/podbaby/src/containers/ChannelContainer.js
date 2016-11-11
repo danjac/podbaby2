@@ -5,8 +5,6 @@ import { withRouter } from 'react-router';
 import { fetchChannel, fetchEpisodesForChannel } from '../actions/channel';
 import { channelSelector, channelEpisodesSelector } from '../selectors';
 
-import { searchPropTypes, channelPropTypes } from '../propTypes';
-
 import ChannelDetail from '../components/ChannelDetail';
 
 import paginatedSearch from './paginatedSearch';
@@ -36,11 +34,8 @@ export class ChannelContainer extends Component {
 }
 
 ChannelContainer.propTypes = {
-  ...channelPropTypes,
-  ...searchPropTypes,
+  dispatch: PropTypes.func.isRequired,
   params: PropTypes.object.isRequired,
-  channelLoading: PropTypes.bool.isRequired,
-  episodesLoading: PropTypes.bool.isRequired,
 };
 
 

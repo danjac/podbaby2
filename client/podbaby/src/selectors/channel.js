@@ -4,26 +4,11 @@ import { bookmarksSelector, isBookmarked } from './bookmarks';
 import { playerSelector, isPlaying } from './player';
 import { subscriptionsSelector, isSubscribed } from './subscriptions';
 
-export const channelEpisodesSelector = createSelector(
-  state => state.channel.episodes.results,
-  playerSelector,
-  bookmarksSelector,
-  (episodes, player, bookmarks) => {
-      return episodes.map(episode => {
-      return {...episode,
-        bookmarked: isBookmarked(bookmarks, episode),
-        playing: isPlaying(player, episode),
-      };
-    });
-  },
-);
-
-
 export const channelSelector = createSelector(
   state => state.channel.channel,
   subscriptionsSelector,
   (channel, subscriptions) => {
-    if(!channel) {
+    if (!channel) {
       return null;
     }
     return {
@@ -31,4 +16,23 @@ export const channelSelector = createSelector(
       subscribed: isSubscribed(subscriptions, channel),
     };
   }
+);
+
+export const channelEpisodesSelector = createSelector(
+  state => state.channel.episodes.results,
+  playerSelector,
+  bookmarksSelector,
+  channelSelector,
+  (episodes, player, bookmarks, channel) => {
+    if (!channel) {
+      return [];
+    }
+    return episodes.map(episode => {
+      return {...episode,
+        bookmarked: isBookmarked(bookmarks, episode),
+        playing: isPlaying(player, episode),
+        channel,
+      };
+    });
+  },
 );

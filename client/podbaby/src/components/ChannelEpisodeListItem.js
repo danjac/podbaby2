@@ -4,7 +4,7 @@ import * as bs from 'react-bootstrap';
 import moment from 'moment';
 import Icon from 'react-fa';
 
-import { channelEpisodePropTypes } from '../propTypes';
+import { episodeShape } from '../propTypes';
 import EpisodeButtons from './EpisodeButtons';
 import { sanitize } from './utils';
 
@@ -44,7 +44,9 @@ export const ChannelEpisodeListItem = props => {
   );
 };
 
-ChannelEpisodeListItem.propTypes = channelEpisodePropTypes;
+ChannelEpisodeListItem.propTypes = {
+  episode: episodeShape,
+};
 
 
 export default ChannelEpisodeListItem;

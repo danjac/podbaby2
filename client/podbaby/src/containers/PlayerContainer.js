@@ -1,8 +1,7 @@
-import React, { PropTypes, Component } from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import { playingEpisodeSelector } from '../selectors';
-import { episodePropTypes } from '../propTypes';
 import Player from '../components/Player';
 
 import { bindEpisodeActionCreators } from './utils';
@@ -12,12 +11,6 @@ export class PlayerContainer extends Component {
     return <Player {...this.props} />;
   }
 }
-
-PlayerContainer.propTypes = {
-  ...episodePropTypes,
-  currentTime: PropTypes.number.isRequired,
-  authenticated: PropTypes.bool.isRequired,
-};
 
 const mapStateToProps = state => {
   const {

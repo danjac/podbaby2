@@ -82,7 +82,10 @@ it('should show a subscribe button if user is logged in', () => {
   const props = {...defaults,
     episode: {
       ...defaults.episode,
-      subscribed: false,
+      channel: {
+        ...defaults.episode.channel,
+        subscribed: false,
+      },
     },
     authenticated: true,
     withChannel: true,
@@ -111,7 +114,10 @@ it('should not show a subscribe button if channel subscribe', () => {
     ...defaultProps,
     episode: {
       ...defaultProps.episode,
-      subscribed: true,
+      channel: {
+        ...defaultProps.episode.channel,
+        subscribed: true,
+      },
     },
     authenticated: true,
   };

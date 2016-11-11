@@ -1,4 +1,4 @@
-import React, { PropTypes, Component } from 'react';
+import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
@@ -11,11 +11,6 @@ export class AlertsContainer extends Component {
     return <Alerts {...this.props} />;
   }
 }
-
-AlertsContainer.propTypes = {
-  onDismiss: PropTypes.func.isRequired,
-  alerts: PropTypes.array.isRequired,
-};
 
 const mapStateToProps = state => {
   return {

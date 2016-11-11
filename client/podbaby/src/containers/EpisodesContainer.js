@@ -4,7 +4,6 @@ import { withRouter } from 'react-router';
 
 import { fetchAllEpisodes } from '../actions/episodes';
 import { episodesSelector } from '../selectors';
-import { episodesPropTypes, searchPropTypes } from '../propTypes';
 import Episodes from '../components/Episodes';
 
 import paginatedSearch from './paginatedSearch';
@@ -29,9 +28,7 @@ export class EpisodesContainer extends Component {
 }
 
 EpisodesContainer.propTypes = {
-  ...episodesPropTypes,
-  ...searchPropTypes,
-  loading: PropTypes.bool.isRequired,
+  dispatch: PropTypes.func.isRequired,
 };
 
 

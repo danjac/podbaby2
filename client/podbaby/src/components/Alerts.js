@@ -1,6 +1,7 @@
 import React, { PropTypes } from 'react';
-
 import * as bs from 'react-bootstrap';
+
+import { alertShape } from '../propTypes';
 
 export const Alert = ({ alert, onDismiss }) => {
   return (
@@ -13,8 +14,8 @@ export const Alert = ({ alert, onDismiss }) => {
 };
 
 Alert.propTypes = {
+  alert: alertShape.isRequired,
   onDismiss: PropTypes.func.isRequired,
-  alert: PropTypes.object.isRequired,
 };
 
 const Alerts = ({ alerts, onDismiss }) => {

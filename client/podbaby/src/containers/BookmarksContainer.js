@@ -1,10 +1,9 @@
-import React, { PropTypes, Component } from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 
 import { fetchBookmarkedEpisodes } from '../actions/episodes';
 import { episodesSelector } from '../selectors';
-import { episodesPropTypes, searchPropTypes } from '../propTypes';
 import Bookmarks from '../components/Bookmarks';
 
 import paginatedSearch from './paginatedSearch';
@@ -16,13 +15,6 @@ export class BookmarksContainer extends Component {
     return <Bookmarks {...this.props} />;
   }
 }
-
-BookmarksContainer.propTypes = {
-  ...episodesPropTypes,
-  ...searchPropTypes,
-  loading: PropTypes.bool.isRequired,
-};
-
 
 const mapStateToProps = state => {
   const {

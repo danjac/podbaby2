@@ -16,6 +16,7 @@ const defaultProps = () => {
     ],
     params: { id: 1 },
     channel: mockChannel(),
+    dispatch: jest.fn(),
     onSearch: jest.fn(),
     onSelectPage: jest.fn(),
     onClearSearch: jest.fn(),
