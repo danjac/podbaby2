@@ -7,7 +7,7 @@ import { channelSelector, channelEpisodesSelector } from '../selectors';
 
 import ChannelDetail from '../components/ChannelDetail';
 
-import paginatedSearch from './paginatedSearch';
+import withPaginatedSearch from './withPaginatedSearch';
 
 import { bindEpisodeActionCreators } from './utils';
 
@@ -71,4 +71,4 @@ const fetchEpisodes = (dispatch, page, searchQuery, { id }) => dispatch(
 export default connect(
   mapStateToProps,
   mapDispatchToProps,
-)(withRouter(paginatedSearch(fetchEpisodes)(ChannelContainer)));
+)(withRouter(withPaginatedSearch(fetchEpisodes)(ChannelContainer)));

@@ -6,7 +6,7 @@ import { fetchBookmarkedEpisodes } from '../actions/episodes';
 import { episodesSelector } from '../selectors';
 import Bookmarks from '../components/Bookmarks';
 
-import paginatedSearch from './paginatedSearch';
+import withPaginatedSearch from './withPaginatedSearch';
 import { bindEpisodeActionCreators } from './utils';
 
 export class BookmarksContainer extends Component {
@@ -44,4 +44,4 @@ const fetchData = (dispatch, page, searchQuery) => dispatch(
 export default connect(
   mapStateToProps,
   mapDispatchToProps,
-)(withRouter(paginatedSearch(fetchData)(BookmarksContainer)));
+)(withRouter(withPaginatedSearch(fetchData)(BookmarksContainer)));

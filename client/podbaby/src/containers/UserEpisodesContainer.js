@@ -6,7 +6,7 @@ import { fetchSubscribedEpisodes } from '../actions/episodes';
 import { episodesSelector } from '../selectors';
 import Episodes from '../components/Episodes';
 
-import paginatedSearch from './paginatedSearch';
+import withPaginatedSearch from './withPaginatedSearch';
 import { bindEpisodeActionCreators } from './utils';
 
 export class UserEpisodesContainer extends Component {
@@ -60,4 +60,4 @@ const fetchData = (dispatch, page, searchQuery) => dispatch(
 export default connect(
   mapStateToProps,
   mapDispatchToProps,
-)(withRouter(paginatedSearch(fetchData)(UserEpisodesContainer)));
+)(withRouter(withPaginatedSearch(fetchData)(UserEpisodesContainer)));
