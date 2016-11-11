@@ -32,16 +32,13 @@ export const EpisodeListItem = props => {
   const header = <Link to={`/feeds/${channel.id}/`}>{channel.name}</Link>;
 
   return (
-    <bs.Panel bsStyle="primary"
-              header={header}
+    <bs.Panel header={header}
               footer={buttons}
               className="episode">
-
-      <h4>
-        <Link to={`/podcasts/${episode.id}/`}>{title}</Link>
-      </h4>
-
       <bs.Media>
+        <bs.Media.Heading>
+          <Link to={`/podcasts/${episode.id}/`}>{title}</Link>
+        </bs.Media.Heading>
         <bs.Media.Left>
           <img src={thumbnail.url}
                width={thumbnail.width}

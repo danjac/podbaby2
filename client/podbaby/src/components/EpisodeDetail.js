@@ -60,8 +60,8 @@ class EpisodeDetail extends Component {
                   header={header}
                   footer={buttons}
                   className="episode">
-          <h4>{episode.title}</h4>
           <bs.Media>
+            <bs.Media.Heading>{episode.title}</bs.Media.Heading>
             <bs.Media.Left>
               <img src={thumbnail.url}
                    width={thumbnail.width}

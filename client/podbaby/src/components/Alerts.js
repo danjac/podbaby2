@@ -19,8 +19,8 @@ Alert.propTypes = {
 };
 
 const Alerts = ({ alerts, onDismiss }) => {
-  if (!alerts) {
-    return <div />;
+  if (!alerts.length) {
+    return <span></span>;
   }
   const style = {
     position: 'fixed',

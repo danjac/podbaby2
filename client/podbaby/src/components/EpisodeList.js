@@ -1,4 +1,5 @@
 import React, { PropTypes, createElement } from 'react';
+import * as bs from 'react-bootstrap';
 
 import { episodeShape } from '../propTypes';
 
@@ -23,7 +24,7 @@ const EpisodeList = props => {
   if (!episodes.length) {
     const msg = ifEmpty || 'No podcasts found';
     return (
-      <div style={style}>{msg}</div>
+      <bs.Well>{msg}</bs.Well>
     );
   }
 

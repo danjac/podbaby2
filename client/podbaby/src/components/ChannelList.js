@@ -1,4 +1,5 @@
 import React, { PropTypes } from 'react';
+import * as bs from 'react-bootstrap';
 
 import { channelShape } from '../propTypes';
 
@@ -22,7 +23,7 @@ const ChannelList = props => {
   if (!channels.length) {
     const msg = ifEmpty || 'No feeds found';
     return (
-      <div style={style}>{msg}</div>
+      <bs.Well style={style}>{msg}</bs.Well>
     );
   }
 
