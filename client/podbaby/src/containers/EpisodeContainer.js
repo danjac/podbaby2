@@ -54,7 +54,10 @@ const mapStateToProps = state => {
   };
 };
 
-const mapDispatchToProps = dispatch => bindEpisodeActionCreators(dispatch);
+const mapDispatchToProps = dispatch => ({
+  dispatch,
+  ...bindEpisodeActionCreators(dispatch),
+});
 
 export default connect(
   mapStateToProps,
