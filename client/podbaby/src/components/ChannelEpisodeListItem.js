@@ -6,7 +6,7 @@ import Icon from 'react-fa';
 
 import { episodeShape } from '../propTypes';
 import EpisodeButtons from './EpisodeButtons';
-import { sanitize } from './utils';
+import Description from './Description';
 
 export const ChannelEpisodeListItem = props => {
 
@@ -16,9 +16,7 @@ export const ChannelEpisodeListItem = props => {
     'MMMM Do YYYY'
   );
 
-  const description = sanitize(
-    (episode.subtitle || episode.summary || episode.description) || ''
-  );
+  const description = episode.subtitle || episode.summary || episode.description;
 
   const buttons = <EpisodeButtons {...props } withChannel={false} />;
 
@@ -38,7 +36,7 @@ export const ChannelEpisodeListItem = props => {
       </bs.Label>)}
 
       {published && <p><strong>{published}</strong></p>}
-      <p className="description" dangerouslySetInnerHTML={description}></p>
+      <Description content={description} />
     </bs.Panel>
   );
 };

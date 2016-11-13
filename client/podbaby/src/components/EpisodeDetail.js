@@ -6,9 +6,9 @@ import moment from 'moment';
 import { episodeShape } from '../propTypes';
 
 import Loader from './Loader';
+import Description from './Description';
 import EpisodeButtons from './EpisodeButtons';
 import Labels from './Labels';
-import { sanitize } from './utils';
 
 import defaultThumbnail from './podcast.svg';
 import './EpisodeDetail.css';
@@ -37,9 +37,7 @@ class EpisodeDetail extends Component {
 
     const { channel } = episode;
 
-    const description = sanitize(
-      episode.description || episode.summary || episode.subtitle || ''
-    );
+    const description = episode.description || episode.summary || episode.subtitle;
 
     const thumbnail = channel.thumbnail || {
       url: defaultThumbnail,
@@ -76,7 +74,7 @@ class EpisodeDetail extends Component {
               {published && <p><strong>{published}</strong></p>}
             </bs.Media.Body>
           </bs.Media>
-          <p className="description" dangerouslySetInnerHTML={description}></p>
+          <Description content={description} />
         </bs.Panel>
       </div>
     );

@@ -7,11 +7,11 @@ import {
 
 import SearchForm from './SearchForm';
 import Loader from './Loader';
+import Description from './Description';
 import EpisodeList from './EpisodeList';
 import Labels from './Labels';
 import ChannelEpisodeListItem from './ChannelEpisodeListItem';
 import ChannelButtons from './ChannelButtons';
-import { sanitize } from './utils';
 
 import defaultThumbnail from './podcast.svg';
 import './ChannelDetail.css';
@@ -47,8 +47,6 @@ class ChannelDetail extends Component {
       width: 120,
     };
 
-    const description = sanitize(channel.description || '');
-
     const ifEmpty = searchQuery ? 'Sorry, no results found for your search' : 'This feed does not have any podcasts';
 
     const episodes = episodesLoading ? <Loader /> : (
@@ -82,7 +80,7 @@ class ChannelDetail extends Component {
                       explicit={channel.explicit} />
             </bs.Media.Body>
           </bs.Media>
-        <p className="description" dangerouslySetInnerHTML={description}></p>
+          <Description content={channel.description} />
         </bs.Panel>
         {episodes}
       </div>

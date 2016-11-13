@@ -5,9 +5,9 @@ import moment from 'moment';
 
 import { episodeShape } from '../propTypes';
 import defaultThumbnail from './podcast.svg';
+import Description from './Description';
 import Labels from './Labels';
 import EpisodeButtons from './EpisodeButtons';
-import { sanitize } from './utils';
 
 import './EpisodeListItem.css';
 
@@ -25,9 +25,7 @@ export const EpisodeListItem = props => {
     'MMMM Do YYYY'
   );
 
-  const description = sanitize(
-    (episode.subtitle || episode.summary || episode.description) || ''
-  );
+  const description = episode.subtitle || episode.summary || episode.description;
 
   const title = episode.title || channel.name;
   const buttons = <EpisodeButtons {...props } />;
@@ -53,7 +51,7 @@ export const EpisodeListItem = props => {
           {published && <p><strong>{published}</strong></p>}
         </bs.Media.Body>
       </bs.Media>
-      <p className="description" dangerouslySetInnerHTML={description}></p>
+      <Description content={description} />
     </bs.Panel>
   );
 };
