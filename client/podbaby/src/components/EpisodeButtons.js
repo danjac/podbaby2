@@ -1,5 +1,4 @@
 import React, { PropTypes } from 'react';
-
 import Icon from 'react-fa';
 import * as bs from 'react-bootstrap';
 
@@ -76,13 +75,13 @@ export const EpisodeButtons = ({
           <bs.Button key="subscribeBtn"
                        onClick={() => onUnsubscribe(episode.channel)}
                        title={`Unsubscribe from ${channel.name}`}>
-                       <Icon name="minus-circle" /></bs.Button>);
+                       <Icon name="trash" /></bs.Button>);
       } else if (onSubscribe) {
         subscriptionBtn = (
           <bs.Button key="subscribeBtn"
                        onClick={() => onSubscribe(episode.channel)}
                        title={`Subscribe to ${channel.name}`}>
-                       <Icon name="plus-circle" /></bs.Button>);
+                       <Icon name="rss" /></bs.Button>);
 
       }
       buttons.push(subscriptionBtn);

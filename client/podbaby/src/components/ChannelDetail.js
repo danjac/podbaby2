@@ -10,6 +10,7 @@ import EpisodeList from './EpisodeList';
 import Labels from './Labels';
 import ChannelEpisodeListItem from './ChannelEpisodeListItem';
 import ChannelButtons from './ChannelButtons';
+import ChannelLinks from './ChannelLinks';
 import NotFound from './NotFound';
 
 import defaultThumbnail from './podcast.svg';
@@ -74,6 +75,7 @@ class ChannelDetail extends Component {
                       explicit={channel.explicit} />
             </bs.Media.Body>
           </bs.Media>
+          <ChannelLinks channel={channel} />
           <Description content={channel.description} />
         </bs.Panel>
         {episodes}

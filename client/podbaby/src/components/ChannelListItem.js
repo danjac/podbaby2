@@ -6,7 +6,8 @@ import { channelShape } from '../propTypes';
 import defaultThumbnail from './podcast.svg';
 import Labels from './Labels';
 import ChannelButtons from './ChannelButtons';
-import { sanitize } from './utils';
+import ChannelLinks from './ChannelLinks';
+import Description from './Description';
 
 import './ChannelListItem.css';
 
@@ -19,8 +20,6 @@ export const ChannelListItem = props => {
     height: 120,
     width: 120,
   };
-
-  const description = sanitize(channel.description || '');
 
   const buttons = <ChannelButtons {...props } />;
   const header = <Link to={`/feeds/${channel.id}/`}>{channel.name}</Link>;
@@ -42,7 +41,8 @@ export const ChannelListItem = props => {
                   explicit={channel.explicit} />
         </bs.Media.Body>
       </bs.Media>
-      <p dangerouslySetInnerHTML={description}></p>
+      <ChannelLinks channel={channel} />
+      <Description content={channel.description} />
     </bs.Panel>
   );
 };

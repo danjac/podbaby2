@@ -8,6 +8,7 @@ import defaultThumbnail from './podcast.svg';
 import Description from './Description';
 import Labels from './Labels';
 import EpisodeButtons from './EpisodeButtons';
+import EpisodeLinks from './EpisodeLinks';
 
 import './EpisodeListItem.css';
 
@@ -47,10 +48,12 @@ export const EpisodeListItem = props => {
                alt={channel.name} />
         </bs.Media.Left>
         <bs.Media.Body>
-          <Labels categories={channel.categories} explicit={episode.explicit} />
+          <Labels categories={channel.categories}
+                  explicit={episode.explicit} />
           {published && <p><strong>{published}</strong></p>}
         </bs.Media.Body>
       </bs.Media>
+      <EpisodeLinks episode={episode} />
       <Description content={description} />
     </bs.Panel>
   );

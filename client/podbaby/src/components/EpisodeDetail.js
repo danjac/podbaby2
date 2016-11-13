@@ -10,6 +10,7 @@ import Description from './Description';
 import EpisodeButtons from './EpisodeButtons';
 import Labels from './Labels';
 import NotFound from './NotFound';
+import EpisodeLinks from './EpisodeLinks';
 
 import defaultThumbnail from './podcast.svg';
 import './EpisodeDetail.css';
@@ -70,6 +71,7 @@ class EpisodeDetail extends Component {
               {published && <p><strong>{published}</strong></p>}
             </bs.Media.Body>
           </bs.Media>
+          <EpisodeLinks episode={episode} />
           <Description content={description} />
         </bs.Panel>
       </div>
