@@ -2,46 +2,9 @@ import React, { Component, PropTypes } from 'react';
 import * as bs from 'react-bootstrap';
 import Icon from 'react-fa';
 import { Link } from 'react-router';
-import { LinkContainer } from 'react-router-bootstrap';
 
-
-const LinkNavItem = ({ to, icon, onClick, children }) => (
-  <LinkContainer to={to}>
-    <bs.NavItem onClick={onClick}>
-      <Icon name={icon} /> {children}
-    </bs.NavItem>
-  </LinkContainer>
-);
-
-LinkNavItem.propTypes = {
-  to: PropTypes.oneOfType([
-    React.PropTypes.string,
-    React.PropTypes.object,
-  ]).isRequired,
-  icon: PropTypes.string.isRequired,
-  children: PropTypes.node,
-  onClick: PropTypes.func,
-};
-
-
-const LinkMenuItem = ({ to, icon, onClick, children }) => (
-  <LinkContainer to={to}>
-    <bs.MenuItem onClick={onClick}>
-      <Icon name={icon} /> {children}
-      </bs.MenuItem>
-  </LinkContainer>
-);
-
-LinkMenuItem.propTypes = {
-  to: PropTypes.oneOfType([
-    React.PropTypes.string,
-    React.PropTypes.object,
-  ]).isRequired,
-  icon: PropTypes.string.isRequired,
-  children: PropTypes.node,
-  onClick: PropTypes.func,
-};
-
+import LinkMenuItem from './LinkMenuItem';
+import LinkNavItem from './LinkNavItem';
 
 class Navbar extends Component {
 
