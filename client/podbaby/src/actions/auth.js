@@ -21,14 +21,15 @@ const fetch = dispatch => dispatchApiCall(
   FETCH_USER_FAILURE,
 );
 
-export const fetchAuthenticatedUser = token => {
+export const fetchAuthenticatedUser = (token, isNew) => {
 
   storage.auth.setToken(token);
 
   return (dispatch, getState) => fetch(dispatch)
     .then(() => {
       const { user } = getState().auth;
-      dispatch(success(`Welcome back, ${user.username}`));
+      const msg = isNew ? `Welcome, ${user.username}` : `Welcome back, ${user.username}`;
+      dispatch(success(msg));
     });
 
 };
@@ -48,5 +49,3 @@ export const logout = () => {
     dispatch(info('Bye for now!'));
   };
 };
-
-
