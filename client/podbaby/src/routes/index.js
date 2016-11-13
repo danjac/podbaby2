@@ -4,6 +4,7 @@ import { partial } from 'lodash';
 
 import AppContainer from '../containers/AppContainer';
 import BookmarksContainer from '../containers/BookmarksContainer';
+import CategoryContainer from '../containers/CategoryContainer';
 import CategoriesContainer from '../containers/CategoriesContainer';
 import ChannelContainer from '../containers/ChannelContainer';
 import ChannelsContainer from '../containers/ChannelsContainer';
@@ -33,6 +34,7 @@ export const createRouterConfigurator = (history, store, requireAuth, resolveDef
           <Route path="all/" component={ChannelsContainer} />
           <Route path="me/" component={SubscriptionsContainer} onEnter={requireAuth} />
           <Route path="browse/" component={CategoriesContainer} />
+          <Route path="browse/:id/" component={CategoryContainer} />
           <Route path=":id/" component={ChannelContainer} />
         </Route>
 

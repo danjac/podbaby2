@@ -21,7 +21,7 @@ const ChannelList = props => {
   if (!channels.length) {
     const msg = ifEmpty || 'No feeds found';
     return (
-      <bs.Well class-name="channel-list-empty">{msg}</bs.Well>
+      <bs.Well className="channel-list-empty">{msg}</bs.Well>
     );
   }
 
@@ -31,7 +31,7 @@ const ChannelList = props => {
            onSelect={onSelectPage} />) : '';
 
   return (
-    <div class-name="channel-list">
+    <div className="channel-list">
       {pager}
       {channels.map(channel => (
         <ChannelListItem key={channel.id}

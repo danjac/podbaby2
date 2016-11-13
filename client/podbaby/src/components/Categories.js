@@ -1,4 +1,5 @@
 import React, { PropTypes, Component } from 'react';
+import { LinkContainer } from 'react-router-bootstrap';
 import * as bs from 'react-bootstrap';
 
 import { categoryShape } from '../propTypes';
@@ -20,9 +21,9 @@ class Categories extends Component {
       <div>
         <bs.ListGroup>
           {categories.map(category => (
-          <bs.ListGroupItem key={category.id}
-                            href="#"
-                            dangerouslySetInnerHTML={sanitize(category.name)} />
+            <LinkContainer to={`/feeds/browse/${category.id}/`} key={category.id}>
+              <bs.ListGroupItem dangerouslySetInnerHTML={sanitize(category.name)} />
+            </LinkContainer>
           ))}
         </bs.ListGroup>
       </div>

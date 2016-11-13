@@ -31,8 +31,18 @@ class CategoryViewSet(viewsets.ReadOnlyModelViewSet):
         page = paginator.paginate_queryset(qs, self.request)
 
         if page is not None:
-            serializer = ChannelSerializer(page, many=True)
+            serializer = ChannelSerializer(
+                page,
+                many=True,
+                context={'request': self.request},
+            )
+
             return paginator.get_paginated_response(serializer.data)
 
-        serializer = ChannelSerializer(qs, many=True)
+        serializer = ChannelSerializer(
+            qs,
+            many=True,
+            context={'request': self.request},
+        )
+
         return Response(serializer.data)
