@@ -1,5 +1,6 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { shallow, mount } from 'enzyme';
+import * as bs from 'react-bootstrap';
 
 import { mockEpisode, mockEpisodeActions } from '../test-utils/mocks';
 
@@ -24,15 +25,15 @@ it('should render the component', () => {
 });
 
 it('should show empty message if no episodes', () => {
-  const rendered = shallow(<EpisodeList {...defaultProps} episodes={[]} />);
-  expect(rendered.text()).toContain('No podcasts found');
+  const rendered = mount(<EpisodeList {...defaultProps} episodes={[]} />);
+  expect(rendered.find(bs.Well).text()).toContain('No podcasts found');
   expect(rendered.find(Pager).length).toEqual(0);
   expect(rendered.find(EpisodeListItem).length).toEqual(0);
 });
 
 it('should show empty message if a message passed', () => {
-  const rendered = shallow(<EpisodeList {...defaultProps} episodes={[]} ifEmpty="No episodes!!!" />);
-  expect(rendered.text()).toContain('No episodes!!!');
+  const rendered = mount(<EpisodeList {...defaultProps} episodes={[]} ifEmpty="No episodes!!!" />);
+  expect(rendered.find(bs.Well).text()).toContain('No episodes!!!');
   expect(rendered.find(Pager).length).toEqual(0);
   expect(rendered.find(EpisodeListItem).length).toEqual(0);
 });
