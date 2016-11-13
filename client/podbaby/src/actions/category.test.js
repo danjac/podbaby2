@@ -2,16 +2,16 @@ import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 
 import {
-  FETCH_CHANNEL_FAILURE,
-  FETCH_CHANNEL_REQUEST,
-  FETCH_CHANNEL_SUCCESS,
-  FETCH_CHANNEL_EPISODES_FAILURE,
-  FETCH_CHANNEL_EPISODES_REQUEST,
-  FETCH_CHANNEL_EPISODES_SUCCESS,
+  FETCH_CATEGORY_FAILURE,
+  FETCH_CATEGORY_REQUEST,
+  FETCH_CATEGORY_SUCCESS,
+  FETCH_CHANNELS_FAILURE,
+  FETCH_CHANNELS_REQUEST,
+  FETCH_CHANNELS_SUCCESS,
 } from '../actionTypes';
 
 
-import { fetchChannel, fetchEpisodesForChannel } from './channel';
+import { fetchCategory, fetchChannelsForCategory } from './category';
 
 jest.mock('../api');
 
@@ -19,12 +19,12 @@ jest.mock('../api');
 const createMockStore = configureMockStore([thunk]);
 
 
-describe('fetchChannel', () => {
+describe('fetchCategory', () => {
 
   const api = require('../api');
 
   beforeEach(() => {
-    api.channels.get.mockClear();
+    api.categories.get.mockClear();
   });
 
   it('should fetch an episode', () => {
@@ -33,19 +33,19 @@ describe('fetchChannel', () => {
       id: 1,
     };
 
-    api.channels.get.mockImplementation(() => {
+    api.categories.get.mockImplementation(() => {
       return new Promise(resolve => resolve(channel));
     });
 
     const store = createMockStore();
     return store
-      .dispatch(fetchChannel(1))
+      .dispatch(fetchCategory(1))
       .then(() => {
         const actions = store.getActions();
-        expect(actions[0].type).toBe(FETCH_CHANNEL_REQUEST);
-        expect(actions[1].type).toBe(FETCH_CHANNEL_SUCCESS);
+        expect(actions[0].type).toBe(FETCH_CATEGORY_REQUEST);
+        expect(actions[1].type).toBe(FETCH_CATEGORY_SUCCESS);
         expect(actions[1].payload).toBe(channel);
-        expect(api.channels.get).toBeCalledWith(1);
+        expect(api.categories.get).toBeCalledWith(1);
       });
   });
 
@@ -53,7 +53,7 @@ describe('fetchChannel', () => {
 
     const error = new Error('Channel not found');
 
-    api.channels.get.mockImplementation(() => {
+    api.categories.get.mockImplementation(() => {
       return new Promise(resolve => {
         throw error;
       });
@@ -61,40 +61,40 @@ describe('fetchChannel', () => {
 
     const store = createMockStore();
     return store
-      .dispatch(fetchChannel(1))
+      .dispatch(fetchCategory(1))
       .then(() => {
         const actions = store.getActions();
-        expect(actions[0].type).toBe(FETCH_CHANNEL_REQUEST);
-        expect(actions[1].type).toBe(FETCH_CHANNEL_FAILURE);
+        expect(actions[0].type).toBe(FETCH_CATEGORY_REQUEST);
+        expect(actions[1].type).toBe(FETCH_CATEGORY_FAILURE);
         expect(actions[1].error).toBe(error);
-        expect(api.channels.get).toBeCalledWith(1);
+        expect(api.categories.get).toBeCalledWith(1);
       });
   });
 });
 
 
-describe('fetchEpisodesForChannel', () => {
+describe('fetchChannelsForCategory', () => {
   const api = require('../api');
 
   beforeEach(() => {
-    api.channels.fetchEpisodes.mockClear();
+    api.categories.fetchChannels.mockClear();
   });
 
-  it('should fetch all episodes for a channel', () => {
+  it('should fetch all channels for a category', () => {
 
     const mockPayload = {
       results: [{
         id: 1,
-        title: 'test',
+        name: 'test',
       }],
       previous: null,
-      next: '/api/episodes/?page=2',
+      next: '/api/channels/?page=2',
       count: 10,
     };
 
 
 
-    api.channels.fetchEpisodes.mockImplementation(() => {
+    api.categories.fetchChannels.mockImplementation(() => {
       return new Promise(resolve => {
         resolve(mockPayload);
       });
@@ -103,13 +103,13 @@ describe('fetchEpisodesForChannel', () => {
     const store = createMockStore();
 
     return store
-      .dispatch(fetchEpisodesForChannel(1, 1, 'test'))
+      .dispatch(fetchChannelsForCategory(1, 1, 'test'))
       .then(() => {
-        expect(api.channels.fetchEpisodes).toBeCalledWith(1, 1, 'test');
+        expect(api.categories.fetchChannels).toBeCalledWith(1, 1, 'test');
         const actions = store.getActions();
         expect(actions.length).toBe(2);
-        expect(actions[0].type).toBe(FETCH_CHANNEL_EPISODES_REQUEST);
-        expect(actions[1].type).toBe(FETCH_CHANNEL_EPISODES_SUCCESS);
+        expect(actions[0].type).toBe(FETCH_CHANNELS_REQUEST);
+        expect(actions[1].type).toBe(FETCH_CHANNELS_SUCCESS);
         expect(actions[1].payload).toBe(mockPayload);
       });
 
@@ -119,7 +119,7 @@ describe('fetchEpisodesForChannel', () => {
 
     const error = new Error('Whoops');
 
-    api.channels.fetchEpisodes.mockImplementation(() => {
+    api.categories.fetchChannels.mockImplementation(() => {
       return new Promise(() => {
         throw error;
       });
@@ -128,13 +128,13 @@ describe('fetchEpisodesForChannel', () => {
     const store = createMockStore();
 
     return store
-      .dispatch(fetchEpisodesForChannel(1, 1, 'test'))
+      .dispatch(fetchChannelsForCategory(1, 1, 'test'))
       .then(() => {
-        expect(api.channels.fetchEpisodes).toBeCalledWith(1, 1, 'test');
+        expect(api.categories.fetchChannels).toBeCalledWith(1, 1, 'test');
         const actions = store.getActions();
         expect(actions.length).toBe(2);
-        expect(actions[0].type).toBe(FETCH_CHANNEL_EPISODES_REQUEST);
-        expect(actions[1].type).toBe(FETCH_CHANNEL_EPISODES_FAILURE);
+        expect(actions[0].type).toBe(FETCH_CHANNELS_REQUEST);
+        expect(actions[1].type).toBe(FETCH_CHANNELS_FAILURE);
         expect(actions[1].error).toBe(error);
       });
   });
