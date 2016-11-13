@@ -11,6 +11,7 @@ import Labels from './Labels';
 import { sanitize } from './utils';
 
 import defaultThumbnail from './podcast.svg';
+import './EpisodeDetail.css';
 
 class EpisodeDetail extends Component {
 
@@ -51,8 +52,7 @@ class EpisodeDetail extends Component {
     );
 
     const buttons = <EpisodeButtons {...this.props} />;
-
-    const header = <Link to={`/feeds/${channel.id}/`}>{channel.name}</Link>;
+    const header = <h3 className="panel-title">{episode.title}</h3>;
 
     return (
       <div>
@@ -60,8 +60,10 @@ class EpisodeDetail extends Component {
                   header={header}
                   footer={buttons}
                   className="episode">
+        <h2 className="channel-name">
+          <Link to={`/feeds/${channel.id}/`}>{channel.name}</Link>
+        </h2>
           <bs.Media>
-            <bs.Media.Heading>{episode.title}</bs.Media.Heading>
             <bs.Media.Left>
               <img src={thumbnail.url}
                    width={thumbnail.width}
@@ -74,8 +76,7 @@ class EpisodeDetail extends Component {
               {published && <p><strong>{published}</strong></p>}
             </bs.Media.Body>
           </bs.Media>
-          <p className="episode-description" style={{ marginTop: 10 }}
-             dangerouslySetInnerHTML={description}></p>
+          <p className="description" dangerouslySetInnerHTML={description}></p>
         </bs.Panel>
       </div>
     );

@@ -9,6 +9,8 @@ import Labels from './Labels';
 import EpisodeButtons from './EpisodeButtons';
 import { sanitize } from './utils';
 
+import './EpisodeListItem.css';
+
 export const EpisodeListItem = props => {
 
   const { episode, episode: { channel } } = props;
@@ -29,16 +31,17 @@ export const EpisodeListItem = props => {
 
   const title = episode.title || channel.name;
   const buttons = <EpisodeButtons {...props } />;
-  const header = <Link to={`/feeds/${channel.id}/`}>{channel.name}</Link>;
+  const header = <Link to={`/podcasts/${episode.id}/`}>{title}</Link>;
 
   return (
     <bs.Panel header={header}
               footer={buttons}
               className="episode">
+
+      <h2 className="channel-name">
+        <Link to={`/feeds/${channel.id}/`}>{channel.name}</Link>
+      </h2>
       <bs.Media>
-        <bs.Media.Heading>
-          <Link to={`/podcasts/${episode.id}/`}>{title}</Link>
-        </bs.Media.Heading>
         <bs.Media.Left>
           <img src={thumbnail.url}
                width={thumbnail.width}
@@ -50,8 +53,7 @@ export const EpisodeListItem = props => {
           {published && <p><strong>{published}</strong></p>}
         </bs.Media.Body>
       </bs.Media>
-      <p style={{ marginTop: 10 }}
-        dangerouslySetInnerHTML={description}></p>
+      <p className="description" dangerouslySetInnerHTML={description}></p>
     </bs.Panel>
   );
 };

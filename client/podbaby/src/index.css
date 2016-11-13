@@ -6,3 +6,7 @@ html, body {
 body {
   padding-top: 80px;
 }
+
+p.description {
+  word-break: break-word;
+}

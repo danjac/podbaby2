@@ -22,22 +22,8 @@ const Alerts = ({ alerts, onDismiss }) => {
   if (!alerts.length) {
     return <span></span>;
   }
-  const style = {
-    position: 'fixed',
-    height: '50px',
-    width: '99%',
-    opacity: 0.9,
-    textAlign: 'center',
-    margin: '5% auto',
-    top: 50,
-    left: 0,
-    right: 0,
-    zIndex: 200,
-
-  };
   return (
-    <div className="container"
-         style={style}>
+    <div className="container alerts">
       {alerts.map(alert => (
         <Alert key={alert.id}
                alert={alert}

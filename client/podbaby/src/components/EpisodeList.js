@@ -6,6 +6,8 @@ import { episodeShape } from '../propTypes';
 import Pager from './Pager';
 import EpisodeListItem from './EpisodeListItem';
 
+import './EpisodeList.css';
+
 const EpisodeList = props => {
 
   const {
@@ -17,14 +19,10 @@ const EpisodeList = props => {
     onSelectPage,
   } = props;
 
-  const style = {
-    marginTop: 10,
-  };
-
   if (!episodes.length) {
     const msg = ifEmpty || 'No podcasts found';
     return (
-      <bs.Well>{msg}</bs.Well>
+      <bs.Well className="episode-list-empty">{msg}</bs.Well>
     );
   }
 
@@ -34,7 +32,7 @@ const EpisodeList = props => {
            onSelect={onSelectPage} />) : '';
 
   return (
-    <div style={style}>
+    <div className="episode-list">
       {pager}
       {episodes.map(episode => createElement(
         component, { key: episode.id, episode, ...props }))}

@@ -37,14 +37,6 @@
   width: 99%;
 }
 
-.episode .panel-heading {
-  text-align: center;
-}
-
-.channel .panel-heading {
-  text-align: center;
-}
-
-p.episode-description {
-  word-break: break-word;
+.contracted .panel {
+  display: none;
 }

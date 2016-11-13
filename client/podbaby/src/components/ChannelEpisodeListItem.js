@@ -38,8 +38,7 @@ export const ChannelEpisodeListItem = props => {
       </bs.Label>)}
 
       {published && <p><strong>{published}</strong></p>}
-      <p style={{ marginTop: 10 }}
-        dangerouslySetInnerHTML={description}></p>
+      <p className="description" dangerouslySetInnerHTML={description}></p>
     </bs.Panel>
   );
 };

@@ -8,6 +8,8 @@ import Labels from './Labels';
 import ChannelButtons from './ChannelButtons';
 import { sanitize } from './utils';
 
+import './ChannelListItem.css';
+
 export const ChannelListItem = props => {
 
   const { channel } = props;
@@ -40,8 +42,7 @@ export const ChannelListItem = props => {
                   explicit={channel.explicit} />
         </bs.Media.Body>
       </bs.Media>
-      <p style={{ marginTop: 10 }}
-        dangerouslySetInnerHTML={description}></p>
+      <p dangerouslySetInnerHTML={description}></p>
     </bs.Panel>
   );
 };

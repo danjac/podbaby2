@@ -1,5 +1,4 @@
 import React, { PropTypes, Component } from 'react';
-import * as bs from 'react-bootstrap';
 
 import SearchForm from './SearchForm';
 import Loader from './Loader';
@@ -22,7 +21,6 @@ class Bookmarks extends Component {
 
     return (
       <div>
-        <bs.PageHeader>Bookmarks</bs.PageHeader>
         <SearchForm placeholder="Search for podcasts" {...this.props} />
 
         <EpisodeList ifEmpty={ifEmpty}

@@ -6,8 +6,6 @@ import NavContainer from './NavContainer';
 import AlertsContainer from './AlertsContainer';
 import PlayerContainer from './PlayerContainer';
 
-import './AppContainer.css';
-
 export class AppContainer extends Component {
 
   render() {

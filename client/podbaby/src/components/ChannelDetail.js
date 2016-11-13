@@ -14,6 +14,7 @@ import ChannelButtons from './ChannelButtons';
 import { sanitize } from './utils';
 
 import defaultThumbnail from './podcast.svg';
+import './ChannelDetail.css';
 
 class ChannelDetail extends Component {
 
@@ -81,8 +82,7 @@ class ChannelDetail extends Component {
                       explicit={channel.explicit} />
             </bs.Media.Body>
           </bs.Media>
-        <p className="episode-description" style={{ marginTop: 10 }}
-           dangerouslySetInnerHTML={description}></p>
+        <p className="description" dangerouslySetInnerHTML={description}></p>
         </bs.Panel>
         {episodes}
       </div>

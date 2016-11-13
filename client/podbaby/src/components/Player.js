@@ -7,6 +7,8 @@ import { episodeShape } from '../propTypes';
 
 import EpisodeButtons from './EpisodeButtons';
 
+import './Player.css';
+
 class Player extends Component {
 
   constructor(props) {
@@ -50,30 +52,16 @@ class Player extends Component {
     const header = <Link to={`/podcasts/${episode.id}/`}>{title}</Link>;
 
     const { expanded } = this.state;
+    const className = 'audio-player ' + (expanded ? 'expanded' : 'contracted');
 
     // placeholder
     const onPlay = ({ currentTarget }) => currentTarget.currentTime = 0;
 
-    // we need to hide the audio in CSS - will stop playing if
-    // removed from DOM
-
-    const containerStyle = expanded ? {} : {
-      left: '85%',
-      width: '15%',
-    };
-
-    const panelStyle = expanded ? {} : {
-      display: 'none',
-    };
-
     const buttons = <EpisodeButtons {...this.props} />;
 
     return (
-      <div className="audio-player"
-           style={containerStyle}>
-          <bs.Panel header={header}
-                    footer={buttons}
-                    style={panelStyle}>
+      <div className={className}>
+          <bs.Panel header={header} footer={buttons}>
            <audio controls
                   autoPlay
                   onPlay={onPlay}

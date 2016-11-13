@@ -6,6 +6,8 @@ import { channelShape } from '../propTypes';
 import Pager from './Pager';
 import ChannelListItem from './ChannelListItem';
 
+import './ChannelList.css';
+
 const ChannelList = props => {
 
   const {
@@ -16,14 +18,10 @@ const ChannelList = props => {
     onSelectPage,
   } = props;
 
-  const style = {
-    marginTop: 10,
-  };
-
   if (!channels.length) {
     const msg = ifEmpty || 'No feeds found';
     return (
-      <bs.Well style={style}>{msg}</bs.Well>
+      <bs.Well class-name="channel-list-empty">{msg}</bs.Well>
     );
   }
 
@@ -33,7 +31,7 @@ const ChannelList = props => {
            onSelect={onSelectPage} />) : '';
 
   return (
-    <div style={style}>
+    <div class-name="channel-list">
       {pager}
       {channels.map(channel => (
         <ChannelListItem key={channel.id}
