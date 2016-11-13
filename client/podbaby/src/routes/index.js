@@ -14,6 +14,7 @@ import LoginContainer from '../containers/LoginContainer';
 import SignupContainer from '../containers/SignupContainer';
 import SubscriptionsContainer from '../containers/SubscriptionsContainer';
 import UserEpisodesContainer from '../containers/UserEpisodesContainer';
+import NotFoundContainer from '../containers/NotFoundContainer';
 
 import { requireAuth, resolveDefaultPage } from './utils';
 
@@ -41,6 +42,8 @@ export const createRouterConfigurator = (history, store, requireAuth, resolveDef
 
         <Route path="login/" component={LoginContainer} />
         <Route path="join/" component={SignupContainer} />
+
+        <Route path="*" component={NotFoundContainer} />
 
       </Route>
     </Router>

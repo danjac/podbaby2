@@ -9,6 +9,7 @@ import Loader from './Loader';
 import Description from './Description';
 import EpisodeButtons from './EpisodeButtons';
 import Labels from './Labels';
+import NotFound from './NotFound';
 
 import defaultThumbnail from './podcast.svg';
 import './EpisodeDetail.css';
@@ -23,12 +24,7 @@ class EpisodeDetail extends Component {
     } = this.props;
 
     if (error) {
-      return (
-        <bs.Jumbotron>
-          <h2>Podcast not found</h2>
-          <p>Sorry, this podcast cannot be found.</p>
-        </bs.Jumbotron>
-      );
+      return <NotFound />;
     }
 
     if (loading || !episode) {

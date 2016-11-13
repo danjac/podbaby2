@@ -1,9 +1,7 @@
 import React, { PropTypes, Component } from 'react';
 import * as bs from 'react-bootstrap';
 
-import {
-  channelShape,
-} from '../propTypes';
+import { channelShape } from '../propTypes';
 
 import SearchForm from './SearchForm';
 import Loader from './Loader';
@@ -12,6 +10,7 @@ import EpisodeList from './EpisodeList';
 import Labels from './Labels';
 import ChannelEpisodeListItem from './ChannelEpisodeListItem';
 import ChannelButtons from './ChannelButtons';
+import NotFound from './NotFound';
 
 import defaultThumbnail from './podcast.svg';
 import './ChannelDetail.css';
@@ -29,12 +28,7 @@ class ChannelDetail extends Component {
     } = this.props;
 
     if (error) {
-      return (
-        <bs.Jumbotron>
-          <h2>Feed not found</h2>
-          <p>Sorry, this podcast feed cannot be found.</p>
-        </bs.Jumbotron>
-      );
+      return <NotFound />;
     }
 
     if (channelLoading || !channel) {

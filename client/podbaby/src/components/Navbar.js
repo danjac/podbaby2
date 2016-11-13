@@ -106,9 +106,8 @@ class Navbar extends Component {
 
           {authenticated && user && (
             <bs.Nav pullRight>
-              <bs.NavDropdown title={<span><Icon name="user" /> {user.username}</span>} id="user-dropdown">
-              </bs.NavDropdown>
-              <bs.NavItem href="#" onClick={this.handleLogout}>
+             <LinkNavItem to="/settings/" icon="cog" onClick={this.handleClose}>Settings</LinkNavItem>
+             <bs.NavItem href="#" onClick={this.handleLogout}>
                 <Icon name="sign-out" /> Logout
               </bs.NavItem>
             </bs.Nav>)}
