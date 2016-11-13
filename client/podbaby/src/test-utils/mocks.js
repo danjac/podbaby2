@@ -19,12 +19,16 @@ export const mockLocation = () => {
   };
 };
 
+export const mockCategory = () => {
+  return {
+    id: 1,
+    name: 'Comedy',
+  };
+};
+
 export const mockCategories = () => {
   return [
-    {
-      id: 1,
-      name: 'Comedy',
-    },
+    mockCategory(),
   ];
 };
 

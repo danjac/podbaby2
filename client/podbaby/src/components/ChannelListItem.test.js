@@ -8,6 +8,7 @@ import ChannelListItem from './ChannelListItem';
 it('should render the component', () => {
   const props = {
     channel: mockChannel(),
+    authenticated: false,
     ...mockChannelActions(),
   };
 
