@@ -1,7 +1,11 @@
-import http from './client';
+import client from './client';
 
-export const getUser = () => http.get('/api/auth/me/');
+export const getUser = () => client.get('/api/auth/me/');
 
-export const login = fields => http.post('/api-token-auth/', fields);
+export const logout = () => client.del('/api/auth/me/logout/');
 
-export const signup = fields => http.post('/api/auth/create/', fields);
+export const login = fields => client.post('/api-token-auth/', fields);
+
+export const signup = fields => client.post('/api/auth/create/', fields);
+
+

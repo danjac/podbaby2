@@ -24,12 +24,14 @@ const createMockStore = configureMockStore([thunk]);
 describe('logout', () => {
 
   const storage = require('../storage');
+  const api = require('../api');
 
   it('Should logout', () => {
     const store = createMockStore();
     store.dispatch(logout());
     expect(store.getActions()[0].type).toBe(LOGOUT);
     expect(storage.auth.removeToken).toBeCalled();
+    expect(api.auth.logout).toBeCalled();
   });
 });
 

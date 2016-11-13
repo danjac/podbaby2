@@ -7,6 +7,7 @@ class IsNewUser(permissions.BasePermission):
     """
 
     def has_permission(self, request, view):
+        print('USER', request.user)
         if request.method == "POST":
             return request.user.is_anonymous()
         return False

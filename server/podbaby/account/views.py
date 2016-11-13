@@ -1,4 +1,5 @@
 from django.contrib.auth import get_user_model
+from django.contrib.auth import logout as auth_logout
 
 from rest_framework import (
     mixins,
@@ -6,6 +7,9 @@ from rest_framework import (
     permissions,
     generics,
 )
+
+from rest_framework.response import Response
+from rest_framework.decorators import detail_route
 
 
 from account.permissions import IsNewUser
@@ -29,3 +33,8 @@ class UserViewSet(mixins.RetrieveModelMixin,
 
     def get_object(self):
         return self.request.user
+
+    @detail_route(['DELETE'])
+    def logout(self, request, *args, **kwargs):
+        auth_logout(request)
+        return Response()

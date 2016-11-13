@@ -41,6 +41,7 @@ export const fetchUser = () => {
 };
 
 export const logout = () => {
+  api.auth.logout();
   storage.auth.removeToken();
   return dispatch => {
     dispatch(createAction(LOGOUT));
