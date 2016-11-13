@@ -1,7 +1,7 @@
 import { createSelector } from 'reselect';
 import { subscriptionsSelector, isSubscribed } from './subscriptions';
 import { bookmarksSelector, isBookmarked } from './bookmarks';
-import { playerSelector, isPlaying } from './player';
+import { playerSelector, isPlaying, lastPlayed } from './player';
 
 
 export const episodesSelector = createSelector(
@@ -14,6 +14,7 @@ export const episodesSelector = createSelector(
     return {...episode,
       bookmarked: isBookmarked(bookmarks, episode),
       playing: isPlaying(player, episode),
+      lastPlayed: lastPlayed(player, episode),
       channel: {
         ...episode.channel,
         subscribed,

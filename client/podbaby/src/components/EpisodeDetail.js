@@ -1,7 +1,6 @@
 import React, { PropTypes, Component } from 'react';
 import * as bs from 'react-bootstrap';
 import { Link } from 'react-router';
-import moment from 'moment';
 
 import { episodeShape } from '../propTypes';
 
@@ -11,6 +10,7 @@ import EpisodeButtons from './EpisodeButtons';
 import Labels from './Labels';
 import NotFound from './NotFound';
 import EpisodeLinks from './EpisodeLinks';
+import EpisodeDates from './EpisodeDates';
 
 import defaultThumbnail from './podcast.svg';
 import './EpisodeDetail.css';
@@ -42,10 +42,6 @@ class EpisodeDetail extends Component {
       width: 120,
     };
 
-    const published = episode.published && moment(episode.published).format(
-      'MMMM Do YYYY'
-    );
-
     const buttons = <EpisodeButtons {...this.props} />;
     const header = <h3 className="panel-title">{episode.title}</h3>;
 
@@ -68,9 +64,9 @@ class EpisodeDetail extends Component {
             <bs.Media.Body>
               <Labels categories={channel.categories}
                 explicit={episode.explicit} />
-              {published && <p><strong>{published}</strong></p>}
             </bs.Media.Body>
           </bs.Media>
+          <EpisodeDates episode={episode} />
           <EpisodeLinks episode={episode} />
           <Description content={description} />
         </bs.Panel>

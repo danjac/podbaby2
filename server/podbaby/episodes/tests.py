@@ -4,7 +4,6 @@ from unittest import mock
 
 from django.test import TestCase
 from django.core.urlresolvers import reverse
-from django.contrib.auth.models import AnonymousUser
 
 from rest_framework import status
 from rest_framework.test import APITestCase
@@ -203,28 +202,6 @@ class EpisodeViewSetTests(APITestCase):
 
 
 class ModelTests(TestCase):
-
-    def test_with_last_played_if_anonymous_user(self):
-        EpisodeFactory.create()
-        qs = Episode.objects.with_last_played(AnonymousUser())
-        episode = qs.get()
-        self.assertFalse(hasattr(episode, 'last_played'))
-
-    def test_with_last_played_if_not_played(self):
-        EpisodeFactory.create()
-        qs = Episode.objects.with_last_played(UserFactory.create())
-        episode = qs.get()
-        self.assertEqual(episode.last_played, None)
-
-    def test_with_last_played_if_played(self):
-
-        episode = EpisodeFactory.create()
-        user = UserFactory.create()
-
-        play = Play.objects.create(user=user, episode=episode)
-
-        episode = Episode.objects.with_last_played(user).get()
-        self.assertEqual(episode.last_played, play.created)
 
     def test_search_by_title(self):
 

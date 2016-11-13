@@ -12,10 +12,10 @@ export function reloadPlayer() {
   return createAction(RELOAD_PLAYER, storage.player.load());
 }
 
-export function startPlayer(episode, notify = false) {
+export function startPlayer(episode, authenticated) {
 
-  if (notify) {
-    api.plays.save(episode.id);
+  if (authenticated) {
+    api.episodes.play(episode.id);
   }
 
   saveSessionState(episode, 0);

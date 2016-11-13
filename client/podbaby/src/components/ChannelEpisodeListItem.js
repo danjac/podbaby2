@@ -1,20 +1,16 @@
 import React from 'react';
 import { Link } from 'react-router';
 import * as bs from 'react-bootstrap';
-import moment from 'moment';
 import Icon from 'react-fa';
 
 import { episodeShape } from '../propTypes';
 import EpisodeButtons from './EpisodeButtons';
+import EpisodeDates from './EpisodeDates';
 import Description from './Description';
 
 export const ChannelEpisodeListItem = props => {
 
   const { episode } = props;
-
-  const published = episode.published && moment(episode.published).format(
-    'MMMM Do YYYY'
-  );
 
   const description = episode.subtitle || episode.summary || episode.description;
 
@@ -34,8 +30,7 @@ export const ChannelEpisodeListItem = props => {
       <bs.Label key="explicit" bsStyle="danger">
         <Icon name="warning" /> Explicit
       </bs.Label>)}
-
-      {published && <p><strong>{published}</strong></p>}
+      <EpisodeDates episode={episode} />
       <Description content={description} />
     </bs.Panel>
   );

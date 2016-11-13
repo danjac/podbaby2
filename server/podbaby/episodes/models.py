@@ -4,7 +4,7 @@ from urllib.parse import urlparse
 
 from django.conf import settings
 from django.db import models
-from django.db.models import Q, Max, When, Case
+from django.db.models import Q
 from django.core.urlresolvers import reverse
 
 from django_extensions.db.models import TimeStampedModel
@@ -24,21 +24,6 @@ class EpisodeQuerySet(models.QuerySet):
             )
             q = q & sq
         return self.filter(q)
-
-    def with_last_played(self, user):
-        if not user.is_authenticated():
-            return self
-
-        return self.annotate(
-            last_played=Max(
-                Case(
-                    When(
-                        players=user,
-                        then='play__created'
-                    )
-                )
-            )
-        )
 
 
 class Episode(TimeStampedModel):

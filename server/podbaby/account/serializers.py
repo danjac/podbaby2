@@ -3,6 +3,7 @@ from django.contrib.auth import get_user_model
 from rest_framework import serializers
 from rest_framework.authtoken.models import Token
 
+from history.models import Play
 
 User = get_user_model()
 
@@ -29,6 +30,8 @@ class UserSerializer(serializers.ModelSerializer):
         read_only=True
     )
 
+    plays = serializers.SerializerMethodField()
+
     class Meta:
         model = User
         fields = (
@@ -36,5 +39,14 @@ class UserSerializer(serializers.ModelSerializer):
             'email',
             'bookmarks',
             'subscriptions',
+            'plays',
         )
         read_only_fields = ('username', )
+
+    def get_plays(self, obj):
+        return (
+            Play.objects.
+            filter(user=obj).
+            values('episode', 'created').
+            order_by('created')
+        )

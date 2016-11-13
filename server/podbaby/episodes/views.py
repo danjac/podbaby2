@@ -137,7 +137,6 @@ class EpisodeViewSet(viewsets.ReadOnlyModelViewSet):
             Episode.objects.
             select_related('channel').
             prefetch_related('channel__categories').
-            with_last_played(self.request.user).
             order_by('-published', '-created')
         )
 

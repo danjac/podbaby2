@@ -11,7 +11,7 @@ import './Labels.css';
 const Labels = ({ categories, explicit }) => {
 
   const labels = categories.map(category => (
-    <bs.Label key={category.id}>
+    <bs.Label key={category.id} bsStyle="info">
       <Link to={`/feeds/browse/${category.id}/`}>{category.name}</Link>
     </bs.Label>
   ));

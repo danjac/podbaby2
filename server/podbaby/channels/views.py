@@ -55,7 +55,6 @@ class ChannelViewSet(viewsets.ReadOnlyModelViewSet):
         qs = (
             Episode.objects.
             filter(channel__pk=pk).
-            with_last_played(self.request.user).
             order_by('-published', '-created')
         )
 

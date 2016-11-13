@@ -29,7 +29,7 @@ export const EpisodeButtons = ({
   } else if (onStartPlayer) {
     playerBtn = (<bs.Button key="startBtn"
                             title="Play"
-                            onClick={() => onStartPlayer(episode)}>
+                            onClick={() => onStartPlayer(episode, authenticated)}>
                             <Icon name="play" /></bs.Button>);
   }
 
