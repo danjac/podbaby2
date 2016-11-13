@@ -6,6 +6,8 @@ import { Link } from 'react-router';
 import LinkMenuItem from './LinkMenuItem';
 import LinkNavItem from './LinkNavItem';
 
+import './Navbar.css';
+
 class Navbar extends Component {
 
   constructor(props) {
@@ -41,7 +43,7 @@ class Navbar extends Component {
         <bs.Navbar.Header>
           <bs.Navbar.Brand>
             <Link to={{ pathname: '/', query: { page: 1 }}}
-                  onClick={this.handleClose}> Podbaby
+              onClick={this.handleClose}> <Icon name="headphones" /> Podbaby
             </Link>
           </bs.Navbar.Brand>
           <bs.Navbar.Toggle />
@@ -50,7 +52,7 @@ class Navbar extends Component {
           <bs.Nav>
 
             {authenticated && (
-              <bs.NavDropdown title={<span><Icon name="headphones" /> Podcasts</span>} id="podcasts-dropdown">
+              <bs.NavDropdown title="Podcasts" id="podcasts-dropdown">
                 <LinkMenuItem to="/podcasts/me/" icon="user" onClick={this.handleClose}>My podcasts</LinkMenuItem>
                 <LinkMenuItem to="/podcasts/all/" icon="list" onClick={this.handleClose}>All podcasts</LinkMenuItem>
                 <LinkMenuItem to="/podcasts/bookmarks/" icon="bookmark" onClick={this.handleClose}>Bookmarks</LinkMenuItem>
@@ -59,7 +61,7 @@ class Navbar extends Component {
 
             {!authenticated && <LinkNavItem to="/podcasts/all/" icon="headphones">Podcasts</LinkNavItem>}
 
-            <bs.NavDropdown title={<span><Icon name="rss" /> Feeds</span>} id="feeds-dropdown">
+            <bs.NavDropdown title="Feeds" id="feeds-dropdown">
               {authenticated && <LinkMenuItem to="/feeds/me/" icon="user" onClick={this.handleClose}>My feeds</LinkMenuItem>}
               <LinkMenuItem to="/feeds/all/" icon="list" onClick={this.handleClose}>All feeds</LinkMenuItem>
               <LinkMenuItem to="/feeds/browse/" icon="folder-open" onClick={this.handleClose}>Browse</LinkMenuItem>

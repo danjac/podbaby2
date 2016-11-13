@@ -6,3 +6,9 @@ html, body {
 body {
   padding-top: 80px;
 }
+
+@font-face {
+  font-family: GoodDog;
+  src: url("/GoodDog.otf") format("opentype");
+}
+
