@@ -11,6 +11,7 @@ from rest_framework.response import Response
 from rest_framework.decorators import list_route, detail_route
 
 from bookmarks.models import Bookmark
+from history.models import Play
 
 from episodes.serializers import EpisodeSerializer
 from episodes.models import Episode
@@ -56,9 +57,11 @@ class EpisodeViewSet(viewsets.ReadOnlyModelViewSet):
 
     @list_route(permission_classes=[permissions.IsAuthenticated])
     def subscribed(self, request):
+
         qs = self.get_queryset().filter(
             channel__subscribers=request.user
         )
+
         page = self.paginate_queryset(qs)
         if page is not None:
             serializer = self.get_serializer(page, many=True)
@@ -69,9 +72,12 @@ class EpisodeViewSet(viewsets.ReadOnlyModelViewSet):
 
     @list_route(permission_classes=[permissions.IsAuthenticated])
     def bookmarks(self, request):
-        qs = self.get_queryset().filter(
-            bookmarkers=request.user
-        ).order_by('-bookmark__created')
+
+        qs = (
+            self.get_queryset().
+            filter(bookmarkers=request.user).
+            order_by('-bookmark__created')
+        )
 
         page = self.paginate_queryset(qs)
         if page is not None:
@@ -80,6 +86,32 @@ class EpisodeViewSet(viewsets.ReadOnlyModelViewSet):
 
         serializer = self.get_serializer(qs, many=True)
         return Response(serializer.data)
+
+    @list_route(permission_classes=[permissions.IsAuthenticated])
+    def history(self, request):
+
+        qs = (
+            self.get_queryset().
+            filter(players=request.user).
+            order_by('-play__created')
+        )
+
+        page = self.paginate_queryset(qs)
+        if page is not None:
+            serializer = self.get_serializer(page, many=True)
+            return self.get_paginated_response(serializer.data)
+
+        serializer = self.get_serializer(qs, many=True)
+        return Response(serializer.data)
+
+    @detail_route(methods=['POST'],
+                  permission_classes=[permissions.IsAuthenticated])
+    def add_play(self, request, pk):
+        Play.objects.create(
+            user=self.request.user,
+            episode=self.get_object(),
+        )
+        return Response('OK', status=status.HTTP_201_CREATED)
 
     @detail_route(methods=['POST'],
                   permission_classes=[permissions.IsAuthenticated])
@@ -105,6 +137,7 @@ class EpisodeViewSet(viewsets.ReadOnlyModelViewSet):
             Episode.objects.
             select_related('channel').
             prefetch_related('channel__categories').
+            with_last_played(self.request.user).
             order_by('-published', '-created')
         )
 

@@ -6,7 +6,6 @@ import Icon from 'react-fa';
 
 import { episodeShape } from '../propTypes';
 import EpisodeButtons from './EpisodeButtons';
-import EpisodeLinks from './EpisodeLinks';
 import Description from './Description';
 
 export const ChannelEpisodeListItem = props => {
@@ -37,7 +36,6 @@ export const ChannelEpisodeListItem = props => {
       </bs.Label>)}
 
       {published && <p><strong>{published}</strong></p>}
-      <EpisodeLinks episode={episode} />
       <Description content={description} />
     </bs.Panel>
   );

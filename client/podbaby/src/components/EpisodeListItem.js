@@ -8,7 +8,6 @@ import defaultThumbnail from './podcast.svg';
 import Description from './Description';
 import Labels from './Labels';
 import EpisodeButtons from './EpisodeButtons';
-import EpisodeLinks from './EpisodeLinks';
 
 import './EpisodeListItem.css';
 
@@ -53,7 +52,6 @@ export const EpisodeListItem = props => {
           {published && <p><strong>{published}</strong></p>}
         </bs.Media.Body>
       </bs.Media>
-      <EpisodeLinks episode={episode} />
       <Description content={description} />
     </bs.Panel>
   );

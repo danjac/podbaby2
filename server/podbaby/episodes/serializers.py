@@ -7,6 +7,7 @@ from episodes.models import Episode
 
 class SimpleEpisodeSerializer(serializers.ModelSerializer):
 
+    last_played = serializers.SerializerMethodField()
     explicit = serializers.SerializerMethodField('is_explicit')
     stream_url = serializers.SerializerMethodField()
 
@@ -27,8 +28,15 @@ class SimpleEpisodeSerializer(serializers.ModelSerializer):
             'enclosure_url',
             'enclosure_type',
             'enclosure_length',
+            'last_played',
             'stream_url',
         )
+
+    def get_last_played(self, obj):
+        """
+        Possible annotated field
+        """
+        return getattr(obj, 'last_played', None)
 
     def get_stream_url(self, obj):
         url = obj.get_stream_url()
