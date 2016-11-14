@@ -1,7 +1,4 @@
-
-.episode-dates .label {
-  display: inline-block;
-  margin-right: 10px;
-  margin-bottom: 5px;
-  padding: 5px;
+.episode-dates {
+  margin-top: 10px;
+  font-weight: bold;
 }

@@ -3,6 +3,8 @@ import { createSelector } from 'reselect';
 import { bookmarksSelector, isBookmarked } from './bookmarks';
 import { playerSelector, isPlaying } from './player';
 import { subscriptionsSelector, isSubscribed } from './subscriptions';
+import { historySelector, lastPlayed } from './history';
+
 
 export const channelSelector = createSelector(
   state => state.channel.channel,
@@ -21,9 +23,10 @@ export const channelSelector = createSelector(
 export const channelEpisodesSelector = createSelector(
   state => state.channel.episodes.results,
   playerSelector,
+  historySelector,
   bookmarksSelector,
   channelSelector,
-  (episodes, player, bookmarks, channel) => {
+  (episodes, player, history, bookmarks, channel) => {
     if (!channel) {
       return [];
     }
@@ -31,6 +34,7 @@ export const channelEpisodesSelector = createSelector(
       return {...episode,
         bookmarked: isBookmarked(bookmarks, episode),
         playing: isPlaying(player, episode),
+        lastPlayed: lastPlayed(history, episode),
         channel,
       };
     });

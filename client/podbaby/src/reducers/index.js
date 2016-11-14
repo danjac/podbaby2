@@ -11,6 +11,7 @@ import channel from './channel';
 import channels from './channels';
 import episode from './episode';
 import episodes from './episodes';
+import history from './history';
 import player from './player';
 import subscriptions from './subscriptions';
 
@@ -24,6 +25,7 @@ export default combineReducers({
   channels,
   episode,
   episodes,
+  history,
   player,
   subscriptions,
   form: formReducer,

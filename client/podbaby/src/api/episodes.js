@@ -27,4 +27,3 @@ export const fetchEpisodes = (id, page, searchQuery) => fetchMany(
   searchQuery,
 );
 
-export const play = id => client.post(`${API_BASE_URL}${id}/add_play/`);

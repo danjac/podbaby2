@@ -5,12 +5,6 @@ import { bookmarksSelector, isBookmarked } from './bookmarks';
 export const playerSelector = state => state.player;
 export const isPlaying = (player, episode) => (player.playing && player.episode) ? player.episode.id === episode.id : false;
 
-export const lastPlayed = (player, episode) => {
-  return player.plays
-    .filter(play => episode.id === play.episode)
-    .map(play => play.created)[0];
-};
-
 export const playingEpisodeSelector = createSelector(
   playerSelector,
   subscriptionsSelector,

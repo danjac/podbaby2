@@ -1,3 +1,4 @@
+import moment from 'moment';
 import sanitizeHtml from 'sanitize-html';
 
 const sanitizeOptions = {
@@ -14,3 +15,7 @@ export const sanitize = dirty => {
     __html: sanitizeHtml(dirty.replace('\n', '<br>'), sanitizeOptions),
   };
 };
+
+export const formatDate = (date, format='MMMM Do YYYY') => date && moment(date).format(format);
+
+export const timeSince = date => date && moment(date).fromNow();

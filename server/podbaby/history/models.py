@@ -8,4 +8,4 @@ from episodes.models import Episode
 
 class Play(TimeStampedModel):
     episode = models.ForeignKey(Episode)
-    user = models.ForeignKey(settings.AUTH_USER_MODEL)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='plays')

@@ -1,6 +1,7 @@
 import requests
 import calendar
 
+from django.db.models import Max
 from django.http import FileResponse, Http404
 from django.utils.http import http_date
 from django.views.generic import View
@@ -92,8 +93,10 @@ class EpisodeViewSet(viewsets.ReadOnlyModelViewSet):
 
         qs = (
             self.get_queryset().
+            annotate(last_played=Max('play__created')).
             filter(players=request.user).
-            order_by('-play__created')
+            order_by('-last_played').
+            distinct()
         )
 
         page = self.paginate_queryset(qs)

@@ -51,6 +51,10 @@ export const RELOAD_PLAYER = 'podbaby/RELOAD_PLAYER';
 export const START_PLAYER = 'podbaby/START_PLAYER';
 export const STOP_PLAYER = 'podbaby/STOP_PLAYER';
 
+// history
+export const ADD_PLAY = 'podbaby/ADD_PLAY';
+export const CLEAR_HISTORY = 'podbaby/CLEAR_HISTORY';
+
 // subscriptions
 export const SUBSCRIBE = 'podbaby/SUBSCRIBE';
 export const UNSUBSCRIBE = 'podbaby/UNSUBSCRIBE';

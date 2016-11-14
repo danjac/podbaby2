@@ -1,4 +1,3 @@
-import * as api from '../api';
 import * as storage from '../storage';
 import { createAction } from './utils';
 
@@ -8,19 +7,24 @@ import {
   RELOAD_PLAYER,
 } from '../actionTypes';
 
+import { addPlay } from './history';
+
 export function reloadPlayer() {
   return createAction(RELOAD_PLAYER, storage.player.load());
 }
 
 export function startPlayer(episode, authenticated) {
 
-  if (authenticated) {
-    api.episodes.play(episode.id);
-  }
+  return dispatch => {
 
-  saveSessionState(episode, 0);
+    saveSessionState(episode, 0);
 
-  return createAction(START_PLAYER, episode);
+    if (authenticated) {
+      dispatch(addPlay(episode));
+    }
+
+    dispatch(createAction(START_PLAYER, episode));
+  };
 }
 
 export function stopPlayer() {
