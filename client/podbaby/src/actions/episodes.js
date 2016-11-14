@@ -24,3 +24,5 @@ export const fetchAllEpisodes = partial(fetch, api.episodes.fetchAll);
 export const fetchBookmarkedEpisodes = partial(fetch, api.episodes.fetchBookmarked);
 
 export const fetchSubscribedEpisodes = partial(fetch, api.episodes.fetchSubscribed);
+
+export const fetchPlayedEpisodes = partial(fetch, api.episodes.fetchPlayed);
