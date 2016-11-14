@@ -20,15 +20,18 @@ class Player extends Component {
   componentWillReceiveProps(nextProps) {
 
     const { episode } = this.props;
-    const { nextEpisode } = nextProps;
+    const nextEpisode = nextProps.episode;
 
-    const expand = (
-      (episode && episode.id) !== (nextEpisode && nextEpisode.id)
-    );
+    let expanded = false;
 
-    if (expand) {
-      this.setState({ expanded: true });
+    if (nextEpisode) {
+      expanded = episode ? (episode.id !== nextEpisode.id) : true;
     }
+
+    if (expanded) {
+      this.setState({ expanded });
+    }
+
     return nextProps;
   }
 
