@@ -17,8 +17,11 @@ export const playingEpisodeSelector = createSelector(
     return {
       ...episode,
       playing: true,
-      subscribed: isSubscribed(subscriptions, episode.channel),
       bookmarked: isBookmarked(bookmarks, episode),
+      channel: {
+        ...episode.channel,
+        subscribed: isSubscribed(subscriptions, episode.channel),
+      },
     };
   }
 );

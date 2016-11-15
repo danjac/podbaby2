@@ -5,12 +5,18 @@ import {
   START_PLAYER,
   STOP_PLAYER,
   RELOAD_PLAYER,
+  UPDATE_PLAYER_TIME,
 } from '../actionTypes';
 
 import { addPlay } from './history';
 
 export function reloadPlayer() {
   return createAction(RELOAD_PLAYER, storage.player.load());
+}
+
+export function updatePlayerCurrentTime(episode, currentTime) {
+  saveSessionState(episode, currentTime);
+  return createAction(UPDATE_PLAYER_TIME, currentTime);
 }
 
 export function startPlayer(episode, authenticated) {

@@ -2,6 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import * as bs from 'react-bootstrap';
 import Icon from 'react-fa';
 import { Link } from 'react-router';
+import { partial } from 'lodash';
 
 import LinkMenuItem from './LinkMenuItem';
 import LinkNavItem from './LinkNavItem';
@@ -12,19 +13,64 @@ class Navbar extends Component {
 
   constructor(props) {
     super(props);
-    this.state = { expanded: false };
+
+    this.state = {
+      expanded: false,
+      dropdowns: {
+        'podcasts-dropdown': false,
+        'feeds-dropdown': false,
+      },
+    };
+
     this.handleClose = this.handleClose.bind(this);
     this.handleLogout = this.handleLogout.bind(this);
-    this.handleToggle = this.handleToggle.bind(this);
+    this.handleNavbarToggle = this.handleNavbarToggle.bind(this);
+
+    this.handlePodcastsToggle = partial(
+      this.handleDropdownToggle,
+      'podcasts-dropdown'
+    ).bind(this);
+
+    this.handlePodcastsClose = partial(
+      this.handleDropdownClose,
+      'podcasts-dropdown'
+    ).bind(this);
+
+    this.handleFeedsToggle = partial(
+      this.handleDropdownToggle,
+      'feeds-dropdown'
+    ).bind(this);
+
+    this.handleFeedsClose = partial(
+      this.handleDropdownClose,
+      'feeds-dropdown'
+    ).bind(this);
+
   }
 
-  handleToggle() {
+  handleNavbarToggle() {
     this.setState({ expanded: !this.state.expanded });
   }
 
   handleClose() {
     this.setState({ expanded: false });
   }
+
+  handleDropdownToggle(id) {
+    // will move into own component
+    const { dropdowns } = this.state;
+    const open = !dropdowns[id];
+    dropdowns[id] = open;
+    this.setState({ dropdowns });
+  }
+
+  handleDropdownClose(id) {
+    // will move into own component
+    const { dropdowns } = this.state;
+    dropdowns[id] = false;
+    this.setState({ dropdowns, expanded: false });
+  }
+
 
   handleLogout() {
     this.setState({ expanded: false });
@@ -34,12 +80,12 @@ class Navbar extends Component {
   render() {
 
     const { authenticated, user } = this.props;
-    const { expanded } = this.state;
+    const { expanded, dropdowns } = this.state;
 
     return (
       <bs.Navbar fixedTop
                  expanded={expanded}
-                 onToggle={this.handleToggle}>
+                 onToggle={this.handleNavbarToggle}>
         <bs.Navbar.Header>
           <bs.Navbar.Brand>
             <Link to={{ pathname: '/', query: { page: 1 }}}
@@ -49,25 +95,55 @@ class Navbar extends Component {
           <bs.Navbar.Toggle />
         </bs.Navbar.Header>
         <bs.Navbar.Collapse>
-          <bs.Nav>
+        <bs.Nav>
+
+          {authenticated && (
+            <bs.NavDropdown open={dropdowns['podcasts-dropdown']}
+                            title="Podcasts"
+                            onToggle={this.handlePodcastsToggle}
+                            id="podcasts-dropdown">
+
+              <LinkMenuItem to="/podcasts/me/"
+                            icon="user"
+                            onClick={this.handlePodcastsClose}>My podcasts</LinkMenuItem>
+
+              <LinkMenuItem to="/podcasts/all/"
+                            icon="list"
+                            onClick={this.handlePodcastsClose}>All podcasts</LinkMenuItem>
+
+              <LinkMenuItem to="/podcasts/bookmarks/"
+                            icon="bookmark"
+                            onClick={this.handlePodcastsClose}>Bookmarks</LinkMenuItem>
+
+              <LinkMenuItem to="/podcasts/history/"
+                            icon="history"
+                            onClick={this.handlePodcastsClose}>History</LinkMenuItem>
+
+            </bs.NavDropdown>)}
+
+          {!authenticated && <LinkNavItem to="/podcasts/all/" icon="headphones">Podcasts</LinkNavItem>}
+
+          <bs.NavDropdown open={dropdowns['feeds-dropdown']}
+                          title="Feeds"
+                          onToggle={this.handleFeedsToggle}
+                          id="feeds-dropdown">
 
             {authenticated && (
-              <bs.NavDropdown title="Podcasts" id="podcasts-dropdown">
-                <LinkMenuItem to="/podcasts/me/" icon="user" onClick={this.handleClose}>My podcasts</LinkMenuItem>
-                <LinkMenuItem to="/podcasts/all/" icon="list" onClick={this.handleClose}>All podcasts</LinkMenuItem>
-                <LinkMenuItem to="/podcasts/bookmarks/" icon="bookmark" onClick={this.handleClose}>Bookmarks</LinkMenuItem>
-                <LinkMenuItem to="/podcasts/history/" icon="history" onClick={this.handleClose}>History</LinkMenuItem>
-              </bs.NavDropdown>)}
+              <LinkMenuItem to="/feeds/me/"
+                            icon="user"
+                            onClick={this.handleFeedsClose}>My feeds</LinkMenuItem>)}
 
-            {!authenticated && <LinkNavItem to="/podcasts/all/" icon="headphones">Podcasts</LinkNavItem>}
+            <LinkMenuItem to="/feeds/all/"
+                          icon="list"
+                          onClick={this.handleFeedsClose}>All feeds</LinkMenuItem>
 
-            <bs.NavDropdown title="Feeds" id="feeds-dropdown">
-              {authenticated && <LinkMenuItem to="/feeds/me/" icon="user" onClick={this.handleClose}>My feeds</LinkMenuItem>}
-              <LinkMenuItem to="/feeds/all/" icon="list" onClick={this.handleClose}>All feeds</LinkMenuItem>
-              <LinkMenuItem to="/feeds/browse/" icon="folder-open" onClick={this.handleClose}>Browse</LinkMenuItem>
-            </bs.NavDropdown>
+            <LinkMenuItem to="/feeds/browse/"
+                          icon="folder-open"
+                          onClick={this.handleFeedsClose}>Browse</LinkMenuItem>
 
-          </bs.Nav>
+          </bs.NavDropdown>
+
+      </bs.Nav>
 
           {authenticated && user && (
             <bs.Nav pullRight>

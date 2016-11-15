@@ -1,4 +1,5 @@
 import {
+  CLEAR_HISTORY,
   FETCH_EPISODES_REQUEST,
   FETCH_EPISODES_SUCCESS,
   FETCH_EPISODES_FAILURE,
@@ -17,6 +18,14 @@ const initialState = {
 export default function(state = initialState, action) {
 
   switch (action.type) {
+
+    // history episodes should be moved to own reducer
+    case CLEAR_HISTORY:
+      return {...state,
+        results: [],
+        next: 0,
+        previous: 0,
+      };
 
     case FETCH_EPISODES_REQUEST:
       return {...state,

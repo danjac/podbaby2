@@ -50,6 +50,7 @@ export const FETCH_EPISODE_SUCCESS = 'podbaby/FETCH_EPISODE_SUCCESS';
 export const RELOAD_PLAYER = 'podbaby/RELOAD_PLAYER';
 export const START_PLAYER = 'podbaby/START_PLAYER';
 export const STOP_PLAYER = 'podbaby/STOP_PLAYER';
+export const UPDATE_PLAYER_TIME = 'podbaby/UPDATE_PLAYER_TIME';
 
 // history
 export const ADD_PLAY = 'podbaby/ADD_PLAY';

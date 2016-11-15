@@ -2,6 +2,7 @@ import {
   RELOAD_PLAYER,
   START_PLAYER,
   STOP_PLAYER,
+  UPDATE_PLAYER_TIME,
 } from '../actionTypes';
 
 
@@ -14,6 +15,12 @@ const initialState = {
 export default function(state = initialState, action) {
 
   switch (action.type) {
+
+    case UPDATE_PLAYER_TIME:
+      return {
+        ...state,
+        currentTime: action.payload,
+      };
 
     case START_PLAYER:
 

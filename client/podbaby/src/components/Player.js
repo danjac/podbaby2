@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 import * as bs from 'react-bootstrap';
 import Icon from 'react-fa';
 import { Link } from 'react-router';
@@ -15,6 +15,8 @@ class Player extends Component {
     super(props);
     this.state = { expanded: true };
     this.handleToggle = this.handleToggle.bind(this);
+    this.handlePlay = this.handlePlay.bind(this);
+    this.handleTimeUpdate = this.handleTimeUpdate.bind(this);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -33,6 +35,14 @@ class Player extends Component {
     }
 
     return nextProps;
+  }
+
+  handleTimeUpdate({ currentTarget }) {
+    this.props.onTimeUpdate(currentTarget.currentTime);
+  }
+
+  handlePlay({ currentTarget }) {
+    currentTarget.currentTime = this.props.currentTime;
   }
 
   handleToggle() {
@@ -57,9 +67,6 @@ class Player extends Component {
     const { expanded } = this.state;
     const className = 'audio-player ' + (expanded ? 'expanded' : 'contracted');
 
-    // placeholder
-    const onPlay = ({ currentTarget }) => currentTarget.currentTime = 0;
-
     const buttons = <EpisodeButtons {...this.props} />;
 
     return (
@@ -67,7 +74,8 @@ class Player extends Component {
           <bs.Panel header={header} footer={buttons}>
            <audio controls
                   autoPlay
-                  onPlay={onPlay}
+                  onPlay={this.handlePlay}
+                  onTimeUpdate={this.handleTimeUpdate}
                   src={episode.streamUrl}>
              <source src={episode.streamUrl}
                      type={episode.enclosureType} />
@@ -86,6 +94,12 @@ class Player extends Component {
 
 Player.propTypes = {
   episode: episodeShape,
+  currentTime: PropTypes.number.isRequired,
+  onTimeUpdate: PropTypes.func.isRequired,
+};
+
+Player.defaultProps = {
+  currentTime: 0,
 };
 
 export default Player;

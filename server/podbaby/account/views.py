@@ -14,6 +14,7 @@ from rest_framework.decorators import detail_route
 
 from account.permissions import IsNewUser
 from account.serializers import UserSerializer, CreateUserSerializer
+from history.models import Play
 
 
 class CreateUser(generics.CreateAPIView):
@@ -33,6 +34,11 @@ class UserViewSet(mixins.RetrieveModelMixin,
 
     def get_object(self):
         return self.request.user
+
+    @detail_route(['DELETE'])
+    def clear_history(self, request, *args, **kwargs):
+        Play.objects.filter(user=self.get_object()).delete()
+        return Response()
 
     @detail_route(['DELETE'])
     def logout(self, request, *args, **kwargs):
