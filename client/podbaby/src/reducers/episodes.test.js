@@ -2,9 +2,29 @@ import {
   FETCH_EPISODES_REQUEST,
   FETCH_EPISODES_SUCCESS,
   FETCH_EPISODES_FAILURE,
+  CLEAR_HISTORY,
 } from '../actionTypes';
 
 import reducer from './episodes';
+
+it('should handle CLEAR HISTORY', () => {
+
+  const state = reducer({
+    results: [
+      {
+        id: 1,
+      },
+    ],
+    next: 3,
+    previous: 1,
+  }, {
+    type: CLEAR_HISTORY,
+  });
+
+  expect(state.results).toEqual([]);
+  expect(state.next).toBe(0);
+  expect(state.previous).toBe(0);
+});
 
 it('should handle FETCH_EPISODES_REQUEST', () => {
 
@@ -46,7 +66,7 @@ it('should handle FETCH_EPISODES_SUCCESS', () => {
       results: [{
         id: 1,
         title: 'test',
-      }, ],
+      }],
       next: '/api/episodes/?page=2',
       previous: null,
     },

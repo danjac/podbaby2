@@ -40,6 +40,6 @@ it('should render a message if error', () => {
   };
 
   const rendered = mount(<EpisodeDetail {...props} />);
-  expect(rendered.text()).toContain('Podcast not found');
+  expect(rendered.text()).toContain('Page not found');
 
 });

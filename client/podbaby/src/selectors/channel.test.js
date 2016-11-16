@@ -19,6 +19,7 @@ describe('channelEpisodesSelector', () => {
       },
       subscriptions: [1],
       bookmarks: [],
+      history: [],
       player: {
         episode: null,
       },
@@ -49,6 +50,7 @@ describe('channelEpisodesSelector', () => {
       },
       subscriptions: [1],
       bookmarks: [],
+      history: [],
       player: {
         episode: null,
       },

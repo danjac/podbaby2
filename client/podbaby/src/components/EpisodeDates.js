@@ -1,5 +1,4 @@
 import React from 'react';
-//import * as bs from 'react-bootstrap';
 
 import { episodeShape } from '../propTypes';
 import { formatDate, timeSince } from './utils';

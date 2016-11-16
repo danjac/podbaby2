@@ -9,6 +9,7 @@ describe('episodeSelector', () => {
       },
       subscriptions: [],
       bookmarks: [],
+      history: [],
       episode: {
         episode: null,
       },
@@ -34,6 +35,7 @@ describe('episodeSelector', () => {
       },
       subscriptions: [],
       bookmarks: [],
+      history: [],
     };
     const episode = episodeSelector(state);
     expect(episode.id).toBe(state.episode.episode.id);
@@ -58,6 +60,7 @@ describe('episodeSelector', () => {
       },
       subscriptions: [2],
       bookmarks: [1],
+      history: [],
     };
     const episode = episodeSelector(state);
     expect(episode.id).toBe(state.episode.episode.id);
@@ -65,6 +68,7 @@ describe('episodeSelector', () => {
     expect(episode.subscribed).toBe(false);
     expect(episode.channel.subscribed).toBe(false);
     expect(episode.playing).toBe(false);
+    expect(episode.lastPlayed).toBe(undefined);
   });
 
   it('should indicate if episode channel subscribed', () => {
@@ -82,6 +86,7 @@ describe('episodeSelector', () => {
       },
       subscriptions: [1],
       bookmarks: [2],
+      history: [],
     };
     const episode = episodeSelector(state);
     expect(episode.id).toBe(state.episode.episode.id);
@@ -89,7 +94,38 @@ describe('episodeSelector', () => {
     expect(episode.subscribed).toBe(true);
     expect(episode.channel.subscribed).toBe(true);
     expect(episode.playing).toBe(false);
+    expect(episode.lastPlayed).toBe(undefined);
+  });
+
+  it('should indicate if episode channel last played', () => {
+    const now = new Date();
+    const state = {
+      episode: {
+        episode: {
+          id: 1,
+          channel: {
+            id: 1,
+          },
+        },
+      },
+      player: {
+        episode: null,
+      },
+      subscriptions: [],
+      bookmarks: [],
+      history: [
+        {
+          episode: 1,
+          created: now,
+        },
+      ],
+    };
+    const episode = episodeSelector(state);
+    expect(episode.id).toBe(state.episode.episode.id);
+    expect(episode.bookmarked).toBe(false);
+    expect(episode.subscribed).toBe(false);
+    expect(episode.channel.subscribed).toBe(false);
+    expect(episode.playing).toBe(false);
+    expect(episode.lastPlayed).toEqual(now);
   });
 });
-
-
