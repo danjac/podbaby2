@@ -7,6 +7,7 @@ import { categoryShape } from '../propTypes';
 import SearchForm from './SearchForm';
 import Loader from './Loader';
 import ChannelList from './ChannelList';
+import NotFound from './NotFound';
 
 import './CategoryDetail.css';
 
@@ -23,12 +24,7 @@ class CategoryDetail extends Component {
     } = this.props;
 
     if (error) {
-      return (
-        <bs.Jumbotron>
-          <h2>Category not found</h2>
-          <p>Sorry, this category cannot be found.</p>
-        </bs.Jumbotron>
-      );
+      return <NotFound />;
     }
 
     if (categoryLoading || !category) {
