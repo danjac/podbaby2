@@ -5,7 +5,7 @@ import {
   mockChannel,
   mockCategory,
   mockChannelActions,
-} from '../test-utils/mocks';
+} from '../utils/testing/mocks';
 
 import { CategoryContainer } from './CategoryContainer';
 

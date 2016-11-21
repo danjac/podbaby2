@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 
-import { mockRouter } from '../test-utils/mocks';
+import { mockRouter } from '../utils/testing/mocks';
 
 import { SignupContainer } from './SignupContainer';
 
