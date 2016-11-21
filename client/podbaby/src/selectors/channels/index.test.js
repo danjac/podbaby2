@@ -1,4 +1,4 @@
-import { channelsSelector } from './channels';
+import { channelsSelector } from './index';
 
 describe('channelsSelector', () => {
   it('should indicate channels subscribed', () => {

@@ -1,8 +1,9 @@
 import { createSelector } from 'reselect';
-import { subscriptionsSelector, isSubscribed } from './subscriptions';
-import { bookmarksSelector, isBookmarked } from './bookmarks';
-import { playerSelector, isPlaying } from './player';
-import { historySelector, lastPlayed } from './history';
+
+import { subscriptionsSelector, isSubscribed } from '../subscriptions';
+import { bookmarksSelector, isBookmarked } from '../bookmarks';
+import { playerSelector, isPlaying } from '../player';
+import { historySelector, lastPlayed } from '../history';
 
 
 export const episodesSelector = createSelector(

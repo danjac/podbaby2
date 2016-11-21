@@ -1,6 +1,6 @@
 import { createSelector } from 'reselect';
-import { subscriptionsSelector, isSubscribed } from './subscriptions';
-import { bookmarksSelector, isBookmarked } from './bookmarks';
+import { subscriptionsSelector, isSubscribed } from '../subscriptions';
+import { bookmarksSelector, isBookmarked } from '../bookmarks';
 
 export const playerSelector = state => state.player;
 export const isPlaying = (player, episode) => (player.playing && player.episode) ? player.episode.id === episode.id : false;

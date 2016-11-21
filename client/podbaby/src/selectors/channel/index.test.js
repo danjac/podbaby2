@@ -1,4 +1,4 @@
-import { channelSelector, channelEpisodesSelector } from './channel';
+import { channelSelector, channelEpisodesSelector } from './index';
 
 describe('channelEpisodesSelector', () => {
 

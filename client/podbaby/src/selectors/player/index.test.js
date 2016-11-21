@@ -1,4 +1,4 @@
-import { playingEpisodeSelector } from './player';
+import { playingEpisodeSelector } from './index';
 
 describe('playingEpisodeSelector', () => {
   it('should return null if not playing', () => {

@@ -1,4 +1,4 @@
-import { episodeSelector } from './episode';
+import { episodeSelector } from './index';
 
 describe('episodeSelector', () => {
   it('should return null if not available', () => {

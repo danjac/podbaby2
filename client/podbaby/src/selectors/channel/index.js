@@ -1,9 +1,9 @@
 import { createSelector } from 'reselect';
 
-import { bookmarksSelector, isBookmarked } from './bookmarks';
-import { playerSelector, isPlaying } from './player';
-import { subscriptionsSelector, isSubscribed } from './subscriptions';
-import { historySelector, lastPlayed } from './history';
+import { bookmarksSelector, isBookmarked } from '../bookmarks';
+import { playerSelector, isPlaying } from '../player';
+import { subscriptionsSelector, isSubscribed } from '../subscriptions';
+import { historySelector, lastPlayed } from '../history';
 
 
 export const channelSelector = createSelector(

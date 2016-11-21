@@ -1,4 +1,4 @@
-import { episodesSelector } from './episodes';
+import { episodesSelector } from './index';
 
 describe('episodesSelector', () => {
   it('should indicate bookmarks, subscribed, playing', () => {

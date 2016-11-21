@@ -1,6 +1,6 @@
 import { createSelector } from 'reselect';
 
-import { subscriptionsSelector, isSubscribed } from './subscriptions';
+import { subscriptionsSelector, isSubscribed } from '../subscriptions';
 
 export const channelsSelector = createSelector(
   state => state.channels.results,
