@@ -3,7 +3,7 @@ import {
   START_PLAYER,
   STOP_PLAYER,
   UPDATE_PLAYER_TIME,
-} from '../actionTypes';
+} from '../../actionTypes';
 
 
 const initialState = {

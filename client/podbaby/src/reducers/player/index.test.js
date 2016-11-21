@@ -2,9 +2,9 @@ import {
   RELOAD_PLAYER,
   START_PLAYER,
   STOP_PLAYER,
-} from '../actionTypes';
+} from '../../actionTypes';
 
-import reducer from './player';
+import reducer from './index';
 
 it('should handle STOP_PLAYER', () => {
 

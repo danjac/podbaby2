@@ -5,9 +5,9 @@ import {
   FETCH_CHANNEL_FAILURE,
   FETCH_CHANNEL_REQUEST,
   FETCH_CHANNEL_SUCCESS,
-} from '../actionTypes';
+} from '../../actionTypes';
 
-import { pageNumberFromUrl } from './utils';
+import { pageNumberFromUrl } from '../utils';
 
 const initialState = {
   loading: false,

@@ -1,11 +1,10 @@
 import {
-  CLEAR_HISTORY,
-  FETCH_EPISODES_REQUEST,
-  FETCH_EPISODES_SUCCESS,
-  FETCH_EPISODES_FAILURE,
-} from '../actionTypes';
+  FETCH_CHANNELS_REQUEST,
+  FETCH_CHANNELS_SUCCESS,
+  FETCH_CHANNELS_FAILURE,
+} from '../../actionTypes';
 
-import { pageNumberFromUrl } from './utils';
+import { pageNumberFromUrl } from '../utils';
 
 const initialState = {
   loading: false,
@@ -19,33 +18,19 @@ export default function(state = initialState, action) {
 
   switch (action.type) {
 
-    // history episodes should be moved to own reducer
-    case CLEAR_HISTORY:
-      return {...state,
-        results: [],
-        next: 0,
-        previous: 0,
-      };
-
-    case FETCH_EPISODES_REQUEST:
+    case FETCH_CHANNELS_REQUEST:
       return {...state,
         loading: true,
         error: null,
-        results: [],
-        next: 0,
-        previous: 0,
       };
 
-    case FETCH_EPISODES_FAILURE:
+    case FETCH_CHANNELS_FAILURE:
       return {...state,
         loading: false,
-        results: [],
-        next: 0,
-        previous: 0,
         error: action.error,
       };
 
-    case FETCH_EPISODES_SUCCESS:
+    case FETCH_CHANNELS_SUCCESS:
 
       const {
         previous,

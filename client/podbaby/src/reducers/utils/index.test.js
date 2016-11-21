@@ -1,4 +1,4 @@
-import { pageNumberFromUrl } from './utils';
+import { pageNumberFromUrl } from './index';
 
 describe('pageNumberFromUrl', () => {
   it('should parse 0 from url if null', () => {

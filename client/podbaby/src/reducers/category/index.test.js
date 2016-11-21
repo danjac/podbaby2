@@ -2,9 +2,9 @@ import {
   FETCH_CATEGORY_FAILURE,
   FETCH_CATEGORY_REQUEST,
   FETCH_CATEGORY_SUCCESS,
-} from '../actionTypes';
+} from '../../actionTypes';
 
-import reducer from './category';
+import reducer from './index';
 
 it('should handle FETCH_CATEGORY_REQUEST', () => {
   const state = reducer({

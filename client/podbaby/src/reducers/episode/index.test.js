@@ -2,9 +2,9 @@ import {
   FETCH_EPISODE_FAILURE,
   FETCH_EPISODE_REQUEST,
   FETCH_EPISODE_SUCCESS,
-} from '../actionTypes';
+} from '../../actionTypes';
 
-import reducer from './episode';
+import reducer from './index';
 
 it('should handle FETCH_EPISODE_REQUEST', () => {
   const state = reducer({

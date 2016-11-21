@@ -2,9 +2,9 @@ import {
   FETCH_CHANNEL_FAILURE,
   FETCH_CHANNEL_REQUEST,
   FETCH_CHANNEL_SUCCESS,
-} from '../actionTypes';
+} from '../../actionTypes';
 
-import reducer from './channel';
+import reducer from './index';
 
 it('should handle FETCH_CHANNEL_REQUEST', () => {
   const state = reducer({

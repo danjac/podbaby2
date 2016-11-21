@@ -2,9 +2,9 @@ import {
   FETCH_CHANNELS_REQUEST,
   FETCH_CHANNELS_SUCCESS,
   FETCH_CHANNELS_FAILURE,
-} from '../actionTypes';
+} from '../../actionTypes';
 
-import reducer from './channels';
+import reducer from './index';
 
 it('should handle FETCH_CHANNELS_REQUEST', () => {
 
@@ -46,7 +46,7 @@ it('should handle FETCH_CHANNELS_SUCCESS', () => {
       results: [{
         id: 1,
         title: 'test',
-      }, ],
+      }],
       next: '/api/episodes/?page=2',
       previous: null,
     },

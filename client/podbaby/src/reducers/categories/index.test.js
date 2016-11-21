@@ -2,9 +2,9 @@ import {
   FETCH_CATEGORIES_REQUEST,
   FETCH_CATEGORIES_SUCCESS,
   FETCH_CATEGORIES_FAILURE,
-} from '../actionTypes';
+} from '../../actionTypes';
 
-import reducer from './categories';
+import reducer from './index';
 
 it('should handle FETCH_CATEGORIES_REQUEST', () => {
 
@@ -28,7 +28,7 @@ it('should handle FETCH_CATEGORIES_SUCCESS', () => {
     payload: [{
       id: 1,
       name: 'Comedy',
-    }, ],
+    }],
   });
 
   expect(state.loading).toEqual(false);

@@ -4,9 +4,9 @@ import {
   FETCH_USER_SUCCESS,
   NOT_AUTHENTICATED,
   LOGOUT,
-} from '../actionTypes';
+} from '../../actionTypes';
 
-import reducer from './auth';
+import reducer from './index';
 
 it('should handle FETCH_USER_REQUEST', () => {
 

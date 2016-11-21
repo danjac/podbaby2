@@ -1,7 +1,7 @@
 import {
   CREATE_ALERT,
   DISMISS_ALERT,
-} from '../actionTypes';
+} from '../../actionTypes';
 
 const initialState = [];
 

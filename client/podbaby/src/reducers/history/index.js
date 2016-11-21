@@ -3,7 +3,7 @@ import {
   CLEAR_HISTORY,
   FETCH_USER_SUCCESS,
   START_PLAYER,
-} from '../actionTypes';
+} from '../../actionTypes';
 
 const initialState = [];
 

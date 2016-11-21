@@ -3,9 +3,9 @@ import {
   FETCH_EPISODES_SUCCESS,
   FETCH_EPISODES_FAILURE,
   CLEAR_HISTORY,
-} from '../actionTypes';
+} from '../../actionTypes';
 
-import reducer from './episodes';
+import reducer from './index';
 
 it('should handle CLEAR HISTORY', () => {
 

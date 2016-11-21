@@ -2,7 +2,7 @@ import {
   FETCH_EPISODE_FAILURE,
   FETCH_EPISODE_REQUEST,
   FETCH_EPISODE_SUCCESS,
-} from '../actionTypes';
+} from '../../actionTypes';
 
 const initialState = {
   loading: false,

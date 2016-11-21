@@ -1,14 +1,14 @@
 import {
-  ADD_BOOKMARK,
-  REMOVE_BOOKMARK,
+  SUBSCRIBE,
+  UNSUBSCRIBE,
   FETCH_USER_SUCCESS,
   LOGOUT,
-} from '../actionTypes';
+} from '../../actionTypes';
 
-import reducer from './bookmarks';
+import reducer from './index';
 
 it('should handle LOGOUT', () => {
-  const state = reducer([1, 2, ], {
+  const state = reducer([1, 2], {
     type: LOGOUT,
   });
 
@@ -21,24 +21,24 @@ it('should handle FETCH_USER_SUCCESS', () => {
     type: FETCH_USER_SUCCESS,
     payload: {
       name: 'test',
-      bookmarks: [1, 2, ],
+      subscriptions: [1, 2],
     },
   });
-  expect(state).toEqual([1, 2, ]);
+  expect(state).toEqual([1, 2]);
 });
 
-it('should handle ADD_BOOKMARK', () => {
-  const state = reducer([1, ], {
-    type: ADD_BOOKMARK,
+it('should handle SUBSCRIBE', () => {
+  const state = reducer([1], {
+    type: SUBSCRIBE,
     payload: 2,
   });
   expect(state).toContain(1);
   expect(state).toContain(2);
 });
 
-it('should handle REMOVE_BOOKMARK', () => {
-  const state = reducer([1, 2, ], {
-    type: REMOVE_BOOKMARK,
+it('should handle UNSUBSCRIBE', () => {
+  const state = reducer([1, 2], {
+    type: UNSUBSCRIBE,
     payload: 2,
   });
   expect(state).toContain(1);

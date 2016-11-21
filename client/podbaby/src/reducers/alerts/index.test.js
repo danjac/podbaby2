@@ -1,16 +1,16 @@
 import {
   CREATE_ALERT,
   DISMISS_ALERT,
-} from '../actionTypes';
+} from '../../actionTypes';
 
-import reducer from './alerts';
+import reducer from './index';
 
 it('should DISMISS_ALERT', () => {
   const state = reducer([{
     id: 1,
   }, {
     id: 2,
-  }, ], {
+  } ], {
     type: DISMISS_ALERT,
     payload: 2,
   }, );

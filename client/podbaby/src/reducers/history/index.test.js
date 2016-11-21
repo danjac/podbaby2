@@ -3,9 +3,9 @@ import {
   LOGOUT,
   FETCH_USER_SUCCESS,
   CLEAR_HISTORY,
-} from '../actionTypes';
+} from '../../actionTypes';
 
-import reducer from './history';
+import reducer from './index';
 
 it('it should handle START_PLAYER', () => {
   const state = reducer([], {

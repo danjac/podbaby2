@@ -1,9 +1,9 @@
 import {
-  ADD_BOOKMARK,
-  REMOVE_BOOKMARK,
+  SUBSCRIBE,
+  UNSUBSCRIBE,
   FETCH_USER_SUCCESS,
   LOGOUT,
-} from '../actionTypes';
+} from '../../actionTypes';
 
 const initialState = [];
 
@@ -15,12 +15,12 @@ export default function(state = initialState, action) {
       return [];
 
     case FETCH_USER_SUCCESS:
-      return action.payload.bookmarks;
+      return action.payload.subscriptions;
 
-    case ADD_BOOKMARK:
+    case SUBSCRIBE:
       return state.concat(action.payload);
 
-    case REMOVE_BOOKMARK:
+    case UNSUBSCRIBE:
       return state.filter(id => id !== action.payload);
 
     default:
