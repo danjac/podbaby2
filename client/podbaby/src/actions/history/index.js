@@ -1,8 +1,8 @@
-import * as api from '../api';
+import * as api from '../../api';
 
-import { ADD_PLAY, CLEAR_HISTORY } from '../actionTypes';
+import { ADD_PLAY, CLEAR_HISTORY } from '../../actionTypes';
 
-import { createAction } from './utils';
+import { createAction } from '../utils';
 
 export const addPlay = episode => {
   api.history.add(episode.id);

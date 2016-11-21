@@ -1,5 +1,5 @@
-import * as api from '../api';
-import { dispatchApiCall } from './utils';
+import * as api from '../../api';
+import { dispatchApiCall } from '../utils';
 
 import {
   FETCH_CHANNEL_EPISODES_FAILURE,
@@ -8,7 +8,7 @@ import {
   FETCH_CHANNEL_FAILURE,
   FETCH_CHANNEL_REQUEST,
   FETCH_CHANNEL_SUCCESS,
-} from '../actionTypes';
+} from '../../actionTypes';
 
 export const fetchChannel = id => dispatch => dispatchApiCall(
   dispatch,

@@ -1,12 +1,12 @@
-import { SUBSCRIBE, UNSUBSCRIBE } from '../actionTypes';
+import { SUBSCRIBE, UNSUBSCRIBE } from '../../actionTypes';
 
-import { subscribe, unsubscribe } from './subscriptions';
+import { subscribe, unsubscribe } from './index';
 
-jest.mock('../api');
+jest.mock('../../api');
 
 describe('subscribe', () => {
 
-  const api = require('../api');
+  const api = require('../../api');
 
   it('should create a subscription', () => {
     const channel = { id: 1 };
@@ -20,7 +20,7 @@ describe('subscribe', () => {
 
 describe('unsubscribe', () => {
 
-  const api = require('../api');
+  const api = require('../../api');
 
   it('should remove a subscription', () => {
     const channel = { id: 1 };

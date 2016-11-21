@@ -5,15 +5,15 @@ import {
   FETCH_EPISODES_FAILURE,
   FETCH_EPISODES_REQUEST,
   FETCH_EPISODES_SUCCESS,
-} from '../actionTypes';
+} from '../../actionTypes';
 
 import {
   fetchAllEpisodes,
   fetchBookmarkedEpisodes,
   fetchSubscribedEpisodes,
-} from './episodes';
+} from './index';
 
-jest.mock('../api');
+jest.mock('../../api');
 
 const createMockStore = configureMockStore([thunk]);
 
@@ -23,14 +23,14 @@ const mockPayload = {
     title: 'test',
   }],
   previous: null,
-  next: '/api/episodes/?page=2',
+  next:'/api/episodes/?page=2',
   count: 10,
 };
 
 
 describe('fetchAllEpisodes', () => {
 
-  const api = require('../api');
+  const api = require('../../api');
 
   beforeEach(() => {
     api.episodes.fetchAll.mockClear();
@@ -86,7 +86,7 @@ describe('fetchAllEpisodes', () => {
 
 describe('fetchBookmarkedEpisodes', () => {
 
-  const api = require('../api');
+  const api = require('../../api');
 
   beforeEach(() => {
     api.episodes.fetchBookmarked.mockClear();
@@ -143,7 +143,7 @@ describe('fetchBookmarkedEpisodes', () => {
 
 
 describe('fetchSubscribedEpisodes', () => {
-  const api = require('../api');
+  const api = require('../../api');
 
   beforeEach(() => {
     api.episodes.fetchSubscribed.mockClear();

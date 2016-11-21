@@ -2,20 +2,20 @@ import {
   START_PLAYER,
   STOP_PLAYER,
   RELOAD_PLAYER,
-} from '../actionTypes';
+} from '../../actionTypes';
 
 import {
   startPlayer,
   reloadPlayer,
   stopPlayer,
-} from './player';
+} from './index';
 
-jest.mock('../api');
-jest.mock('../storage');
+jest.mock('../../api');
+jest.mock('../../storage');
 
 describe('stopPlayer', () => {
 
-  const storage = require('../storage');
+  const storage = require('../../storage');
 
   it('should remove player on stop', () => {
     const action = stopPlayer();
@@ -27,11 +27,11 @@ describe('stopPlayer', () => {
 
 describe('startPlayer', () => {
 
-  const api = require('../api');
-  const storage = require('../storage');
+  const api = require('../../api');
+  const storage = require('../../storage');
 
   beforeEach(() => {
-    api.plays.save.mockClear();
+    api.history.add.mockClear();
     storage.player.save.mockClear();
   });
 
@@ -44,7 +44,7 @@ describe('startPlayer', () => {
     expect(action.type).toBe(START_PLAYER);
     expect(action.payload).toBe(episode);
 
-    expect(api.plays.save).toBeCalledWith(episode.id);
+    expect(api.history.add).toBeCalledWith(episode.id);
 
     expect(storage.player.save).toBeCalledWith({
       episode,
@@ -62,7 +62,7 @@ describe('startPlayer', () => {
     expect(action.type).toBe(START_PLAYER);
     expect(action.payload).toBe(episode);
 
-    expect(api.plays.save).not.toBeCalled();
+    expect(api.history.add).not.toBeCalled();
 
     expect(storage.player.save).toBeCalledWith({
       episode,
@@ -73,7 +73,7 @@ describe('startPlayer', () => {
 
 describe('reloadPlayer', () => {
 
-  const storage = require('../storage');
+  const storage = require('../../storage');
 
   beforeEach(() => {
     storage.player.load.mockClear();

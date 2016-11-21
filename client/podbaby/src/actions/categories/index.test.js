@@ -5,13 +5,13 @@ import {
   FETCH_CATEGORIES_FAILURE,
   FETCH_CATEGORIES_REQUEST,
   FETCH_CATEGORIES_SUCCESS,
-} from '../actionTypes';
+} from '../../actionTypes';
 
 import {
   fetchCategories,
-} from './categories';
+} from './index';
 
-jest.mock('../api');
+jest.mock('../../api');
 
 const createMockStore = configureMockStore([thunk]);
 
@@ -25,7 +25,7 @@ const mockPayload = [
 
 describe('fetchCategories', () => {
 
-  const api = require('../api');
+  const api = require('../../api');
 
   beforeEach(() => {
     api.categories.fetchAll.mockClear();

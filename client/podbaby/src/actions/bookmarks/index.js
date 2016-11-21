@@ -1,7 +1,7 @@
-import * as api from '../api';
-import { ADD_BOOKMARK, REMOVE_BOOKMARK } from '../actionTypes';
+import * as api from '../../api';
+import { ADD_BOOKMARK, REMOVE_BOOKMARK } from '../../actionTypes';
 
-import { createAction } from './utils';
+import { createAction } from '../utils';
 
 // tbd: add alert msgs
 export const addBookmark = episode => {

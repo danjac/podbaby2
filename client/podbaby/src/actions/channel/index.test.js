@@ -8,12 +8,12 @@ import {
   FETCH_CHANNEL_EPISODES_FAILURE,
   FETCH_CHANNEL_EPISODES_REQUEST,
   FETCH_CHANNEL_EPISODES_SUCCESS,
-} from '../actionTypes';
+} from '../../actionTypes';
 
 
-import { fetchChannel, fetchEpisodesForChannel } from './channel';
+import { fetchChannel, fetchEpisodesForChannel } from './index';
 
-jest.mock('../api');
+jest.mock('../../api');
 
 
 const createMockStore = configureMockStore([thunk]);
@@ -21,7 +21,7 @@ const createMockStore = configureMockStore([thunk]);
 
 describe('fetchChannel', () => {
 
-  const api = require('../api');
+  const api = require('../../api');
 
   beforeEach(() => {
     api.channels.get.mockClear();
@@ -74,7 +74,7 @@ describe('fetchChannel', () => {
 
 
 describe('fetchEpisodesForChannel', () => {
-  const api = require('../api');
+  const api = require('../../api');
 
   beforeEach(() => {
     api.channels.fetchEpisodes.mockClear();

@@ -1,13 +1,13 @@
 import { partial } from 'lodash';
 
-import * as api from '../api';
-import { dispatchApiCall } from './utils';
+import * as api from '../../api';
+import { dispatchApiCall } from '../utils';
 
 import {
   FETCH_CHANNELS_FAILURE,
   FETCH_CHANNELS_REQUEST,
   FETCH_CHANNELS_SUCCESS,
-} from '../actionTypes';
+} from '../../actionTypes';
 
 
 const fetch = (apiCall, page, searchQuery) => dispatch => dispatchApiCall(

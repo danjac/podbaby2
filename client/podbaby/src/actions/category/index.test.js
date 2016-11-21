@@ -8,12 +8,12 @@ import {
   FETCH_CHANNELS_FAILURE,
   FETCH_CHANNELS_REQUEST,
   FETCH_CHANNELS_SUCCESS,
-} from '../actionTypes';
+} from '../../actionTypes';
 
 
-import { fetchCategory, fetchChannelsForCategory } from './category';
+import { fetchCategory, fetchChannelsForCategory } from './index';
 
-jest.mock('../api');
+jest.mock('../../api');
 
 
 const createMockStore = configureMockStore([thunk]);
@@ -21,7 +21,7 @@ const createMockStore = configureMockStore([thunk]);
 
 describe('fetchCategory', () => {
 
-  const api = require('../api');
+  const api = require('../../api');
 
   beforeEach(() => {
     api.categories.get.mockClear();
@@ -74,7 +74,7 @@ describe('fetchCategory', () => {
 
 
 describe('fetchChannelsForCategory', () => {
-  const api = require('../api');
+  const api = require('../../api');
 
   beforeEach(() => {
     api.categories.fetchChannels.mockClear();

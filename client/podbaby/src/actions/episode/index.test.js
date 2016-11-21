@@ -5,13 +5,13 @@ import {
   FETCH_EPISODE_FAILURE,
   FETCH_EPISODE_REQUEST,
   FETCH_EPISODE_SUCCESS,
-} from '../actionTypes';
+} from '../../actionTypes';
 
 
-import { fetchEpisode } from './episode';
+import { fetchEpisode } from './index';
 
 
-jest.mock('../api');
+jest.mock('../../api');
 
 
 const createMockStore = configureMockStore([thunk]);
@@ -19,7 +19,7 @@ const createMockStore = configureMockStore([thunk]);
 
 describe('fetchEpisode', () => {
 
-  const api = require('../api');
+  const api = require('../../api');
 
   beforeEach(() => {
     api.episodes.get.mockClear();

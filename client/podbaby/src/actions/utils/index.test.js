@@ -1,4 +1,4 @@
-import { dispatchApiCall } from './utils';
+import { dispatchApiCall } from '../utils';
 
 describe('dispatchApiCall', () => {
 

@@ -5,14 +5,14 @@ import {
   FETCH_CHANNELS_FAILURE,
   FETCH_CHANNELS_REQUEST,
   FETCH_CHANNELS_SUCCESS,
-} from '../actionTypes';
+} from '../../actionTypes';
 
 import {
   fetchAllChannels,
   fetchSubscribedChannels,
-} from './channels';
+} from './index';
 
-jest.mock('../api');
+jest.mock('../../api');
 
 const createMockStore = configureMockStore([thunk]);
 
@@ -22,14 +22,14 @@ const mockPayload = {
     name: 'test',
   }],
   previous: null,
-  next: '/api/channels/?page=2',
+  next:'/api/channels/?page=2',
   count: 10,
 };
 
 
 describe('fetchAllChannels', () => {
 
-  const api = require('../api');
+  const api = require('../../api');
 
   beforeEach(() => {
     api.channels.fetchAll.mockClear();
@@ -84,7 +84,7 @@ describe('fetchAllChannels', () => {
 });
 
 describe('fetchSubscribedchannels', () => {
-  const api = require('../api');
+  const api = require('../../api');
 
   beforeEach(() => {
     api.channels.fetchSubscribed.mockClear();

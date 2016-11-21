@@ -8,23 +8,23 @@ import {
   NOT_AUTHENTICATED,
   CREATE_ALERT,
   LOGOUT,
-} from '../actionTypes';
+} from '../../actionTypes';
 
 import {
   logout,
   fetchUser,
   fetchAuthenticatedUser,
-} from './auth';
+} from './index';
 
-jest.mock('../api');
-jest.mock('../storage');
+jest.mock('../../api');
+jest.mock('../../storage');
 
 const createMockStore = configureMockStore([thunk]);
 
 describe('logout', () => {
 
-  const storage = require('../storage');
-  const api = require('../api');
+  const storage = require('../../storage');
+  const api = require('../../api');
 
   it('Should logout', () => {
     const store = createMockStore();
@@ -37,8 +37,8 @@ describe('logout', () => {
 
 describe('fetchAuthenticatedUser', () => {
 
-  const storage = require('../storage');
-  const api = require('../api');
+  const storage = require('../../storage');
+  const api = require('../../api');
 
   it('should get token and call if available', () => {
 
@@ -75,8 +75,8 @@ describe('fetchAuthenticatedUser', () => {
 
 describe('fetchUser', () => {
 
-  const storage = require('../storage');
-  const api = require('../api');
+  const storage = require('../../storage');
+  const api = require('../../api');
 
   beforeEach(() => {
     api.auth.getUser.mockClear();

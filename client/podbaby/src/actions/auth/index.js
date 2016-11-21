@@ -4,14 +4,14 @@ import {
   FETCH_USER_SUCCESS,
   NOT_AUTHENTICATED,
   LOGOUT,
-} from '../actionTypes';
+} from '../../actionTypes';
 
-import * as api from '../api';
-import * as storage from '../storage';
+import * as api from '../../api';
+import * as storage from '../../storage';
 
-import { createAction, dispatchApiCall } from './utils';
+import { createAction, dispatchApiCall } from '../utils';
 
-import { info, success } from './alerts';
+import { info, success } from '../alerts';
 
 const fetch = dispatch => dispatchApiCall(
   dispatch,
