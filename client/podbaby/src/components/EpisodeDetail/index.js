@@ -3,6 +3,7 @@ import * as bs from 'react-bootstrap';
 import { Link } from 'react-router';
 
 import { episodeShape } from '../../propTypes';
+import defaultThumbnail from '../../assets/podcast.svg';
 
 import Loader from '../Loader';
 import Description from '../Description';
@@ -11,7 +12,6 @@ import Labels from '../Labels';
 import NotFound from '../NotFound';
 import EpisodeLinks from '../EpisodeLinks';
 import EpisodeDates from '../EpisodeDates';
-import defaultThumbnail from './podcast.svg';
 
 import './index.css';
 

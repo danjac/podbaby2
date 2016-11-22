@@ -2,6 +2,7 @@ import React, { PropTypes, Component } from 'react';
 import * as bs from 'react-bootstrap';
 
 import { channelShape } from '../../propTypes';
+import defaultThumbnail from '../../assets/podcast.svg';
 
 import SearchForm from '../SearchForm';
 import Loader from '../Loader';
@@ -13,7 +14,6 @@ import ChannelButtons from '../ChannelButtons';
 import ChannelLinks from '../ChannelLinks';
 import NotFound from '../NotFound';
 
-import defaultThumbnail from './podcast.svg';
 import './index.css';
 
 class ChannelDetail extends Component {

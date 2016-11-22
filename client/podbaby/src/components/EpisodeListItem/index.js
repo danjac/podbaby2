@@ -3,8 +3,8 @@ import { Link } from 'react-router';
 import * as bs from 'react-bootstrap';
 
 import { episodeShape } from '../../propTypes';
+import defaultThumbnail from '../../assets/podcast.svg';
 
-import defaultThumbnail from '../podcast.svg';
 import Description from '../Description';
 import Labels from '../Labels';
 import EpisodeButtons from '../EpisodeButtons';

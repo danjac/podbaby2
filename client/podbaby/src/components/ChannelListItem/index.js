@@ -3,7 +3,8 @@ import { Link } from 'react-router';
 import * as bs from 'react-bootstrap';
 
 import { channelShape } from '../../propTypes';
-import defaultThumbnail from '../podcast.svg';
+import defaultThumbnail from '../../assets/podcast.svg';
+
 import Labels from '../Labels';
 import ChannelButtons from '../ChannelButtons';
 import ChannelLinks from '../ChannelLinks';
