@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 
-import Navbar from './index';
+import Navbar from './Navbar';
 
 it('should render the component', () => {
 

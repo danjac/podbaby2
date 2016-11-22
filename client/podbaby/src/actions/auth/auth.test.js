@@ -14,7 +14,7 @@ import {
   logout,
   fetchUser,
   fetchAuthenticatedUser,
-} from './index';
+} from './auth';
 
 jest.mock('../../api');
 jest.mock('../../storage');

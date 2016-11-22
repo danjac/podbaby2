@@ -1,16 +1,9 @@
-import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
 import { dismissAlert } from '../../actions/alerts';
 
-import AlertList from '../../components/AlertList';
-
-export class Alerts extends Component {
-  render() {
-    return <AlertList {...this.props} />;
-  }
-}
+import Alerts from './Alerts';
 
 const mapStateToProps = state => {
   return {

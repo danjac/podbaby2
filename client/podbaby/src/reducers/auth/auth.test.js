@@ -6,7 +6,7 @@ import {
   LOGOUT,
 } from '../../actionTypes';
 
-import reducer from './index';
+import reducer from './auth';
 
 it('should handle FETCH_USER_REQUEST', () => {
 

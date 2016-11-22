@@ -1,6 +1,8 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import AlertList, { Alert } from './index';
+
+import Alert from './Alert';
+import AlertList from './AlertList';
 
 it('should render a list of alerts', () => {
   const alerts = [

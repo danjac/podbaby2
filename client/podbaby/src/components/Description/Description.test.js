@@ -1,7 +1,7 @@
 import React from 'react';
 import { mount } from 'enzyme';
 
-import Description from './index';
+import Description from './Description';
 
 it('should render the component', () => {
   const rendered = mount(<Description content={'test'} />);
