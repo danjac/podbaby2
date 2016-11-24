@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 
-import Pager from './index';
+import Pager from './Pager';
 
 it('should enable previous and next buttons if present', () => {
   const props = {
