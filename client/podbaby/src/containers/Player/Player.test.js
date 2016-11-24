@@ -6,7 +6,7 @@ import {
   mockEpisodeActions,
 } from '../../utils/testing/mocks';
 
-import { Player } from './index';
+import Player from './Player';
 
 it('should render the container', () => {
 

@@ -1,19 +1,13 @@
-import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 
-import { fetchSubscribedChannels } from '../actions/channels';
-import { channelsSelector } from '../selectors';
-import Channels from '../components/Channels';
+import { fetchSubscribedChannels } from '../../actions/channels';
+import { channelsSelector } from '../../selectors';
 
-import withPaginatedSearch from './withPaginatedSearch';
-import { bindChannelActionCreators } from './utils';
+import withPaginatedSearch from '../withPaginatedSearch';
+import { bindChannelActionCreators } from '../utils';
 
-class Subscriptions extends Component {
-  render() {
-    return <Channels header='My feeds' {...this.props} />;
-  }
-}
+import Subscriptions from './Subscriptions';
 
 const fetchData = (dispatch, page, searchQuery) => dispatch(fetchSubscribedChannels(page, searchQuery));
 

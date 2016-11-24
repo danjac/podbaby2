@@ -1,19 +1,13 @@
-import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 
-import { fetchAllChannels } from '../actions/channels';
-import { channelsSelector } from '../selectors';
-import ChannelsPage from '../components/ChannelsPage';
+import { fetchAllChannels } from '../../actions/channels';
+import { channelsSelector } from '../../selectors';
 
-import withPaginatedSearch from './withPaginatedSearch';
-import { bindChannelActionCreators } from './utils';
+import withPaginatedSearch from '../withPaginatedSearch';
+import { bindChannelActionCreators } from '../utils';
 
-class Channels extends Component {
-  render() {
-    return <ChannelsPage header='All feeds' {...this.props} />;
-  }
-}
+import Channels from './Channels';
 
 const fetchData = (dispatch, page, searchQuery) => dispatch(fetchAllChannels(page, searchQuery));
 

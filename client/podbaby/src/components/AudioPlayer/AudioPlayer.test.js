@@ -7,7 +7,7 @@ import {
   mockEpisodeActions,
 } from '../../utils/testing/mocks';
 
-import AudioPlayer from './index';
+import AudioPlayer from './AudioPlayer';
 
 const createDefaultProps = () => {
   return {
