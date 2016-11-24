@@ -1,8 +1,8 @@
 import { bindActionCreators } from 'redux';
 
-import { addBookmark, removeBookmark } from '../../actions/bookmarks';
-import { startPlayer, stopPlayer } from '../../actions/player';
-import { subscribe, unsubscribe } from '../../actions/subscriptions';
+import { addBookmark, removeBookmark } from './bookmarks';
+import { startPlayer, stopPlayer } from './player';
+import { subscribe, unsubscribe } from './subscriptions';
 
 export const bindEpisodeActionCreators = dispatch => bindActionCreators({
   onAddBookmark: addBookmark,
