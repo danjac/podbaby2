@@ -2,10 +2,10 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 
 import { fetchAllChannels } from '../../actions/channels';
+import { bindChannelActionCreators } from '../../actions';
 import { channelsSelector } from '../../selectors';
 
 import withPaginatedSearch from '../withPaginatedSearch';
-import { bindChannelActionCreators } from '../utils';
 
 import Channels from './Channels';
 
