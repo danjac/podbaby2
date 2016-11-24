@@ -7,7 +7,7 @@ import {
   mockEpisodeActions,
 } from '../../utils/testing/mocks';
 
-import { EpisodeListItem } from './index';
+import { EpisodeListItem } from './EpisodeListItem';
 
 const defaultProps = () => {
   return {

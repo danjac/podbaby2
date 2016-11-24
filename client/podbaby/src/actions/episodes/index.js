@@ -1,23 +1,17 @@
 import { partial } from 'lodash';
 
 import * as api from '../../api';
-import { dispatchApiCall } from '../utils';
 
-import {
-  FETCH_EPISODES_FAILURE,
-  FETCH_EPISODES_REQUEST,
-  FETCH_EPISODES_SUCCESS,
-} from '../../actionTypes';
+import { FETCH_EPISODES_REQUEST } from '../../actionTypes';
 
-
-const fetch = (apiCall, page, searchQuery) => dispatch => dispatchApiCall(
-  dispatch,
-  apiCall(page, searchQuery),
-  FETCH_EPISODES_REQUEST,
-  FETCH_EPISODES_SUCCESS,
-  FETCH_EPISODES_FAILURE,
-);
-
+const fetch = (apiCall, page, searchQuery) => ({
+  type: FETCH_EPISODES_REQUEST,
+  payload: {
+    apiCall,
+    page,
+    searchQuery,
+  },
+});
 
 export const fetchAllEpisodes = partial(fetch, api.episodes.fetchAll);
 

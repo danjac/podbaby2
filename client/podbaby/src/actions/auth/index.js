@@ -1,7 +1,11 @@
-import { fetchAuthenticatedUser, fetchUser, logout } from './auth';
+import {
+  fetchAuthenticatedUser,
+  fetchUserFromStorage,
+  logout,
+} from './auth';
 
 export {
   fetchAuthenticatedUser,
-  fetchUser,
+  fetchUserFromStorage,
   logout,
 };

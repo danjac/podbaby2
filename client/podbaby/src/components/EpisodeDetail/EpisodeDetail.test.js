@@ -4,7 +4,7 @@ import { shallow, mount } from 'enzyme';
 import { mockEpisodeActions, mockEpisode } from '../../utils/testing/mocks';
 
 import Loader from '../Loader';
-import EpisodeDetail from './index';
+import EpisodeDetail from './EpisodeDetail';
 
 
 it('should render the component', () => {

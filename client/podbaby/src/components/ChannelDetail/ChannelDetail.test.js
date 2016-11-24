@@ -8,7 +8,7 @@ import {
 } from '../../utils/testing/mocks';
 //
 //import Loader from './Loader';
-import ChannelDetail from './index';
+import ChannelDetail from './ChannelDetail';
 
 it('should render the component', () => {
   const props = {

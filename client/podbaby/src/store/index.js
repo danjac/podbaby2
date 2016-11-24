@@ -4,18 +4,25 @@ import {
 } from 'redux';
 
 import thunk from 'redux-thunk';
+import createSagaMiddleware from 'redux-saga';
 import createLogger from 'redux-logger';
 
 import reducer from '../reducers';
-import { errorMiddleware } from '../middleware';
+import rootSaga from '../sagas';
+
+const sagaMiddleware = createSagaMiddleware();
 
 export default function(initialState) {
-  return createStore(
+  const store = createStore(
     reducer,
     initialState,
     applyMiddleware(
       thunk,
       createLogger(),
-      errorMiddleware,
+      sagaMiddleware,
     ));
+
+  sagaMiddleware.run(rootSaga);
+
+  return store;
 }
