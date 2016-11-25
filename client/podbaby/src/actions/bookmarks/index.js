@@ -1,15 +1,11 @@
-import * as api from '../../api';
 import { ADD_BOOKMARK, REMOVE_BOOKMARK } from '../../actionTypes';
 
-import { createAction } from '../utils';
+export const addBookmark = episode => ({
+  type: ADD_BOOKMARK,
+  payload: episode,
+});
 
-// tbd: add alert msgs
-export const addBookmark = episode => {
-  api.bookmarks.add(episode.id);
-  return createAction(ADD_BOOKMARK, episode.id);
-};
-
-export const removeBookmark = episode => {
-  api.bookmarks.remove(episode.id);
-  return createAction(REMOVE_BOOKMARK, episode.id);
-};
+export const removeBookmark = episode => ({
+  type: REMOVE_BOOKMARK,
+  payload: episode,
+});

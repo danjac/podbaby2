@@ -18,10 +18,10 @@ export default function(state = initialState, action) {
       return action.payload.bookmarks;
 
     case ADD_BOOKMARK:
-      return state.concat(action.payload);
+      return state.concat(action.payload.id);
 
     case REMOVE_BOOKMARK:
-      return state.filter(id => id !== action.payload);
+      return state.filter(id => id !== action.payload.id);
 
     default:
       return state;
