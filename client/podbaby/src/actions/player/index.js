@@ -5,36 +5,39 @@ import {
   UPDATE_PLAYER_TIME,
 } from '../../actionTypes';
 
-import * as api from '../../api';
 import * as storage from '../../storage';
 
-import { createAction } from '../utils';
-
-export function reloadPlayer() {
-  return createAction(RELOAD_PLAYER, storage.player.load());
-}
-
-export function updatePlayerCurrentTime(episode, currentTime) {
-  saveSessionState(episode, currentTime);
-  return createAction(UPDATE_PLAYER_TIME, currentTime);
-}
-
-export function startPlayer(episode, authenticated) {
-  saveSessionState(episode, 0);
-
-  if (authenticated) {
-    api.history.add(episode.id);
-  }
-
-  return createAction(START_PLAYER, episode);
+const saveSessionState = (episode, currentTime) => {
+  storage.player.save({ episode, currentTime });
 };
 
-export function stopPlayer() {
+export const reloadPlayer = () => ({
+  type: RELOAD_PLAYER,
+  payload: storage.player.load(),
+});
+
+export const updatePlayerCurrentTime = (episode, currentTime) => {
+  saveSessionState(episode, currentTime);
+  return {
+    type: UPDATE_PLAYER_TIME,
+    payload: currentTime,
+  };
+};
+
+export const startPlayer = episode => {
+
+  saveSessionState(episode, 0);
+
+  return {
+    type: START_PLAYER,
+    payload: episode,
+  };
+
+};
+
+export const stopPlayer = () => {
   storage.player.remove();
+  return { type: STOP_PLAYER };
+};
 
-  return createAction(STOP_PLAYER);
-}
 
-export function saveSessionState(episode, currentTime) {
-  storage.player.save({ episode, currentTime });
-}

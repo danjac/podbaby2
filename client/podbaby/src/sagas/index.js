@@ -9,6 +9,8 @@ import channel from './channel';
 import channels from './channels';
 import episode from './episode';
 import episodes from './episodes';
+import history from './history';
+import player from './player';
 import subscriptions from './subscriptions';
 
 export default function* rootSaga() {
@@ -22,6 +24,8 @@ export default function* rootSaga() {
     fork(channels),
     fork(episode),
     fork(episodes),
+    fork(history),
+    fork(player),
     fork(subscriptions),
   ];
 }
