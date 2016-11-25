@@ -3,12 +3,12 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 
 import { fetchChannel, fetchEpisodesForChannel } from '../../actions/channel';
-import { channelSelector, channelEpisodesSelector } from '../../selectors';
+import { channelSelector, episodesSelector } from '../../selectors';
+import { bindEpisodeActionCreators } from '../../actions';
 import ChannelDetail from '../../components/ChannelDetail';
 
 import withPaginatedSearch from '../withPaginatedSearch';
 
-import { bindEpisodeActionCreators } from '../utils';
 
 export class Channel extends Component {
 
@@ -41,20 +41,18 @@ Channel.propTypes = {
 const mapStateToProps = state => {
   const {
     auth: { authenticated },
-    channel: {
-      episodes: {
-        next,
-        previous,
-      },
+    episodes: {
+      next,
+      previous,
     },
   } = state;
 
   const channelLoading = state.channel.loading;
-  const episodesLoading = state.channel.episodes.loading;
+  const episodesLoading = state.episodes.loading;
 
   return {
     channel: channelSelector(state),
-    episodes: channelEpisodesSelector(state),
+    episodes: episodesSelector(state),
     authenticated,
     next,
     previous,

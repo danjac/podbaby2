@@ -1,22 +1,24 @@
 import { partial } from 'lodash';
 
-import * as api from '../../api';
+import {
+  FETCH_ALL_EPISODES_REQUEST,
+  FETCH_SUBSCRIBED_EPISODES_REQUEST,
+  FETCH_BOOKMARKED_EPISODES_REQUEST,
+  FETCH_PLAYED_EPISODES_REQUEST,
+} from '../../actionTypes';
 
-import { FETCH_EPISODES_REQUEST } from '../../actionTypes';
-
-const fetch = (apiCall, page, searchQuery) => ({
-  type: FETCH_EPISODES_REQUEST,
+const fetch = (type, page, searchQuery) => ({
+  type: type,
   payload: {
-    apiCall,
     page,
     searchQuery,
   },
 });
 
-export const fetchAllEpisodes = partial(fetch, api.episodes.fetchAll);
+export const fetchAllEpisodes = partial(fetch, FETCH_ALL_EPISODES_REQUEST);
 
-export const fetchBookmarkedEpisodes = partial(fetch, api.episodes.fetchBookmarked);
+export const fetchBookmarkedEpisodes = partial(fetch, FETCH_BOOKMARKED_EPISODES_REQUEST);
 
-export const fetchSubscribedEpisodes = partial(fetch, api.episodes.fetchSubscribed);
+export const fetchSubscribedEpisodes = partial(fetch, FETCH_SUBSCRIBED_EPISODES_REQUEST);
 
-export const fetchPlayedEpisodes = partial(fetch, api.episodes.fetchPlayed);
+export const fetchPlayedEpisodes = partial(fetch, FETCH_PLAYED_EPISODES_REQUEST);

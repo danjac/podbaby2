@@ -5,10 +5,10 @@ import {
   UPDATE_PLAYER_TIME,
 } from '../../actionTypes';
 
+import * as api from '../../api';
 import * as storage from '../../storage';
 
 import { createAction } from '../utils';
-import { addPlay } from '../history';
 
 export function reloadPlayer() {
   return createAction(RELOAD_PLAYER, storage.player.load());
@@ -20,18 +20,14 @@ export function updatePlayerCurrentTime(episode, currentTime) {
 }
 
 export function startPlayer(episode, authenticated) {
+  saveSessionState(episode, 0);
 
-  return dispatch => {
+  if (authenticated) {
+    api.history.add(episode.id);
+  }
 
-    saveSessionState(episode, 0);
-
-    if (authenticated) {
-      dispatch(addPlay(episode));
-    }
-
-    dispatch(createAction(START_PLAYER, episode));
-  };
-}
+  return createAction(START_PLAYER, episode);
+};
 
 export function stopPlayer() {
   storage.player.remove();

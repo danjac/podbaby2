@@ -18,10 +18,10 @@ export default function(state = initialState, action) {
       return action.payload.subscriptions;
 
     case SUBSCRIBE:
-      return state.concat(action.payload);
+      return state.concat(action.payload.id);
 
     case UNSUBSCRIBE:
-      return state.filter(id => id !== action.payload);
+      return state.filter(id => id !== action.payload.id);
 
     default:
       return state;

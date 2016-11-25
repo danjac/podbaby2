@@ -1,4 +1,5 @@
 import {
+  FETCH_CATEGORY_CHANNELS_REQUEST,
   FETCH_CHANNELS_REQUEST,
   FETCH_CHANNELS_SUCCESS,
   FETCH_CHANNELS_FAILURE,
@@ -18,6 +19,8 @@ export default function(state = initialState, action) {
 
   switch (action.type) {
 
+    // TBD: move these other types
+    case FETCH_CATEGORY_CHANNELS_REQUEST:
     case FETCH_CHANNELS_REQUEST:
       return {...state,
         loading: true,

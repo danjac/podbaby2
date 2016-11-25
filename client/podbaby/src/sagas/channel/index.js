@@ -2,15 +2,15 @@ import { takeLatest } from 'redux-saga';
 import { put, call } from 'redux-saga/effects';
 
 import {
-  FETCH_CHANNEL_EPISODES_FAILURE,
   FETCH_CHANNEL_EPISODES_REQUEST,
-  FETCH_CHANNEL_EPISODES_SUCCESS,
   FETCH_CHANNEL_FAILURE,
   FETCH_CHANNEL_REQUEST,
   FETCH_CHANNEL_SUCCESS,
 } from '../../actionTypes';
 
 import * as api from '../../api';
+
+import { fetch } from '../episodes';
 
 function* fetchChannel({ payload: { id } }) {
   try {
@@ -27,24 +27,13 @@ function* fetchChannel({ payload: { id } }) {
   }
 }
 
-function* fetchEpisodes({ payload: { id, page, searchQuery } }) {
-  try {
-    const episodes = yield call(
-      api.channels.fetchEpisodes,
-      id,
-      page,
-      searchQuery,
-    );
-    yield put({
-      type: FETCH_CHANNEL_EPISODES_SUCCESS,
-      payload: episodes,
-    });
-  } catch (error) {
-    yield put({
-      type: FETCH_CHANNEL_EPISODES_FAILURE,
-      error,
-    });
-  }
+function* fetchEpisodes({ payload, payload: { id } }) {
+  const apiCall = (page, searchQuery) => api.channels.fetchEpisodes(
+    id,
+    page,
+    searchQuery,
+  );
+  yield call(fetch, apiCall, { payload });
 }
 
 export default function* watch() {
