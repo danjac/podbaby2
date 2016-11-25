@@ -1,6 +1,3 @@
-import { FETCH_EPISODE_REQUEST } from '../../actionTypes';
+import { fetchEpisode } from './episode';
 
-export const fetchEpisode = id => ({
-  type: FETCH_EPISODE_REQUEST,
-  payload: { id },
-});
+export { fetchEpisode };
