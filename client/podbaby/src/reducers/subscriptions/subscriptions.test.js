@@ -5,7 +5,7 @@ import {
   LOGOUT,
 } from '../../actionTypes';
 
-import reducer from './index';
+import reducer from './subscriptions';
 
 it('should handle LOGOUT', () => {
   const state = reducer([1, 2], {
@@ -30,7 +30,7 @@ it('should handle FETCH_USER_SUCCESS', () => {
 it('should handle SUBSCRIBE', () => {
   const state = reducer([1], {
     type: SUBSCRIBE,
-    payload: 2,
+    payload: { id: 2 },
   });
   expect(state).toContain(1);
   expect(state).toContain(2);
@@ -39,7 +39,7 @@ it('should handle SUBSCRIBE', () => {
 it('should handle UNSUBSCRIBE', () => {
   const state = reducer([1, 2], {
     type: UNSUBSCRIBE,
-    payload: 2,
+    payload: { id: 2 },
   });
   expect(state).toContain(1);
   expect(state).not.toContain(2);
