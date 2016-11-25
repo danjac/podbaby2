@@ -14,7 +14,7 @@ from rest_framework.decorators import list_route, detail_route
 from bookmarks.models import Bookmark
 from history.models import Play
 
-from episodes.serializers import EpisodeSerializer
+from episodes.serializers import EpisodeDetailSerializer
 from episodes.models import Episode
 
 
@@ -54,7 +54,7 @@ class EpisodeStreamProxy(SingleObjectMixin, View):
 
 class EpisodeViewSet(viewsets.ReadOnlyModelViewSet):
 
-    serializer_class = EpisodeSerializer
+    serializer_class = EpisodeDetailSerializer
 
     @list_route(permission_classes=[permissions.IsAuthenticated])
     def subscribed(self, request):

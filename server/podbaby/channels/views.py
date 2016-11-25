@@ -6,7 +6,7 @@ from rest_framework.decorators import list_route, detail_route
 from subscriptions.models import Subscription
 
 from episodes.models import Episode
-from episodes.serializers import SimpleEpisodeSerializer
+from episodes.serializers import EpisodeSerializer
 
 from channels.models import Channel
 from channels.serializers import ChannelSerializer
@@ -64,10 +64,10 @@ class ChannelViewSet(viewsets.ReadOnlyModelViewSet):
         page = self.paginate_queryset(qs)
 
         if page is not None:
-            serializer = SimpleEpisodeSerializer(page, many=True)
+            serializer = EpisodeSerializer(page, many=True)
             return self.get_paginated_response(serializer.data)
 
-        serializer = SimpleEpisodeSerializer(qs, many=True)
+        serializer = EpisodeSerializer(qs, many=True)
         return Response(serializer.data)
 
     def get_queryset(self):

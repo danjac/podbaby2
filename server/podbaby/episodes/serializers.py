@@ -5,7 +5,7 @@ from channels.serializers import ChannelSerializer
 from episodes.models import Episode
 
 
-class SimpleEpisodeSerializer(serializers.ModelSerializer):
+class EpisodeSerializer(serializers.ModelSerializer):
 
     explicit = serializers.SerializerMethodField('is_explicit')
     stream_url = serializers.SerializerMethodField()
@@ -41,16 +41,16 @@ class SimpleEpisodeSerializer(serializers.ModelSerializer):
         return obj.is_explicit()
 
 
-class EpisodeSerializer(SimpleEpisodeSerializer):
+class EpisodeDetailSerializer(EpisodeSerializer):
     """
     Full serializer with all related fields
     """
 
     channel = ChannelSerializer()
 
-    class Meta(SimpleEpisodeSerializer.Meta):
+    class Meta(EpisodeSerializer.Meta):
         model = Episode
 
-        fields = SimpleEpisodeSerializer.Meta.fields + (
+        fields = EpisodeSerializer.Meta.fields + (
             'channel',
         )
