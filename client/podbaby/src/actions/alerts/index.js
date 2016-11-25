@@ -4,7 +4,7 @@ import { CREATE_ALERT, DISMISS_ALERT } from '../../actionTypes';
 
 export const dismissAlert = id => ({
   type: DISMISS_ALERT,
-  payload: id,
+  payload: { id },
 });
 
 export const createAlert = (style, message) => {

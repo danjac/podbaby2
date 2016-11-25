@@ -10,7 +10,7 @@ function* clearHistory() {
 }
 
 export default function* watch() {
-  takeEvery(CLEAR_HISTORY, clearHistory);
+  yield takeEvery(CLEAR_HISTORY, clearHistory);
 }
 
 

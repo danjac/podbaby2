@@ -10,7 +10,7 @@ export default function(state = initialState, action) {
     case CREATE_ALERT:
       return state.concat(action.payload);
     case DISMISS_ALERT:
-      return state.filter(alert => alert.id !== action.payload);
+      return state.filter(alert => alert.id !== action.payload.id);
     default:
       return state;
   }
