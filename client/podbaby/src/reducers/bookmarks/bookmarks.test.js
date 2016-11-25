@@ -30,7 +30,7 @@ it('should handle FETCH_USER_SUCCESS', () => {
 it('should handle ADD_BOOKMARK', () => {
   const state = reducer([1], {
     type: ADD_BOOKMARK,
-    payload: 2,
+    payload: { id: 2 },
   });
   expect(state).toContain(1);
   expect(state).toContain(2);
@@ -39,7 +39,7 @@ it('should handle ADD_BOOKMARK', () => {
 it('should handle REMOVE_BOOKMARK', () => {
   const state = reducer([1, 2], {
     type: REMOVE_BOOKMARK,
-    payload: 2,
+    payload: { id: 2 },
   });
   expect(state).toContain(1);
   expect(state).not.toContain(2);

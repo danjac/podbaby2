@@ -3,7 +3,7 @@ import {
   DISMISS_ALERT,
 } from '../../actionTypes';
 
-import reducer from './index';
+import reducer from './alerts';
 
 it('should DISMISS_ALERT', () => {
   const state = reducer([{
@@ -12,7 +12,7 @@ it('should DISMISS_ALERT', () => {
     id: 2,
   } ], {
     type: DISMISS_ALERT,
-    payload: 2,
+    payload: { id: 2 },
   }, );
 
   expect(state.length).toEqual(1);

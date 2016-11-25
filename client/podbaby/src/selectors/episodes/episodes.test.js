@@ -1,4 +1,4 @@
-import { episodesSelector } from './index';
+import { episodesSelector } from './episodes';
 
 describe('episodesSelector', () => {
   it('should indicate bookmarks, subscribed, playing', () => {
@@ -6,6 +6,9 @@ describe('episodesSelector', () => {
     const now = new Date();
 
     const state = {
+      channel: {
+        channel: null,
+      },
       episodes: {
         results: [{
           id: 1,

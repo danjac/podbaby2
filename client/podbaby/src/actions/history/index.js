@@ -1,5 +1,3 @@
-import { CLEAR_HISTORY } from '../../actionTypes';
+import { clearHistory } from './history';
 
-export const clearHistory = () => ({
-  type: CLEAR_HISTORY,
-});
+export { clearHistory };
