@@ -6,7 +6,7 @@ from django.conf import settings
 from django.db import models
 from django.core.validators import URLValidator
 from django.core.urlresolvers import reverse
-from django.contrib.postgres.search import SearchVector
+from django.contrib.postgres.search import SearchVectorField
 
 from django_extensions.db.models import TimeStampedModel
 
@@ -16,13 +16,7 @@ from channels.models import Channel
 class EpisodeQuerySet(models.QuerySet):
 
     def search(self, query):
-        return self.annotate(
-            search=SearchVector(
-                'title',
-                'description',
-                'channel__name',
-            )
-        ).filter(search=query)
+        return self.filter(search_vector=query)
 
 
 class Episode(TimeStampedModel):
@@ -71,6 +65,8 @@ class Episode(TimeStampedModel):
         through='history.Play',
         related_name='played',
     )
+
+    search_vector = SearchVectorField(null=True, blank=True)
 
     objects = EpisodeQuerySet.as_manager()
 

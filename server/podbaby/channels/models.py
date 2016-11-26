@@ -7,6 +7,7 @@ from django.db import models
 from django.core.files.base import ContentFile
 from django.core.validators import URLValidator
 from django.utils.timezone import make_aware
+from django.contrib.postgres.search import SearchVectorField
 
 from django_extensions.db.models import TimeStampedModel
 
@@ -25,7 +26,7 @@ class InvalidFeed(RuntimeError):
 class ChannelQuerySet(models.QuerySet):
 
     def search(self, query):
-        return self.filter(name__search=query)
+        return self.filter(search_vector=query)
 
 
 class Channel(TimeStampedModel):
@@ -64,6 +65,8 @@ class Channel(TimeStampedModel):
         through='subscriptions.Subscription',
         related_name='subscriptions',
     )
+
+    search_vector = SearchVectorField(null=True, blank=True)
 
     objects = ChannelQuerySet.as_manager()
 

@@ -4,13 +4,13 @@ from unittest import mock
 
 from django.test import TestCase
 from django.core.urlresolvers import reverse
+from django.contrib.postgres.search import SearchVector
 
 from rest_framework import status
 from rest_framework.test import APITestCase
 from rest_framework.authtoken.models import Token
 
 from account.factories import UserFactory
-from channels.factories import ChannelFactory
 
 from subscriptions.models import Subscription
 from bookmarks.models import Bookmark
@@ -203,19 +203,14 @@ class EpisodeViewSetTests(APITestCase):
 
 class ModelTests(TestCase):
 
+    def setUp(self):
+        Episode.objects.update(
+            search_vector=SearchVector('title', 'description')
+        )
+
     def test_search_by_title(self):
 
         EpisodeFactory.create(title='my test')
-        self.assertEqual(Episode.objects.search('test').count(), 1)
-
-    def test_search_by_channel(self):
-
-        channel = ChannelFactory.create(name="test")
-
-        EpisodeFactory.create(
-            channel=channel,
-        )
-
         self.assertEqual(Episode.objects.search('test').count(), 1)
 
     def test_get_stream_url_if_none(self):
