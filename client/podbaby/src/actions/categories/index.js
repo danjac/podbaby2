@@ -1,5 +1,3 @@
-import { FETCH_CATEGORIES_REQUEST } from '../../actionTypes';
+import { fetchCategories } from './categories';
 
-export const fetchCategories = () => ({
-  type: FETCH_CATEGORIES_REQUEST,
-});
+export { fetchCategories };

@@ -1,5 +1,5 @@
 import { takeLatest } from 'redux-saga';
-import { call, put } from 'redux-saga/effects';
+import { call, put, fork } from 'redux-saga/effects';
 
 import {
   FETCH_USER_FAILURE,
@@ -33,6 +33,7 @@ export function* fetchUser(action) {
 }
 
 function* logout() {
+  yield fork(api.auth.logout);
   yield put(info('Bye bye!'));
 }
 

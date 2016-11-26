@@ -1,9 +1,3 @@
-import { SUBSCRIBE, UNSUBSCRIBE } from '../../actionTypes';
+import { subscribe, unsubscribe } from './subscriptions';
 
-export const subscribe = channel => {
-  return { type: SUBSCRIBE, payload: channel };
-};
-
-export const unsubscribe = channel => {
-  return { type: UNSUBSCRIBE, payload: channel };
-};
+export { subscribe, unsubscribe };

@@ -4,7 +4,6 @@ import {
   LOGOUT,
 } from '../../actionTypes';
 
-import * as api from '../../api';
 import * as storage from '../../storage';
 
 export const fetchUserFromStorage = () => {
@@ -20,7 +19,6 @@ export const fetchAuthenticatedUser = (token, isNew) => {
 };
 
 export const logout = () => {
-  api.auth.logout();
   storage.auth.removeToken();
   return { type: LOGOUT };
 };

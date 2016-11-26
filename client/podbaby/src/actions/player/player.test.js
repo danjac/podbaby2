@@ -8,9 +8,8 @@ import {
   startPlayer,
   reloadPlayer,
   stopPlayer,
-} from './index';
+} from './player';
 
-jest.mock('../../api');
 jest.mock('../../storage');
 
 describe('stopPlayer', () => {
@@ -27,11 +26,9 @@ describe('stopPlayer', () => {
 
 describe('startPlayer', () => {
 
-  const api = require('../../api');
   const storage = require('../../storage');
 
   beforeEach(() => {
-    api.history.add.mockClear();
     storage.player.save.mockClear();
   });
 
@@ -43,8 +40,6 @@ describe('startPlayer', () => {
     const action = startPlayer(episode, true);
     expect(action.type).toBe(START_PLAYER);
     expect(action.payload).toBe(episode);
-
-    expect(api.history.add).toBeCalledWith(episode.id);
 
     expect(storage.player.save).toBeCalledWith({
       episode,
@@ -61,8 +56,6 @@ describe('startPlayer', () => {
     const action = startPlayer(episode, false);
     expect(action.type).toBe(START_PLAYER);
     expect(action.payload).toBe(episode);
-
-    expect(api.history.add).not.toBeCalled();
 
     expect(storage.player.save).toBeCalledWith({
       episode,
