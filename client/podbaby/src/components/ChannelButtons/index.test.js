@@ -2,7 +2,7 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import * as bs from 'react-bootstrap';
 
-import { mockChannel, mockChannelActions } from '../../utils/testing/mocks';
+import { mockChannel, mockChannelActions } from '../../mocks';
 
 import ChannelButtons from './index';
 

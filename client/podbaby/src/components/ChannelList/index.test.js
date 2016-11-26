@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 
-import { mockChannel, mockChannelActions} from '../../utils/testing/mocks';
+import { mockChannel, mockChannelActions} from '../../mocks';
 
 import ChannelList from './index';
 

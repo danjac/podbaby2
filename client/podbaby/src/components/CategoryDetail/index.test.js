@@ -8,7 +8,7 @@ import {
   mockChannelActions,
   mockCategory,
   mockChannel,
-} from '../../utils/testing/mocks';
+} from '../../mocks';
 
 it('should render the component', () => {
   const props = {

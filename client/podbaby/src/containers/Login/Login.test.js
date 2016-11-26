@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 
-import { mockRouter } from '../../utils/testing/mocks';
+import { mockRouter } from '../../mocks';
 
 import Login from './Login';
 

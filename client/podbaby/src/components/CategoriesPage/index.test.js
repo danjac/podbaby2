@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 
-import { mockCategories } from '../../utils/testing/mocks';
+import { mockCategories } from '../../mocks';
 import Loader from '../Loader';
 
 import CategoriesPage from './index';

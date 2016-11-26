@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow, mount } from 'enzyme';
 
-import { mockEpisodeActions, mockEpisode } from '../../utils/testing/mocks';
+import { mockEpisodeActions, mockEpisode } from '../../mocks';
 
 import Loader from '../Loader';
 import EpisodeDetail from './EpisodeDetail';

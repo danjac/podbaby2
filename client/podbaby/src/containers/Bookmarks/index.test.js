@@ -4,7 +4,7 @@ import { shallow } from 'enzyme';
 import {
   mockEpisode,
   mockEpisodeActions,
-} from '../../utils/testing/mocks';
+} from '../../mocks';
 
 import { Bookmarks } from './index';
 

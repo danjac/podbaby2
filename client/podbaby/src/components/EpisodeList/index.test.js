@@ -2,7 +2,7 @@ import React from 'react';
 import { shallow, mount } from 'enzyme';
 import * as bs from 'react-bootstrap';
 
-import { mockEpisode, mockEpisodeActions } from '../../utils/testing/mocks';
+import { mockEpisode, mockEpisodeActions } from '../../mocks';
 
 import Pager from '../Pager';
 import EpisodeListItem from '../EpisodeListItem';

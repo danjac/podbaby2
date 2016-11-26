@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow, mount } from 'enzyme';
 
-import { mockCategories } from '../../utils/testing/mocks';
+import { mockCategories } from '../../mocks';
 
 import { Categories } from './index';
 

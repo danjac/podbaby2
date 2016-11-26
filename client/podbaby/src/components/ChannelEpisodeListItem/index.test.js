@@ -5,7 +5,7 @@ import * as bs from 'react-bootstrap';
 import {
   mockEpisode,
   mockEpisodeActions,
-} from '../../utils/testing/mocks';
+} from '../../mocks';
 
 import { ChannelEpisodeListItem } from './index';
 

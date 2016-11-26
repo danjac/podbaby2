@@ -5,7 +5,7 @@ import {
   mockChannel,
   mockEpisode,
   mockEpisodeActions,
-} from '../../utils/testing/mocks';
+} from '../../mocks';
 
 import { Channel } from './index';
 
