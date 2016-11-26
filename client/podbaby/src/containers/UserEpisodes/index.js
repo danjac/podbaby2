@@ -7,7 +7,7 @@ import { episodesSelector } from '../../selectors';
 import EpisodesPage from '../../components/EpisodesPage';
 
 import withPaginatedSearch from '../../components/hoc/withPaginatedSearch';
-import { bindEpisodeActionCreators } from '../utils';
+import { bindEpisodeActionCreators } from '../../actions';
 
 export class UserEpisodes extends Component {
 

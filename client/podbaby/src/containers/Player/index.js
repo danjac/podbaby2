@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 
 import { playingEpisodeSelector } from '../../selectors';
-import { bindEpisodeActionCreators } from '../utils';
+import { bindEpisodeActionCreators } from '../../actions';
 
 import Player from './Player';
 

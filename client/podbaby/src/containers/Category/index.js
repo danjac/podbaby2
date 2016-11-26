@@ -7,7 +7,7 @@ import { channelsSelector } from '../../selectors';
 import CategoryDetail from '../../components/CategoryDetail';
 
 import withPaginatedSearch from '../../components/hoc/withPaginatedSearch';
-import { bindChannelActionCreators } from '../utils';
+import { bindChannelActionCreators } from '../../actions';
 
 export class Category extends Component {
 

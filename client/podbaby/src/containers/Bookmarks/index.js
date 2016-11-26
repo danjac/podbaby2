@@ -7,7 +7,7 @@ import { episodesSelector } from '../../selectors';
 import BookmarksPage from '../../components/BookmarksPage';
 
 import withPaginatedSearch from '../../components/hoc/withPaginatedSearch';
-import { bindEpisodeActionCreators } from '../utils';
+import { bindEpisodeActionCreators } from '../../actions';
 
 export class Bookmarks extends Component {
 

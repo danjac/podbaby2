@@ -1,11 +1,10 @@
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 
+import { bindChannelActionCreators } from '../../actions';
 import { fetchSubscribedChannels } from '../../actions/channels';
 import { channelsSelector } from '../../selectors';
-
 import withPaginatedSearch from '../../components/hoc/withPaginatedSearch';
-import { bindChannelActionCreators } from '../utils';
 
 import Subscriptions from './Subscriptions';
 

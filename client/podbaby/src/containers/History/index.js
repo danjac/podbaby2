@@ -8,7 +8,7 @@ import { episodesSelector } from '../../selectors';
 import HistoryPage from '../../components/HistoryPage';
 
 import withPaginatedSearch from '../../components/hoc/withPaginatedSearch';
-import { bindEpisodeActionCreators } from '../utils';
+import { bindEpisodeActionCreators } from '../../actions';
 
 export class History extends Component {
 

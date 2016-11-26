@@ -6,7 +6,7 @@ import { episodeSelector } from '../../selectors';
 import { fetchEpisode } from '../../actions/episode';
 import EpisodeDetail from '../../components/EpisodeDetail';
 
-import { bindEpisodeActionCreators } from '../utils';
+import { bindEpisodeActionCreators } from '../../actions';
 
 export class Episode extends Component {
 
