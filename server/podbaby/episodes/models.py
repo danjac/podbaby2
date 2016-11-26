@@ -16,7 +16,10 @@ from channels.models import Channel
 class EpisodeQuerySet(models.QuerySet):
 
     def search(self, query):
-        return self.filter(search_vector=query)
+        return (
+            self.filter(search_vector=query) |
+            self.filter(channel__search_vector=query)
+        )
 
 
 class Episode(TimeStampedModel):

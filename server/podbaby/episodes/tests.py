@@ -11,6 +11,7 @@ from rest_framework.test import APITestCase
 from rest_framework.authtoken.models import Token
 
 from account.factories import UserFactory
+from channels.factories import ChannelFactory
 
 from subscriptions.models import Subscription
 from bookmarks.models import Bookmark
@@ -211,6 +212,13 @@ class ModelTests(TestCase):
     def test_search_by_title(self):
 
         EpisodeFactory.create(title='my test')
+        self.assertEqual(Episode.objects.search('test').count(), 1)
+
+    def test_search_by_channel(self):
+
+        channel = ChannelFactory(name='test')
+
+        EpisodeFactory.create(channel=channel)
         self.assertEqual(Episode.objects.search('test').count(), 1)
 
     def test_get_stream_url_if_none(self):
