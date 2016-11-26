@@ -4,8 +4,8 @@ from urllib.parse import urlparse
 
 from django.conf import settings
 from django.db import models
-from django.db.models import Q
 from django.core.files.base import ContentFile
+from django.core.validators import URLValidator
 from django.utils.timezone import make_aware
 
 from django_extensions.db.models import TimeStampedModel
@@ -25,26 +25,27 @@ class InvalidFeed(RuntimeError):
 class ChannelQuerySet(models.QuerySet):
 
     def search(self, query):
-        q = Q()
-
-        for term in query.split():
-            sq = Q(
-                Q(name__icontains=term)
-            )
-            q = q & sq
-
-        return self.filter(q)
+        return self.filter(name__search=query)
 
 
 class Channel(TimeStampedModel):
 
-    rss_feed = models.URLField(max_length=200, unique=True)
+    rss_feed = models.TextField(
+        unique=True,
+        validators=[URLValidator()],
+    )
+
     name = models.CharField(max_length=200, blank=True)
-    link = models.URLField(blank=True)
+
+    link = models.TextField(
+        blank=True,
+        validators=[URLValidator()],
+    )
+
     description = models.TextField(blank=True)
     explicit = models.BooleanField(default=False)
-    copyright = models.CharField(max_length=100, blank=True)
-    creative_commons = models.CharField(max_length=60, blank=True)
+    copyright = models.TextField(blank=True)
+    creative_commons = models.TextField(blank=True)
 
     image = models.ImageField(upload_to='images', null=True, blank=True)
 
