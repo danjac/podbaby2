@@ -21,7 +21,6 @@ export class History extends Component {
     this.props.dispatch(clearHistory());
   }
 
-  // tbd handle onClearHistory action
   render() {
     return <HistoryPage {...this.props} onClearHistory={this.handleClearHistory} />;
   }

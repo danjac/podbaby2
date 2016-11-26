@@ -113,11 +113,11 @@ class Navbar extends Component {
 
               <LinkMenuItem to="/podcasts/bookmarks/"
                             icon="bookmark"
-                            onClick={this.handlePodcastsClose}>Bookmarks</LinkMenuItem>
+                            onClick={this.handlePodcastsClose}>My bookmarks</LinkMenuItem>
 
               <LinkMenuItem to="/podcasts/history/"
                             icon="history"
-                            onClick={this.handlePodcastsClose}>History</LinkMenuItem>
+                            onClick={this.handlePodcastsClose}>My history</LinkMenuItem>
 
             </bs.NavDropdown>)}
 

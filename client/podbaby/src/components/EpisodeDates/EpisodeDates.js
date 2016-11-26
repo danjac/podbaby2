@@ -13,7 +13,7 @@ const EpisodeDates = ({ episode }) => {
 
   return (
     <div className="episode-dates">
-      <span>{published}</span>
+      <span>{published}</span><br />
       {lastPlayed && <mark>Played {lastPlayed}</mark>}
     </div>
   );

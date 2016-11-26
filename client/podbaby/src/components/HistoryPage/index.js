@@ -29,13 +29,7 @@ class History extends Component {
 
     return (
       <div>
-        <bs.Breadcrumb>
-          <LinkContainer to="/podcasts/me/">
-            <bs.Breadcrumb.Item>My podcasts</bs.Breadcrumb.Item>
-          </LinkContainer>
-          <bs.Breadcrumb.Item active>History</bs.Breadcrumb.Item>
-        </bs.Breadcrumb>
-
+        <bs.PageHeader>My history</bs.PageHeader>
         <SearchForm placeholder="Search for podcasts" {...this.props} />
 
         {notEmpty && (

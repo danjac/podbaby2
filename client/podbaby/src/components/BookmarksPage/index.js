@@ -23,7 +23,7 @@ class BookmarksPage extends Component {
     return (
       <div>
 
-        <bs.PageHeader>Bookmarks</bs.PageHeader>
+        <bs.PageHeader>My bookmarks</bs.PageHeader>
         <SearchForm placeholder="Search for podcasts" {...this.props} />
 
         <EpisodeList ifEmpty={ifEmpty}
