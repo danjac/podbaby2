@@ -7,7 +7,7 @@ import { channelSelector, episodesSelector } from '../../selectors';
 import { bindEpisodeActionCreators } from '../../actions';
 import ChannelDetail from '../../components/ChannelDetail';
 
-import withPaginatedSearch from '../withPaginatedSearch';
+import withPaginatedSearch from '../../components/hoc/withPaginatedSearch';
 
 
 export class Channel extends Component {

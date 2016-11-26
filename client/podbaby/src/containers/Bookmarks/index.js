@@ -6,7 +6,7 @@ import { fetchBookmarkedEpisodes } from '../../actions/episodes';
 import { episodesSelector } from '../../selectors';
 import BookmarksPage from '../../components/BookmarksPage';
 
-import withPaginatedSearch from '../withPaginatedSearch';
+import withPaginatedSearch from '../../components/hoc/withPaginatedSearch';
 import { bindEpisodeActionCreators } from '../utils';
 
 export class Bookmarks extends Component {

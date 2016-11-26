@@ -6,7 +6,7 @@ import { fetchCategory, fetchChannelsForCategory } from '../../actions/category'
 import { channelsSelector } from '../../selectors';
 import CategoryDetail from '../../components/CategoryDetail';
 
-import withPaginatedSearch from '../withPaginatedSearch';
+import withPaginatedSearch from '../../components/hoc/withPaginatedSearch';
 import { bindChannelActionCreators } from '../utils';
 
 export class Category extends Component {

@@ -4,7 +4,7 @@ import { withRouter } from 'react-router';
 import { fetchSubscribedChannels } from '../../actions/channels';
 import { channelsSelector } from '../../selectors';
 
-import withPaginatedSearch from '../withPaginatedSearch';
+import withPaginatedSearch from '../../components/hoc/withPaginatedSearch';
 import { bindChannelActionCreators } from '../utils';
 
 import Subscriptions from './Subscriptions';

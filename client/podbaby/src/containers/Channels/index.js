@@ -5,7 +5,7 @@ import { fetchAllChannels } from '../../actions/channels';
 import { bindChannelActionCreators } from '../../actions';
 import { channelsSelector } from '../../selectors';
 
-import withPaginatedSearch from '../withPaginatedSearch';
+import withPaginatedSearch from '../../components/hoc/withPaginatedSearch';
 
 import Channels from './Channels';
 

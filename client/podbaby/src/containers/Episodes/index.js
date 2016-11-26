@@ -6,7 +6,7 @@ import { fetchAllEpisodes } from '../../actions/episodes';
 import { episodesSelector } from '../../selectors';
 import EpisodesPage from '../../components/EpisodesPage';
 
-import withPaginatedSearch from '../withPaginatedSearch';
+import withPaginatedSearch from '../../components/hoc/withPaginatedSearch';
 import { bindEpisodeActionCreators } from '../utils';
 
 export class Episodes extends Component {
