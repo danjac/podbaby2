@@ -1,6 +1,5 @@
 import React, { PropTypes, Component } from 'react';
 import * as bs from 'react-bootstrap';
-import { LinkContainer } from 'react-router-bootstrap';
 
 import SearchForm from '../SearchForm';
 import Loader from '../Loader';
@@ -24,13 +23,7 @@ class BookmarksPage extends Component {
     return (
       <div>
 
-        <bs.Breadcrumb>
-          <LinkContainer to="/podcasts/me/">
-            <bs.Breadcrumb.Item>My podcasts</bs.Breadcrumb.Item>
-          </LinkContainer>
-          <bs.Breadcrumb.Item active>Bookmarks</bs.Breadcrumb.Item>
-        </bs.Breadcrumb>
-
+        <bs.PageHeader>Bookmarks</bs.PageHeader>
         <SearchForm placeholder="Search for podcasts" {...this.props} />
 
         <EpisodeList ifEmpty={ifEmpty}

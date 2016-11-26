@@ -1,36 +1,12 @@
-import React, { PropTypes, Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 
+import { bindEpisodeActionCreators } from '../../actions';
 import { fetchSubscribedEpisodes } from '../../actions/episodes';
 import { episodesSelector } from '../../selectors';
-import EpisodesPage from '../../components/EpisodesPage';
-
 import withPaginatedSearch from '../../components/hoc/withPaginatedSearch';
-import { bindEpisodeActionCreators } from '../../actions';
 
-export class UserEpisodes extends Component {
-
-  constructor(props) {
-    super(props);
-    this.handleUpdate = this.handleUpdate.bind(this);
-  }
-
-  handleUpdate() {
-    this.props.dispatch(fetchSubscribedEpisodes());
-  }
-
-  render() {
-
-    return <EpisodesPage header='My podcasts'
-                         onUpdate={this.handleUpdate} {...this.props} />;
-  }
-}
-
-UserEpisodes.propTypes = {
-  dispatch: PropTypes.func.isRequired,
-};
-
+import UserEpisodes from './UserEpisodes';
 
 const mapStateToProps = state => {
   const {

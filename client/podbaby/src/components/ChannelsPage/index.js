@@ -1,4 +1,5 @@
 import React, { PropTypes, Component } from 'react';
+import * as bs from 'react-bootstrap';
 
 import SearchForm from '../SearchForm';
 import Loader from '../Loader';
@@ -9,6 +10,7 @@ class ChannelsPage extends Component {
   render() {
 
     const {
+      title,
       loading,
       searchQuery,
     } = this.props;
@@ -21,6 +23,7 @@ class ChannelsPage extends Component {
 
     return (
       <div>
+        <bs.PageHeader>{title}</bs.PageHeader>
         <SearchForm placeholder="Search for feeds" {...this.props} />
         <ChannelList ifEmpty={ifEmpty} {...this.props} />
       </div>
@@ -29,6 +32,7 @@ class ChannelsPage extends Component {
 }
 
 ChannelsPage.propTypes = {
+  title: PropTypes.string.isRequired,
   loading: PropTypes.bool.isRequired,
   searchQuery: PropTypes.string,
 };

@@ -1,5 +1,4 @@
 import React, { PropTypes, Component } from 'react';
-import { LinkContainer } from 'react-router-bootstrap';
 import * as bs from 'react-bootstrap';
 
 import { categoryShape } from '../../propTypes';
@@ -42,12 +41,7 @@ class CategoryDetail extends Component {
 
     return (
       <div>
-        <bs.Breadcrumb>
-          <LinkContainer to="/feeds/browse/">
-            <bs.Breadcrumb.Item>Browse</bs.Breadcrumb.Item>
-          </LinkContainer>
-          <bs.Breadcrumb.Item active>{category.name}</bs.Breadcrumb.Item>
-        </bs.Breadcrumb>
+        <bs.PageHeader>{category.name}</bs.PageHeader>
         {channels}
       </div>
     );

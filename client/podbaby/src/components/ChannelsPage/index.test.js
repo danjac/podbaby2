@@ -12,7 +12,7 @@ it('should render the component', () => {
     ],
     searchQuery: '',
     loading: false,
-    header: 'Feeds',
+    title: 'Feeds',
     onSearch: jest.fn(),
     onClearSearch: jest.fn(),
     onSelectPage: jest.fn(),

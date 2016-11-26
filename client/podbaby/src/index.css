@@ -12,3 +12,6 @@ body {
   src: url("/GoodDog.otf") format("opentype");
 }
 
+.page-header {
+  margin-top: 21px;
+}

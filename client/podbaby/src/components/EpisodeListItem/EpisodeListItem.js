@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { Link } from 'react-router';
 import * as bs from 'react-bootstrap';
+import Icon from 'react-fa';
 
 import { episodeShape } from '../../propTypes';
 import defaultThumbnail from '../../assets/podcast.svg';
@@ -12,24 +13,41 @@ import EpisodeDates from '../EpisodeDates';
 
 import './EpisodeListItem.css';
 
-export const EpisodeListItem = props => {
+class EpisodeListItem extends Component {
 
-  const { episode, episode: { channel } } = props;
+  constructor(props) {
+    super(props);
+    this.state = {
+      showDescription: false,
+    };
+    this.handleToggleDescription = this.handleToggleDescription.bind(this);
+  }
 
-  const thumbnail = channel.thumbnail || {
-    url: defaultThumbnail,
-    height: 120,
-    width: 120,
-  };
+  handleToggleDescription() {
+    this.setState({
+      showDescription: !this.state.showDescription,
+    });
+  }
 
-  const description = episode.subtitle || episode.summary || episode.description;
+  render() {
+    const { episode, episode: { channel } } = this.props;
 
-  const title = episode.title || channel.name;
-  const buttons = <EpisodeButtons {...props } />;
-  const header = <Link to={`/podcasts/${episode.id}/`}>{title}</Link>;
+    const thumbnail = channel.thumbnail || {
+      url: defaultThumbnail,
+      height: 120,
+      width: 120,
+    };
 
-  return (
-    <bs.Panel header={header}
+    const description = episode.subtitle || episode.summary || episode.description;
+
+    const title = episode.title || channel.name;
+    const buttons = <EpisodeButtons {...this.props } />;
+    const header = <Link to={`/podcasts/${episode.id}/`}>{title}</Link>;
+
+    const { showDescription } = this.state;
+
+    return (
+      <bs.Panel header={header}
               footer={buttons}
               className="episode">
 
@@ -49,9 +67,20 @@ export const EpisodeListItem = props => {
         </bs.Media.Body>
       </bs.Media>
       <EpisodeDates episode={episode} />
-      <Description content={description} />
+      {description && (
+        <div className="description-toggle">
+          <bs.Button
+            className="form-control"
+            onClick={this.handleToggleDescription}
+          >
+            <Icon name={showDescription ? 'compress': 'expand'} />
+          </bs.Button>
+        </div>
+      )}
+      {showDescription && <Description content={description} />}
     </bs.Panel>
-  );
+    );
+  }
 };
 
 EpisodeListItem.propTypes = {
