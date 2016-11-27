@@ -28,13 +28,20 @@ class ChangeEmailSerializer(serializers.ModelSerializer):
         fields = ('email', )
 
 
+class ChangePasswordSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = User
+        fields = ('password', )
+
+
 class UserSerializer(serializers.ModelSerializer):
 
     bookmarks = serializers.PrimaryKeyRelatedField(many=True, read_only=True)
 
     subscriptions = serializers.PrimaryKeyRelatedField(
         many=True,
-        read_only=True
+        read_only=True,
     )
 
     plays = PlaySerializer(read_only=True, many=True)

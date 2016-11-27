@@ -18,6 +18,7 @@ class SettingsPage extends Component {
 
         <bs.Panel bsStyle="primary"
                   header="Change password">
+          {forms.changePassword}
         </bs.Panel>
 
         <bs.Button bsStyle="danger"

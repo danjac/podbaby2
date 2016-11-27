@@ -9,3 +9,5 @@ export const login = fields => client.post('/api-token-auth/', fields);
 export const signup = fields => client.post('/api/auth/create/', fields);
 
 export const changeEmail = email => client.put('/api/auth/update/email/', { email });
+
+export const changePassword = password => client.put('/api/auth/update/pass/', { password });

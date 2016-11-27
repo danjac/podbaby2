@@ -1,10 +1,9 @@
 import React, { PropTypes, Component } from 'react';
 import * as api from '../../api';
-import { changeEmail } from '../../actions/auth';
 import { success } from '../../actions/alerts';
-import ChangeEmailForm from '../../components/ChangeEmailForm';
+import ChangePasswordForm from '../../components/ChangePasswordForm';
 
-export class ChangeEmail extends Component {
+export class ChangePassword extends Component {
   constructor(props) {
     super(props);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -12,13 +11,13 @@ export class ChangeEmail extends Component {
 
   handleSubmit(fields) {
 
-    const { dispatch } = this.props;
-    const { email } = fields;
+    const { dispatch, reset } = this.props;
+    const { password } = fields;
 
-    return api.auth.changeEmail(email)
+    return api.auth.changePassword(password)
       .then(() => {
-        dispatch(changeEmail(email));
-        dispatch(success('Your email address has been updated.'));
+        dispatch(success('Your password has been updated.'));
+        reset();
       });
 
   }
@@ -28,14 +27,15 @@ export class ChangeEmail extends Component {
     const { handleSubmit } = this.props;
     const onSubmit = handleSubmit(this.handleSubmit);
 
-    return <ChangeEmailForm onSubmit={onSubmit} {...this.props} />;
+    return <ChangePasswordForm onSubmit={onSubmit} {...this.props} />;
   }
 
 }
 
-ChangeEmail.propTypes = {
+ChangePassword.propTypes = {
   dispatch: PropTypes.func.isRequired,
+  reset: PropTypes.func.isRequired,
   handleSubmit: PropTypes.func.isRequired,
 };
 
-export default ChangeEmail;
+export default ChangePassword;

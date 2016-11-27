@@ -9,7 +9,8 @@ from rest_framework.authtoken.views import obtain_auth_token
 from account.views import (
     UserViewSet,
     CreateUser,
-    ChangeEmail,
+    UpdateEmail,
+    UpdatePassword,
 )
 
 from categories.views import CategoryViewSet
@@ -31,7 +32,8 @@ urlpatterns = [
         name='stream-episode'
         ),
     url(r'^api/auth/create/$', CreateUser.as_view()),
-    url(r'^api/auth/update/email/$', ChangeEmail.as_view()),
+    url(r'^api/auth/update/email/$', UpdateEmail.as_view()),
+    url(r'^api/auth/update/pass/$', UpdatePassword.as_view()),
     url(r'^api-token-auth/$', obtain_auth_token),
     url(r'^api/', include(router.urls, namespace='api')),
 ]

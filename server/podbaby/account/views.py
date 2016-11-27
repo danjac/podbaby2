@@ -11,12 +11,13 @@ from rest_framework import (
 from rest_framework.response import Response
 from rest_framework.decorators import detail_route
 
-
 from account.permissions import IsNewUser
+
 from account.serializers import (
     UserSerializer,
     CreateUserSerializer,
     ChangeEmailSerializer,
+    ChangePasswordSerializer,
 )
 
 from history.models import Play
@@ -31,13 +32,20 @@ class CreateUser(generics.CreateAPIView):
     model = User
 
 
-class ChangeEmail(generics.UpdateAPIView):
+class UpdateUser(generics.UpdateAPIView):
 
-    serializer_class = ChangeEmailSerializer
     permission_classes = [permissions.IsAuthenticated]
 
     def get_object(self):
         return self.request.user
+
+
+class UpdateEmail(UpdateUser):
+    serializer_class = ChangeEmailSerializer
+
+
+class UpdatePassword(UpdateUser):
+    serializer_class = ChangePasswordSerializer
 
 
 class UserViewSet(mixins.RetrieveModelMixin,

@@ -7,6 +7,19 @@ export const emailValidator = validator({
   },
 });
 
+export const passwordValidator = validator({
+  password: {
+    presence: true,
+    length: {
+      minimum: 6,
+    },
+  },
+  confirmPassword: {
+    presence: true,
+    equality: 'password',
+  },
+});
+
 export const signupValidator = validator({
   username: {
     presence: true,
