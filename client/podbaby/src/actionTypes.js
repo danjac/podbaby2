@@ -6,6 +6,7 @@ export const DISMISS_ALERT = 'podbaby/DISMISS_ALERT';
 export const FETCH_USER_FAILURE = 'podbaby/FETCH_USER_FAILURE';
 export const FETCH_USER_REQUEST = 'podbaby/FETCH_USER_REQUEST';
 export const FETCH_USER_SUCCESS = 'podbaby/FETCH_USER_SUCCESS';
+export const CHANGE_EMAIL = 'podbaby/CHANGE_EMAIL';
 export const LOGOUT = 'podbaby/LOGOUT';
 export const NOT_AUTHENTICATED = 'podbaby/NOT_AUTHENTICATED';
 

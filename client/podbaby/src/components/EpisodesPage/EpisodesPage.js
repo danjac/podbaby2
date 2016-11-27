@@ -33,7 +33,7 @@ class EpisodesPage extends Component {
        {showUpdateBtn && (
         <bs.Button className="form-control"
                    onClick={onUpdate}
-                   bsStyle="default">
+                   bsStyle="primary">
           <Icon name="refresh" /> Update</bs.Button>)}
 
         <EpisodeList ifEmpty={ifEmpty} {...this.props} />

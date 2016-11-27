@@ -84,6 +84,7 @@ class Navbar extends Component {
 
     return (
       <bs.Navbar fixedTop
+                 inverse
                  expanded={expanded}
                  onToggle={this.handleNavbarToggle}>
         <bs.Navbar.Header>
@@ -103,13 +104,13 @@ class Navbar extends Component {
                             onToggle={this.handlePodcastsToggle}
                             id="podcasts-dropdown">
 
-              <LinkMenuItem to="/podcasts/me/"
-                            icon="user"
-                            onClick={this.handlePodcastsClose}>My podcasts</LinkMenuItem>
-
               <LinkMenuItem to="/podcasts/all/"
                             icon="list"
                             onClick={this.handlePodcastsClose}>All podcasts</LinkMenuItem>
+
+              <LinkMenuItem to="/podcasts/me/"
+                            icon="user"
+                            onClick={this.handlePodcastsClose}>My podcasts</LinkMenuItem>
 
               <LinkMenuItem to="/podcasts/bookmarks/"
                             icon="bookmark"

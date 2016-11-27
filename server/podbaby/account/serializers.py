@@ -21,6 +21,13 @@ class CreateUserSerializer(serializers.ModelSerializer):
         return token.key
 
 
+class ChangeEmailSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = User
+        fields = ('email', )
+
+
 class UserSerializer(serializers.ModelSerializer):
 
     bookmarks = serializers.PrimaryKeyRelatedField(many=True, read_only=True)

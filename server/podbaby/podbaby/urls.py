@@ -6,7 +6,12 @@ from django.contrib import admin
 from rest_framework.routers import DefaultRouter
 from rest_framework.authtoken.views import obtain_auth_token
 
-from account.views import UserViewSet, CreateUser
+from account.views import (
+    UserViewSet,
+    CreateUser,
+    ChangeEmail,
+)
+
 from categories.views import CategoryViewSet
 from episodes.views import EpisodeViewSet, EpisodeStreamProxy
 from channels.views import ChannelViewSet
@@ -26,6 +31,7 @@ urlpatterns = [
         name='stream-episode'
         ),
     url(r'^api/auth/create/$', CreateUser.as_view()),
+    url(r'^api/auth/update/email/$', ChangeEmail.as_view()),
     url(r'^api-token-auth/$', obtain_auth_token),
     url(r'^api/', include(router.urls, namespace='api')),
 ]

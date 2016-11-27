@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 import * as bs from 'react-bootstrap';
 import Icon from 'react-fa';
 
@@ -7,15 +7,17 @@ import './SettingsPage.css';
 class SettingsPage extends Component {
 
   render() {
+    const { forms } = this.props;
     return (
       <div className="settings">
 
         <bs.Panel bsStyle="primary"
-                  header="Change password">
+                  header="Change email address">
+          {forms.changeEmail}
         </bs.Panel>
 
         <bs.Panel bsStyle="primary"
-                  header="Change email address">
+                  header="Change password">
         </bs.Panel>
 
         <bs.Button bsStyle="danger"
@@ -27,5 +29,9 @@ class SettingsPage extends Component {
     );
   }
 }
+
+SettingsPage.propTypes = {
+  forms: PropTypes.object.isRequired,
+};
 
 export default SettingsPage;

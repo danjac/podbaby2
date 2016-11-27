@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { Link } from 'react-router';
 import * as bs from 'react-bootstrap';
 import Icon from 'react-fa';
@@ -10,38 +10,21 @@ import Description from '../Description';
 
 import './ChannelEpisodeListItem.css';
 
-class ChannelEpisodeListItem extends Component {
+const ChannelEpisodeListItem = props => {
 
-  constructor(props) {
-    super(props);
-    this.state = {
-      showDescription: false,
-    };
-    this.handleToggleDescription = this.handleToggleDescription.bind(this);
-  }
+  const { episode } = props;
 
-  handleToggleDescription() {
-    this.setState({
-      showDescription: !this.state.showDescription,
-    });
-  }
+  const description = episode.subtitle || episode.summary || episode.description;
 
-  render() {
-    const { episode } = this.props;
+  const buttons = <EpisodeButtons {...props } withChannel={false} />;
 
-    const description = episode.subtitle || episode.summary || episode.description;
-
-    const buttons = <EpisodeButtons {...this.props } withChannel={false} />;
-
-    const header = (
-      <Link to={`/podcasts/${episode.id}/`}>
+  const header = (
+    <Link to={`/podcasts/${episode.id}/`}>
       {episode.title || 'Podcast'}
     </Link>);
 
-    const { showDescription } = this.state;
-
-    return (
-      <bs.Panel header={header}
+  return (
+    <bs.Panel header={header}
               footer={buttons}
               className="episode">
 
@@ -50,20 +33,9 @@ class ChannelEpisodeListItem extends Component {
         <Icon name="warning" /> Explicit
       </bs.Label>)}
       <EpisodeDates episode={episode} />
-      {description && (
-        <div className="description-toggle">
-          <bs.Button
-            className="form-control"
-            onClick={this.handleToggleDescription}
-          >
-            <Icon name={showDescription ? 'compress': 'expand'} />
-          </bs.Button>
-        </div>
-      )}
-      {showDescription && <Description content={description} />}
+      <Description content={description} />
     </bs.Panel>
-    );
-  }
+  );
 };
 
 ChannelEpisodeListItem.propTypes = {

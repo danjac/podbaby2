@@ -19,11 +19,13 @@ const ChannelButtons = ({
     if (channel.subscribed) {
       subscriptionBtn = (
         <bs.Button title='Unsubscribe from this feed'
+                   bsStyle="primary"
                    onClick={() => onUnsubscribe(channel)}>
                        <Icon name="trash" /> Unsubscribe</bs.Button>);
     } else {
       subscriptionBtn = (
         <bs.Button title='Subscribe to this feed'
+                   bsStyle="primary"
                    onClick={() => onSubscribe(channel)}>
                        <Icon name="rss" /> Subscribe</bs.Button>);
     }

@@ -1,5 +1,12 @@
 import { validator } from './utils';
 
+export const emailValidator = validator({
+  email: {
+    presence: true,
+    email: true,
+  },
+});
+
 export const signupValidator = validator({
   username: {
     presence: true,

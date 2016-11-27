@@ -141,7 +141,7 @@ STATIC_URL = '/static/'
 
 # Rest settings
 REST_FRAMEWORK = {
-    'PAGE_SIZE': 20,
+    'PAGE_SIZE': 12,
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework.authentication.SessionAuthentication',
         'rest_framework.authentication.BasicAuthentication',

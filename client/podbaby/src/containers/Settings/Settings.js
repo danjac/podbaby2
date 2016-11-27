@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
 
 import SettingsPage from '../../components/SettingsPage';
+import ChangeEmail from '../ChangeEmail';
 
 export default class Settings extends Component {
   render() {
-    // const forms = { changePassword: <ChangePassword /> };
-    // <Settings forms={forms} />
-    return <SettingsPage />;
+    const forms = {
+      changeEmail: <ChangeEmail />,
+    };
+    return <SettingsPage forms={forms}/>;
   }
 }
 

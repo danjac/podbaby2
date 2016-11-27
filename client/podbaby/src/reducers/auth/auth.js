@@ -2,8 +2,9 @@ import {
   FETCH_USER_FAILURE,
   FETCH_USER_REQUEST,
   FETCH_USER_SUCCESS,
-  LOGOUT,
+  CHANGE_EMAIL,
   NOT_AUTHENTICATED,
+  LOGOUT,
 } from '../../actionTypes';
 
 const initialState = {
@@ -27,6 +28,14 @@ export default function(state = initialState, action) {
       return {...state,
         authenticated: false,
         user: null,
+      };
+
+    case CHANGE_EMAIL:
+      return {...state,
+        user: {
+          ...state.user,
+          email: action.payload.email,
+        },
       };
 
     case FETCH_USER_REQUEST:

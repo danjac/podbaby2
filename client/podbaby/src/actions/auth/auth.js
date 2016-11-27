@@ -1,6 +1,7 @@
 import {
   FETCH_USER_REQUEST,
   NOT_AUTHENTICATED,
+  CHANGE_EMAIL,
   LOGOUT,
 } from '../../actionTypes';
 
@@ -21,4 +22,8 @@ export const fetchAuthenticatedUser = (token, isNew) => {
 export const logout = () => {
   storage.auth.removeToken();
   return { type: LOGOUT };
+};
+
+export const changeEmail = email => {
+  return { type: CHANGE_EMAIL, payload: { email } };
 };
