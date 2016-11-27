@@ -13,3 +13,5 @@ export const signup = fields => client.post('/api/auth/create/', fields);
 export const changeEmail = email => client.put('/api/auth/update/email/', { email });
 
 export const changePassword = password => client.put('/api/auth/update/pass/', { password });
+
+export const recoverPassword = username => client.post('/api/auth/recoverpass/', { username });

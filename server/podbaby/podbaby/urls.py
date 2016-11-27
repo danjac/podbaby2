@@ -11,6 +11,7 @@ from account.views import (
     CreateUser,
     UpdateEmail,
     UpdatePassword,
+    recover_password,
 )
 
 from categories.views import CategoryViewSet
@@ -34,6 +35,7 @@ urlpatterns = [
     url(r'^api/auth/create/$', CreateUser.as_view()),
     url(r'^api/auth/update/email/$', UpdateEmail.as_view()),
     url(r'^api/auth/update/pass/$', UpdatePassword.as_view()),
+    url(r'^api/auth/recoverpass/$', recover_password),
     url(r'^api-token-auth/$', obtain_auth_token),
     url(r'^api/', include(router.urls, namespace='api')),
 ]

@@ -7,6 +7,16 @@ export const emailValidator = validator({
   },
 });
 
+export const usernameValidator = validator({
+  username: {
+    presence: true,
+    length: {
+      minimum: 6,
+      maxium: 30,
+    },
+  },
+});
+
 export const passwordValidator = validator({
   password: {
     presence: true,

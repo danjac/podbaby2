@@ -12,6 +12,7 @@ import Episode from '../containers/Episode';
 import Episodes from '../containers/Episodes';
 import History from '../containers/History';
 import Login from '../containers/Login';
+import RecoverPassword from '../containers/RecoverPassword';
 import Signup from '../containers/Signup';
 import Settings from '../containers/Settings';
 import Subscriptions from '../containers/Subscriptions';
@@ -45,6 +46,7 @@ export const createRouterConfigurator = (history, store, requireAuth, resolveDef
 
         <Route path="login/" component={Login} />
         <Route path="join/" component={Signup} />
+        <Route path="recover-password/" component={RecoverPassword} />
         <Route path="settings/" component={Settings}  onEnter={requireAuth} />
 
         <Route path="*" component={PageNotFound} />

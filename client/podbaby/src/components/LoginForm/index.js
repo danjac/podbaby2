@@ -1,5 +1,6 @@
 import React, { PropTypes, Component } from 'react';
 import * as bs from 'react-bootstrap';
+import { Link } from 'react-router';
 import { Field } from 'redux-form';
 import Icon from 'react-fa';
 
@@ -40,6 +41,14 @@ class LoginForm extends Component {
             className="form-control"
             type="submit">
             <Icon name="sign-in" /> Login</bs.Button>
+
+          <div>
+            <Link to="/recover-password/">Forgot your password?</Link>
+          </div>
+
+          <div>
+            <Link to="/join/">Signup with new account</Link>
+          </div>
 
         </form>
       </div>
