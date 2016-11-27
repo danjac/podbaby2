@@ -16,6 +16,13 @@ class CreateUserSerializer(serializers.ModelSerializer):
         model = User
         fields = ('username', 'email', 'password', 'token')
 
+    def create(self, validated_data):
+        return User.objects.create_user(
+            username=validated_data['username'],
+            email=validated_data['email'],
+            password=validated_data['password'],
+        )
+
     def get_token(self, obj):
         token, _ = Token.objects.get_or_create(user=obj)
         return token.key
@@ -33,6 +40,11 @@ class ChangePasswordSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ('password', )
+
+    def update(self, instance, validated_data):
+        instance.set_password(validated_data['password'])
+        instance.save()
+        return instance
 
 
 class UserSerializer(serializers.ModelSerializer):
