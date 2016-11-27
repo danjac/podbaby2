@@ -74,7 +74,7 @@ class Channel(TimeStampedModel):
         ordering = ('name', '-created')
 
     def __str__(self):
-        return self.name
+        return self.name or 'Pending: #%s' % self.id
 
     def fetch(self):
         """
@@ -95,7 +95,9 @@ class Channel(TimeStampedModel):
 
         try:
             response = requests.get(
-                self.rss_feed, headers=request_headers)
+                self.rss_feed,
+                headers=request_headers,
+            )
             if response.status_code != 200:
                 raise InvalidFeed('Network error: %d' % response.status_code)
             podcast = Podcast(response.content)

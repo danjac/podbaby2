@@ -63,11 +63,13 @@ class ChannelViewSet(viewsets.ReadOnlyModelViewSet):
 
         page = self.paginate_queryset(qs)
 
+        context = {'request': request}
+
         if page is not None:
-            serializer = EpisodeSerializer(page, many=True)
+            serializer = EpisodeSerializer(page, many=True, context=context)
             return self.get_paginated_response(serializer.data)
 
-        serializer = EpisodeSerializer(qs, many=True)
+        serializer = EpisodeSerializer(qs, many=True, context=context)
         return Response(serializer.data)
 
     def get_queryset(self):
