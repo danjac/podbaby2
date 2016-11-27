@@ -1,6 +1,7 @@
 import {
   FETCH_USER_REQUEST,
   NOT_AUTHENTICATED,
+  DELETE_ACCOUNT,
   CHANGE_EMAIL,
   LOGOUT,
 } from '../../actionTypes';
@@ -22,6 +23,11 @@ export const fetchAuthenticatedUser = (token, isNew) => {
 export const logout = () => {
   storage.auth.removeToken();
   return { type: LOGOUT };
+};
+
+export const deleteAccount = () => {
+  storage.auth.removeToken();
+  return { type: DELETE_ACCOUNT };
 };
 
 export const changeEmail = email => {

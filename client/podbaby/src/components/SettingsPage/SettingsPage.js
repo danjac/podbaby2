@@ -7,7 +7,7 @@ import './SettingsPage.css';
 class SettingsPage extends Component {
 
   render() {
-    const { forms } = this.props;
+    const { forms, onDeleteAccount } = this.props;
     return (
       <div className="settings">
 
@@ -22,6 +22,7 @@ class SettingsPage extends Component {
         </bs.Panel>
 
         <bs.Button bsStyle="danger"
+                   onClick={onDeleteAccount}
                    className="form-control">
           <Icon name="trash" /> Delete my account
         </bs.Button>
@@ -32,6 +33,7 @@ class SettingsPage extends Component {
 }
 
 SettingsPage.propTypes = {
+  onDeleteAccount: PropTypes.func.isRequired,
   forms: PropTypes.object.isRequired,
 };
 

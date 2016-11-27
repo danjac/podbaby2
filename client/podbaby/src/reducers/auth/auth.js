@@ -2,8 +2,9 @@ import {
   FETCH_USER_FAILURE,
   FETCH_USER_REQUEST,
   FETCH_USER_SUCCESS,
-  CHANGE_EMAIL,
   NOT_AUTHENTICATED,
+  DELETE_ACCOUNT,
+  CHANGE_EMAIL,
   LOGOUT,
 } from '../../actionTypes';
 
@@ -18,6 +19,7 @@ export default function(state = initialState, action) {
 
   switch (action.type) {
 
+    case DELETE_ACCOUNT:
     case LOGOUT:
       return {...state,
         authenticated: false,
