@@ -14,7 +14,7 @@ const ChannelEpisodeListItem = props => {
 
   const { episode } = props;
 
-  const description = episode.subtitle || episode.summary || episode.description;
+  const description = episode.subtitle || episode.summary;
 
   const buttons = <EpisodeButtons {...props } withChannel={false} />;
 
