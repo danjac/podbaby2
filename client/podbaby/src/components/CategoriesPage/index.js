@@ -3,6 +3,8 @@ import { LinkContainer } from 'react-router-bootstrap';
 import * as bs from 'react-bootstrap';
 
 import { categoryShape } from '../../propTypes';
+
+import ChannelsNav from '../ChannelsNav';
 import Loader from '../Loader';
 import { sanitize } from '../utils';
 
@@ -19,6 +21,7 @@ class CategoriesPage extends Component {
 
     return (
       <div>
+        <ChannelsNav />
         <bs.ListGroup>
           {categories.map(category => (
             <LinkContainer to={`/feeds/browse/${category.id}/`} key={category.id}>

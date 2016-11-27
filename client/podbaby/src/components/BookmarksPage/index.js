@@ -1,37 +1,31 @@
-import React, { PropTypes, Component } from 'react';
-import * as bs from 'react-bootstrap';
+import React, { PropTypes } from 'react';
 
-import SearchForm from '../SearchForm';
 import Loader from '../Loader';
+import SearchForm from '../SearchForm';
+import EpisodesNav from '../EpisodesNav';
 import EpisodeList from '../EpisodeList';
 
-class BookmarksPage extends Component {
+const BookmarksPage = props => {
 
-  render() {
+  const {
+    loading,
+    searchQuery,
+  } = props;
 
-    const {
-      loading,
-      searchQuery,
-    } = this.props;
-
-    if (loading) {
-      return <Loader />;
-    }
-
-    const ifEmpty = searchQuery ? 'Sorry, no results found for your search' : "You don't have any bookmarks";
-
-    return (
-      <div>
-
-        <bs.PageHeader>My bookmarks</bs.PageHeader>
-        <SearchForm placeholder="Search for podcasts" {...this.props} />
-
-        <EpisodeList ifEmpty={ifEmpty}
-                     {...this.props} />
-      </div>
-    );
+  if (loading) {
+    return <Loader />;
   }
-}
+
+  const ifEmpty = searchQuery ? 'Sorry, no results found for your search' : "You don't have any bookmarks";
+
+  return (
+    <div>
+      <EpisodesNav />
+      <SearchForm placeholder="Search for podcasts" {...props} />
+      <EpisodeList ifEmpty={ifEmpty} {...props} />
+    </div>
+  );
+};
 
 BookmarksPage.propTypes = {
   searchQuery: PropTypes.string,

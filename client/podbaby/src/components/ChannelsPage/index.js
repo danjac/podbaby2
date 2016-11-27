@@ -1,8 +1,8 @@
 import React, { PropTypes, Component } from 'react';
-import * as bs from 'react-bootstrap';
 
 import SearchForm from '../SearchForm';
 import Loader from '../Loader';
+import ChannelsNav from '../ChannelsNav';
 import ChannelList from '../ChannelList';
 
 class ChannelsPage extends Component {
@@ -10,7 +10,6 @@ class ChannelsPage extends Component {
   render() {
 
     const {
-      title,
       loading,
       searchQuery,
     } = this.props;
@@ -23,7 +22,7 @@ class ChannelsPage extends Component {
 
     return (
       <div>
-        <bs.PageHeader>{title}</bs.PageHeader>
+        <ChannelsNav />
         <SearchForm placeholder="Search for feeds" {...this.props} />
         <ChannelList ifEmpty={ifEmpty} {...this.props} />
       </div>
