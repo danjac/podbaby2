@@ -2,6 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import * as bs from 'react-bootstrap';
 import Icon from 'react-fa';
 import { Link } from 'react-router';
+import { truncate } from 'lodash';
 
 import { episodeShape } from '../../propTypes';
 
@@ -85,7 +86,7 @@ class AudioPlayer extends Component {
                    onClick={this.handleToggle}
                    title={expanded ? "Hide Player" : "Playing: " + title}
                    className="form-control">
-           <Icon name={expanded ? 'compress' : 'expand'} />
+           <Icon name={expanded ? 'compress' : 'expand'} /> {!expanded && episode && truncate(title)}
         </bs.Button>
       </div>
     );

@@ -3,7 +3,7 @@ import { shallow } from 'enzyme';
 
 import { mockRouter } from '../../mocks';
 
-import { Signup } from './index';
+import Signup from './Signup';
 
 jest.mock('../../api');
 jest.mock('../../storage');
