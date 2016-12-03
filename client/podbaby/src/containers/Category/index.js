@@ -1,41 +1,13 @@
-import React, { PropTypes, Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 
-import { fetchCategory, fetchChannelsForCategory } from '../../actions/category';
+import { fetchChannelsForCategory } from '../../actions/category';
 import { channelsSelector } from '../../selectors';
-import CategoryDetail from '../../components/CategoryDetail';
 
 import withPaginatedSearch from '../../components/hoc/withPaginatedSearch';
 import { bindChannelActionCreators } from '../../actions';
 
-export class Category extends Component {
-
-  componentDidMount() {
-    this.fetchCategory(this.props.params.id);
-  }
-
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.params.id !== this.props.params.id) {
-      this.fetchCategory(nextProps.params.id);
-    }
-    return nextProps;
-  }
-
-  fetchCategory(id) {
-    this.props.dispatch(fetchCategory(id));
-  }
-
-  render() {
-    return <CategoryDetail {...this.props} />;
-  }
-}
-
-Category.propTypes = {
-  dispatch: PropTypes.func.isRequired,
-  params: PropTypes.object.isRequired,
-};
-
+import Category from './Category';
 
 const mapStateToProps = state => {
   const {
@@ -43,6 +15,8 @@ const mapStateToProps = state => {
     category: {
       category,
       error,
+    },
+    channels: {
       next,
       previous,
     },

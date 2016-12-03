@@ -7,7 +7,7 @@ import {
   mockChannelActions,
 } from '../../mocks';
 
-import { Category } from './index';
+import Category from './Category';
 
 const defaultProps = () => {
   return {
